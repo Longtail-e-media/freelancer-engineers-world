@@ -4,6 +4,7 @@
     --primary-bg: #d9d9d9;
     --secondary-bg: #F7F7F7;
     --button-bg: #F8A4A4;
+    --dark-bg: #263559;
 }
 
 *,
@@ -11,6 +12,14 @@ html,
 body {
     font-family: "Inter", sans-serif;
 }
+
+body {
+    background: #fff;
+}
+
+/* li {
+    list-style: none;
+} */
 
 .bg-primary {
     background-color: var(--primary-bg);
@@ -24,6 +33,10 @@ body {
     background-color: var(--button-bg);
 }
 
+.bg-dark-blue {
+    background-color: var(--dark-bg);
+}
+
 input:focus {
     outline: 0 !important;
     border: 0 !important;
@@ -31,11 +44,11 @@ input:focus {
 }
 
 section {
-    padding-top: 6rem;
+    padding: 6rem 0;
 }
 
 footer {
-    padding: 75px 0;
+    padding: 6rem 0;
 }
 
 input[type="number"]::-webkit-outer-spin-button,
@@ -94,4 +107,47 @@ input[type="number"]::-webkit-inner-spin-button {
 .home-banner video {
     transform: scale(1.27);
     transform-origin: center;
+}
+
+.fs-7 {
+    font-size: 0.875rem;
+}
+
+.job-title-content p,
+.job-title-content li {
+    font-size: 0.875rem;
+}
+
+.bidding>label {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 5%;
+}
+
+.bidding>input {
+    outline: none;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    padding: 0.85rem 0;
+    width: 100%;
+}
+
+.bidding-form>button {
+    background-color: var(--dark-bg);
+    color: #fff;
+    padding: 0.85rem 2rem;
+    border-radius: 0;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 1.15rem;
+}
+
+.biddy-sticky {
+    position: sticky;
+    top: 7.5rem;
+    z-index: 99;
+    max-height: max-content;
 }
