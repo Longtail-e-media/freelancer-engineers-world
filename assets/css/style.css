@@ -1,0 +1,97 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+:root {
+    --primary-bg: #d9d9d9;
+    --secondary-bg: #F7F7F7;
+    --button-bg: #F8A4A4;
+}
+
+*,
+html,
+body {
+    font-family: "Inter", sans-serif;
+}
+
+.bg-primary {
+    background-color: var(--primary-bg);
+}
+
+.bg-secondary {
+    background-color: var(--secondary-bg);
+}
+
+.bg-pink {
+    background-color: var(--button-bg);
+}
+
+input:focus {
+    outline: 0 !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+section {
+    padding-top: 6rem;
+}
+
+footer {
+    padding: 75px 0;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.home-banner {
+    max-height: 25rem;
+    overflow: hidden;
+    object-position: bottom;
+    padding-top: 0;
+}
+
+.home-search {
+    width: 30rem !important;
+}
+
+.advertisement-container>.card {
+    height: 25rem;
+}
+
+.footer-social-icons img {
+    width: 34px;
+    height: 34px;
+}
+
+.signup-container.container {
+    max-width: 900px;
+}
+
+#showhide {
+    width: 25px;
+    position: absolute;
+    right: 7%;
+    top: 20%;
+    cursor: pointer;
+}
+
+.nav-link.active {
+    background-color: #d9d9d9 !important;
+    padding: 0.5rem 1.5rem !important;
+}
+
+.job-banner {
+    height: 10rem;
+}
+
+.navbar-brand .logo {
+    width: 6rem;
+    /* height: 24rem; */
+    object-fit: cover;
+}
+
+.home-banner video {
+    transform: scale(1.27);
+    transform-origin: center;
+}
