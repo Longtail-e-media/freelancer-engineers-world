@@ -151,3 +151,24 @@ input[type="number"]::-webkit-inner-spin-button {
     z-index: 99;
     max-height: max-content;
 }
+
+.advertisement {
+    width: 100%;
+    height: 16rem;
+    object-fit: cover;
+}
+
+.job-review-content .user-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    padding: 2rem;
+    aspect-ratio: 1/1;
+}
+
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
