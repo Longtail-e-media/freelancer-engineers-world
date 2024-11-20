@@ -38,7 +38,8 @@ body {
 }
 
 input:focus,
-textarea:focus {
+textarea:focus,
+select:focus {
     outline: 0 !important;
     /* border: 0 !important; */
     box-shadow: none !important;
@@ -172,4 +173,28 @@ input[type="number"]::-webkit-inner-spin-button {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+}
+
+
+.form-floating>label {
+    padding-left: 0.75rem;
+}
+
+.form-floating>.form-control-plaintext~label,
+.form-floating>.form-control:focus~label,
+.form-floating>.form-control:not(:placeholder-shown)~label,
+.form-floating>.form-select~label {
+    transform: scale(.8) translateY(-1rem) translateX(.15rem);
+}
+
+
+.profile-picture-preview {
+    margin-top: 10px;
+    display: none;
+}
+
+.profile-picture-preview img {
+    width: 100%;
+    height: 12rem;
+    object-fit: contain;
 }

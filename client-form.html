@@ -11,30 +11,6 @@
     <link rel="shortcut icon" href="./assets/logo.svg" type="image/x-icon">
     <title>Select Freelancer | Freelancer Engineers World</title>
 
-    <style>
-        .form-floating>label {
-            padding-left: 0.75rem;
-        }
-
-        .form-floating>.form-control-plaintext~label,
-        .form-floating>.form-control:focus~label,
-        .form-floating>.form-control:not(:placeholder-shown)~label,
-        .form-floating>.form-select~label {
-            transform: scale(.8) translateY(-1rem) translateX(.15rem);
-        }
-
-
-        .profile-picture-preview {
-            margin-top: 10px;
-            display: none;
-        }
-
-        .profile-picture-preview img {
-            width: 100%;
-            height: 12rem;
-            object-fit: contain;
-        }
-    </style>
 </head>
 
 <body>
@@ -117,21 +93,14 @@
 
                     <!-- PAN Number and LinkedIn Profile -->
                     <div class="row g-3 my-1">
-                        <div class="col-md-4">
-                            <div class="form-floating">
-                                <input type="text" class="form-control rounded-0 border-0" id="panNumber"
-                                    placeholder="Github Profile">
-                                <label for="panNumber">Github Profile</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-floating">
                                 <input type="url" class="form-control rounded-0 border-0" id="linkedin"
                                     placeholder="LinkedIn Profile">
                                 <label for="linkedin">LinkedIn Profile</label>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-floating mb-3">
                                 <input type="url" class="form-control rounded-0 border-0" id="socialMedia"
                                     placeholder="Social Media Profile">
