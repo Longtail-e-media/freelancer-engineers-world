@@ -75,8 +75,11 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .footer-social-icons img {
-    width: 34px;
-    height: 34px;
+    width: 1.75rem;
+    height: 1.75rem;
+    object-fit: contain;
+    aspect-ratio: 1/1;
+    /* padding: 5px; */
 }
 
 .signup-container.container {
@@ -84,11 +87,13 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 #showhide {
-    width: 25px;
+    width: 1.15rem;
     position: absolute;
-    right: 7%;
-    top: 20%;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
     cursor: pointer;
+    background-color: #fff;
 }
 
 .nav-link.active {
