@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="shortcut icon" href="./assets/logo.svg" type="image/x-icon">
+    <title>FAQ | Freelancer Engineers World</title>
+</head>
+
+<body>
+    <header id="navbar" class="sticky-top"></header>
+
+    <main class="">
+        <div class="bg-dark-blue">
+            <div class="container">
+                <h1 class="text-light py-5 fw-light fs-1">
+                    Frequently Asked Questions
+                </h1>
+            </div>
+        </div>
+        <section class="container">
+            <div class="accordion" id="accordionExample">
+                <!-- Client FAQs -->
+                <div class="accordion-item bg-light">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button fs-5 fw-bold px-4 py-4" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseClient" aria-expanded="true" aria-controls="collapseClient">
+                            FAQs for Clients
+                        </button>
+                    </h2>
+                    <div id="collapseClient" class="accordion-collapse collapse show"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <strong>How do I post a job?</strong>
+                            <p>To post a job, log in to your account, navigate to the "Post a Job" section, and fill in
+                                details like title, budget, deadline, and job description. Once submitted, freelancers
+                                can bid on your job.</p>
+                            <hr>
+                            <strong>How do I choose a freelancer?</strong>
+                            <p>You can review freelancer profiles, ratings, portfolios, and their bids. Choose the one
+                                that best matches your requirements and budget.</p>
+                            <hr>
+                            <strong>How do payments work?</strong>
+                            <p>Payments are made through a secure escrow system. Funds are held until the job is
+                                completed to your satisfaction, ensuring both parties are protected.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Freelancer FAQs -->
+                <div class="accordion-item bg-light">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button fs-5 fw-bold px-4 py-4 collapsed" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#collapseFreelancer" aria-expanded="false"
+                            aria-controls="collapseFreelancer">
+                            FAQs for Freelancers
+                        </button>
+                    </h2>
+                    <div id="collapseFreelancer" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <strong>How do I bid on a job?</strong>
+                            <p>Go to the job listings page, select a job you're interested in, and submit your proposal
+                                with your budget and timeline. You can also add a custom message to showcase your
+                                expertise.</p>
+                            <hr>
+                            <strong>How is the rating system managed?</strong>
+                            <p>After job completion, clients can rate freelancers based on their performance. High
+                                ratings improve your visibility and trustworthiness on the platform.</p>
+                            <hr>
+                            <strong>When do I get paid?</strong>
+                            <p>Once the job is marked as complete by the client, the funds held in escrow are released
+                                to your account. Ensure your payment details are updated to withdraw funds.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin FAQs -->
+                <div class="accordion-item bg-light">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button fs-5 fw-bold px-4 py-4 collapsed" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#collapseAdmin" aria-expanded="false"
+                            aria-controls="collapseAdmin">
+                            FAQs for Admins
+                        </button>
+                    </h2>
+                    <div id="collapseAdmin" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <strong>How do admins manage disputes?</strong>
+                            <p>Admins can intervene in disputes by reviewing the project details, communication history,
+                                and evidence from both parties to provide a fair resolution.</p>
+                            <hr>
+                            <strong>How are fraudulent activities prevented?</strong>
+                            <p>We use a combination of automated checks and manual review processes to ensure profiles,
+                                projects, and transactions are authentic. Users can report suspicious activities
+                                directly to admins.</p>
+                            <hr>
+                            <strong>Can admins edit or remove job listings?</strong>
+                            <p>Yes, admins have the authority to edit or remove job listings that violate platform
+                                policies or contain inappropriate content.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Platform Features FAQs -->
+                <div class="accordion-item bg-light">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button fs-5 fw-bold px-4 py-4 collapsed" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#collapseFeatures" aria-expanded="false"
+                            aria-controls="collapseFeatures">
+                            FAQs about Platform Features
+                        </button>
+                    </h2>
+                    <div id="collapseFeatures" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <strong>What is the bidding process?</strong>
+                            <p>Freelancers submit proposals to clients specifying their budget and timeline. Clients can
+                                review these bids and select the most suitable freelancer for the job.</p>
+                            <hr>
+                            <strong>How are project milestones managed?</strong>
+                            <p>Clients can break projects into milestones. Payments are released in parts as milestones
+                                are completed and approved by the client.</p>
+                            <hr>
+                            <strong>Is there customer support?</strong>
+                            <p>Yes, our platform offers 24/7 customer support to assist with technical issues, disputes,
+                                and account management.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="./assets/js/app.js"></script>
+</body>
+
+</html>
