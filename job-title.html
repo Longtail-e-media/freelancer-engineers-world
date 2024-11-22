@@ -93,13 +93,14 @@
                     <h3 class="fs-5 fw-bold">
                         Place your Bid
                     </h3>
-                    <form action=""
-                        class="bidding-form bg-light mt-4 d-flex align-items-center justify-content-between">
-                        <div class="position-relative bidding">
-                            <label for="bid-amount" class="form-label fw-bold">NRs. 2500</label>
-                            <input type="number" class="form-control" id="bid-amount" name="bid-amount">
+                    <form action="" class="bidding-form mt-4 d-flex align-items-center justify-content-between">
+                        <div class="bidding">
+                            <!-- <label for="bid-amount" class="form-label fw-bold">NRs. 2500</label> -->
+                            <input type="text" class="bg-light form-control ps-3 fw-bold text-dark" id="bid-amount"
+                                name="bid-amount" placeholder="NRs. 2500">
                         </div>
-                        <button type="submit" class="btn bg-dark-blue text-white">Bid</button>
+                        <button type="button" class="btn btn-dark bg-dark-blue text-white" data-bs-toggle="modal"
+                            data-bs-target="#bidModal">Bid</button>
                     </form>
 
                     <hr class="my-5">
@@ -221,6 +222,41 @@
                 </div>
             </div>
         </section>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="bidModal" tabindex="-1" aria-labelledby="bidModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="bidModalLabel">Place Your Bid</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form id="bidForm">
+                            <div class="mb-3">
+                                <label for="bid-amount" class="form-label fw-bold">Bid Amount</label>
+                                <input type="text" class="form-control bg-white" id="bid-amount" name="bid-amount"
+                                    value="NRs. 2500" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="bidMessage" class="form-label">Message</label>
+                                <textarea class="form-control" id="bidMessage" name="bidMessage" rows="4"
+                                    placeholder="Add a message for the client..."></textarea>
+                            </div>
+                            <div class="alert alert-primary">
+                                <strong>Note:</strong> You will get the bid amount after deducting the
+                                service charge.
+                            </div>
+                            <button type="submit"
+                                class="btn btn-dark bg-dark-blue text-white px-4 py-2 rounded-0 fs-6">Submit
+                                Bid</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <div id="footer"></div>
