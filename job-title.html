@@ -97,7 +97,7 @@
                         <div class="bidding">
                             <!-- <label for="bid-amount" class="form-label fw-bold">NRs. 2500</label> -->
                             <input type="text" class="bg-light form-control ps-3 fw-bold text-dark" id="bid-amount"
-                                name="bid-amount" placeholder="NRs. 2500">
+                                name="bid-amount" placeholder="NRs. 25000">
                         </div>
                         <button type="button" class="btn btn-dark bg-dark-blue text-white" data-bs-toggle="modal"
                             data-bs-target="#bidModal">Bid</button>
@@ -151,7 +151,7 @@
         </section>
 
         <section class="container mt-4 pt-2">
-            <h5 class="fw-bold fs-6 my-4">12 freelancers are bidding on average £14 GBP/hour for this job</h5>
+            <h5 class="fw-bold fs-5 my-4">12 freelancers are bidding on average NPR 50,000 </h5>
             <div class="row job-review-content">
                 <div class="col-md-9">
                     <div class="row bg-light p-5 mt-2 gx-0">
@@ -236,12 +236,21 @@
 
                         <form id="bidForm">
                             <div class="mb-3">
-                                <label for="bid-amount" class="form-label fw-bold">Bid Amount</label>
+                                <label for="bid-amount" class="form-label fw-semibold">Bid Amount<span
+                                        class="text-danger">*</span>
+                                </label>
                                 <input type="text" class="form-control bg-white" id="bid-amount" name="bid-amount"
-                                    value="NRs. 2500" disabled>
+                                    value="NRs. 25000" disabled>
                             </div>
                             <div class="mb-3">
-                                <label for="bidMessage" class="form-label">Message</label>
+                                <label for="deliveryTime" class="form-label fw-semibold">Delivery Time (in days) <span
+                                        class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="deliveryTime" name="deliveryTime"
+                                    placeholder="Number of days to complete the project">
+                            </div>
+                            <div class="mb-3">
+                                <label for="bidMessage" class="form-label font-semibold">Message<span
+                                        class="text-danger">*</span></label>
                                 <textarea class="form-control" id="bidMessage" name="bidMessage" rows="4"
                                     placeholder="Add a message for the client..."></textarea>
                             </div>

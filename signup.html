@@ -4,13 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-
-    <title>Document</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="shortcut icon" href="./assets/logo.svg" type="image/x-icon">
+    <title>Signup | Freelancer Engineers World</title>
 </head>
 
 <body>
@@ -60,14 +59,16 @@
                             </div>
                             <div class="col-12 flex-fill position-relative">
                                 <input type="password" placeholder="Password" id="password" required
-                                    aria-required="true" class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
+                                    aria-required="true"
+                                    class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
                                 <img src="./assets/images/icons/view.png" alt="view and hide" id="showhide">
                             </div>
                             <div class="col-12 d-flex">
                                 <div class="mt-4">
                                     <label for="agreement" class="fs-7">
                                         <input type="checkbox" id="agreement">
-                                        I agree to the Client <a href="">User Agreement</a> and <a href="">Privacy
+                                        I agree to the client <a href="#">User Agreement</a> and <a
+                                            href="/policy.html">Privacy
                                             Policy</a>
                                     </label>
                                 </div>
@@ -79,7 +80,7 @@
                         </form>
                         <hr class="w-100 border border-dark-subtle rounded-1 mt-4 mb-2">
                         <div class="text-center">
-                            Already have an account? <a href="" class="text-decoration-none fs-6"> Log in</a>
+                            Already have an account? <a href="/login.html" class="text-decoration-none fs-6"> Log in</a>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="pills-freelancer" role="tabpanel"
@@ -111,14 +112,16 @@
                             </div>
                             <div class="col-12 flex-fill position-relative">
                                 <input type="password" placeholder="Password" id="password" required
-                                    aria-required="true" class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
+                                    aria-required="true"
+                                    class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
                                 <img src="./assets/images/icons/view.png" alt="view and hide" id="showhide">
                             </div>
                             <div class="col-12 d-flex">
                                 <div class="mt-4 mb-2">
                                     <label for="agreement" class="fs-7">
                                         <input type="checkbox" id="agreement">
-                                        I agree to the freelancer <a href="">User Agreement</a> and <a href="">Privacy
+                                        I agree to the freelancer <a href="#">User Agreement</a> and <a
+                                            href="/policy.html">Privacy
                                             Policy</a>
                                     </label>
                                 </div>
@@ -130,7 +133,7 @@
                         </form>
                         <hr class="w-100 mt-4 mb-2">
                         <div class="text-center">
-                            Already have an account? <a href="" class="text-decoration-none fs-6"> Log in</a>
+                            Already have an account? <a href="/login.html" class="text-decoration-none fs-6"> Log in</a>
                         </div>
                     </div>
                 </div>
@@ -160,6 +163,26 @@
             })
         }
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Get the query parameter from the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const tab = urlParams.get("tab");
+
+            // Select tab buttons
+            const clientTabButton = document.getElementById("pills-client-tab");
+            const freelancerTabButton = document.getElementById("pills-freelance-tab");
+
+            // Activate the respective tab based on the 'tab' parameter
+            if (tab === "client") {
+                clientTabButton.click(); // Programmatically activate the Client tab
+            } else if (tab === "freelancer") {
+                freelancerTabButton.click(); // Programmatically activate the Freelancer tab
+            }
+        });
+    </script>
+
 </body>
 
 </html>
