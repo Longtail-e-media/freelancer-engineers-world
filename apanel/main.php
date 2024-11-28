@@ -178,7 +178,7 @@ if($actionpaeg==='false'){
                             <div class="top-icon-bar">
                                 <!-- Feedback Notification -->
                                 <!-- <a href="<?php echo ADMIN_URL.'analytics/report';?>" class="user-ico clearfix" title="Google Analytics "><span><i class="glyph-icon icon-sign-out font-size-12" style="margin: 0px !important;" ></i> Google Analytics</span></a> -->
-                                <?php $siteRegulars = Config::find_by_id(id: 1);
+                                <?php $siteRegulars = Config::find_by_id(1);
                                 if($siteRegulars->book_type==2){
                                     $hotelcode= BASE_URL.'apanel/rojai/'.$siteRegulars->booking_code.'';
                                 ?>
