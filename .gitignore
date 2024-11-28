@@ -4,3 +4,5 @@ includes/config.php
 includes/initialize.php
 template/web/images
 images
+
+!static/assets/images/
