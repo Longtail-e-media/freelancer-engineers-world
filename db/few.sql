@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2024 at 07:24 AM
+-- Generation Time: Nov 29, 2024 at 12:04 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -118,6 +118,26 @@ INSERT INTO `tbl_articles` (`id`, `parent_id`, `slug`, `title`, `sub_title`, `co
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_bids`
+--
+
+CREATE TABLE `tbl_bids` (
+  `id` int(11) NOT NULL,
+  `job_id` int(11) NOT NULL,
+  `client_id` int(11) NOT NULL,
+  `freelancer_id` int(11) NOT NULL,
+  `bid amount` text NOT NULL,
+  `delivery` varchar(255) NOT NULL,
+  `message` text NOT NULL,
+  `project_status` int(11) NOT NULL,
+  `added_date` date NOT NULL,
+  `sortorder` int(11) NOT NULL,
+  `status` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_blog`
 --
 
@@ -153,6 +173,37 @@ INSERT INTO `tbl_blog` (`id`, `slug`, `title`, `author`, `brief`, `content`, `bl
 (15, 'happy-dashain', 'Happy Dashain!                     ', 'Haven O\'Ganga                ', 'It’s Dashain today. Dashain is one of the biggest festivals celebrated in Nepal. You may have noticed that Nepal looks more vibrant and people look more relaxed now. At this is the time of the year, family come together to celebrate.', '<p>\r\n	Dashain, also known as Vijaya Dashami, is a 15-day-long festival with immense religious and social importance in Nepal. It symbolizes the victory of good over evil and is a time for Nepalese communities to come together, rejoice, and pay homage to the goddess Durga and other deities</p>\r\n', '2017-10-26', '0000-00-00', 2, 1, '6njrz-3.jpg', '', 0, 0, '', '', '2023-09-04 11:54:38', '', '0', 'eDCce-building-2-1024x683.jpeg'),
 (16, 'we-are-on-tripadvisor', 'We are on Tripadvisor', 'Haven O\'Ganga                ', 'We are now listed on tripadvisor . Yay! Tripadvisor is the world’s largest travel site, helping over 60 million visitors every month plan the perfect trip. The joyous part is that good reviews have already begun to land on our page.', '<p>\r\n	Tripadvisor is the largest travel site globally, boasting over 630 million reviews and opinions covering approximately 7.5 million accommodations, airlines, attractions, and restaurants. Travelers rely on Tripadvisor&rsquo;s collective wisdom to make informed decisions about where to stay, how to fly, what to do, and where to dine</p>\r\n', '2024-10-26', '0000-00-00', 3, 1, 'mktIs-2.jpg', '', 0, 0, '', '', '2023-09-04 11:55:59', '', '0', 'y21Tm-building-2-1024x683.jpeg'),
 (17, '60-days-of-joy-in-pokhara', '60 Days of Joy in Pokhara      ', 'Haven O\'Ganga                ', 'October 10, 2017, marked the first sixty days of our hustle and bustle at Haven O’Ganga. These sixty days have passed in total peace. Hustle and bustle and total peace sound a little contradicting, yes? Here’s how it went.', '<p>\r\n	<span style=\"color: rgb(59, 59, 59); font-family: Outfit, sans-serif; font-size: 16px; background-color: rgb(248, 245, 240);\">October 10, 2017, marked the first sixty days of our hustle and bustle at Haven O&rsquo;Ganga. These sixty days have passed in total peace. Hustle and bustle and total peace sound a little contradicting, yes? Here&rsquo;s how it went.</span></p>\r\n', '2017-10-26', '0000-00-00', 4, 1, 'a3OpT-1.jpg', '', 0, 0, '', '', '2023-09-04 11:56:28', '', '0', 'TvJtJ-news-banner.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_client`
+--
+
+CREATE TABLE `tbl_client` (
+  `id` int(11) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `client_name` varchar(255) NOT NULL,
+  `location` text NOT NULL,
+  `profile_pictiure` text NOT NULL,
+  `phone_no` varchar(255) NOT NULL,
+  `current_address` varchar(255) NOT NULL,
+  `permanent_address` varchar(255) NOT NULL,
+  `pan_no` varchar(255) NOT NULL,
+  `linkdin_profile` varchar(255) NOT NULL,
+  `facebook_profile` varchar(255) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `archive_date` date NOT NULL,
+  `sortorder` int(11) NOT NULL,
+  `status` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_client`
+--
+
+INSERT INTO `tbl_client` (`id`, `slug`, `client_name`, `location`, `profile_pictiure`, `phone_no`, `current_address`, `permanent_address`, `pan_no`, `linkdin_profile`, `facebook_profile`, `category_id`, `archive_date`, `sortorder`, `status`) VALUES
+(1, 'client1', 'sahas', 'testing location', 'testing.jpg', '123123123123', 'testing', 'testing', '123123123123', 'testing', 'testing', 0, '2024-11-29', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -619,6 +670,46 @@ INSERT INTO `tbl_features` (`id`, `title`, `parentId`, `image`, `brief`, `icon`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_freelancer`
+--
+
+CREATE TABLE `tbl_freelancer` (
+  `id` int(11) NOT NULL,
+  `job_id` int(11) NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `middle_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `username` varchar(65) NOT NULL,
+  `password` varchar(65) NOT NULL,
+  `engineering_license_no` varchar(255) NOT NULL,
+  `engineering_field` text NOT NULL,
+  `mobile_no` varchar(255) NOT NULL,
+  `phone_no` varchar(255) NOT NULL,
+  `education_lvl` varchar(255) NOT NULL,
+  `current_address` varchar(255) NOT NULL,
+  `permanent_address` varchar(255) NOT NULL,
+  `pan_no` varchar(255) NOT NULL,
+  `upload_certificate` text NOT NULL,
+  `upload_cv` text NOT NULL,
+  `portfolio_website` text NOT NULL,
+  `facebook_profile` varchar(255) NOT NULL,
+  `linkedIn_profile` varchar(255) NOT NULL,
+  `profile_picture` text NOT NULL,
+  `archive_date` date NOT NULL,
+  `sortorder` int(11) NOT NULL,
+  `status` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_freelancer`
+--
+
+INSERT INTO `tbl_freelancer` (`id`, `job_id`, `first_name`, `middle_name`, `last_name`, `username`, `password`, `engineering_license_no`, `engineering_field`, `mobile_no`, `phone_no`, `education_lvl`, `current_address`, `permanent_address`, `pan_no`, `upload_certificate`, `upload_cv`, `portfolio_website`, `facebook_profile`, `linkedIn_profile`, `profile_picture`, `archive_date`, `sortorder`, `status`) VALUES
+(1, 1, 'sahas', 'sas', 'shakya', 'sahas', 'ascasdasd', '1231231', 'engine', '123123123', '123123123123', 'engine', 'engine', 'engine', '123123213123', 'engine', 'engine', 'engine', 'engine', 'engine', 'engine', '2024-11-28', 1, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_galleries`
 --
 
@@ -703,8 +794,37 @@ CREATE TABLE `tbl_group_type` (
 --
 
 INSERT INTO `tbl_group_type` (`id`, `group_name`, `group_type`, `authority`, `description`, `status`, `permission`) VALUES
-(1, 'Administrator', '1', 1, '', 1, 'a:15:{i:0;s:2:\"74\";i:1;s:3:\"306\";i:2;s:1:\"1\";i:3;s:1:\"2\";i:4;s:1:\"3\";i:5;s:1:\"4\";i:6;s:1:\"8\";i:7;s:2:\"11\";i:8;s:3:\"300\";i:9;s:3:\"310\";i:10;s:2:\"12\";i:11;s:2:\"16\";i:12;s:2:\"15\";i:13;s:2:\"14\";i:14;s:2:\"13\";}'),
+(1, 'Administrator', '1', 1, '', 1, 'a:17:{i:0;s:2:\"74\";i:1;s:3:\"306\";i:2;s:1:\"1\";i:3;s:1:\"2\";i:4;s:1:\"3\";i:5;s:1:\"4\";i:6;s:1:\"8\";i:7;s:3:\"312\";i:8;s:2:\"11\";i:9;s:3:\"311\";i:10;s:3:\"300\";i:11;s:3:\"310\";i:12;s:2:\"12\";i:13;s:2:\"16\";i:14;s:2:\"15\";i:15;s:2:\"14\";i:16;s:2:\"13\";}'),
 (2, 'General Admin', '1', 1, '', 1, 'a:22:{i:0;s:2:\"74\";i:1;s:1:\"1\";i:2;s:1:\"2\";i:3;s:1:\"3\";i:4;s:2:\"25\";i:5;s:2:\"23\";i:6;s:2:\"24\";i:7;s:1:\"4\";i:8;s:3:\"302\";i:9;s:3:\"303\";i:10;s:1:\"5\";i:11;s:2:\"27\";i:12;s:3:\"300\";i:13;s:3:\"301\";i:14;s:2:\"11\";i:15;s:2:\"17\";i:16;s:2:\"20\";i:17;s:2:\"19\";i:18;s:2:\"28\";i:19;s:2:\"12\";i:20;s:2:\"14\";i:21;s:2:\"13\";}');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_jobs`
+--
+
+CREATE TABLE `tbl_jobs` (
+  `id` int(11) NOT NULL,
+  `client_id` int(11) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `job_title` varchar(255) NOT NULL,
+  `budget_type` int(1) NOT NULL,
+  `exact_budget` text NOT NULL,
+  `budget_range_high` text NOT NULL,
+  `budget_range_low` text NOT NULL,
+  `deadline_date` date NOT NULL,
+  `content` text NOT NULL,
+  `archive_date` date NOT NULL,
+  `sortorder` int(11) NOT NULL,
+  `status` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_jobs`
+--
+
+INSERT INTO `tbl_jobs` (`id`, `client_id`, `slug`, `job_title`, `budget_type`, `exact_budget`, `budget_range_high`, `budget_range_low`, `deadline_date`, `content`, `archive_date`, `sortorder`, `status`) VALUES
+(1, 1, 'fixchair', 'fixchair', 0, '100', '', '', '2024-12-12', 'fix the chair it doesnt have one leg', '2024-11-29', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -3096,7 +3216,12 @@ INSERT INTO `tbl_logs` (`id`, `action`, `registered`, `userid`, `user_action`, `
 (2342, 'Changes on Article \'FEW Policy\' has been saved successfully.', '2024-11-28 09:56:45', 1, 4, '::1'),
 (2343, 'Changes on Article \'FEW Policya\' has been saved successfully.', '2024-11-28 09:57:45', 1, 4, '::1'),
 (2344, 'Changes on Article \'FEW Policy\' has been saved successfully.', '2024-11-28 09:57:47', 1, 4, '::1'),
-(2345, 'User [Freelancer Engineers World  ] Edit Successfully', '2024-11-28 09:58:15', 1, 4, '::1');
+(2345, 'User [Freelancer Engineers World  ] Edit Successfully', '2024-11-28 09:58:15', 1, 4, '::1'),
+(2346, 'Login: superadmin logged in.', '2024-11-29 08:35:10', 1, 1, '::1'),
+(2347, 'User Group [Administrator] Edit Successfully', '2024-11-29 08:50:27', 1, 4, '::1'),
+(2348, 'Login: superadmin logged in.', '2024-11-29 11:57:38', 1, 1, '::1'),
+(2349, 'User Group [Administrator] Edit Successfully', '2024-11-29 11:57:44', 1, 4, '::1'),
+(2350, 'Login: superadmin logged in.', '2024-11-29 15:29:44', 1, 1, '::1');
 
 -- --------------------------------------------------------
 
@@ -3289,7 +3414,9 @@ INSERT INTO `tbl_modules` (`id`, `parent_id`, `name`, `link`, `mode`, `icon_link
 (305, 0, 'Nearby ', 'nearby/list', 'nearby', 'icon-list', 0, 8, '2023-08-29', ''),
 (306, 74, 'User Group', 'usergroup/list', 'usergroup', 'icon-gears', 1, 3, '2023-10-10', ''),
 (309, 0, 'Download Mgmt', 'download/list', 'download', 'icon-gear', 0, 7, '2024-03-28', ''),
-(310, 0, 'jobtitle', 'jobtitle/list', 'jobtitle', 'icon-list', 1, 8, '2023-08-31', '');
+(310, 0, 'jobtitle', 'jobtitle/list', 'jobtitle', 'icon-list', 1, 8, '2023-08-31', ''),
+(311, 0, 'freelancer Mgmt', 'freelancer/list', 'freelancer', 'icon-list', 1, 7, '2023-08-28', ''),
+(312, 0, 'client Mgmt', 'client/list', 'client', 'icon-exchange', 1, 5, '2016-06-17', 'a:6:{s:8:\"imgwidth\";s:1:\"4\";s:9:\"imgheight\";s:3:\"350\";s:12:\"subbimgwidth\";s:2:\"11\";s:13:\"subbimgheight\";s:2:\"12\";s:11:\"subimgwidth\";s:2:\"13\";s:12:\"subimgheight\";s:2:\"14\";}');
 
 -- --------------------------------------------------------
 
@@ -3991,9 +4118,21 @@ ALTER TABLE `tbl_articles`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_bids`
+--
+ALTER TABLE `tbl_bids`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tbl_blog`
 --
 ALTER TABLE `tbl_blog`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_client`
+--
+ALTER TABLE `tbl_client`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -4039,6 +4178,12 @@ ALTER TABLE `tbl_features`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_freelancer`
+--
+ALTER TABLE `tbl_freelancer`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tbl_galleries`
 --
 ALTER TABLE `tbl_galleries`
@@ -4054,6 +4199,12 @@ ALTER TABLE `tbl_gallery_images`
 -- Indexes for table `tbl_group_type`
 --
 ALTER TABLE `tbl_group_type`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_jobs`
+--
+ALTER TABLE `tbl_jobs`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -4241,10 +4392,22 @@ ALTER TABLE `tbl_articles`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
+-- AUTO_INCREMENT for table `tbl_bids`
+--
+ALTER TABLE `tbl_bids`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `tbl_blog`
 --
 ALTER TABLE `tbl_blog`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `tbl_client`
+--
+ALTER TABLE `tbl_client`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_conbined_news`
@@ -4289,6 +4452,12 @@ ALTER TABLE `tbl_features`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
 
 --
+-- AUTO_INCREMENT for table `tbl_freelancer`
+--
+ALTER TABLE `tbl_freelancer`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `tbl_galleries`
 --
 ALTER TABLE `tbl_galleries`
@@ -4307,6 +4476,12 @@ ALTER TABLE `tbl_group_type`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `tbl_jobs`
+--
+ALTER TABLE `tbl_jobs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `tbl_jobtitle`
 --
 ALTER TABLE `tbl_jobtitle`
@@ -4316,7 +4491,7 @@ ALTER TABLE `tbl_jobtitle`
 -- AUTO_INCREMENT for table `tbl_logs`
 --
 ALTER TABLE `tbl_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2346;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2351;
 
 --
 -- AUTO_INCREMENT for table `tbl_logs_action`
@@ -4340,7 +4515,7 @@ ALTER TABLE `tbl_menu`
 -- AUTO_INCREMENT for table `tbl_modules`
 --
 ALTER TABLE `tbl_modules`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=311;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=313;
 
 --
 -- AUTO_INCREMENT for table `tbl_nearby`

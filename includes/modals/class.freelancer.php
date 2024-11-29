@@ -7,6 +7,7 @@ class freelancer extends DatabaseObject
 
     protected static $db_fields = array(
         'id',
+        'job_id',
         'first_name',
         'middle_name',
         'last_name',
@@ -32,6 +33,7 @@ class freelancer extends DatabaseObject
     );
     
     public $id;
+    public $job_id;
     public $first_name;
     public $middle_name;
     public $last_name;
