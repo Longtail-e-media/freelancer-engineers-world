@@ -8,10 +8,12 @@ class freelancer extends DatabaseObject
     protected static $db_fields = array(
         'id',
         'job_id',
+        'user_id',
         'first_name',
         'middle_name',
         'last_name',
         'username',
+        'email',
         'password',
         'engineering_license_no',
         'engineering_field',
@@ -27,6 +29,7 @@ class freelancer extends DatabaseObject
         'facebook_profile',
         'linkedIn_profile',
         'profile_picture',
+        'rating',
         'archive_date',
         'sortorder',
         'status'
@@ -34,10 +37,12 @@ class freelancer extends DatabaseObject
     
     public $id;
     public $job_id;
+    public $use_id;
     public $first_name;
     public $middle_name;
     public $last_name;
     public $username;
+    public $email;
     public $password;
     public $engineering_license_no;
     public $engineering_field;
@@ -53,6 +58,7 @@ class freelancer extends DatabaseObject
     public $facebook_profile;
     public $linkedIn_profile;
     public $profile_picture;
+    public $rating;
     public $archive_date;
     public $sortorder;
     public $status;

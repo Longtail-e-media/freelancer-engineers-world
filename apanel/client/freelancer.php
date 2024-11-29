@@ -24,8 +24,8 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                     <th class="text-center"><input class="check-all" type="checkbox"/></th>
                     <th>Name</th>
                     <!--<th class="text-center">Address</th>-->
-                    <th class="text-center">Phone</th>
                     <th class="text-center">engineering_license_no</th>
+                    <th class="text-center">Rating</th>
                     <th class="text-center"><?php echo $GLOBALS['basic']['action']; ?></th>
                 </tr>
                 </thead>
@@ -39,16 +39,12 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                     <td><input type="checkbox" class="bulkCheckbox" bulkId="<?php echo $record->id; ?>"/></td>
                     <td><?php echo $record->first_name; ?></td>
                    <!-- <td><?php echo $record->current_address; ?></td>-->
-                    <td><?php echo $record->phone_no; ?></td>
                     <td><?php echo $record->engineering_license_no; ?></td>
+                    <td><?php echo $record->rating; ?></td>
                     <td class="text-center">
                         <a href="javascript:void(0);" class="loadingbar-demo btn small bg-blue-alt tooltip-button" data-placement="top" title="View detail"
                            onclick="editfreelancer(<?php echo $record->job_id; ?>,<?php echo $record->id; ?>);">
                             <span class="button-content"> View Detail </span>
-                        </a>
-                        <a href="javascript:void(0);" class="btn small bg-red tooltip-button" data-placement="top" title="Remove"
-                           onclick="recordApplicationDelete(<?php echo $record->id; ?>);">
-                            <i class="glyph-icon icon-remove"></i>
                         </a>
                     </td>
                     <?php endforeach; ?>
@@ -105,8 +101,8 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
     <td><?php echo $appInfo->username; ?></td>
 </tr>
 <tr>
-    <th class="text-center">Password</th>
-    <td><?php echo $appInfo->password; ?></td>
+    <th class="text-center">Email</th>
+    <td><?php echo $appInfo->email; ?></td>
 </tr>
 <tr>
     <th class="text-center">Engineering License No</th>

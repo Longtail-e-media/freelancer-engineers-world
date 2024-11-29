@@ -12,14 +12,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
     // SerclearImages($moduleTablename, "client/banner/thumbnails", "banner_image");
     ?>
     <h3>
-        List clients
-        <a class="loadingbar-demo btn medium bg-blue-alt float-right" href="javascript:void(0);"
-           onClick="AddNewclient();">
-    <span class="glyph-icon icon-separator">
-    	<i class="glyph-icon icon-plus-square"></i>
-    </span>
-            <span class="button-content"> Add New </span>
-        </a>
+        List of clients
     </h3>
     <div class="my-msg"></div>
     <div class="example-box">
@@ -30,7 +23,8 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                     <th style="display:none;"></th>
                     <th class="text-center"><input class="check-all" type="checkbox"/></th>
                     <th class="text-center">Client Name</th>
-                    <th>Freelancer</th>
+                    <th>Created Job</th>
+                    <th>Rating</th>
                     <th class="text-center"><?php echo $GLOBALS['basic']['action']; ?></th>
                 </tr>
                 </thead>
@@ -47,6 +41,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                                 <span><?php echo $record->client_name; ?></span>
                             </a>
                         </td>
+                       
                         <td>
                             <a class="primary-bg medium btn loadingbar-demo" title=""
                                onClick="viewjobslist(<?php echo $record->id; ?>);" href="javascript:void(0);">
@@ -57,27 +52,28 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                         </span>
                             </a>
                         </td>
+                        <td><?php echo $record->rating; ?></td>
                         <td class="text-center">
                             <?php
                             $statusImage = ($record->status == 1) ? "bg-green" : "bg-red";
                             $statusText = ($record->status == 1) ? $GLOBALS['basic']['clickUnpub'] : $GLOBALS['basic']['clickPub'];
                             ?>
-                            <a href="javascript:void(0);"
+                            <!--<a href="javascript:void(0);"
                                class="btn small <?php echo $statusImage; ?> tooltip-button statusToggler"
                                data-placement="top" title="<?php echo $statusText; ?>"
                                status="<?php echo $record->status; ?>" id="imgHolder_<?php echo $record->id; ?>"
                                moduleId="<?php echo $record->id; ?>">
                                 <i class="glyph-icon icon-flag"></i>
-                            </a>
+                            </a>-->
                             
                             <a href="javascript:void(0);" class="loadingbar-demo btn small bg-blue-alt tooltip-button"
                                data-placement="top" title="Edit" onclick="editRecord(<?php echo $record->id; ?>);">
                                <span class="button-content"> View Detail </span>
                             </a>
-                            <a href="javascript:void(0);" class="btn small bg-red tooltip-button" data-placement="top"
+                            <!--<a href="javascript:void(0);" class="btn small bg-red tooltip-button" data-placement="top"
                                title="Remove" onclick="recordDelete(<?php echo $record->id; ?>);">
                                 <i class="glyph-icon icon-remove"></i>
-                            </a>
+                            </a>-->
                             <input name="sortId" type="hidden" value="<?php echo $record->id; ?>">
                         </td>
                     </tr>
@@ -107,8 +103,6 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
         $clientInfo = client::find_by_id($clientId);
         $status = ($clientInfo->status == 1) ? "checked" : " ";
         $unstatus = ($clientInfo->status == 0) ? "checked" : " ";
-        // $masrom = ($clientInfo->type == 1) ? "checked" : " ";
-        // $unmasrom = ($clientInfo->type == 0) ? "checked" : " ";
     endif;
     ?>
     <h3>
@@ -138,6 +132,18 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
             <tr>
     <th class="text-center">Client Name</th>
     <td><?php echo $clientInfo->client_name; ?></td>
+</tr>
+<tr>
+    <th class="text-center">Username</th>
+    <td><?php echo $clientInfo->username; ?></td>
+</tr>
+<tr>
+    <th class="text-center">Email</th>
+    <td><?php echo $clientInfo->email; ?></td>
+</tr>
+<tr>
+    <th class="text-center">Mobile no</th>
+    <td><?php echo $clientInfo->mobile_no; ?></td>
 </tr>
 <tr>
     <th class="text-center">Location</th>
@@ -180,140 +186,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
         </div>
     </div>
    
-
-    <script>
-        var base_url = "<?php echo ASSETS_PATH; ?>";
-        var editor_arr = ["content"];
-        create_editor(base_url, editor_arr);
-    </script>
-    <script type="text/javascript" src="<?php echo ASSETS_PATH; ?>uploadify/jquery.uploadify.min.js"></script>
-    <script type="text/javascript">
-        // <![CDATA[
-        // $(document).ready(function () {
-        //     $('#client_upload').uploadify({
-        //         'swf': '<?php echo ASSETS_PATH;?>uploadify/uploadify.swf',
-        //         'uploader': '<?php echo ASSETS_PATH;?>uploadify/uploadify.php',
-        //         'formData': {
-        //             PROJECT: '<?php echo SITE_FOLDER;?>',
-        //             targetFolder: 'images/client/',
-        //             thumb_width: 200,
-        //             thumb_height: 200
-        //         },
-        //         'method': 'post',
-        //         'cancelImg': '<?php echo BASE_URL;?>uploadify/cancel.png',
-        //         'auto': true,
-        //         'multi': true,
-        //         'hideButton': false,
-        //         'buttonText': 'Upload Image',
-        //         'width': 125,
-        //         'height': 21,
-        //         'removeCompleted': true,
-        //         'progressData': 'speed',
-        //         'uploadLimit': 100,
-        //         'fileTypeExts': '*.gif; *.jpg; *.jpeg;  *.png; *.GIF; *.JPG; *.JPEG; *.PNG;',
-        //         'buttonClass': 'button formButtons',
-        //         /* 'checkExisting' : '/uploadify/check-exists.php',*/
-        //         'onUploadSuccess': function (file, data, response) {
-        //             $('#uploadedImageName').val('1');
-        //             var filename = data;
-        //             $.post('<?php echo BASE_URL;?>apanel/client/uploaded_image.php', {imagefile: filename}, function (msg) {
-        //                 $('#preview_Image').html(msg).show();
-        //             });
-
-        //         },
-        //         'onDialogOpen': function (event, ID, fileObj) {
-        //         },
-        //         'onUploadError': function (file, errorCode, errorMsg, errorString) {
-        //             alert(errorMsg);
-        //         },
-        //         'onUploadComplete': function (file) {
-        //             //alert('The file ' + file.name + ' was successfully uploaded');
-        //         }
-        //     });
-
-        //     $('#banner_upload').uploadify({
-        //         'swf': '<?php echo ASSETS_PATH;?>uploadify/uploadify.swf',
-        //         'uploader': '<?php echo ASSETS_PATH;?>uploadify/uploadify.php',
-        //         'formData': {
-        //             PROJECT: '<?php echo SITE_FOLDER;?>',
-        //             targetFolder: 'images/client/banner/',
-        //             thumb_width: 200,
-        //             thumb_height: 200
-        //         },
-        //         'method': 'post',
-        //         'cancelImg': '<?php echo BASE_URL;?>uploadify/cancel.png',
-        //         'auto': true,
-        //         'multi': true,
-        //         'hideButton': false,
-        //         'buttonText': 'Upload Image',
-        //         'width': 125,
-        //         'height': 21,
-        //         'removeCompleted': true,
-        //         'progressData': 'speed',
-        //         'uploadLimit': 100,
-        //         'fileTypeExts': '*.gif; *.jpg; *.jpeg;  *.png; *.GIF; *.JPG; *.JPEG; *.PNG;',
-        //         'buttonClass': 'button formButtons',
-        //         /* 'checkExisting' : '/uploadify/check-exists.php',*/
-        //         'onUploadSuccess': function (file, data, response) {
-        //             $('#uploadedImageName').val('1');
-        //             var filename = data;
-        //             $.post('<?php echo BASE_URL;?>apanel/client/banner_image.php', {imagefile: filename}, function (msg) {
-        //                 $('#preview_banner').append(msg).show();
-        //             });
-
-        //         },
-        //         'onDialogOpen': function (event, ID, fileObj) {
-        //         },
-        //         'onUploadError': function (file, errorCode, errorMsg, errorString) {
-        //             alert(errorMsg);
-        //         },
-        //         'onUploadComplete': function (file) {
-        //             //alert('The file ' + file.name + ' was successfully uploaded');
-        //         }
-        //     });
-
-        //     $('#header_upload').uploadify({
-        //         'swf': '<?php echo ASSETS_PATH;?>uploadify/uploadify.swf',
-        //         'uploader': '<?php echo ASSETS_PATH;?>uploadify/uploadify.php',
-        //         'formData': {
-        //             PROJECT: '<?php echo SITE_FOLDER;?>',
-        //             targetFolder: 'images/client/imgheader/',
-        //             thumb_width: 200,
-        //             thumb_height: 200
-        //         },
-        //         'method': 'post',
-        //         'cancelImg': '<?php echo BASE_URL;?>uploadify/cancel.png',
-        //         'auto': true,
-        //         'multi': true,
-        //         'hideButton': false,
-        //         'buttonText': 'Upload Image',
-        //         'width': 125,
-        //         'height': 21,
-        //         'removeCompleted': true,
-        //         'progressData': 'speed',
-        //         'uploadLimit': 100,
-        //         'fileTypeExts': '*.gif; *.jpg; *.jpeg;  *.png; *.GIF; *.JPG; *.JPEG; *.PNG;',
-        //         'buttonClass': 'button formButtons',
-        //         /* 'checkExisting' : '/uploadify/check-exists.php',*/
-        //         'onUploadSuccess': function (file, data, response) {
-        //             var filename = data;
-        //             $.post('<?php echo BASE_URL;?>apanel/client/header_image.php', {imagefile: filename}, function (msg) {
-        //                 $('#preview_himage').html(msg).show();
-        //             });
-        //         },
-        //         'onDialogOpen': function (event, ID, fileObj) {
-        //         },
-        //         'onUploadError': function (file, errorCode, errorMsg, errorString) {
-        //             alert(errorMsg);
-        //         },
-        //         'onUploadComplete': function (file) {
-        //             //alert('The file ' + file.name + ' was successfully uploaded');
-        //         }
-        //     });
-        // });
-        // ]]>
-    </script>
-
+  
 <?php endif;
 include("jobs.php"); 
 ?>

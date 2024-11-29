@@ -15,8 +15,8 @@ if (isset($_GET['page']) && $_GET['page'] == "freelancer" && isset($_GET['mode']
                     <th class="text-center"><input class="check-all" type="checkbox"/></th>
                     <th>Name</th>
                     <!--<th class="text-center">Address</th>-->
-                    <th class="text-center">Phone</th>
                     <th class="text-center">engineering_license_no</th>
+                    <th class="text-center">Rating</th>
                     <th class="text-center"><?php echo $GLOBALS['basic']['action']; ?></th>
                 </tr>
                 </thead>
@@ -30,7 +30,7 @@ if (isset($_GET['page']) && $_GET['page'] == "freelancer" && isset($_GET['mode']
                     <td><input type="checkbox" class="bulkCheckbox" bulkId="<?php echo $record->id; ?>"/></td>
                     <td><?php echo $record->first_name; ?></td>
                    <!-- <td><?php echo $record->current_address; ?></td>-->
-                    <td><?php echo $record->phone_no; ?></td>
+                    <td><?php echo $record->rating; ?></td>
                     <td><?php echo $record->engineering_license_no; ?></td>
                     <td class="text-center">
                         <a href="javascript:void(0);" class="loadingbar-demo btn small bg-blue-alt tooltip-button" data-placement="top" title="View detail"

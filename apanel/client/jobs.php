@@ -15,13 +15,6 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
     ?>
     <h3>
         Listed Jobs from ["<?php echo client::getclientName($id); ?>"]
-        <a class="loadingbar-demo btn medium bg-blue-alt float-right" href="javascript:void(0);"
-           onClick="AddNewjobs(<?php echo $id; ?>);">
-    <span class="glyph-icon icon-separator">
-    	<i class="glyph-icon icon-plus-square"></i>
-    </span>
-            <span class="button-content"> Add New </span>
-        </a>
         <a class="loadingbar-demo btn medium bg-blue-alt float-right mrg5R" href="javascript:void(0);"
            onClick="viewclientlist();">
     <span class="glyph-icon icon-separator">
@@ -75,22 +68,22 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                             $statusImage = ($record->status == 1) ? "bg-green" : "bg-red";
                             $statusText = ($record->status == 1) ? $GLOBALS['basic']['clickUnpub'] : $GLOBALS['basic']['clickPub'];
                             ?>
-                            <a href="javascript:void(0);"
+                          <!---  <a href="javascript:void(0);"
                                class="btn small <?php echo $statusImage; ?> tooltip-button statusSubToggler"
                                data-placement="top" title="<?php echo $statusText; ?>"
                                status="<?php echo $record->status; ?>" id="imgHolder_<?php echo $record->id; ?>"
                                moduleId="<?php echo $record->id; ?>">
                                 <i class="glyph-icon icon-flag"></i>
-                            </a>
+                            </a>-->
                             <a href="javascript:void(0);" class="loadingbar-demo btn small bg-blue-alt tooltip-button"
                                data-placement="top" title="Edit"
                                onclick="editjobs(<?php echo $record->client_id; ?>,<?php echo $record->id; ?>);">
-                                <i class="glyph-icon icon-edit"></i>
+                               <span class="button-content"> View Detail </span>
                             </a>
-                            <a href="javascript:void(0);" class="btn small bg-red tooltip-button" data-placement="top"
+                            <!--<a href="javascript:void(0);" class="btn small bg-red tooltip-button" data-placement="top"
                                title="Remove" onclick="subrecordDelete(<?php echo $record->id; ?>);">
                                 <i class="glyph-icon icon-remove"></i>
-                            </a>
+                            </a>-->
                             <input name="sortId" type="hidden" value="<?php echo $record->id; ?>">
                         </td>
                     </tr>
@@ -115,6 +108,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
 
 <?php elseif (isset($_GET['mode']) && $_GET['mode'] == "addEditjobs"):
     $pid = addslashes($_REQUEST['id']);
+    
     if (isset($_GET['subid']) and !empty($_GET['subid'])):
         $jobsId = addslashes($_REQUEST['subid']);
         $jobsInfo = jobs::find_by_id($jobsId);
@@ -123,7 +117,8 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
     endif;
     ?>
     <h3>
-        <?php echo (isset($_GET['subid'])) ? 'Edit Jobs' : 'Add Jobs'; ?>
+        <?php //echo (isset($_GET['subid'])) ? 'Edit Job' : 'Add Jobs'; ?>
+        <?php echo 'Edit Job' .' '.$jobsInfo->job_title ;  ?>
         <a class="loadingbar-demo btn medium bg-blue-alt float-right" href="javascript:void(0);"
            onClick="viewjobslist(<?php echo $pid; ?>);">
     <span class="glyph-icon icon-separator">

@@ -4,7 +4,11 @@ class client extends DatabaseObject {
 	protected static $table_name = "tbl_client";
 	protected static $db_fields = array(
 		'id',
+		'user_id',
 		'client_name',
+		'username',
+		'email',
+		'mobile_no',
 		'location',
 		'slug',
 		'profile_picture',
@@ -15,13 +19,18 @@ class client extends DatabaseObject {
 		'linkdin_profile',
 		'facebook_profile',
 		'category_id',
+		'rating',
 		'archive_date',
 		'sortorder',
 		'status'
 	);
 	
 	public $id;
+	public $user_id;
 	var $slug;
+	public $username;
+	public $mobile_no;
+	public $email;
 	public $client_name;
 	public $location;
 	public $profile_picture;
@@ -31,6 +40,7 @@ class client extends DatabaseObject {
 	public $pan_no;
 	public $linkdin_profile;
 	public $facebook_profile;
+	public $rating;
 	public $category_id;
 	public $archive_date;
 	public $sortorder;
@@ -102,12 +112,12 @@ class client extends DatabaseObject {
 		if($pages):
 		$result.='<optgroup label="client">';
 			foreach($pages as $pageRow):
-				$chkChild  = Subclient::getTotalSub($pageRow->type);
+				$chkChild  = jobs::getTotalSub($pageRow->type);
 				$sel = ($Lsel==($pageRow->slug)) ?'selected':'';
 				$result.='<option value="'.$pageRow->slug.'" '.$sel.'>&nbsp;&nbsp;'.$pageRow->title.'</option>';
 
 				// Sub client list
-				$subRec = Subclient::getclient_limit($pageRow->id);
+				$subRec = jobs::getjobs_limit($pageRow->id);
 				if($subRec){
 					foreach($subRec as $Nrow){
 						$sel = ($Lsel==$Nrow->slug) ?'selected':'';
