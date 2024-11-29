@@ -15,145 +15,157 @@
 <body>
     <header id="navbar" class="sticky-top"></header>
 
-    <main class="">
+    <main class="pb-4">
+        <!-- Header Section -->
         <div class="bg-dark-blue">
-            <div class="container py-5 d-flex align-items-center justify-content-between">
-                <h1 class="text-light fw-light fs-1">
-                    Job Titles
-                </h1>
-                <button class="btn btn-dark bg-light text-dark px-4 py-2 fs-6 rounded-0">
-                    Create Job
-                </button>
+            <div class="container py-4 py-md-5">
+                <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
+                    <h1 class="text-light fw-light fs-2 fs-md-1 mb-0 text-center text-md-start">
+                        Job Titles
+                    </h1>
+                    <button class="btn btn-dark bg-light text-dark px-4 py-2 fs-6 rounded-0 w-md-auto">
+                        Create Job
+                    </button>
+                </div>
             </div>
         </div>
-        <section class="container">
-            <div class="row job-title-content gx-0">
-                <div class="col-md-7 bg-light p-5" style="position: sticky; top: 5rem; max-height: max-content;">
-                    <form class="client-form">
-                        <div class="row g-3">
-                            <div class="col-md-12">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control border-0 rounded-0 fs-6" id="jobtitle"
-                                        placeholder="Job Title" required>
-                                    <label for="jobtitle">Job Title <span class="text-danger">*</span></label>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="row g-3 mt-3">
-                            <div class="col-md-12">
-                                <div class="form-floating">
-                                    <input type="date" class="form-control border-0 rounded-0 fs-6" id="deadline"
-                                        required>
-                                    <label for="deadline">Deadline Date <span class="text-danger">*</span></label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row g-3 mt-3">
-                            <div class="col-md-4">
-                                <label for="budgetType" class="form-label fs-6">Budget Type <span
-                                        class="text-danger">*</span></label>
-                                <div class="d-flex gap-5 mt-2">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="budgetType"
-                                            id="budgetRangeOption" value="range" checked>
-                                        <label class="form-check-label" for="budgetRangeOption">Range</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="budgetType"
-                                            id="budgetExactOption" value="exact">
-                                        <label class="form-check-label" for="budgetExactOption">Exact</label>
+        <!-- Form Section -->
+        <section class="container mt-4">
+            <div class="row gx-0 gy-4">
+                <!-- Form Column -->
+                <div class="col-12 col-lg-7 order-2 order-lg-1">
+                    <div class="bg-light p-3 p-md-4 p-lg-5" style="position: sticky; top: 5rem;">
+                        <form class="client-form">
+                            <!-- Job Title Input -->
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control border-0 rounded-0" id="jobtitle"
+                                            placeholder="Job Title" required>
+                                        <label for="jobtitle">Job Title <span class="text-danger">*</span></label>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Budget Range -->
-                            <div class="col-md-8" id="budgetRangeFields">
-                                <label for="budgetRangeMin" class="form-label fs-6">Budget Range <span
-                                        class="text-danger">*</span></label>
-                                <div class="d-flex align-items-center gap-2">
-                                    <input type="number" class="form-control border-0 rounded-0 fs-6"
-                                        id="budgetRangeMin"
-                                        value="10000">
-                                    <span>to</span>
-                                    <input type="number" class="form-control border-0 rounded-0 fs-6"
-                                        id="budgetRangeMax"
-                                        value="50000">
+
+                            <!-- Deadline Date -->
+                            <div class="row g-3 mt-3">
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="date" class="form-control border-0 rounded-0" id="deadline"
+                                            required>
+                                        <label for="deadline">Deadline Date <span class="text-danger">*</span></label>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- Exact Budget -->
-                            <div class="col-md-5" id="budgetExactField" style="display: none;">
-                                <label for="budgetExact" class="form-label fs-6">Exact Budget <span
-                                        class="text-danger">*</span></label>
-                                <input type="number" class="form-control border-0 rounded-0 fs-6" id="budgetExact"
-                                    placeholder="Enter Exact Budget" min="100" max="10000">
+                            <!-- Budget Section -->
+                            <div class="row g-3 mt-3">
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label">Budget Type <span class="text-danger">*</span></label>
+                                    <div class="d-flex gap-4 gap-md-5 mt-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="budgetType"
+                                                id="budgetRangeOption" value="range" checked>
+                                            <label class="form-check-label" for="budgetRangeOption">Range</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="budgetType"
+                                                id="budgetExactOption" value="exact">
+                                            <label class="form-check-label" for="budgetExactOption">Exact</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Budget Range Fields -->
+                                <div class="col-12 col-md-8" id="budgetRangeFields">
+                                    <label class="form-label">Budget Range <span class="text-danger">*</span></label>
+                                    <div class="d-flex flex-row align-items-center gap-2">
+                                        <input type="number" class="form-control border-0 rounded-0" id="budgetRangeMin"
+                                            value="10000">
+                                        <span class="my-2 my-sm-0">to</span>
+                                        <input type="number" class="form-control border-0 rounded-0" id="budgetRangeMax"
+                                            value="50000">
+                                    </div>
+                                </div>
+
+                                <!-- Exact Budget Field -->
+                                <div class="col-12 col-md-8" id="budgetExactField" style="display: none;">
+                                    <label class="form-label">Exact Budget <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control border-0 rounded-0" id="budgetExact"
+                                        placeholder="Enter Exact Budget" min="100" max="10000">
+                                </div>
                             </div>
 
-                            <!-- Budget Unit -->
-                            <!-- <div class="col-md-3 d-flex align-items-start flex-column">
-                                <label for="budgetUnit">Budget Unit <span class="text-danger">*</span></label>
-                                <select class="border-0 rounded-0 fs-7 pt-0 mt-2 px-2" id="budgetUnit" required
-                                    style="width: 100%; height: 100%!important;">
-                                    <option value="USD" selected>USD</option>
-                                    <option value="EUR">EUR</option>
-                                    <option value="GBP">GBP</option>
-                                    <option value="NPR">NPR</option>
-                                </select>
-                            </div> -->
-                        </div>
-
-
-
-                        <div class="row g-3 mt-3">
-                            <div class="col-md-12">
-                                <label for="jobDescription" class="form-label fs-6">Job Description</label>
-                                <textarea class="form-control border-0 rounded-0 fs-6" id="jobDescription" rows="6"
-                                    placeholder="Provide a detailed job description" required></textarea>
+                            <!-- Job Description -->
+                            <div class="row g-3 mt-3">
+                                <div class="col-12">
+                                    <label class="form-label">Job Description</label>
+                                    <textarea class="form-control border-0 rounded-0" id="jobDescription" rows="6"
+                                        placeholder="Provide a detailed job description" required></textarea>
+                                </div>
                             </div>
-                        </div>
 
-                        <div>
-                            <button type="submit"
-                                class="btn btn-dark bg-dark-blue text-light px-5 py-2 fs-6 rounded-0 border-0 mt-5">
-                                Create a Job
-                            </button>
-                        </div>
-                    </form>
+                            <!-- Submit Button -->
+                            <div class="mt-4">
+                                <button type="submit" class="btn btn-dark bg-dark-blue text-light px-4 px-md-5 py-2 rounded-0 
+                                           border-0 w-auto">
+                                    Create a Job
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="col-md-5 bg-white ps-5">
-                    <h5 class="fw-bold fs-5 mb-4">
-                        Basic policy to post job:
-                    </h5>
 
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer risus erat, commodo nec arcu
-                        non, condimentum sodales odio. Integer euismod tempor arcu eget blandit. Curabitur volutpat urna
-                        non accumsan tempus. Donec viverra semper nunc, vitae maximus elit vestibulum quis. Pellentesque
-                        eget imperdiet nisl. Vestibulum quis bibendum velit, sed laoreet urna. Nulla consectetur
-                        faucibus risus suscipit eleifend. Nulla efficitur tincidunt nibh, at molestie mi dictum a. Etiam
-                        non pulvinar erat. Aenean nec feugiat arcu, sed pulvinar purus. Maecenas interdum varius mollis.
-                        Nullam erat lectus, accumsan nec fermentum consectetur, viverra sit amet lacus.
-                    </p>
+                <!-- Policy Column -->
+                <div class="col-12 col-lg-5 order-1 order-lg-2">
+                    <div class="bg-white p-3 py-md-0 px-md-4 px-lg-5">
+                        <h5 class="fw-bold fs-5 mb-4">Basic policy to post job:</h5>
+                        <div class="policy-content fs-7 ">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer risus erat, commodo nec
+                                arcu
+                                non, condimentum sodales odio. Integer euismod tempor arcu eget blandit. Curabitur
+                                volutpat urna
+                                non accumsan tempus. Donec viverra semper nunc, vitae maximus elit vestibulum quis.
+                                Pellentesque
+                                eget imperdiet nisl. Vestibulum quis bibendum velit, sed laoreet urna. Nulla consectetur
+                                faucibus risus suscipit eleifend. Nulla efficitur tincidunt nibh, at molestie mi dictum
+                                a. Etiam
+                                non pulvinar erat. Aenean nec feugiat arcu, sed pulvinar purus. Maecenas interdum varius
+                                mollis.
+                                Nullam erat lectus, accumsan nec fermentum consectetur, viverra sit amet lacus.
+                            </p>
 
-                    <p>
-                        Nam non nisl tempor metus molestie pellentesque. Maecenas mauris justo, luctus id neque vel,
-                        tempus porta erat. Mauris ut magna vitae neque sagittis iaculis in eu ligula. Sed pretium lorem
-                        sapien, in pellentesque mi sagittis id. Nunc faucibus, lacus non fringilla bibendum, metus nisl
-                        commodo velit, a ultrices erat velit nec tellus. Phasellus leo nunc, pharetra quis vulputate
-                        sed, condimentum auctor lorem. Curabitur eget odio lacus. Nullam pulvinar libero eu feugiat
-                        volutpat. Nam ligula nulla, finibus in suscipit ut, efficitur et orci. Suspendisse blandit ex ac
-                        nisl bibendum hendrerit. Fusce vehicula elit nisl, quis tincidunt lectus viverra ac.
-                    </p>
+                            <p>
+                                Nam non nisl tempor metus molestie pellentesque. Maecenas mauris justo, luctus id neque
+                                vel,
+                                tempus porta erat. Mauris ut magna vitae neque sagittis iaculis in eu ligula. Sed
+                                pretium lorem
+                                sapien, in pellentesque mi sagittis id. Nunc faucibus, lacus non fringilla bibendum,
+                                metus nisl
+                                commodo velit, a ultrices erat velit nec tellus. Phasellus leo nunc, pharetra quis
+                                vulputate
+                                sed, condimentum auctor lorem. Curabitur eget odio lacus. Nullam pulvinar libero eu
+                                feugiat
+                                volutpat. Nam ligula nulla, finibus in suscipit ut, efficitur et orci. Suspendisse
+                                blandit ex ac
+                                nisl bibendum hendrerit. Fusce vehicula elit nisl, quis tincidunt lectus viverra ac.
+                            </p>
 
-                    <p>
-                        Pellentesque at ornare ante, nec varius nibh. Donec massa massa, tempor a ultrices luctus,
-                        pharetra quis sem. Aliquam dolor lectus, blandit sit amet posuere in, rhoncus efficitur mi.
-                        Etiam sit amet placerat leo. Proin a quam justo. Sed feugiat justo nec tellus semper tincidunt.
-                        Proin ut sagittis risus. Nulla et pharetra est, at pulvinar turpis. Etiam vitae turpis sed magna
-                        dapibus vulputate.
-                    </p>
-
+                            <p>
+                                Pellentesque at ornare ante, nec varius nibh. Donec massa massa, tempor a ultrices
+                                luctus,
+                                pharetra quis sem. Aliquam dolor lectus, blandit sit amet posuere in, rhoncus efficitur
+                                mi.
+                                Etiam sit amet placerat leo. Proin a quam justo. Sed feugiat justo nec tellus semper
+                                tincidunt.
+                                Proin ut sagittis risus. Nulla et pharetra est, at pulvinar turpis. Etiam vitae turpis
+                                sed magna
+                                dapibus vulputate.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

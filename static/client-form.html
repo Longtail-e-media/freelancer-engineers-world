@@ -19,20 +19,20 @@
     <main class="">
         <div class="bg-dark-blue">
             <div class="container">
-                <h1 class="text-light py-5 fw-light fs-1">
+                <h1 class="text-light py-5 fw-light fs-1 text-center text-md-start">
                     Update your profile
                 </h1>
             </div>
         </div>
-        <section class="container form-container">
-            <div class="card p-5 bg-light border-0 rounded-0 shadow-sm">
+        <section class="container form-container my-5">
+            <div class="card p-3 p-md-5 bg-light border-0 rounded-0 shadow-sm">
                 <h2 class="fs-5 fw-bold mb-4">Client (Seller) Signup</h2>
                 <form class="client-form">
                     <!-- Username and Email -->
                     <div class="row g-3">
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control border-0 rounded-0 fs-5" id="username"
+                                <input type="text" class="form-control border-0 rounded-0 fs-6" id="username"
                                     placeholder="Username" required>
                                 <label for="username">Username <span class="text-danger">*</span></label>
                             </div>
@@ -40,7 +40,7 @@
 
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="tel" class="form-control border-0 rounded-0 fs-5" id="mobile"
+                                <input type="tel" class="form-control border-0 rounded-0 fs-6" id="mobile"
                                     placeholder="Mobile">
                                 <label for="mobile">Mobile Number</label>
                             </div>
@@ -51,14 +51,14 @@
                     <div class="row g-3 mt-0 mb-3">
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="email" class="form-control border-0 rounded-0 fs-5" id="email"
+                                <input type="email" class="form-control border-0 rounded-0 fs-6" id="email"
                                     placeholder="Email" required>
                                 <label for="email">Email <span class="text-danger">*</span></label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="password" class="form-control border-0 rounded-0 fs-5" id="password"
+                                <input type="password" class="form-control border-0 rounded-0 fs-6" id="password"
                                     placeholder="Password" required>
                                 <label for="password">Password <span class="text-danger">*</span></label>
                             </div>
@@ -69,22 +69,22 @@
                     <div class="row g-3">
                         <div class="col-md-4">
                             <div class="form-floating">
-                                <input class="form-control border-0 rounded-0 fs-5" id="currentAddress"
-                                    placeholder="Current Address" />
+                                <input class="form-control border-0 rounded-0 fs-6" id="currentAddress"
+                                    placeholder="Current Address" required />
                                 <label for="currentAddress">Current Address <span class="text-danger">*</span></label>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-floating">
-                                <input class="form-control border-0 rounded-0 fs-5" id="permanentAddress"
-                                    placeholder="Permanent Address" />
+                                <input class="form-control border-0 rounded-0 fs-6" id="permanentAddress"
+                                    placeholder="Permanent Address" required />
                                 <label for="permanentAddress">Permanent Address <span
                                         class="text-danger">*</span></label>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-floating">
-                                <input type="text" class="form-control rounded-0 border-0 id=" panNumber"
+                                <input type="text" class="form-control border-0 rounded-0 fs-6" id="panNumber"
                                     placeholder="PAN Number">
                                 <label for="panNumber">PAN Number</label>
                             </div>
@@ -95,14 +95,14 @@
                     <div class="row g-3 my-1">
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="url" class="form-control rounded-0 border-0" id="linkedin"
+                                <input type="url" class="form-control border-0 rounded-0 fs-6" id="linkedin"
                                     placeholder="LinkedIn Profile">
                                 <label for="linkedin">LinkedIn Profile</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating mb-3">
-                                <input type="url" class="form-control rounded-0 border-0" id="socialMedia"
+                                <input type="url" class="form-control border-0 rounded-0 fs-6" id="socialMedia"
                                     placeholder="Social Media Profile">
                                 <label for="socialMedia">Social Media Profile (Facebook)</label>
                             </div>
@@ -113,9 +113,8 @@
                         <div class="col-md-4">
                             <div class="profile-picture-upload my-4 bg-light">
                                 <label for="profilePicture" class="form-label fw-bold">Upload Profile Picture</label>
-                                <input type="file" class="form-control border-0 rounded-0 fs-5" id="profilePicture"
+                                <input type="file" class="form-control border-0 rounded-0 fs-6" id="profilePicture"
                                     accept="image/*" onchange="previewImage(event)">
-
                             </div>
 
                             <div class="mb-4">
@@ -125,7 +124,7 @@
 
                             <div>
                                 <button type="submit"
-                                    class="btn btn-dark bg-dark-blue text-light px-5 py-2 fs-5 rounded-0 border-0 mt-4">
+                                    class="btn btn-dark bg-dark-blue text-light px-5 py-2 fs-6 rounded-0 border-0 mt-4">
                                     Update Profile
                                 </button>
                             </div>
@@ -133,13 +132,11 @@
                         <div class="col-md-1"></div>
                         <div class="col-md-4">
                             <div class="profile-picture-preview mt-3" id="profilePicturePreview">
-                                <img src="" alt="Profile Preview" id="profilePreviewImg">
+                                <img src="" alt="Profile Preview" id="profilePreviewImg" class="img-fluid">
                             </div>
                         </div>
                         <div class="col-md-3"></div>
                     </div>
-
-
                 </form>
             </div>
         </section>
