@@ -52,7 +52,13 @@ class User extends DatabaseObject
     public static function find_by_mail($email = "")
     {
         global $db;
-        $result_array = self::find_by_sql("SELECT `id`,`email`,`first_name`,`middle_name`,`last_name` FROM " . self::$table_name . " WHERE `email`='" . $email . "' LIMIT 1");
+        $result_array = self::find_by_sql("SELECT * FROM " . self::$table_name . " WHERE `email`='" . $email . "' LIMIT 1");
+        return !empty($result_array) ? array_shift($result_array) : false;
+    }
+    public static function find_by_username($username = "")
+    {
+        global $db;
+        $result_array = self::find_by_sql("SELECT * FROM " . self::$table_name . " WHERE `username`='" . $username . "' LIMIT 1");
         return !empty($result_array) ? array_shift($result_array) : false;
     }
 
@@ -64,6 +70,28 @@ class User extends DatabaseObject
         $record = $db->query($query);
         $result = $db->num_rows($record);
         return $result;
+    }
+
+    public static function checkDupliEmail($email = '')
+    {
+        global $db;
+        $query = $db->query("SELECT email FROM " . self::$table_name . " WHERE email='$email' LIMIT 1");
+        $result = $db->num_rows($query);
+        if ($result > 0) {
+            return true;
+        }
+
+    }
+
+    public static function checkDupliUsername($username = '')
+    {
+        global $db;
+        $query = $db->query("SELECT username FROM " . self::$table_name . " WHERE username='$username' LIMIT 1");
+        $result = $db->num_rows($query);
+        if ($result > 0) {
+            return true;
+        }
+
     }
 
     public static function get_access_by($token = '')

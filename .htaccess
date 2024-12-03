@@ -26,6 +26,9 @@ RewriteRule ^gallery-list/?$ gallery.php [L]
 
 #For gallery pages.
 RewriteRule ^signup/?$ signup.php [L]
+RewriteRule ^login/?$ login.php [L]
+RewriteRule ^logout/?$ logout.php [L]
+RewriteRule ^profile/?$ profile.php [L]
 
 #For contact pages.
 RewriteRule ^contact-us/?$ contact.php [L]

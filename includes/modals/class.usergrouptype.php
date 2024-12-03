@@ -73,6 +73,16 @@ class Usergrouptype extends DatabaseObject
         }
         return $object;
     }
+    public static function checkDupliUname($group_name = '')
+    {
+        global $db;
+        $query = $db->query("SELECT group_name FROM " . self::$table_name . " WHERE group_name='$group_name' LIMIT 1");
+        $result = $db->num_rows($query);
+        if ($result > 0) {
+            return true;
+        }
+
+    }
 
     //Check if the attribute exists in the class.
     private function has_attribute($attribute)

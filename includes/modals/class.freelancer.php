@@ -37,7 +37,7 @@ class freelancer extends DatabaseObject
     
     public $id;
     public $job_id;
-    public $use_id;
+    public $user_id;
     public $first_name;
     public $middle_name;
     public $last_name;
@@ -130,6 +130,13 @@ class freelancer extends DatabaseObject
         $result_array = self::find_by_sql("SELECT * FROM " . self::$table_name . " WHERE id={$id} LIMIT 1");
         return !empty($result_array) ? array_shift($result_array) : false;
     }
+
+    //Find a single row in the database where id is provided.
+	static function find_by_userid($id=0){
+		global $db;
+		$result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE user_id={$id} LIMIT 1");
+		return !empty($result_array) ? array_shift($result_array) : false;
+	}
 
     //Find rows from the database provided the SQL statement.
     public static function find_by_sql($sql = "")

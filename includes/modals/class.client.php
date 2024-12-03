@@ -6,12 +6,15 @@ class client extends DatabaseObject {
 		'id',
 		'user_id',
 		'client_name',
+		'first_name',
+		'middle_name',
+		'last_name',
 		'username',
 		'email',
 		'mobile_no',
 		'location',
 		'slug',
-		'profile_picture',
+		'profile_pictiure',
 		'phone_no',
 		'current_address',
 		'permanent_address',
@@ -32,8 +35,11 @@ class client extends DatabaseObject {
 	public $mobile_no;
 	public $email;
 	public $client_name;
+	public $first_name;
+	public $middle_name;
+	public $last_name;
 	public $location;
-	public $profile_picture;
+	public $profile_pictiure;
 	public $phone_no;
 	public $current_address;
 	public $permanent_address;
@@ -178,6 +184,13 @@ class client extends DatabaseObject {
 	static function find_by_id($id=0){
 		global $db;
 		$result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE id={$id} LIMIT 1");
+		return !empty($result_array) ? array_shift($result_array) : false;
+	}
+
+	//Find a single row in the database where id is provided.
+	static function find_by_userid($id=0){
+		global $db;
+		$result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE user_id={$id} LIMIT 1");
 		return !empty($result_array) ? array_shift($result_array) : false;
 	}
 

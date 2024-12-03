@@ -1,4 +1,5 @@
 <?php
+// pr($_SESSION);
 // SITE REGULARS
 $jVars['site:header'] 		= Config::getField('headers',true);
 $jVars['site:footer'] 		= Config::getField('footer',true);
@@ -41,6 +42,7 @@ endforeach;
 
 // view modules
 
+require_once("views/module.dashboard.php");
 require_once("views/module.faq.php");
 require_once("views/module.contact.php");
 

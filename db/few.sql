@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2024 at 12:04 PM
+-- Generation Time: Dec 03, 2024 at 04:44 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -182,8 +182,12 @@ INSERT INTO `tbl_blog` (`id`, `slug`, `title`, `author`, `brief`, `content`, `bl
 
 CREATE TABLE `tbl_client` (
   `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `slug` varchar(255) NOT NULL,
   `client_name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `mobile_no` varchar(255) NOT NULL,
   `location` text NOT NULL,
   `profile_pictiure` text NOT NULL,
   `phone_no` varchar(255) NOT NULL,
@@ -193,17 +197,22 @@ CREATE TABLE `tbl_client` (
   `linkdin_profile` varchar(255) NOT NULL,
   `facebook_profile` varchar(255) NOT NULL,
   `category_id` int(11) NOT NULL,
+  `rating` float NOT NULL,
   `archive_date` date NOT NULL,
   `sortorder` int(11) NOT NULL,
-  `status` int(1) NOT NULL
+  `status` int(1) NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `middle_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_client`
 --
 
-INSERT INTO `tbl_client` (`id`, `slug`, `client_name`, `location`, `profile_pictiure`, `phone_no`, `current_address`, `permanent_address`, `pan_no`, `linkdin_profile`, `facebook_profile`, `category_id`, `archive_date`, `sortorder`, `status`) VALUES
-(1, 'client1', 'sahas', 'testing location', 'testing.jpg', '123123123123', 'testing', 'testing', '123123123123', 'testing', 'testing', 0, '2024-11-29', 1, 1);
+INSERT INTO `tbl_client` (`id`, `user_id`, `slug`, `client_name`, `email`, `username`, `mobile_no`, `location`, `profile_pictiure`, `phone_no`, `current_address`, `permanent_address`, `pan_no`, `linkdin_profile`, `facebook_profile`, `category_id`, `rating`, `archive_date`, `sortorder`, `status`, `first_name`, `middle_name`, `last_name`) VALUES
+(1, 0, 'client1', 'sahas', '', '', '', 'testing location', 'testing.jpg', '123123123123', 'testing', 'testing', '123123123123', 'testing', 'testing', 0, 0, '2024-11-29', 1, 1, '', '', ''),
+(2, 7, '', '', 'statshakya@gmail.com', 'sas123', '123213', '', '', '', '', '', '', '', '', 0, 0, '0000-00-00', 4, 1, 'João', 'test', 'Doe');
 
 -- --------------------------------------------------------
 
@@ -676,10 +685,12 @@ INSERT INTO `tbl_features` (`id`, `title`, `parentId`, `image`, `brief`, `icon`,
 CREATE TABLE `tbl_freelancer` (
   `id` int(11) NOT NULL,
   `job_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `middle_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `username` varchar(65) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `password` varchar(65) NOT NULL,
   `engineering_license_no` varchar(255) NOT NULL,
   `engineering_field` text NOT NULL,
@@ -695,6 +706,7 @@ CREATE TABLE `tbl_freelancer` (
   `facebook_profile` varchar(255) NOT NULL,
   `linkedIn_profile` varchar(255) NOT NULL,
   `profile_picture` text NOT NULL,
+  `rating` float NOT NULL,
   `archive_date` date NOT NULL,
   `sortorder` int(11) NOT NULL,
   `status` int(1) NOT NULL
@@ -704,8 +716,11 @@ CREATE TABLE `tbl_freelancer` (
 -- Dumping data for table `tbl_freelancer`
 --
 
-INSERT INTO `tbl_freelancer` (`id`, `job_id`, `first_name`, `middle_name`, `last_name`, `username`, `password`, `engineering_license_no`, `engineering_field`, `mobile_no`, `phone_no`, `education_lvl`, `current_address`, `permanent_address`, `pan_no`, `upload_certificate`, `upload_cv`, `portfolio_website`, `facebook_profile`, `linkedIn_profile`, `profile_picture`, `archive_date`, `sortorder`, `status`) VALUES
-(1, 1, 'sahas', 'sas', 'shakya', 'sahas', 'ascasdasd', '1231231', 'engine', '123123123', '123123123123', 'engine', 'engine', 'engine', '123123213123', 'engine', 'engine', 'engine', 'engine', 'engine', 'engine', '2024-11-28', 1, 1);
+INSERT INTO `tbl_freelancer` (`id`, `job_id`, `user_id`, `first_name`, `middle_name`, `last_name`, `username`, `email`, `password`, `engineering_license_no`, `engineering_field`, `mobile_no`, `phone_no`, `education_lvl`, `current_address`, `permanent_address`, `pan_no`, `upload_certificate`, `upload_cv`, `portfolio_website`, `facebook_profile`, `linkedIn_profile`, `profile_picture`, `rating`, `archive_date`, `sortorder`, `status`) VALUES
+(1, 1, 0, 'sahas', 'sas', 'shakya', 'sahas', '', 'ascasdasd', '1231231', 'engine', '123123123', '123123123123', 'engine', 'engine', 'engine', '123123213123', 'engine', 'engine', 'engine', 'engine', 'engine', 'engine', 0, '2024-11-28', 1, 1),
+(2, 0, 8, 'Juan Francisco', 'test', 'Doe', 'sss123', 'sahas@longtail.info', '', '', '', '32123', '', '', '', '', '', '', '', '', '', '', '', 0, '0000-00-00', 5, 1),
+(3, 0, 9, 'stat', 'stat', 'stat', 'stat123', 'statstat@gmail.com', '', '', '', '123123312', '', '', '', '', '', '', '', '', '', '', '', 0, '0000-00-00', 6, 1),
+(4, 0, 10, 'staT', 'STAT', 'STAST', 'stat123', 'statsTAT@gmail.com', '', '', '', '123123', '', '', '', '', '', '', '', '', '', '', '', 0, '0000-00-00', 6, 1);
 
 -- --------------------------------------------------------
 
@@ -795,7 +810,9 @@ CREATE TABLE `tbl_group_type` (
 
 INSERT INTO `tbl_group_type` (`id`, `group_name`, `group_type`, `authority`, `description`, `status`, `permission`) VALUES
 (1, 'Administrator', '1', 1, '', 1, 'a:17:{i:0;s:2:\"74\";i:1;s:3:\"306\";i:2;s:1:\"1\";i:3;s:1:\"2\";i:4;s:1:\"3\";i:5;s:1:\"4\";i:6;s:1:\"8\";i:7;s:3:\"312\";i:8;s:2:\"11\";i:9;s:3:\"311\";i:10;s:3:\"300\";i:11;s:3:\"310\";i:12;s:2:\"12\";i:13;s:2:\"16\";i:14;s:2:\"15\";i:15;s:2:\"14\";i:16;s:2:\"13\";}'),
-(2, 'General Admin', '1', 1, '', 1, 'a:22:{i:0;s:2:\"74\";i:1;s:1:\"1\";i:2;s:1:\"2\";i:3;s:1:\"3\";i:4;s:2:\"25\";i:5;s:2:\"23\";i:6;s:2:\"24\";i:7;s:1:\"4\";i:8;s:3:\"302\";i:9;s:3:\"303\";i:10;s:1:\"5\";i:11;s:2:\"27\";i:12;s:3:\"300\";i:13;s:3:\"301\";i:14;s:2:\"11\";i:15;s:2:\"17\";i:16;s:2:\"20\";i:17;s:2:\"19\";i:18;s:2:\"28\";i:19;s:2:\"12\";i:20;s:2:\"14\";i:21;s:2:\"13\";}');
+(3, 'Client', '', 0, 'client login front', 1, 'a:3:{i:0;s:2:\"74\";i:1;s:3:\"306\";i:2;s:3:\"312\";}'),
+(2, 'General Admin', '1', 1, '', 1, 'a:22:{i:0;s:2:\"74\";i:1;s:1:\"1\";i:2;s:1:\"2\";i:3;s:1:\"3\";i:4;s:2:\"25\";i:5;s:2:\"23\";i:6;s:2:\"24\";i:7;s:1:\"4\";i:8;s:3:\"302\";i:9;s:3:\"303\";i:10;s:1:\"5\";i:11;s:2:\"27\";i:12;s:3:\"300\";i:13;s:3:\"301\";i:14;s:2:\"11\";i:15;s:2:\"17\";i:16;s:2:\"20\";i:17;s:2:\"19\";i:18;s:2:\"28\";i:19;s:2:\"12\";i:20;s:2:\"14\";i:21;s:2:\"13\";}'),
+(4, 'freelancer', '', 0, 'freelancer login front', 1, 'a:3:{i:0;s:2:\"74\";i:1;s:3:\"306\";i:2;s:3:\"311\";}');
 
 -- --------------------------------------------------------
 
@@ -3221,7 +3238,16 @@ INSERT INTO `tbl_logs` (`id`, `action`, `registered`, `userid`, `user_action`, `
 (2347, 'User Group [Administrator] Edit Successfully', '2024-11-29 08:50:27', 1, 4, '::1'),
 (2348, 'Login: superadmin logged in.', '2024-11-29 11:57:38', 1, 1, '::1'),
 (2349, 'User Group [Administrator] Edit Successfully', '2024-11-29 11:57:44', 1, 4, '::1'),
-(2350, 'Login: superadmin logged in.', '2024-11-29 15:29:44', 1, 1, '::1');
+(2350, 'Login: superadmin logged in.', '2024-11-29 15:29:44', 1, 1, '::1'),
+(2351, 'User [sahass` shak] login Created Data has added successfully.', '2024-12-02 12:27:57', 1, 3, '::1'),
+(2352, 'Login: superadmin logged in.', '2024-12-02 12:28:31', 1, 1, '::1'),
+(2353, 'User [João Doe] login Created Data has added successfully.', '2024-12-02 12:56:19', 1, 3, '::1'),
+(2354, 'User [Juan Francisco Doe] login Created Data has added successfully.', '2024-12-02 13:59:25', 1, 3, '::1'),
+(2355, 'User Group [Client] login Created Data has added successfully.', '2024-12-02 14:27:42', 1, 3, '::1'),
+(2356, 'User Group [freelancer] login Created Data has added successfully.', '2024-12-02 14:28:10', 1, 3, '::1'),
+(2357, 'User [stat stat] login Created Data has added successfully.', '2024-12-02 16:34:55', 1, 3, '::1'),
+(2358, 'User [staT STAST] login Created Data has added successfully.', '2024-12-02 16:43:26', 1, 3, '::1'),
+(2359, 'Login: superadmin logged in.', '2024-12-02 16:53:38', 1, 1, '::1');
 
 -- --------------------------------------------------------
 
@@ -4037,7 +4063,9 @@ CREATE TABLE `tbl_users` (
 INSERT INTO `tbl_users` (`id`, `first_name`, `middle_name`, `last_name`, `contact`, `email`, `optional_email`, `hall_email`, `hr_email`, `username`, `password`, `accesskey`, `image`, `group_id`, `access_code`, `facebook_uid`, `facebook_accesstoken`, `facebook_tokenexpire`, `status`, `sortorder`, `added_date`, `permission`) VALUES
 (1, 'Freelancer Engineers World', '', '', '', 'sunita@longtail.info', 'support@longtail.info', 'support@longtail.info', 'statshakya@gmail.com', 'admin', '32b9da145699ea9058dd7d6669e6bcc5', 'Ui46j8jvhZPoGNLpojmNsSYfH', '', 2, 'IKLxivj8RW', '', '', '2021-04-29 05:40:38', 1, 1, '2014-03-26', 0x613a32313a7b693a303b733a313a2231223b693a313b733a313a2232223b693a323b733a313a2233223b693a333b733a323a223235223b693a343b733a323a223234223b693a353b733a323a223233223b693a363b733a313a2234223b693a373b733a333a22333032223b693a383b733a333a22333033223b693a393b733a313a2235223b693a31303b733a323a223237223b693a31313b733a333a22333030223b693a31323b733a333a22333031223b693a31333b733a323a223131223b693a31343b733a333a22333034223b693a31353b733a323a223137223b693a31363b733a323a223230223b693a31373b733a323a223238223b693a31383b733a323a223132223b693a31393b733a323a223133223b693a32303b733a323a223134223b7d),
 (2, 'Super admin', '', '', '', 'support@longtail.info', 'support@longtail.info', 'support@longtail.info', 'support@longtail.info', 'superadmin', '4ef961d430016feab913571a25818e97', '5BnuwlwbgTcJNtbymC8Kmq23e', '', 1, '', '', '', '2023-11-09 10:05:54', 1, 0, '0000-00-00', 0x613a32363a7b693a303b733a323a223734223b693a313b733a313a2231223b693a323b733a333a22333036223b693a333b733a313a2232223b693a343b733a313a2233223b693a353b733a323a223235223b693a363b733a323a223234223b693a373b733a323a223233223b693a383b733a313a2234223b693a393b733a333a22333032223b693a31303b733a333a22333033223b693a31313b733a313a2235223b693a31323b733a323a223237223b693a31333b733a333a22333030223b693a31343b733a333a22333031223b693a31353b733a333a22333035223b693a31363b733a323a223131223b693a31373b733a323a223137223b693a31383b733a333a22333034223b693a31393b733a323a223230223b693a32303b733a323a223139223b693a32313b733a323a223238223b693a32323b733a323a223132223b693a32333b733a323a223133223b693a32343b733a323a223134223b693a32353b733a323a223136223b7d),
-(3, 'asdasd', 'asdasd', 'asdasd', '', 'stat@gmail.com', 'stat@gmail.com', 'stat@gmail.com', 'stat@gmail.com', 'asdas', '80c9ef0fb86369cd25f90af27ef53a9e', 'XZtQjE8Rse66xhHG6sSVqzyDZ', '', 3, '', '', '', '0000-00-00 00:00:00', 1, 2, '2024-01-10', '');
+(7, 'João', 'test', 'Doe', '123213', 'statshakya@gmail.com', '', '', '', 'sas123', 'f6ca8f027f555426eb96ea49df7dba88', 'KihUJK4P4l7B7bKTWizzEbwqj', '', 3, '', '', '', '0000-00-00 00:00:00', 1, 3, '0000-00-00', ''),
+(8, 'Juan Francisco', 'test', 'Doe', '32123', 'sahas@longtail.info', '', '', '', 'sss123', '4875b3210ffa9463be42c307d7e97c07', 'asPYrdW4yYao4hjZXlIvSyjlI', '', 3, '', '', '', '0000-00-00 00:00:00', 1, 4, '0000-00-00', ''),
+(10, 'staT', 'STAT', 'STAST', '123123', 'statsTAT@gmail.com', '', '', '', 'stat123', '5d06cb2ffb6dae2dae62b962c4d5cfb7', 'qwdvSTXmVrUMbTzWzRL0u8HYl', '', 4, '', '', '', '0000-00-00 00:00:00', 1, 5, '0000-00-00', '');
 
 -- --------------------------------------------------------
 
@@ -4407,7 +4435,7 @@ ALTER TABLE `tbl_blog`
 -- AUTO_INCREMENT for table `tbl_client`
 --
 ALTER TABLE `tbl_client`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_conbined_news`
@@ -4455,7 +4483,7 @@ ALTER TABLE `tbl_features`
 -- AUTO_INCREMENT for table `tbl_freelancer`
 --
 ALTER TABLE `tbl_freelancer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_galleries`
@@ -4473,7 +4501,7 @@ ALTER TABLE `tbl_gallery_images`
 -- AUTO_INCREMENT for table `tbl_group_type`
 --
 ALTER TABLE `tbl_group_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_jobs`
@@ -4491,7 +4519,7 @@ ALTER TABLE `tbl_jobtitle`
 -- AUTO_INCREMENT for table `tbl_logs`
 --
 ALTER TABLE `tbl_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2351;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2360;
 
 --
 -- AUTO_INCREMENT for table `tbl_logs_action`
@@ -4623,7 +4651,7 @@ ALTER TABLE `tbl_testimonial`
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tbl_vacency`
