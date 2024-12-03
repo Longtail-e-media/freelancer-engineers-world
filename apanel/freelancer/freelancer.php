@@ -90,8 +90,8 @@ if (isset($_GET['page']) && $_GET['page'] == "freelancer" && isset($_GET['mode']
     <td><?php echo $appInfo->username; ?></td>
 </tr>
 <tr>
-    <th class="text-center">Password</th>
-    <td><?php echo $appInfo->password; ?></td>
+    <th class="text-center">Email</th>
+    <td><?php echo $appInfo->email; ?></td>
 </tr>
 <tr>
     <th class="text-center">Engineering License No</th>

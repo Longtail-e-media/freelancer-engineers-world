@@ -418,30 +418,32 @@
 				$email      = addslashes($_REQUEST['email']);
 				$emailoruser = explode("@",$email);
 				// pr($emailoruser);
-				if(!empty($emailoruser[1])){
-					$sqluser='email="' . $email . '"';
-				}
-				else{
-					$sqluser='username="' . $email . '"';
-					
-				}
-				$paccess    = addslashes($_REQUEST['password']);
-	
-				$sql = 'SELECT * FROM tbl_users WHERE '.$sqluser.'';
-				// pr($sql);
-				$sql .= ' AND password="' . md5($paccess) . '" AND group_id=3 OR group_id=4 LIMIT 1';
+				// if(!empty($emailoruser[1])){
+					// 	$sqluser='email="' . $email . '"';
+					// }
+					// else{
+						// 	$sqluser='username="' . $email . '"';
+						
+						// }
+						$paccess    = addslashes($_REQUEST['password']);
+						
+						$sql = 'SELECT * FROM tbl_users WHERE ((email="' . $email . '" or username="' . $email . '")';
+						// pr($sql);
+						$sql .= ' AND password="' . md5($paccess) . '") AND (group_id=3 OR group_id=4) LIMIT 1';
+						// $sql .= ' AND password="' . md5($paccess) . '"  LIMIT 1';
+						// pr($sql);
 				$count = $db->num_rows($db->query($sql));
 	
 				if ($count > 0) {
 					$sqlid = $db->fetch_object($db->query($sql));
-					// pr($sqlid);
+					
 					$userid = $sqlid->id;
-					$client= client::find_by_userid($sqlid->id);
-					$freelancer= freelancer::find_by_userid($sqlid->id);
-					if(!empty($client)){
+					// $client= client::find_by_email($sqlid->email);
+					// $freelancer= freelancer::find_by_email($sqlid->email);
+					if($sqlid->group_id==3){
 						$usertype='client';
 					}
-					elseif(!empty($freelancer)){
+					elseif($sqlid->group_id==4){
 						$usertype='freelancer';
 					}
 					else{
@@ -485,6 +487,81 @@
 					$message = "Email or Password doesn't match !";
 					echo json_encode(array("action" => "error", "message" => $message));
 				}
+				break;
+
+				case "updateProfileFreelancer":
+					// $freelancerda= user::find_by_id($_SESSION['user_id']);
+					$record = freelancer::find_by_userid($_SESSION['user_id']);
+					// pr($record);
+					
+					// $record->slug 		= create_slug($_REQUEST['title']);							
+					// $record->email 		= $_REQUEST['email'];
+					$record->first_name 	= $_REQUEST['firstname'];	
+					$record->middle_name 	= $_REQUEST['middle_name'];	
+					$record->last_name 	= $_REQUEST['last_name'];	
+					$record->engineering_license_no 		= $_REQUEST['engineering_license_no'];		
+					$record->engineering_field	= $_REQUEST['engineering_field'];
+					$record->mobile_no 		= $_REQUEST['mobile_no'];
+					// $record->education_lvl 		= $_REQUEST['education_lvl'];
+					$record->current_address 		= $_REQUEST['current_address'];
+					$record->permanent_address 		= $_REQUEST['permanent_address'];
+					$record->pan_no 		= $_REQUEST['pan_no'];
+					$record->permanent_address 		= $_REQUEST['permanent_address'];
+					$record->upload_certificate       = (!empty($_REQUEST['imageArrayname2'])) ? $_REQUEST['imageArrayname2'] : '';	
+					$record->profile_picture       = (!empty($_REQUEST['imageArrayname'])) ? $_REQUEST['imageArrayname'] : '';	
+					$record->portfolio_website 	= $_REQUEST['portfolio_website'];			
+					$record->facebook_profile		= $_REQUEST['facebook_profile'];
+					$record->linkedIn_profile		= $_REQUEST['linkedIn_profile'];
+					$record->status	= 1;
+		
+					$db->begin();
+					if($record->save()): 
+
+						$user = User::find_by_id($_SESSION['user_id']);
+						if(!empty($user->password))
+						$user->password       = (!empty($_REQUEST['password'])) ? $_REQUEST['password'] : $user->password;	
+						$user->save();
+						
+						$db->commit();
+					   $message  = sprintf($GLOBALS['basic']['changesSaved_'], "Freelancer '".$record->first_name."'");
+					   echo json_encode(array("action"=>"success","message"=>$message));
+					   log_action("Freelancer [".$record->first_name."] Edit Successfully",1,4);
+					else: $db->rollback(); echo json_encode(array("action"=>"notice","message"=>$GLOBALS['basic']['noChanges']));
+					endif;
+				break;
+
+				case "updateProfileClient":
+					// $freelancerda= user::find_by_id($_SESSION['user_id']);
+					$record = freelancer::find_by_userid($_SESSION['user_id']);
+					// pr($record);
+					
+					// $record->slug 		= create_slug($_REQUEST['title']);							
+					// $record->email 		= $_REQUEST['email'];
+					$record->mobile_no 		= $_REQUEST['mobile_no'];		
+					$record->current_address	= $_REQUEST['current_address'];
+					$record->permanent_address 		= $_REQUEST['permanent_address'];
+					// $record->education_lvl 		= $_REQUEST['education_lvl'];
+					$record->pan_no 		= $_REQUEST['pan_no'];
+					$record->linkedIn_profile 		= $_REQUEST['linkedIn_profile'];
+					$record->facebook_profile 		= $_REQUEST['facebook_profile'];
+					$record->pan_no 		= $_REQUEST['pan_no'];
+					// $record->upload_certificate       = (!empty($_REQUEST['imageArrayname2'])) ? $_REQUEST['imageArrayname2'] : '';
+					$record->status	= 1;
+		
+					$db->begin();
+					if($record->save()): 
+
+						$user = User::find_by_id($_SESSION['user_id']);
+						$user->contact 		= $_REQUEST['mobile_no'];	
+						$user->password       = (!empty($_REQUEST['password'])) ? md5($_REQUEST['password']) : $user->password;	
+						$user->save();
+						
+						$db->commit();
+					   $message  = sprintf($GLOBALS['basic']['changesSaved_'], "Freelancer '".$record->first_name."'");
+					   echo json_encode(array("action"=>"success","message"=>$message));
+					   log_action("Freelancer [".$record->first_name."] Edit Successfully",1,4);
+					else: $db->rollback(); echo json_encode(array("action"=>"notice","message"=>$GLOBALS['basic']['noChanges']));
+					endif;
 				break;
 	}
 ?>

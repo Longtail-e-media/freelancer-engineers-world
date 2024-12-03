@@ -194,6 +194,12 @@ class client extends DatabaseObject {
 		return !empty($result_array) ? array_shift($result_array) : false;
 	}
 
+	static function find_by_email($email=''){
+		global $db;
+		$result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE email={$email} LIMIT 1");
+		return !empty($result_array) ? array_shift($result_array) : false;
+	}
+
 	public static function field_by_id($id=0,$fields=""){
 		global $db;
 		$sql = "SELECT $fields FROM ".self::$table_name." WHERE id={$id} LIMIT 1";

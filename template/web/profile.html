@@ -18,13 +18,14 @@
    <jcms:module:dashboard-profile/>
     <jcms:module:footer/>
     <script src="assets/js/jquery-3.5.1.min.js"></script>
-    <script src="assets/js/jquery.validate.js]"></script>
+    <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js'></script>-->
+    <script type="text/javascript" src="uploadify/jquery.uploadify.min.js"></script> 
+    <script src="assets/js/jquery.validate.js"></script>
     <script type="text/javascript" src="assets/js/jquery.uploadify.min.js"></script>
-    <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'
+    <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js'
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js'></script>
     <script src="./assets/js/app.js"></script>
 
     <script>
@@ -58,7 +59,47 @@
             'uploader': base_url + 'assets/uploadify/uploadify.php',
             'formData': {
                 PROJECT: '<jcms:site:SITE_FOLDER/>',
-                targetFolder: 'images/user/',
+                targetFolder: 'images/freelancer/profile/',
+                thumb_width: 200,
+                thumb_height: 200
+            },
+            'method': 'post',
+            'cancelImg': base_url + 'assets/uploadify/cancel.png',
+            'auto': true,
+            'multi': true,
+            'hideButton': false,
+            'buttonText': 'Upload Image',
+            'width': 125,
+            'height': 27,
+            'removeCompleted': true,
+            'progressData': 'speed',
+            'uploadLimit': 100,
+            'fileTypeExts': '*.gif; *.jpg; *.jpeg;  *.png; *.GIF; *.JPG; *.JPEG; *.PNG;',
+            'buttonClass': 'button formButtons',
+            /* 'checkExisting' : '/uploadify/check-exists.php',*/
+            'onUploadSuccess': function (file, data, response) {
+                var filename = data;
+                $.post(base_url + 'uploaded_user_image.php', {imagefile: filename}, function (msg) {
+                    $('#preview_Image').html(msg).show();
+                });
+
+            },
+            'onDialogOpen': function (event, ID, fileObj) {
+            },
+            'onUploadError': function (file, errorCode, errorMsg, errorString) {
+                alert(errorMsg);
+            },
+            'onUploadComplete': function (file) {
+                //alert('The file ' + file.name + ' was successfully uploaded');
+            }
+        });
+
+        $('#eng_certify').uploadify({
+            'swf': base_url + 'assets/uploadify/uploadify.swf',
+            'uploader': base_url + 'assets/uploadify/uploadify.php',
+            'formData': {
+                PROJECT: '<jcms:site:SITE_FOLDER/>',
+                targetFolder: 'images/freelancer/profile/',
                 thumb_width: 200,
                 thumb_height: 200
             },
@@ -98,40 +139,65 @@
         
 
         // Save Form
-        $("#editProfileForm").validate({
+        $("#freelancerfrm").validate({
             rules: {
-                name: {
-                    required: !0
-                },
-                email: {
-                    // required: !0,
-                    email: !0
-                },
-                phone: {required: !0},
-                repassword: {equalTo: "#password-profile"},
-                address: {required: !0}
+                // first_name: {
+                //     required: !0
+                // },
+                // last_name: {
+                //     required: !0
+                // },
+                // engineering_license_no: {
+                //     required: !0
+                // },
+                // engineering_field: {
+                //     required: !0
+                // },
+                // mobile_no: {
+                //     required: !0
+                // },
+                // education_lvl: {
+                //     required: !0
+                // },
+                // education_lvl: {
+                //     required: !0
+                // },
+                // pan_no: {
+                //     required: !0
+                // },
+                // eng_certify:{
+                //     required: !0
+                // },
+
+                // email: {
+                //     // required: !0,
+                //     email: !0
+                // },
+                // phone: {required: !0},
+                // repassword: {equalTo: "#password-profile"},
+                // address: {required: !0}
             },
             messages: {
-                name: {
-                    required: "Enter your Full Name"
-                },
-                email: {
-                    // required: "Enter your Email Address",
-                    email: "Enter a valid email address"
-                },
-                phone: {required: "Enter your Phone Number"},
-                repassword: {equalTo: "Password does not match"},
-                address: {required: "Enter your Address"}
+                // name: {
+                //     required: "Enter your Full Name"
+                // },
+                // email: {
+                //     // required: "Enter your Email Address",
+                //     email: "Enter a valid email address"
+                // },
+                // phone: {required: "Enter your Phone Number"},
+                // repassword: {equalTo: "Password does not match"},
+                // address: {required: "Enter your Address"}
             },
             submitHandler: function (form) {
                 if (form) {
-                    var Frmval = $("#editProfileForm").serialize();
+                    var Frmval = $("#freelancerfrm").serialize();
                     $("#submitProfile").attr("disabled", "true").text('Processing...');
                     $.ajax({
                         type: "POST",
                         dataType: "JSON",
                         url: base_url + "includes/controllers/ajax.user.php",
-                        data: "action=updateProfileUser&" + Frmval,
+                        data: "action=updateProfileFreelancer&" + Frmval,
                         success: function (data) {
                             var msg = eval(data);
                             $("#submitProfile").removeAttr("disabled").text('Save Changes');
@@ -155,7 +221,93 @@
                 }
             }
         })
+        // Save Form
+     $("#clientfrm").validate({
+            rules: {
+                // first_name: {
+                //     required: !0
+                // },
+                // last_name: {
+                //     required: !0
+                // },
+                // engineering_license_no: {
+                //     required: !0
+                // },
+                // engineering_field: {
+                //     required: !0
+                // },
+                // mobile_no: {
+                //     required: !0
+                // },
+                // education_lvl: {
+                //     required: !0
+                // },
+                // education_lvl: {
+                //     required: !0
+                // },
+                // pan_no: {
+                //     required: !0
+                // },
+                // eng_certify:{
+                //     required: !0
+                // },
+
+                // email: {
+                //     // required: !0,
+                //     email: !0
+                // },
+                // phone: {required: !0},
+                // repassword: {equalTo: "#password-profile"},
+                // address: {required: !0}
+            },
+            messages: {
+                // name: {
+                //     required: "Enter your Full Name"
+                // },
+                // email: {
+                //     // required: "Enter your Email Address",
+                //     email: "Enter a valid email address"
+                // },
+                // phone: {required: "Enter your Phone Number"},
+                // repassword: {equalTo: "Password does not match"},
+                // address: {required: "Enter your Address"}
+            },
+            submitHandler: function (form) {
+                if (form) {
+                    var Frmval = $("#clientfrm").serialize();
+                    $("#submitClient").attr("disabled", "true").text('Processing...');
+                    $.ajax({
+                        type: "POST",
+                        dataType: "JSON",
+                        url: base_url + "includes/controllers/ajax.user.php",
+                        data: "action=updateProfileClient&" + Frmval,
+                        success: function (data) {
+                            var msg = eval(data);
+                            $("#submitClient").removeAttr("disabled").text('Save Changes');
+                            if (msg.action == 'success') {
+                                if(msg.logout == 'logout'){
+                                    // logout
+                                    return window.location.href = base_url + "logout";
+                                } else {
+                                    $('#msgProfile').html(msg.message).css('display', 'flex').fadeOut(8000);
+                                    setTimeout(function () {
+                                        return window.location.href = "";
+                                    }, 1500);
+                                }
+                            }
+                            if (msg.action == 'unsuccess') {
+                                $('#msgProfile').html(msg.message).css('display', 'flex').fadeOut(8000);
+                            }
+                        }
+                    });
+                    return !1;
+                }
+            }
+        })
     });
+
+
+     
     
      /******************************** Remove saved image ********************************/
         function deleteSavedimage(Re) {

@@ -138,6 +138,12 @@ class freelancer extends DatabaseObject
 		return !empty($result_array) ? array_shift($result_array) : false;
 	}
 
+    static function find_by_email($email=''){
+		global $db;
+		$result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE email={$email} LIMIT 1");
+		return !empty($result_array) ? array_shift($result_array) : false;
+	}
+
     //Find rows from the database provided the SQL statement.
     public static function find_by_sql($sql = "")
     {

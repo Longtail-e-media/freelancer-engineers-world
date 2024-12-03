@@ -21,6 +21,7 @@ $jVars['site:seotitle'] = MetaTagsFor_SEO();
 $jVars['site:googleanalatic'] = $siteRegulars->google_anlytics;
 
 $jVars['site:pixel-code']	= $siteRegulars->pixel_code;
+$jVars['site:SITE_FOLDER'] 		= SITE_FOLDER;
 $metatitle = str_replace('3rd','',$siteRegulars->meta_title);
 $jVars['site:titlescript']	= ' <script>
         document.addEventListener(\'DOMContentLoaded\', function() {
