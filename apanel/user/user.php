@@ -4,22 +4,20 @@ $moduleId = 1;                // module id >>>>> tbl_modules
 $moduleFoldername = "";        // Image folder name
 
 if (isset($_GET['page']) && $_GET['page'] == "user" && isset($_GET['mode']) && $_GET['mode'] == "list"):
-    
+
     ?>
     <h3>
         List Users
-        <?php $uid= $session->get('u_id');
-    if($uid==2){ ?>
-        <a class="loadingbar-demo btn medium bg-blue-alt float-right" href="javascript:void(0);"
-           onClick="AddNewUsers();">
-    <span class="glyph-icon icon-separator">
-    	<i class="glyph-icon icon-plus-square"></i>
-    </span>
-            <span class="button-content"> Add User </span>
-        </a>
-        <?php }?>
+        <?php $uid = $session->get('u_id');
+        if ($uid == 2) { ?>
+            <a class="loadingbar-demo btn medium bg-blue-alt float-right" href="javascript:void(0);"
+               onClick="AddNewUsers();">
+                <span class="glyph-icon icon-separator"><i class="glyph-icon icon-plus-square"></i></span>
+                <span class="button-content"> Add User </span>
+            </a>
+        <?php } ?>
     </h3>
-    
+
     <div class="my-msg"></div>
     <div class="example-box">
         <div class="example-code">
@@ -36,17 +34,14 @@ if (isset($_GET['page']) && $_GET['page'] == "user" && isset($_GET['mode']) && $
                 </thead>
 
                 <tbody>
-                <?php 
-                $uid= $session->get('u_id');
-               
-                if($uid==2){
-                    $records = User::find_by_sql("SELECT * FROM " . $moduleTablename . " WHERE group_id!=3 ORDER BY sortorder ASC ");    
+                <?php
+                $uid = $session->get('u_id');
+                if ($uid == 2) {
+                    $records = User::find_by_sql("SELECT * FROM " . $moduleTablename . " WHERE group_id<3 ORDER BY sortorder ASC ");
+                } else {
+                    $records = User::find_by_sql("SELECT * FROM " . $moduleTablename . " WHERE group_id<3 AND id<>2 ORDER BY sortorder ASC ");
                 }
-                else{
-                $records = User::find_by_sql("SELECT * FROM " . $moduleTablename . " WHERE group_id!=3 AND id!=2 ORDER BY sortorder ASC ");
-                }foreach ($records as $record):
-                    $uid= $session->get('u_id');
-                if($uid!=90){
+                foreach ($records as $record):
                 ?>
                     <tr id="<?php echo $record->id; ?>">
                         <td class="text-center"><?php echo $record->sortorder; ?></td>
@@ -97,7 +92,7 @@ if (isset($_GET['page']) && $_GET['page'] == "user" && isset($_GET['mode']) && $
                             <?php endif; ?>
                         </td>
                     </tr>
-                <?php } endforeach; ?>
+                <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
@@ -107,7 +102,7 @@ if (isset($_GET['page']) && $_GET['page'] == "user" && isset($_GET['mode']) && $
     if (isset($_GET['id']) && !empty($_GET['id'])):
         $userId = addslashes($_REQUEST['id']);
         $usersInfo = User::find_by_id($userId);
-       
+
         $published = ($usersInfo->status == 1) ? "checked" : "";
         $unpublished = ($usersInfo->status == 0) ? "checked" : "";
     endif;
