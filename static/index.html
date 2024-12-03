@@ -18,23 +18,33 @@
     <main>
         <section class="home-banner position-relative">
             <video src="assets/video/bannervideo.mp4" class="w-100" autoplay muted loop></video>
-            <div class="bg-white position-absolute start-50 top-50 mb-5 translate-middle-x p-3 rounded">
+            <div class="bg-white p-3 mx-auto d-flex flex-column align-items-center 
+                position-absolute top-50 start-50 translate-middle-x d-none d-md-block w-50">
                 <div class="input-group input-group-lg">
-                    <input type="text" class="form-control border-0 fs-6 home-search" placeholder="Search by Keyword">
-                    <a href="#" class="px-5 py-3 m-2 bg-pink text-decoration-none text-dark">Search</a>
+                    <input type="text" class="form-control border-0 fs-6" placeholder="Search by Keyword">
+                    <a href="#" class="btn text-dark rounded-0 border-0 fs-6 bg-pink px-5 py-2">Search</a>
+                </div>
+            </div>
+            <div class="bg-white p-2 mx-auto d-flex flex-column align-items-center 
+                d-block d-md-none border" style="max-width: 500px;">
+                <div class="input-group input-group-lg mx-2">
+                    <input type="text" class="form-control border-0 fs-6" placeholder="Search by Keyword">
+                    <a href="#" class="btn text-dark rounded-0 border-0 fs-6 bg-pink px-3 py-2">Search</a>
                 </div>
             </div>
         </section>
+
+
         <section>
             <div class="container-xxl">
-                <div class="text-center fs-5 fw-light lh-base w-75 mx-auto">
+                <p class="text-start text-md-center fs-5 fw-light lh-base w-100 mx-auto">
                     <span class="text-decoration-underline">Architectural Engineering</span> is a term that stands for
                     different specialties of engineering related to the design and construction of buildings. An
                     Architectural Engineer is an expert in creating practical building designs based on a combination of
                     extensive knowledge in engineering, architecture, and materials - all using the latest in software
                     and other technology tools. They make sure that the plans for a building both meet the needs of the
                     client, as well as adhere to all local ordinances and building codes.
-                </div>
+                </p>
             </div>
         </section>
         <section class="pb-4">
@@ -133,31 +143,28 @@
                             </div>
                         </div>
                         <div class="py-3 d-flex justify-content-center">
-                            <a href="jobs.html" class="text-center fs-6 fw-semibold bg-transparent border-0 text-dark text-decoration-none">View
+                            <a href="jobs.html"
+                                class="text-center fs-6 fw-semibold bg-transparent border-0 text-dark text-decoration-none">View
                                 more</a>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="advertisement-container">
-                            <div class="bg-secondary-subtle card position-relative w-100 mb-4 border-0 rounded-0">
-                                <div class="position-absolute top-50 start-50 translate-middle-x text-center">
-                                    Advertisement
-                                </div>
+                        <div class="advertisement-container d-flex flex-column gap-4">
+                            <div class="bg-secondary-subtle card w-100 border-0 rounded-0">
+                                <img src="path/to/advertisement1.jpg" alt="Advertisement"
+                                    class="advertisement w-100 h-100">
                             </div>
-                            <div class="bg-secondary-subtle card position-relative w-100 mb-4 border-0 rounded-0">
-                                <div class="position-absolute top-50 start-50 translate-middle-x text-center">
-                                    Advertisement
-                                </div>
+                            <div class="bg-secondary-subtle card w-100 border-0 rounded-0">
+                                <img src="path/to/advertisement1.jpg" alt="Advertisement"
+                                    class="advertisement w-100 h-100">
                             </div>
-                            <div class="bg-secondary-subtle card position-relative w-100 mb-4 border-0 rounded-0">
-                                <div class="position-absolute top-50 start-50 translate-middle-x text-center">
-                                    Advertisement
-                                </div>
+                            <div class="bg-secondary-subtle card w-100 border-0 rounded-0">
+                                <img src="path/to/advertisement1.jpg" alt="Advertisement"
+                                    class="advertisement w-100 h-100">
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </section>
     </main>
 

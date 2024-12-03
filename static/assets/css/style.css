@@ -8,6 +8,11 @@
     --blue: #007bff;
 }
 
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--dark-bg) #fff;
+}
+
 *,
 html,
 body {
@@ -32,6 +37,10 @@ body {
 
 .bg-pink {
     background-color: var(--button-bg);
+}
+
+.bg-pink:hover {
+    background-color: #d46262;
 }
 
 .bg-dark-blue {
@@ -61,7 +70,7 @@ footer {
     }
 
     footer {
-        padding: 1rem 0;
+        padding: 2rem 1rem;
     }
 
 }
@@ -106,9 +115,9 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 #showhide {
-    width: 1.15rem;
+    width: 1.5rem;
     position: absolute;
-    right: 5%;
+    right: 7%;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
@@ -164,7 +173,7 @@ input[type="number"]::-webkit-inner-spin-button {
 .bidding-form>button {
     background-color: var(--dark-bg);
     color: #fff;
-    padding: 0.85rem 2rem;
+    padding: 0.75rem 2rem;
     border-radius: 0;
     border: none;
     cursor: pointer;
@@ -293,4 +302,10 @@ input[type="number"]::-webkit-inner-spin-button {
     .our-team {
         margin-bottom: 30px;
     }
+}
+
+a.page-link:focus {
+    border: 0;
+    outline: 0;
+    box-shadow: none;
 }
