@@ -142,28 +142,27 @@ if (!empty($subpkgRec)) {
 
 $jVars['module:service-detail-list'] = $restscont;
 
-$facility_bread='';
-$img='';
+$facility_bread = '';
+$img = '';
 if (defined('FACILITY_PAGE')) {
     $siteRegulars = Config::find_by_id(1);
-    $imglink= unserialize($siteRegulars->facility_upload);
+    $imglink = unserialize($siteRegulars->facility_upload);
     // pr($imglink);
-if(!empty($imglink)){
-    foreach($imglink as $images){
-        $img .= '<div class="text-center item bg-img" data-overlay-dark="5" data-background="'.IMAGE_PATH . 'preference/facility/' . $images.'"></div>';
-    }
-    
-}
-else{
-    $img='';
-}
+    if (!empty($imglink)) {
+        foreach ($imglink as $images) {
+            $img .= '<div class="text-center item bg-img" data-overlay-dark="5" data-background="' . IMAGE_PATH . 'preference/facility/' . $images . '"></div>';
+        }
 
-    $facility_bread ='
+    } else {
+        $img = '';
+    }
+
+    $facility_bread = '
 
 <!-- Header Banner -->
 <header class="header slider">
     <div class="owl-carousel owl-theme">
-        '.$img.'
+        ' . $img . '
     </div>
     <div class="banner-text">
         <div class="container">
@@ -196,20 +195,20 @@ if (defined('FACILITY_PAGE')) {
     if (!empty($record)) {
         // pr($record);
         $count = $countsec = 0;
-        foreach ($record as $key=> $recRow) {
-            $count= $key+1;
-            if(!empty($recRow->icon)){
+        foreach ($record as $key => $recRow) {
+            $count = $key + 1;
+            if (!empty($recRow->icon)) {
                 $facility .= ' 
 
                 <div class="col-lg-4 col-md-6">
-                    <div class="item"> <span class="number">'.$count.'</span>
+                    <div class="item"> <span class="number">' . $count . '</span>
                         <div class="icon"><i class="' . $recRow->icon . '"></i></div>
-                        <h5><a href="#">' . $recRow->title. '</a></h5>
+                        <h5><a href="#">' . $recRow->title . '</a></h5>
                     </div>
                 </div>
                 
                 ';
-            }else{
+            } else {
 
                 $img = unserialize($recRow->image);
                 $file_path = SITE_ROOT . 'images/services/' . $img[0];
@@ -219,7 +218,7 @@ if (defined('FACILITY_PAGE')) {
 
                      <div class="col-md-4">
                     <div class="item">
-                        <span class="number">'.$count.'</span> 
+                        <span class="number">' . $count . '</span> 
                         <div class="icon"><img src="' . $imglink . '"></div>
                         <h5><a href="#">' . $recRow->title . '</a></h5>
                     </div>
@@ -237,32 +236,31 @@ if (defined('FACILITY_PAGE')) {
 $jVars['module:facility-list'] = $facility;
 
 
-
 /*
 * Service Page
 */
 $rescont = '';
 
 
+$rescont .= '';
+
+
+$subpkgRec = services::find_8();
+
+if (!empty($subpkgRec)) {
     $rescont .= '';
-
-
-    $subpkgRec = services::find_8();    
-
-    if (!empty($subpkgRec)) {
-        $rescont .= '';
-        foreach ($subpkgRec as $k => $v) {
-            $img_nm = unserialize($v->image);
-            $rescont .= '
+    foreach ($subpkgRec as $k => $v) {
+        $img_nm = unserialize($v->image);
+        $rescont .= '
             
                         
                         ';
-            
-            
-        }
-        $rescont .= '';
+
 
     }
+    $rescont .= '';
+
+}
 
 // pr($rescont_left);
 $rescont_final = '
@@ -276,7 +274,7 @@ $rescont_final = '
                             </div>
                             <!--================ Icon Boxes ================-->
                             <div class="mad-icon-boxes align-center small-size item-col-5">
-                                    '. $rescont .'
+                                    ' . $rescont . '
                                     </div>
                                     <!--================ End of Icon Boxes ================-->
                                 </div>
@@ -291,19 +289,19 @@ if (defined('HOME_PAGE')) {
     $record = Services::getservice_list(8);
     if (!empty($record)) {
         foreach ($record as $recRow) {
-            if(!empty($recRow->icon)){
+            if (!empty($recRow->icon)) {
                 $facilityhome .= ' 
 
                 <div class="col-md-3">
                     <div class="item">
                         <!--<span class="number">01</span>-->
-                        <div class="icon"><i class="'. $recRow->icon .'"></i></div>
-                        <h5><a href="#">'. $recRow->title .'</a></h5>
+                        <div class="icon"><i class="' . $recRow->icon . '"></i></div>
+                        <h5><a href="#">' . $recRow->title . '</a></h5>
                         
                     </div>
                 </div>
                 ';
-            }else{
+            } else {
 
                 $img = unserialize($recRow->image);
                 $file_path = SITE_ROOT . 'images/services/' . $img[0];
@@ -315,7 +313,7 @@ if (defined('HOME_PAGE')) {
                     <div class="item">
                         <!--<span class="number">02</span>--> 
                         <div class="icon"><img src="' . $imglink . '"></div>
-                        <h5><a href="#">'. $recRow->title .'</a></h5>
+                        <h5><a href="#">' . $recRow->title . '</a></h5>
                         
                     </div>
                 </div>
@@ -335,22 +333,22 @@ if (defined('FACILITY_PAGE')) {
     $record = Services::getservice_list(30);
     if (!empty($record)) {
         foreach ($record as $recRow) {
-            if(!empty($recRow->icon)){
+            if (!empty($recRow->icon)) {
                 $facilityhome .= ' 
                 <div class="mad-col">
             <!--================ Icon Box ================-->
             <article class="mad-icon-box">
-                <img src="' . $imglink . '" alt="'. $recRow->title .'">
+                <img src="' . $imglink . '" alt="' . $recRow->title . '">
                 <div class="mad-icon-box-content">
                     <h6 class="mad-icon-box-title">
-                    '. $recRow->title .'
+                    ' . $recRow->title . '
                     </h6>
                 </div>
             </article>
             <!--================ End of Icon Box ================-->
         </div> 
                 ';
-            }else{
+            } else {
 
                 $img = unserialize($recRow->image);
                 $file_path = SITE_ROOT . 'images/services/' . $img[0];
@@ -360,10 +358,10 @@ if (defined('FACILITY_PAGE')) {
                     <div class="mad-col">
             <!--================ Icon Box ================-->
             <article class="mad-icon-box">
-                <img src="' . $imglink . '" alt="'. $recRow->title .'">
+                <img src="' . $imglink . '" alt="' . $recRow->title . '">
                 <div class="mad-icon-box-content">
                     <h6 class="mad-icon-box-title">
-                    '. $recRow->title .'
+                    ' . $recRow->title . '
                     </h6>
                 </div>
             </article>

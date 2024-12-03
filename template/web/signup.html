@@ -7,309 +7,310 @@
     <!-- Fevicon -->
     <jcms:site:fevicon/>
     <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css' rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css'>
     <link rel="stylesheet" href="./assets/css/style.css">
-    <link rel="shortcut icon" href="./assets/logo.svg" type="image/x-icon">
-    <title>Signup | Freelancer Engineers World</title>
 </head>
 
 <body>
-    <jcms:module:header/>
-    <main class="container signup-container">
-        <div class="d-flex justify-content-center">
-            <div class="w-50 mt-5">
-                <h1 class="text-center fs-3 fw-bold my-4">Sign Up</h1>
-                <div class="d-flex justify-content-center nav nav-pills pt-2" id="pills-tab">
-                    <div class="flex-fill text-center py-2 nav-item" role="presentation">
-                        <button class="nav-link active w-100 rounded-0 text-dark" id="pills-client-tab"
+<jcms:module:header/>
+<main class="container signup-container">
+    <div class="d-flex justify-content-center">
+        <div class="w-50 mt-5">
+            <h1 class="text-center fs-3 fw-bold my-4">Sign Up</h1>
+            <div class="d-flex justify-content-center nav nav-pills pt-2" id="pills-tab">
+                <div class="flex-fill text-center py-2 nav-item" role="presentation">
+                    <button class="nav-link active w-100 rounded-0 text-dark" id="pills-client-tab"
                             data-bs-toggle="pill" data-bs-target="#pills-client" type="button" role="tab"
-                            aria-controls="pills-client" aria-selected="true">I'm a client</button>
-                    </div>
-                    <div class="flex-fill text-center py-2">
-                        <button class="nav-link w-100 rounded-0 text-dark" id="pills-freelance-tab"
+                            aria-controls="pills-client" aria-selected="true">I'm a client
+                    </button>
+                </div>
+                <div class="flex-fill text-center py-2">
+                    <button class="nav-link w-100 rounded-0 text-dark" id="pills-freelance-tab"
                             data-bs-toggle="pill" data-bs-target="#pills-freelancer" type="button" role="tab"
-                            aria-controls="pills-freelancer" aria-selected="true">I'm a freelancer</button>
+                            aria-controls="pills-freelancer" aria-selected="true">I'm a freelancer
+                    </button>
+                </div>
+            </div>
+            <div class="tab-content mt-4" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-client" role="tabpanel"
+                     aria-labelledby="pills-client-tab" tabindex="0">
+                    <form id="registerFormclient" class="row g-3">
+                        <div class="col-md-4 flex-fill">
+                            <input type="text" placeholder="First Name" required aria-required="true" name="first_name"
+                                   class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
+                        </div>
+                        <div class="col-md-4 flex-fill">
+                            <input type="text" placeholder="Middle Name" name="middle_name"
+                                   class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
+                        </div>
+                        <div class="col-md-4 flex-fill">
+                            <input type="text" placeholder="Last Name" required aria-required="true" name="last_name"
+                                   class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
+                        </div>
+                        <div class="col-12 flex-fill">
+                            <input type="number" placeholder="Contact Number" required aria-required="true"
+                                   name="mobile_no"
+                                   class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
+                        </div>
+                        <div class="col-12 flex-fill">
+                            <input type="email" placeholder="Email" required aria-required="true" name="email"
+                                   class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
+                        </div>
+                        <div class="col-12 flex-fill">
+                            <input type="text" placeholder="Username" required aria-required="true" name="username"
+                                   class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
+                        </div>
+                        <div class="col-12 flex-fill position-relative">
+                            <input type="password" placeholder="Password" id="password" required name="password"
+                                   aria-required="true"
+                                   class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
+                            <img src="./assets/images/icons/view.png" alt="view and hide" id="showhide">
+                        </div>
+                        <div class="col-12 d-flex">
+                            <div class="mt-4">
+                                <label for="agreement" class="fs-7">
+                                    <input type="checkbox" id="agreement">
+                                    I agree to the client <a href="#">User Agreement</a> and <a
+                                        href="/policy.html">Privacy
+                                    Policy</a>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex justify-content-center">
+                            <button type="submit" id="submitRegister"
+                                    class="border-0 bg-primary text-white py-3 px-5 mt-2 w-100">Join
+                                now
+                            </button>
+                        </div>
+                    </form>
+                    <hr class="w-100 border border-dark-subtle rounded-1 mt-4 mb-2">
+                    <div class="text-center">
+                        Already have an account? <a href="login" class="text-decoration-none fs-6"> Log in</a>
                     </div>
                 </div>
-                <div class="tab-content mt-4" id="pills-tabContent">
-                    <div class="tab-pane fade show active" id="pills-client" role="tabpanel"
-                        aria-labelledby="pills-client-tab" tabindex="0">
-                        <form id="registerFormclient" class="row g-3">
-                            <div class="col-md-4 flex-fill">
-                                <input type="text" placeholder="First Name" required aria-required="true" name="first_name"
-                                    class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
-                            </div>
-                            <div class="col-md-4 flex-fill">
-                                <input type="text" placeholder="Middle Name" name="middle_name"
-                                    class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
-                            </div>
-                            <div class="col-md-4 flex-fill">
-                                <input type="text" placeholder="Last Name" required aria-required="true"  name="last_name"
-                                    class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
-                            </div>
-                            <div class="col-12 flex-fill">
-                                <input type="number" placeholder="Contact Number" required aria-required="true" name="mobile_no"
-                                    class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
-                            </div>
-                            <div class="col-12 flex-fill">
-                                <input type="email" placeholder="Email" required aria-required="true" name="email"
-                                    class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
-                            </div>
-                            <div class="col-12 flex-fill">
-                                <input type="text" placeholder="Username" required aria-required="true" name="username"
-                                    class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
-                            </div>
-                            <div class="col-12 flex-fill position-relative">
-                                <input type="password" placeholder="Password" id="password" required name="password"
-                                    aria-required="true"
-                                    class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
-                                <img src="./assets/images/icons/view.png" alt="view and hide" id="showhide">
-                            </div>
-                            <div class="col-12 d-flex">
-                                <div class="mt-4">
-                                    <label for="agreement" class="fs-7">
-                                        <input type="checkbox" id="agreement">
-                                        I agree to the client <a href="#">User Agreement</a> and <a
-                                            href="/policy.html">Privacy
-                                            Policy</a>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-12 d-flex justify-content-center">
-                                <button type="submit" id="submitRegister" class="border-0 bg-primary text-white py-3 px-5 mt-2 w-100">Join
-                                    now</button>
-                            </div>
-                        </form>
-                        <hr class="w-100 border border-dark-subtle rounded-1 mt-4 mb-2">
-                        <div class="text-center">
-                            Already have an account? <a href="login" class="text-decoration-none fs-6"> Log in</a>
+                <div class="tab-pane fade" id="pills-freelancer" role="tabpanel"
+                     aria-labelledby="pills-freelancer-tab" tabindex="0">
+                    <form id="registerFormfreelancer" class="row g-3">
+                        <div class="col-md-4 flex-fill">
+                            <input type="text" placeholder="First Name" required aria-required="true" name="first_name"
+                                   class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
                         </div>
-                    </div>
-                    <div class="tab-pane fade" id="pills-freelancer" role="tabpanel"
-                        aria-labelledby="pills-freelancer-tab" tabindex="0">
-                        <form id="registerFormfreelancer" class="row g-3">
-                            <div class="col-md-4 flex-fill">
-                                <input type="text" placeholder="First Name" required aria-required="true" name="first_name"
-                                    class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
-                            </div>
-                            <div class="col-md-4 flex-fill">
-                                <input type="text" placeholder="Middle Name" name="middle_name"
-                                    class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
-                            </div>
-                            <div class="col-md-4 flex-fill">
-                                <input type="text" placeholder="Last Name" required aria-required="true"  name="last_name"
-                                    class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
-                            </div>
-                            <div class="col-12 flex-fill">
-                                <input type="number" placeholder="Contact Number" required aria-required="true" name="mobile_no"
-                                    class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
-                            </div>
-                            <div class="col-12 flex-fill">
-                                <input type="email" placeholder="Email" required aria-required="true" name="email"
-                                    class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
-                            </div>
-                            <div class="col-12 flex-fill">
-                                <input type="text" placeholder="Username" required aria-required="true" name="username"
-                                    class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
-                            </div>
-                            <div class="col-12 flex-fill position-relative">
-                                <input type="password" placeholder="Password" id="password" required name="password"
-                                    aria-required="true"
-                                    class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
-                                <img src="./assets/images/icons/view.png" alt="view and hide" id="showhide">
-                            </div>
-                            <div class="col-12 d-flex">
-                                <div class="mt-4 mb-2">
-                                    <label for="agreement" class="fs-7">
-                                        <input type="checkbox" id="agreement" name="consent">
-                                        I agree to the freelancer <a href="#">User Agreement</a> and <a
-                                            href="/policy.html">Privacy
-                                            Policy</a>
-                                    </label>
-                                </div>
-                            </div>
-                            <div id="registerMsg"></div>
-                            <div class="col-12 d-flex justify-content-center">
-                                <button type="submit" id="submitRegister" class="border-0 bg-primary text-white py-3 px-5 w-100">Join
-                                    now</button>
-                            </div>
-                        </form>
-                        <hr class="w-100 mt-4 mb-2">
-                        <div class="text-center">
-                            Already have an account? <a href="login" class="text-decoration-none fs-6"> Log in</a>
+                        <div class="col-md-4 flex-fill">
+                            <input type="text" placeholder="Middle Name" name="middle_name"
+                                   class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
                         </div>
+                        <div class="col-md-4 flex-fill">
+                            <input type="text" placeholder="Last Name" required aria-required="true" name="last_name"
+                                   class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
+                        </div>
+                        <div class="col-12 flex-fill">
+                            <input type="number" placeholder="Contact Number" required aria-required="true"
+                                   name="mobile_no"
+                                   class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
+                        </div>
+                        <div class="col-12 flex-fill">
+                            <input type="email" placeholder="Email" required aria-required="true" name="email"
+                                   class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
+                        </div>
+                        <div class="col-12 flex-fill">
+                            <input type="text" placeholder="Username" required aria-required="true" name="username"
+                                   class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
+                        </div>
+                        <div class="col-12 flex-fill position-relative">
+                            <input type="password" placeholder="Password" id="password" required name="password"
+                                   aria-required="true"
+                                   class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
+                            <img src="./assets/images/icons/view.png" alt="view and hide" id="showhide">
+                        </div>
+                        <div class="col-12 d-flex">
+                            <div class="mt-4 mb-2">
+                                <label for="agreement" class="fs-7">
+                                    <input type="checkbox" id="agreement" name="consent">
+                                    I agree to the freelancer <a href="#">User Agreement</a> and <a
+                                        href="/policy.html">Privacy
+                                    Policy</a>
+                                </label>
+                            </div>
+                        </div>
+                        <div id="registerMsg"></div>
+                        <div class="col-12 d-flex justify-content-center">
+                            <button type="submit" id="submitRegister"
+                                    class="border-0 bg-primary text-white py-3 px-5 w-100">Join
+                                now
+                            </button>
+                        </div>
+                    </form>
+                    <hr class="w-100 mt-4 mb-2">
+                    <div class="text-center">
+                        Already have an account? <a href="login" class="text-decoration-none fs-6"> Log in</a>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
-    <script src="assets/js/jquery-3.5.1.min.js"></script>
-    <script src="assets/js/jquery.validate.js"></script>
+    </div>
+</main>
+<script src="assets/js/jquery-3.5.1.min.js"></script>
+<script src="assets/js/jquery.validate.js"></script>
 
-    <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'
+<script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js'></script>
-    <script>
-        window.onload = () => {
-            let trigger = true;
-            const showhide = document.getElementById('showhide');
-            const passwordInput = document.getElementById('password');
-            showhide.addEventListener('click', () => {
-                if (trigger) {
-                    passwordInput.setAttribute('type', 'text');
-                    showhide.setAttribute('src', './assets/images/icons/hide.png');
-                } else {
-                    passwordInput.setAttribute('type', 'password');
-                    showhide.setAttribute('src', './assets/images/icons/view.png');
+<script src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js'></script>
+<script>
+    window.onload = () => {
+        let trigger = true;
+        const showhide = document.getElementById('showhide');
+        const passwordInput = document.getElementById('password');
+        showhide.addEventListener('click', () => {
+            if (trigger) {
+                passwordInput.setAttribute('type', 'text');
+                showhide.setAttribute('src', './assets/images/icons/hide.png');
+            } else {
+                passwordInput.setAttribute('type', 'password');
+                showhide.setAttribute('src', './assets/images/icons/view.png');
 
-                }
-                trigger = !trigger;
-            })
-        }
-    </script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // Get the query parameter from the URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const tab = urlParams.get("tab");
-
-            // Select tab buttons
-            const clientTabButton = document.getElementById("pills-client-tab");
-            const freelancerTabButton = document.getElementById("pills-freelance-tab");
-
-            // Activate the respective tab based on the 'tab' parameter
-            if (tab === "client") {
-                clientTabButton.click(); // Programmatically activate the Client tab
-            } else if (tab === "freelancer") {
-                freelancerTabButton.click(); // Programmatically activate the Freelancer tab
             }
-        });
-    </script>
-    <script type="text/javascript">
-        var base_url = $('base').attr('url');
-    
-        $(document).ready(function () {
-            $("#registerFormclient").validate({
-                errorElement: 'span',
-                errorClass: 'validate-has-error text-danger',
-                rules: {
-                    first_name: {required: !0},
-                    middle_name: {required: !0},
-                    last_name: {required: !0},
-                    email: {required: !0, email: !0},
-                    mobile_no: {required: !0},
-                    username: {required: !0},
-                    password: {required: !0},
-                    // confirm_password: {required: !0, equalTo: "#password"},
-                    consent: {required: !0}
+            trigger = !trigger;
+        })
+    }
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // Get the query parameter from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const tab = urlParams.get("tab");
+
+        // Select tab buttons
+        const clientTabButton = document.getElementById("pills-client-tab");
+        const freelancerTabButton = document.getElementById("pills-freelance-tab");
+
+        // Activate the respective tab based on the 'tab' parameter
+        if (tab === "client") {
+            clientTabButton.click(); // Programmatically activate the Client tab
+        } else if (tab === "freelancer") {
+            freelancerTabButton.click(); // Programmatically activate the Freelancer tab
+        }
+    });
+</script>
+<script type="text/javascript">
+    var base_url = $('base').attr('url');
+
+    $(document).ready(function () {
+        $("#registerFormclient").validate({
+            errorElement: 'span',
+            errorClass: 'validate-has-error text-danger',
+            rules: {
+                first_name: {required: !0},
+                middle_name: {required: !0},
+                last_name: {required: !0},
+                email: {required: !0, email: !0},
+                mobile_no: {required: !0},
+                username: {required: !0},
+                password: {required: !0},
+                // confirm_password: {required: !0, equalTo: "#password"},
+                consent: {required: !0}
+            },
+            messages: {
+                first_name: {required: "Enter your First Name"},
+                middle_name: {required: "Enter your middle Name"},
+                last_name: {required: "Enter your Last Name"},
+                email: {
+                    required: "Enter your Email Address",
+                    email: "Enter a valid email address"
                 },
-                messages: {
-                    first_name: {required: "Enter your First Name"},
-                    middle_name: {required: "Enter your middle Name"},
-                    last_name: {required: "Enter your Last Name"},
-                    email: {
-                        required: "Enter your Email Address",
-                        email: "Enter a valid email address"
-                    },
-                    phone: {required: "Enter your Phone Number"},
-                    username: {required: "Enter your username"},
-                    password: {required: "Enter your password"},
-                    consent: {required: "Consent to Privacy Policy"}
-                },
-                submitHandler: function (form) {
-                    if (form) {
-                        var Frmval = $("#registerFormclient").serialize();
-                        $("button#submitRegister").attr("disabled", "true").text('Processing...');
-                        $.ajax({
-                            type: "POST",
-                            dataType: "JSON",
-                            url: base_url + "includes/controllers/ajax.user.php",
-                            data: "action=registerNewClient&" + Frmval,
-                            success: function (data) {
-                                var msg = eval(data);
-                                if (msg.action == 'warning' || msg.action == 'unsuccess') {
-                                    $('#registerMsg').html(msg.message).removeClass('alert-success').addClass('alert alert-danger').css('display', 'block').fadeOut(8000);
-                                    $("button#submitRegister").removeAttr("disabled").text('CREATE ACCOUNT');
-                                }
-                                if (msg.action == 'success') {
-                                    $('#registerMsg').html(msg.message).removeClass('alert-danger').addClass('alert alert-success').css('display', 'block').fadeOut(8000);
-                                    $("button#submitRegister").removeAttr("disabled").text('CREATE ACCOUNT');
-                                    setTimeout(function () {
-                                        window.location.href = base_url + "login";
-                                    }, 3000);
-                                }
+                phone: {required: "Enter your Phone Number"},
+                username: {required: "Enter your username"},
+                password: {required: "Enter your password"},
+                consent: {required: "Consent to Privacy Policy"}
+            },
+            submitHandler: function (form) {
+                if (form) {
+                    var Frmval = $("#registerFormclient").serialize();
+                    $("button#submitRegister").attr("disabled", "true").text('Processing...');
+                    $.ajax({
+                        type: "POST",
+                        dataType: "JSON",
+                        url: base_url + "includes/controllers/ajax.user.php",
+                        data: "action=registerNewClient&" + Frmval,
+                        success: function (data) {
+                            var msg = eval(data);
+                            if (msg.action == 'warning' || msg.action == 'unsuccess') {
+                                $('#registerMsg').html(msg.message).removeClass('alert-success').addClass('alert alert-danger').css('display', 'block').fadeOut(8000);
+                                $("button#submitRegister").removeAttr("disabled").text('CREATE ACCOUNT');
                             }
-                        });
-                        return !1;
-                    }
-                }
-            })
-        });
-    </script>
-    <script type="text/javascript">
-        var base_url = $('base').attr('url');
-    
-        $(document).ready(function () {
-            $("#registerFormfreelancer").validate({
-                errorElement: 'span',
-                errorClass: 'validate-has-error text-danger',
-                rules: {
-                    first_name: {required: !0},
-                    middle_name: {required: !0},
-                    last_name: {required: !0},
-                    email: {required: !0, email: !0},
-                    mobile_no: {required: !0},
-                    username: {required: !0},
-                    password: {required: !0},
-                    // confirm_password: {required: !0, equalTo: "#password"},
-                    consent: {required: !0}
-                },
-                messages: {
-                    first_name: {required: "Enter your First Name"},
-                    middle_name: {required: "Enter your middle Name"},
-                    last_name: {required: "Enter your Last Name"},
-                    email: {
-                        required: "Enter your Email Address",
-                        email: "Enter a valid email address"
-                    },
-                    phone: {required: "Enter your Phone Number"},
-                    username: {required: "Enter your username"},
-                    password: {required: "Enter your password"},
-                    consent: {required: "Consent to Privacy Policy"}
-                },
-                submitHandler: function (form) {
-                    if (form) {
-                        var Frmval = $("#registerFormfreelancer").serialize();
-                        $("button#submitRegister").attr("disabled", "true").text('Processing...');
-                        $.ajax({
-                            type: "POST",
-                            dataType: "JSON",
-                            url: base_url + "includes/controllers/ajax.user.php",
-                            data: "action=registerNewfreelancer&" + Frmval,
-                            success: function (data) {
-                                var msg = eval(data);
-                                if (msg.action == 'warning' || msg.action == 'unsuccess') {
-                                    $('#registerMsg').html(msg.message).removeClass('alert-success').addClass('alert alert-danger').css('display', 'block').fadeOut(8000);
-                                    $("button#submitRegister").removeAttr("disabled").text('CREATE ACCOUNT');
-                                }
-                                if (msg.action == 'success') {
-                                    $('#registerMsg').html(msg.message).removeClass('alert-danger').addClass('alert alert-success').css('display', 'block').fadeOut(8000);
-                                    $("button#submitRegister").removeAttr("disabled").text('CREATE ACCOUNT');
-                                    setTimeout(function () {
-                                        window.location.href = base_url + "login";
-                                    }, 3000);
-                                }
+                            if (msg.action == 'success') {
+                                $('#registerMsg').html(msg.message).removeClass('alert-danger').addClass('alert alert-success').css('display', 'block').fadeOut(8000);
+                                $("button#submitRegister").removeAttr("disabled").text('CREATE ACCOUNT');
+                                setTimeout(function () {
+                                    window.location.href = base_url + "login";
+                                }, 3000);
                             }
-                        });
-                        return !1;
-                    }
+                        }
+                    });
+                    return !1;
                 }
-            })
-        });
-    </script>
+            }
+        })
+
+        $("#registerFormfreelancer").validate({
+            errorElement: 'span',
+            errorClass: 'validate-has-error text-danger',
+            rules: {
+                first_name: {required: !0},
+                middle_name: {required: !0},
+                last_name: {required: !0},
+                email: {required: !0, email: !0},
+                mobile_no: {required: !0},
+                username: {required: !0},
+                password: {required: !0},
+                // confirm_password: {required: !0, equalTo: "#password"},
+                consent: {required: !0}
+            },
+            messages: {
+                first_name: {required: "Enter your First Name"},
+                middle_name: {required: "Enter your middle Name"},
+                last_name: {required: "Enter your Last Name"},
+                email: {
+                    required: "Enter your Email Address",
+                    email: "Enter a valid email address"
+                },
+                phone: {required: "Enter your Phone Number"},
+                username: {required: "Enter your username"},
+                password: {required: "Enter your password"},
+                consent: {required: "Consent to Privacy Policy"}
+            },
+            submitHandler: function (form) {
+                if (form) {
+                    var Frmval = $("#registerFormfreelancer").serialize();
+                    $("button#submitRegister").attr("disabled", "true").text('Processing...');
+                    $.ajax({
+                        type: "POST",
+                        dataType: "JSON",
+                        url: base_url + "includes/controllers/ajax.user.php",
+                        data: "action=registerNewfreelancer&" + Frmval,
+                        success: function (data) {
+                            var msg = eval(data);
+                            if (msg.action == 'warning' || msg.action == 'unsuccess') {
+                                $('#registerMsg').html(msg.message).removeClass('alert-success').addClass('alert alert-danger').css('display', 'block').fadeOut(8000);
+                                $("button#submitRegister").removeAttr("disabled").text('CREATE ACCOUNT');
+                            }
+                            if (msg.action == 'success') {
+                                $('#registerMsg').html(msg.message).removeClass('alert-danger').addClass('alert alert-success').css('display', 'block').fadeOut(8000);
+                                $("button#submitRegister").removeAttr("disabled").text('CREATE ACCOUNT');
+                                setTimeout(function () {
+                                    window.location.href = base_url + "login";
+                                }, 3000);
+                            }
+                        }
+                    });
+                    return !1;
+                }
+            }
+        })
+    });
+</script>
 
 </body>
 

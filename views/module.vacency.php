@@ -4,19 +4,16 @@ $vacencylist = $vacency_bread = '';
 
 if (defined('CAREER_PAGE')) {
     $siteRegulars = Config::find_by_id(1);
-    $hremail= User::field_by_id(1,'hr_email');
-    $imglink= $siteRegulars->gallery_upload ;
-if(!empty($imglink)){
-    $img= IMAGE_PATH . 'preference/other/' . $siteRegulars->other_upload ;
-}
-else{
-    $img='';
-}
-
+    $hremail = User::field_by_id(1, 'hr_email');
+    $imglink = $siteRegulars->gallery_upload;
+    $img = '';
+    if (!empty($imglink)) {
+        $img = IMAGE_PATH . 'preference/other/' . $siteRegulars->other_upload;
+    }
 
     $vacency_bread .= '
-    <!--================ Breadcrumb ================-->
-        <div class="mad-breadcrumb with-bg-img with-overlay" data-bg-image-src="'.$img.'">
+        <!--================ Breadcrumb ================-->
+        <div class="mad-breadcrumb with-bg-img with-overlay" data-bg-image-src="' . $img . '">
             <div class="container wide">
                 <h1 class="mad-page-title">Career Page</h1>
                 <nav class="mad-breadcrumb-path">
@@ -26,7 +23,6 @@ else{
             </div>
         </div>
         <!--================ End of Breadcrumb ================-->=
-       
     ';
 
     $vacencies = Vacency::get_allvacancy();
@@ -35,19 +31,18 @@ else{
     if (!empty($vacencies)) {
         foreach ($vacencies as $vacency) {
             $vacencylist .= '
-            <div class="career-bg row vr-size-2">
-                        <div class="col-lg-9 career-text">
-                        ' . $vacency->title . '- ' . $vacency->pax . '
-                        </div>
-                        <div class="col-lg-3">
-                            <a href="'. BASE_URL . 'career-form/' . $vacency->slug .'" class="btn btn-big" style="float:right;">Apply Now</a>
-                        </div>
+                <div class="career-bg row vr-size-2">
+                    <div class="col-lg-9 career-text">
+                    ' . $vacency->title . '- ' . $vacency->pax . '
                     </div>
-                
+                    <div class="col-lg-3">
+                        <a href="' . BASE_URL . 'career-form/' . $vacency->slug . '" class="btn btn-big" style="float:right;">Apply Now</a>
+                    </div>
+                </div>
             ';
         }
     } else {
-        $vacencylist .= '<h4 style="text-align: center;font-size: 50px;">SEND YOUR RESUME!!!! in our email<br> <a href="mailto:'.$hremail.'">'.$hremail.'</a></h4></br></br>';
+        $vacencylist .= '<h4 style="text-align: center;font-size: 50px;">SEND YOUR RESUME!!!! in our email<br> <a href="mailto:' . $hremail . '">' . $hremail . '</a></h4></br></br>';
     }
 }
 
@@ -61,10 +56,10 @@ $jVars['module:vacency:list-bread'] = $vacency_bread;
 
 $careerform = $innerbred = '';
 if (defined('CAREER_PAGE') and isset($_REQUEST['slug'])) {
-    
+
     $innerbred .= '  
-    <!--================ Breadcrumb ================-->
-        <div class="mad-breadcrumb with-bg-img with-overlay" data-bg-image-src="'. BASE_URL .'template/web/images/default.jpg">
+        <!--================ Breadcrumb ================-->
+        <div class="mad-breadcrumb with-bg-img with-overlay" data-bg-image-src="' . BASE_URL . 'template/web/images/default.jpg">
             <div class="container wide">
                 
                 <nav class="mad-breadcrumb-path">
@@ -75,14 +70,13 @@ if (defined('CAREER_PAGE') and isset($_REQUEST['slug'])) {
             </div>
         </div>
         <!--================ End of Breadcrumb ================--> 
-    
-        ';
+    ';
+
     $slug = $_REQUEST['slug'];
     $v = Vacency::find_by_slug($slug);
-    
-    $vacen = (!empty($v->id))? $v->id :"none";
+
+    $vacen = (!empty($v->id)) ? $v->id : "none";
     $careerform = '
-        
         <form class="cons-contact-form form-transparent mb-5" id="careerform" enctype="multipart/form-data">
             <input type="hidden" name="position" value="' . $v->id . '">
         
@@ -144,5 +138,6 @@ if (defined('CAREER_PAGE') and isset($_REQUEST['slug'])) {
         </form>
     ';
 }
+
 $jVars['module:careerform'] = $careerform;
 $jVars['module:vacency-bread'] = $innerbred;

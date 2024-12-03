@@ -3,52 +3,41 @@
 * Contact form
 */
 $rescont = $innerbred = '';
-$img='';
+$img = '';
 if (defined('CONTACT_PAGE')) {
-
-
-    $siteRegulars = Config::find_by_id(1);
 
     $tellinked = '';
     $telno = explode(",", $siteRegulars->contact_info);
     $lastElement = array_shift($telno);
     $tellinked .= '<a href="tel:' . $lastElement . '" class="link-secondary text-decoration-none" target="_blank">' . $lastElement . '</a>';
     foreach ($telno as $tel) {
-        
         $tellinked .= '<br/><a href="tel:' . $tel . '" class="link-secondary text-decoration-none" target="_blank">' . $tel . '</a>';
-        if(end($telno)!= $tel){
-        $tellinked .= '/';
-        }   
-}
+        if (end($telno) != $tel) {
+            $tellinked .= '/';
+        }
+    }
 
+    $emailinked = '';
+    $emailno = explode(",", $siteRegulars->email_address);
+    $lastElement = array_shift($emailno);
+    $emailinked .= '<a href="mailto:' . $lastElement . '" target="_blank">' . $lastElement . '</a>';
+    foreach ($emailno as $email) {
+        $emailinked .= '<br/><a href="mailto:' . $email . '" target="_blank">' . $email . '</a>';
+        if (end($emailno) != $email) {
+            $emailinked .= '/';
+        }
+    }
 
-$emailinked = '';
-$emailno = explode(",", $siteRegulars->email_address);
-$lastElement = array_shift($emailno);
-$emailinked .= '<a href="mailto:' . $lastElement . '" target="_blank">' . $lastElement . '</a>';
-foreach ($emailno as $email) {
-    
-    $emailinked .= '<br/><a href="mailto:' . $email . '" target="_blank">' . $email . '</a>';
-    if(end($emailno)!= $email){
-        $emailinked .= '/';
-    }   
-}
-$imglink= $siteRegulars->contact_upload ;
-if(!empty($imglink)){
-    $img= IMAGE_PATH . 'preference/contact/' . $siteRegulars->contact_upload ;
-}
-else{
-    $img='';
-}
-        // pr($siteRegulars);
+    $imglink = $siteRegulars->contact_upload;
+    if (!empty($imglink)) {
+        $img = IMAGE_PATH . 'preference/contact/' . $siteRegulars->contact_upload;
+    } else {
+        $img = '';
+    }
+
     $rescont .= '
-
-
-
-    <section class="bg-light py-3 py-md-5">
-
+        <section class="bg-light py-3 py-md-5">
             <section class="py-3 py-md-5 py-xl-8">
-
                 <div class="container">
                     <div class="row gy-4 gy-md-5 gy-lg-0 align-items-md-center">
                         <div class="col-12 col-lg-6">
@@ -59,8 +48,7 @@ else{
                                         <div class="col-12">
                                             <label for="fullname" class="form-label">Full Name <span
                                                     class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="fullname" name="fullname"
-                                                >
+                                            <input type="text" class="form-control" id="fullname" name="fullname">
                                         </div>
                                         <div class="col-12 col-md-6">
                                             <label for="email" class="form-label">Email <span
@@ -73,8 +61,7 @@ else{
                                                             d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
                                                     </svg>
                                                 </span>
-                                                <input type="email" class="form-control" id="email" name="email"
-                                                    >
+                                                <input type="email" class="form-control" id="email" name="email">
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-6">
@@ -124,7 +111,7 @@ else{
                                             <!-- <p class="mb-2">Please visit us to have a discussion.</p> -->
                                             <hr class="w-50 mb-3 border-dark-subtle">
                                             <address class="m-0 text-secondary">
-                                                '.$siteRegulars->fiscal_address.'
+                                                ' . $siteRegulars->fiscal_address . '
                                             </address>
                                         </div>
                                     </div>
@@ -138,7 +125,7 @@ else{
                                                     <!-- <p class="mb-2">Please speak with us directly.</p> -->
                                                     <hr class="w-75 mb-3 border-dark-subtle">
                                                     <p class="mb-0">
-                                                    '.$tellinked.'
+                                                    ' . $tellinked . '
                                                        </p>
                                                 </div>
                                             </div>
@@ -153,7 +140,7 @@ else{
                                                     <hr class="w-75 mb-3 border-dark-subtle">
                                                     <p class="mb-0">
                                                         <a class="link-secondary text-decoration-none"
-                                                            href="mailto:'.$siteRegulars->email_address.'">'.$siteRegulars->email_address.'</a>
+                                                            href="mailto:' . $siteRegulars->email_address . '">' . $siteRegulars->email_address . '</a>
                                                     </p>
                                                 </div>
                                             </div>
@@ -162,7 +149,7 @@ else{
                                 </div>
                             </div>
                             <iframe
-                                src="'. $siteRegulars->location_map .'"
+                                src="' . $siteRegulars->location_map . '"
                                 class="w-100" height="300" allowfullscreen="" loading="lazy"
                                 referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>

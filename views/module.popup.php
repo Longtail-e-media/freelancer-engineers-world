@@ -35,7 +35,7 @@ $restst = '';
 //         $count++;
 //     }
 //     $restst .= ' <!--end carousel-inner-->
- 
+
 //                         <!--Begin Previous and Next buttons-->
 //                         <a class="left carousel-control" href="#videoCarousel" role="button" data-slide="prev"> 
 //                             <span class="glyphicon glyphicon-chevron-left"></span>
@@ -77,7 +77,7 @@ $restst = '';
 //     }
 // }
 //     $restst .= '
-        
+
 //             <div class="cstm_modal">
 //                 <a href="#" class="close closepop" style="color:#fff;">X</a>
 //                 <img src="' . $imglink . '">
@@ -94,9 +94,7 @@ $restst = '';
 // // $jVars['module:popup'] = $restst;
 
 
-
 /*********** From new */
-
 
 
 $popRec = Popup::get_allpopup(1);
@@ -135,18 +133,17 @@ if (!empty($popRec)) {
                     <a href="' . $linkhref . '" ' . $target . '><img src="' . $imglink . '" alt="' . $popr->title . '"></a>
                 </div>
                 ';
-                // pr($imglink);
+            // pr($imglink);
 
             $count++;
         }
     }
     $restst .= ' <!--end carousel-inner-->
                         </div>';
-                        if($k==0){
-                            $restst .= ' '; 
-                        }
-                        else{
-                            $restst .= '     <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+    if ($k == 0) {
+        $restst .= ' ';
+    } else {
+        $restst .= '     <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
@@ -154,9 +151,9 @@ if (!empty($popRec)) {
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>';
-                          
-                        }
-                      $restst .= '   </div>
+
+    }
+    $restst .= '   </div>
                         <!--end carousel-->
                     </div>
                     <!--end modal-body-->
@@ -190,7 +187,7 @@ if (!empty($popRec)) {
     //         $active = ($count == 1) ? 'active' : '';
     //         $restst .= '  
     //             <div class="item ' . $active . '">
-                    
+
     //                 <div class="cover_img">
     //                     <a href="' . BASE_URL . '' . $popr->linksrc . '">
     //                         <img src="' . $imglink . '" class="img-responsive">

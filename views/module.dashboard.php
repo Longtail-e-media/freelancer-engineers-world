@@ -5,10 +5,12 @@
  */
 $profile = '';
 if (!empty($_SESSION)) {
+
     if (!empty($_SESSION['user_type']) && $_SESSION['user_type'] == 'client') {
 
         $clientdata = client::find_by_userid($_SESSION['user_id']);
-        $clientuser= user::find_by_id($_SESSION['user_id']);
+        $clientuser = user::find_by_id($_SESSION['user_id']);
+
         $profile .= '
             <main class="">
                 <div class="bg-dark-blue">
@@ -109,7 +111,6 @@ if (!empty($_SESSION)) {
                                         <label for="profilePicture" class="form-label fw-bold">Upload Profile Picture</label>
                                         <input type="file" class="form-control border-0 rounded-0 fs-5" id="profilePicture"
                                             accept="image/*" onchange="previewImage(event)">
-        
                                     </div>
         
                                     <div class="mb-4">
@@ -132,23 +133,23 @@ if (!empty($_SESSION)) {
                                 </div>
                                 <div id="preview_Image"></div>
                                 ';
-                                if (!empty($user->image)) {
-                                    $profile .= '
-                                        <div class="" id="removeSavedimg1">
-                                            <div class="infobox info-bg">
-                                                <div class="button-group" data-toggle="buttons">
-                                                    <a class="btn small float-right" href="javascript:void(0);" onclick="deleteSavedimage(1);">
-                                                        <i class="fas fa-times"></i>
-                                                    </a>
-                                                </div>
-                                                <img src="' . IMAGE_PATH . 'freelancer/profile/thumbnails/' . $user->image . '" style="width:100%"/>
-                                                <input type="hidden" name="imageArrayname" value="' . $user->image . '" class=""/>
-                                            </div>
+        if (!empty($user->image)) {
+            $profile .= '
+                                <div class="" id="removeSavedimg1">
+                                    <div class="infobox info-bg">
+                                        <div class="button-group" data-toggle="buttons">
+                                            <a class="btn small float-right" href="javascript:void(0);" onclick="deleteSavedimage(1);">
+                                                <i class="fas fa-times"></i>
+                                            </a>
                                         </div>
-                                
-                                    ';
-                                }
-                              $profile .= '  <div class="col-md-3"></div>
+                                        <img src="' . IMAGE_PATH . 'freelancer/profile/thumbnails/' . $user->image . '" style="width:100%"/>
+                                        <input type="hidden" name="imageArrayname" value="' . $user->image . '" class=""/>
+                                    </div>
+                                </div>
+            ';
+        }
+        $profile .= '  
+                                <div class="col-md-3"></div>
                             </div>
         
                         </form>
@@ -157,6 +158,7 @@ if (!empty($_SESSION)) {
             </main>
         ';
     }
+
     if (!empty($_SESSION['user_type']) && $_SESSION['user_type'] == 'freelancer') {
 
         $freelancerdata = freelancer::find_by_userid($_SESSION['user_id']);
@@ -303,23 +305,23 @@ if (!empty($_SESSION)) {
                                 </div>
                                     <div id="preview_Image"></div>
                                 ';
-                                if (!empty($freelancerdata->upload_certificate)) {
-                                    $profile .= '
-                                        <div class="" id="removeSavedimg2">
-                                            <div class="infobox info-bg">
-                                                <div class="button-group" data-toggle="buttons">
-                                                    <a class="btn small float-right" href="javascript:void(0);" onclick="deleteSavedimage(2);">
-                                                        <i class="fas fa-times"></i>
-                                                    </a>
-                                                </div>
-                                                <img src="' . IMAGE_PATH . 'freelancer/engineeringCertificate/thumbnails/' . $freelancerdata->upload_certificate . '" style="width:100%"/>
-                                                <input type="hidden" name="imageArrayname2" value="' . $freelancerdata->upload_certificate . '" class=""/>
+        if (!empty($freelancerdata->upload_certificate)) {
+            $profile .= '
+                                    <div class="" id="removeSavedimg2">
+                                        <div class="infobox info-bg">
+                                            <div class="button-group" data-toggle="buttons">
+                                                <a class="btn small float-right" href="javascript:void(0);" onclick="deleteSavedimage(2);">
+                                                    <i class="fas fa-times"></i>
+                                                </a>
                                             </div>
+                                            <img src="' . IMAGE_PATH . 'freelancer/engineeringCertificate/thumbnails/' . $freelancerdata->upload_certificate . '" style="width:100%"/>
+                                            <input type="hidden" name="imageArrayname2" value="' . $freelancerdata->upload_certificate . '" class=""/>
                                         </div>
-                                
-                                    ';
-                                }
-                               $profile .= ' <div class="col-md-6">
+                                    </div>
+            ';
+        }
+        $profile .= '
+                                <div class="col-md-6">
                                     <label class="form-label">Upload CV</label>
                                     <input type="file" class="form-control border-0 rounded-0 fs-5" id="cv"
                                         accept=".pdf,.doc,.docx" required>
@@ -358,25 +360,24 @@ if (!empty($_SESSION)) {
                                     <input type="file" class="form-control border-0 rounded-0 fs-5" name="img" id="img"
                                         accept="image/*" >
                                 </div>
-                                  <div id="preview_Image"></div>
+                                <div id="preview_Image"></div>
                                 ';
-                                if (!empty($freelancerdata->profile_picture)) {
-                                    $profile .= '
-                                        <div class="" id="removeSavedimg1">
-                                            <div class="infobox info-bg">
-                                                <div class="button-group" data-toggle="buttons">
-                                                    <a class="btn small float-right" href="javascript:void(0);" onclick="deleteSavedimage(1);">
-                                                        <i class="fas fa-times"></i>
-                                                    </a>
-                                                </div>
-                                                <img src="' . IMAGE_PATH . 'freelancer/profile/thumbnails/' . $freelancerdata->profile_picture . '" style="width:100%"/>
-                                                <input type="hidden" name="imageArrayname" value="' . $freelancerdata->profile_picture . '" class=""/>
-                                            </div>
+        if (!empty($freelancerdata->profile_picture)) {
+            $profile .= '
+                                <div class="" id="removeSavedimg1">
+                                    <div class="infobox info-bg">
+                                        <div class="button-group" data-toggle="buttons">
+                                            <a class="btn small float-right" href="javascript:void(0);" onclick="deleteSavedimage(1);">
+                                                <i class="fas fa-times"></i>
+                                            </a>
                                         </div>
-                                
-                                    ';
-                                }
-                              $profile .= ' 
+                                        <img src="' . IMAGE_PATH . 'freelancer/profile/thumbnails/' . $freelancerdata->profile_picture . '" style="width:100%"/>
+                                        <input type="hidden" name="imageArrayname" value="' . $freelancerdata->profile_picture . '" class=""/>
+                                    </div>
+                                </div>
+            ';
+        }
+        $profile .= ' 
                                 <div class="col-md-1"></div>
                                 <div class="col-md-4 profile-picture-preview" id="profilePicturePreview">
                                     <img src="" alt="Profile Preview" id="profilePreviewImg">
@@ -397,6 +398,7 @@ if (!empty($_SESSION)) {
             </main>
         ';
     }
+
 } else {
     $profile = 'please login to view profile';
 }

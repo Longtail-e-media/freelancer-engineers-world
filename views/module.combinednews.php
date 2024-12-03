@@ -154,7 +154,7 @@ if (defined("BLOG_PAGE")) {
                             <div class="meta">
                                 <div>
                                     <a href="' . BASE_URL . 'blog/' . $recentBlog->slug . '">
-                                        <span class="icon-calendar"></span> '.date('F, d Y', strtotime($recentBlog->event_stdate)).'
+                                        <span class="icon-calendar"></span> ' . date('F, d Y', strtotime($recentBlog->event_stdate)) . '
                                     </a>
                                 </div>
                                 <!--<div><a href="' . BASE_URL . 'blog/' . $recentBlog->slug . '"><span class="icon-person"></span> Admin</a></div>-->

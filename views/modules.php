@@ -17,11 +17,12 @@ $jVars['site:fevicon']		=  '<link rel="shortcut icon" href="'.IMAGE_PATH.'prefer
 							    <link rel="apple-touch-icon" sizes="114x114" href="'.IMAGE_PATH.'preference/'.$siteRegulars->icon_upload.'">';
 $jVars['site:logo']			= '<a href="'.BASE_URL.'home" id="logo"><img src="'.IMAGE_PATH.'preference/'.$siteRegulars->logo_upload.'" alt="logo" data-retina="true"/></a>';	
 			    
-$jVars['site:seotitle'] = MetaTagsFor_SEO();
+$jVars['site:seotitle']     = MetaTagsFor_SEO();
 $jVars['site:googleanalatic'] = $siteRegulars->google_anlytics;
 
 $jVars['site:pixel-code']	= $siteRegulars->pixel_code;
-$jVars['site:SITE_FOLDER'] 		= SITE_FOLDER;
+$jVars['site:SITE_FOLDER']  = SITE_FOLDER;
+
 $metatitle = str_replace('3rd','',$siteRegulars->meta_title);
 $jVars['site:titlescript']	= ' <script>
         document.addEventListener(\'DOMContentLoaded\', function() {

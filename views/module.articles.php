@@ -1,6 +1,7 @@
 <?php
 $resinndetail = $imageList = $innerbred = $t = '';
 $homearticle = Article::find_by_id(22);
+
 if (!empty($homearticle)) {
     if ($homearticle->image != "a:0:{}") {
         $imageList = unserialize($homearticle->image);
@@ -14,18 +15,19 @@ if (!empty($homearticle)) {
     } else {
         $imglink = BASE_URL . 'template/cms/img/mosaic_2.jpg';
     }
-    $t .= ' <div class="col-xs-12">
-                     <a href="' . BASE_URL . 'page/' . $homearticle->slug . '">
-                    <div class="mosaic_container">
-                        <img src="' . $imglink . '" alt="' . $homearticle->title . '" class="img-responsive add_bottom_30"><span class="caption_2"> ' . $homearticle->title . '</span>
-                    </div>
-                    </a>
-                </div>';
-
-
+    $t .= '
+        <div class="col-xs-12">
+            <a href="' . BASE_URL . 'page/' . $homearticle->slug . '">
+                <div class="mosaic_container">
+                    <img src="' . $imglink . '" alt="' . $homearticle->title . '" class="img-responsive add_bottom_30"><span class="caption_2"> ' . $homearticle->title . '</span>
+                </div>
+            </a>
+        </div>
+    ';
 }
 
 $jVars['module:aboutarticle'] = $t;
+
 
 /**
  *      Home page
@@ -45,14 +47,14 @@ if (defined('HOME_PAGE')) {
             } else {
                 $readmore = (count($content) > 1) ? '<a href="' . BASE_URL . 'page/' . $innRow->slug . '" title="">Read more...</a>' : '';
             }
-            $resinnh .= '
-            ' . $innRow->content . '';
+            $resinnh .= $innRow->content;
         }
     }
 
 }
 
 $jVars['module:home-article'] = $resinnh;
+
 
 /**
  *      Inner page detail
@@ -65,15 +67,15 @@ if (defined('INNER_PAGE') and isset($_REQUEST['slug'])) {
     $recRow = Article::find_by_slug($slug);
 
     if (!empty($recRow)) {
-        $slider='';
+        $slider = '';
         // $imageList='';
         $imglink = BASE_URL . 'template/web/images/default.jpg';
         if ($recRow->image != "a:0:{}") {
             $imageList = unserialize($recRow->image);
-            if(!empty($imageList)){
+            if (!empty($imageList)) {
                 // pr($imageList);
-                foreach($imageList as $slid){
-                $slider .='<div class="text-center item bg-img" data-overlay-dark="5" data-background="'.IMAGE_PATH . 'articles/'.$slid.'"></div>';
+                foreach ($imageList as $slid) {
+                    $slider .= '<div class="text-center item bg-img" data-overlay-dark="5" data-background="' . IMAGE_PATH . 'articles/' . $slid . '"></div>';
                 }
             }
             // $imgno = array_rand($imageList);
@@ -85,49 +87,35 @@ if (defined('INNER_PAGE') and isset($_REQUEST['slug'])) {
             //     $imglink = BASE_URL . 'template/web/images/default.jpg';
             // }
         }
-        
+
         $innerbred .= '
-
-        <main class="">
-        <div class="bg-dark-blue">
-            <div class="container">
-                <h1 class="text-light py-5 fw-light fs-1">
-                    ' . $recRow->title . '
-                </h1>
-            </div>
-        </div>
-       
-    
-
-
-
+            <main class="">
+                <div class="bg-dark-blue">
+                    <div class="container">
+                        <h1 class="text-light py-5 fw-light fs-1">
+                            ' . $recRow->title . '
+                        </h1>
+                    </div>
+                </div>
         ';
 
         $rescontent = explode('<hr id="system_readmore" style="border-style: dashed; border-color: orange;" />', trim($recRow->content));
         $content = !empty($rescontent[1]) ? $rescontent[1] : $rescontent[0];
 
-        $aboutdetail .= 
-
-        
-        '
-         <main class="">
-        <div class="bg-dark-blue">
-            <div class="container">
-                <h1 class="text-light py-5 fw-light fs-1">
-                    ' . $recRow->title . '
-                </h1>
-            </div>
-        </div>
-         <section class="container">
-
-                    '. $content.' 
-
-            
-
-
-        </section>
-
-    </main>';
+        $aboutdetail .= '
+            <main class="">
+                <div class="bg-dark-blue">
+                    <div class="container">
+                        <h1 class="text-light py-5 fw-light fs-1">
+                            ' . $recRow->title . '
+                        </h1>
+                    </div>
+                </div>
+                <section class="container">
+                    ' . $content . ' 
+                </section>
+            </main>
+        ';
 
     } else {
         redirect_to(BASE_URL);
@@ -161,48 +149,34 @@ if (!empty($typRow)) {
 $jVars['module:article_by_type'] = $restyp;
 
 
-
-/*
-    Why Choose Us
-*/
+/**
+ * Why Choose Us
+ */
 $resinnh1 = '';
 
 if (defined('HOME_PAGE')) {
-
     $resinnh1 .= '';
 
-// pr($resinnh1);
     $recInn1 = Article::find_by_id(2);
     if (!empty($recInn1)) {
-            $resinnh1 .= $recInn1->content;
-
-        
+        $resinnh1 .= $recInn1->content;
     }
-
 }
 
 $jVars['module:home_article'] = $resinnh1;
 
 
-/*
-    HomePage Facilities
-*/
+/**
+ * HomePage Facilities
+ */
 $resinnh1 = '';
 
 if (defined('HOME_PAGE')) {
-
     $resinnh1 .= '';
-
-
     $recInn1 = Article::find_by_id(3);
-
     if (!empty($recInn1)) {
-
-            $resinnh1 .= $recInn1->content;
-
-        
+        $resinnh1 .= $recInn1->content;
     }
-
 }
 
 $jVars['module:home_facilities'] = $resinnh1;
