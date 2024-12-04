@@ -33,6 +33,14 @@ class Advertisement extends DatabaseObject
         global $db;
         return self::find_by_sql("SELECT * FROM " . self::$table_name . " WHERE status=1 ORDER BY sortorder DESC");
     }
+
+    public static function find_all_with_limit($limit = '')
+    {
+        global $db;
+        $cond = !empty($limit)?' LIMIT '.$limit :'';
+        return self::find_by_sql("SELECT * FROM " . self::$table_name . " WHERE status=1 ORDER BY sortorder DESC $cond");
+    }
+
     public static function find_main($notid = '')
     {
         global $db;
@@ -47,7 +55,7 @@ class Advertisement extends DatabaseObject
     {
         global $db;
         $cond1 = !empty($notid) ? ' AND id<>' . $notid : '';
-        return self::find_by_sql("SELECT * FROM " . self::$table_name . " WHERE status=1 AND advertisement='".$type."' ORDER BY sortorder DESC");
+        return self::find_by_sql("SELECT * FROM " . self::$table_name . " WHERE status=1 AND advertisement='" . $type . "' ORDER BY sortorder DESC");
     }
 
     //Get sortorder by id

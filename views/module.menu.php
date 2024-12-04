@@ -79,12 +79,12 @@ if ($menuRec):
         endif;
         $result .= '</li>';
     endforeach;
-    $result .= '<li class="nav-item ">
+    $result .= '    <li class="nav-item ">
                         <a class="nav-link fs-6 bg-white px-5 py-2" href="'.BASE_URL.'signup">Sign in</a>
                     </li>
-                    </ul>';
+                </ul>';
 endif;
-// pr($result,0);
+
 $jVars['module:res-menu'] = $result;
 
 
