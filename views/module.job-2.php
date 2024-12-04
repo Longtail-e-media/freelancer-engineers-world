@@ -5,7 +5,7 @@ if (!empty($_SESSION)) {
     if (!empty($_SESSION['user_type']) && $_SESSION['user_type'] == 'client' && defined('CREATE_A_JOB')) {
 
         $record = client::find_by_userid($_SESSION['user_id']);
-        $createajob='
+        $createajob .='
         <section class="container">
             <div class="row job-title-content gx-0">
                 <div class="col-md-7 bg-light p-5" style="position: sticky; top: 5rem; max-height: max-content;">
@@ -32,34 +32,43 @@ if (!empty($_SESSION)) {
                         </div>
     
                         <div class="row g-3 mt-3">
+                        <div class="col-md-2">
+
+                        <label for="Currency" class="form-label fs-6">Currency<span
+                                        class="text-danger">*</span></label>
+                                <div class="form-floating">
+                                    <input type="text" class="form-control border-0 rounded-0 fs-6" id="Currency"
+                                           name="currency">
+                                </div>
+                            </div>
                             <div class="col-md-4">
                                 <label for="budgetType" class="form-label fs-6">Budget Type <span
                                         class="text-danger">*</span></label>
                                 <div class="d-flex gap-5 mt-2">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="budget_type"
-                                               id="budgetRangeOption" value="range" checked>
+                                               id="budgetRangeOption" value="0" checked>
                                         <label class="form-check-label" for="budgetRangeOption">Range</label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="budget_type"
-                                               id="budgetExactOption" value="exact">
+                                               id="budgetExactOption" value="1">
                                         <label class="form-check-label" for="budgetExactOption">Exact</label>
                                     </div>
                                 </div>
                             </div>
                             <!-- Budget Range -->
-                            <div class="col-md-8" id="budgetRangeFields">
+                            <div class="col-md-6" id="budgetRangeFields">
                                 <label for="budgetRangeMin" class="form-label fs-6">Budget Range <span
                                         class="text-danger">*</span></label>
                                 <div class="d-flex align-items-center gap-2">
                                     <input type="number" class="form-control border-0 rounded-0 fs-6" name="budget_range_low"
                                            id="budgetRangeMin"
-                                           value="10000">
+                                           >
                                     <span>to</span>
                                     <input type="number" class="form-control border-0 rounded-0 fs-6" name="budget_range_high"
                                            id="budgetRangeMax"
-                                           value="50000">
+                                           >
                                 </div>
                             </div>
     
@@ -68,11 +77,11 @@ if (!empty($_SESSION)) {
                                 <label for="budgetExact" class="form-label fs-6">Exact Budget <span
                                         class="text-danger">*</span></label>
                                 <input type="number" class="form-control border-0 rounded-0 fs-6" id="budgetExact" name="exact_budget"
-                                       placeholder="Enter Exact Budget" min="100" max="10000">
+                                       placeholder="Enter Exact Budget">
                             </div>
     
                             <!-- Budget Unit -->
-                           <div class="col-md-3 d-flex align-items-start flex-column">
+                          <!-- <div class="col-md-3 d-flex align-items-start flex-column">
                                 <label for="budgetUnit">Budget Unit <span class="text-danger">*</span></label>
                                 <select class="border-0 rounded-0 fs-7 pt-0 mt-2 px-2" id="budgetUnit" name="currency"
                                     style="width: 100%; height: 100%!important;">
@@ -81,8 +90,22 @@ if (!empty($_SESSION)) {
                                     <option value="GBP">GBP</option>
                                     <option value="NPR">NPR</option>
                                 </select>
-                            </div> 
+                            </div> -->
                         </div>
+                        <div class="row g-3 mt-3">
+                        <div class="col-md-3 d-flex align-items-start flex-column">
+                                <label for="budgetUnit">Budget Unit <span class="text-danger">*</span></label>
+                                <select class="border-0 rounded-0 fs-7 pt-2 mt-4 px-4" id="budgetUnit" name="job_type"
+                                    style="width: 100%; height: 100%!important;">';
+                                        $jobcategorys= jobtitle::find_all_active();
+                                    foreach($jobcategorys as $key => $jobcategory){
+                                        $createajob .='   <option value="'.$jobcategory->id.'" >'.$jobcategory->title.'</option>';
+
+                                    }
+                                 
+                              $createajob .=  '</select>
+                            </div>
+                            </div>
     
     
                         <div class="row g-3 mt-3">
@@ -92,7 +115,7 @@ if (!empty($_SESSION)) {
                                           placeholder="Provide a detailed job description" name="content"></textarea>
                             </div>
                         </div>
-    
+                        <div id="msgProfile"></div>
                         <div>
                             <button type="submit"
                                     class="btn btn-dark bg-dark-blue text-light px-5 py-2 fs-6 rounded-0 border-0 mt-5" id="submit">

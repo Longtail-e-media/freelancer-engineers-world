@@ -18,3 +18,4 @@ INSERT INTO `tbl_modules` (`id`, `parent_id`, `name`, `link`, `mode`, `icon_link
 
 -- 2024-12-04
 ALTER TABLE `tbl_jobs` ADD `currency` VARCHAR(255) NOT NULL AFTER `job_title`;
+ALTER TABLE `tbl_jobs` ADD `job_type` INT(11) NOT NULL AFTER `client_id`;
