@@ -48,6 +48,9 @@ require_once("views/module.dashboard.php");
 require_once("views/module.faq.php");
 require_once("views/module.contact.php");
 
+require_once("views/module.job-1.php");
+require_once("views/module.job-2.php");
+
 require_once("views/module.reservation.php");
 require_once("views/module.header.php");
 require_once("views/module.footer.php");
