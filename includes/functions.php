@@ -1076,6 +1076,52 @@ function get_front_pagination($total = '', $per_page = '2', $page = '1', $url = 
     return $pagination;
 }
 
+function get_front_pagination_new($total = '', $per_page = 2, $page = 1, $url = '')
+{
+    $total = !empty($total) ? $total : 0;
+    $lastpage = ceil($total / $per_page);
+    $prev = $page > 1 ? $page - 1 : 1;
+    $next = $page < $lastpage ? $page + 1 : $lastpage;
+
+    $pagination = '';
+    if ($lastpage > 1) {
+        $pagination .= '<ul class="pagination pagination-sm m-0 justify-content-center justify-content-lg-start">';
+
+        // Previous button
+        $prevClass = $page > 1 ? '' : 'disabled';
+        $pagination .= '<li class="page-item ' . $prevClass . '">';
+        $pagination .= '<a class="page-link text-dark border-0 rounded-0 bg-transparent" href="' . ($page > 1 ? $url . '/page/' . $prev : 'javascript:void(0);') . '">';
+        $pagination .= '<i class="fa fa-arrow-left"></i>';
+        $pagination .= '</a>';
+        $pagination .= '</li>';
+
+        // Current page
+        $pagination .= '<li class="page-item">';
+        $pagination .= '<a class="page-link text-dark border-0 rounded-0 bg-dark-subtle" href="javascript:void(0);">' . $page . '</a>';
+        $pagination .= '</li>';
+
+        // Total pages
+        $pagination .= '<li class="page-item">';
+        $pagination .= '<a class="page-link text-dark border-0 rounded-0 bg-transparent" href="javascript:void(0);">';
+        $pagination .= 'of <span>' . $lastpage . '</span>';
+        $pagination .= '</a>';
+        $pagination .= '</li>';
+
+        // Next button
+        $nextClass = $page < $lastpage ? '' : 'disabled';
+        $pagination .= '<li class="page-item ' . $nextClass . '">';
+        $pagination .= '<a class="page-link text-dark border-0 rounded-0 bg-transparent" href="' . ($page < $lastpage ? $url . '/page/' . $next : 'javascript:void(0);') . '">';
+        $pagination .= '<i class="fa fa-arrow-right"></i>';
+        $pagination .= '</a>';
+        $pagination .= '</li>';
+
+        $pagination .= '</ul>';
+    }
+
+    return $pagination;
+}
+
+
 function curPageURL(){
 
 	$pageURL = 'http';
