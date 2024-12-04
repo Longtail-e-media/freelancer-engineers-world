@@ -50,6 +50,7 @@ RewriteRule ^news/([0-9]+)/page/([0-9]+)?$  news_list.php?year=$1&pageno=$2 [L]
 RewriteRule ^jobs/?$                jobs.php [L]
 RewriteRule ^jobs/page/([0-9]+)?$   jobs.php?pageno=$1 [L]
 RewriteRule ^search/?$              search.php [L]
+RewriteRule ^job/([a-zA-Z0-9-]+)?$  job.php [L]
 
 #For offer pages.
 RewriteRule ^offer-list/?$  offers.php [L]
