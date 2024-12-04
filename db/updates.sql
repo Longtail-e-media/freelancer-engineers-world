@@ -15,3 +15,6 @@ UPDATE `tbl_modules` SET `sortorder` = '4' WHERE `tbl_modules`.`id` = 306;
 INSERT INTO `tbl_modules` (`id`, `parent_id`, `name`, `link`, `mode`, `icon_link`, `status`, `sortorder`, `added_date`, `properties`)
     VALUES (NULL, '74', 'Client Users', 'clientuser/list', 'clientuser', 'icon-users', '1', '2', '2024-12-03', ''),
            (NULL, '74', 'Freelancer Users', 'freelanceruser/list', 'freelanceruser', 'icon-users', '1', '3', '2024-12-03', '');
+
+-- 2024-12-04
+ALTER TABLE `tbl_jobs` ADD `currency` VARCHAR(255) NOT NULL AFTER `job_title`;

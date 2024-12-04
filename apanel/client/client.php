@@ -38,7 +38,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                         <td>
                             <a href="javascript:void(0);" title="" class="user-ico clearfix"
                                onclick="editRecord(<?php echo $record->id; ?>);">
-                                <span><?php echo $record->client_name; ?></span>
+                                <span><?php echo $record->first_name.' '.$record->middle_name.' '.$record->last_name; ?></span>
                             </a>
                         </td>
                        
@@ -130,8 +130,17 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
         ?>
         <td style="display:none;"><?php echo $clientInfo->sortorder; ?></td>
             <tr>
-    <th class="text-center">Client Name</th>
-    <td><?php echo $clientInfo->client_name; ?></td>
+    <th class="text-center">First Name</th>
+    <td><?php echo $clientInfo->first_name; ?></td>
+</tr>
+
+<tr>
+    <th class="text-center">Middle Name</th>
+    <td><?php echo $clientInfo->middle_name; ?></td>
+</tr>
+<tr>
+    <th class="text-center">Last Name</th>
+    <td><?php echo $clientInfo->last_name; ?></td>
 </tr>
 <tr>
     <th class="text-center">Username</th>
@@ -151,7 +160,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
 </tr>
 <tr>
     <th class="text-center">Profile Picture</th>
-    <td><?php echo $clientInfo->profile_picture; ?></td>
+    <td><a href="<?php echo IMAGE_PATH.'client/profile/'.$clientInfo->profile_pictiure; ?>" target="_blank"><?php echo $clientInfo->profile_pictiure; ?></a></td>
 </tr>
 <tr>
     <th class="text-center">Phone No</th>

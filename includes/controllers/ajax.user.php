@@ -507,6 +507,7 @@
 					$record->permanent_address 		= $_REQUEST['permanent_address'];
 					$record->pan_no 		= $_REQUEST['pan_no'];
 					$record->permanent_address 		= $_REQUEST['permanent_address'];
+					$record->upload_cv       = (!empty($_REQUEST['imageArrayname3'])) ? $_REQUEST['imageArrayname3'] : '';	
 					$record->upload_certificate       = (!empty($_REQUEST['imageArrayname2'])) ? $_REQUEST['imageArrayname2'] : '';	
 					$record->profile_picture       = (!empty($_REQUEST['imageArrayname'])) ? $_REQUEST['imageArrayname'] : '';	
 					$record->portfolio_website 	= $_REQUEST['portfolio_website'];			
@@ -518,8 +519,7 @@
 					if($record->save()): 
 
 						$user = User::find_by_id($_SESSION['user_id']);
-						if(!empty($user->password))
-						$user->password       = (!empty($_REQUEST['password'])) ? $_REQUEST['password'] : $user->password;	
+						$user->password       = (!empty($_REQUEST['password'])) ? md5($_REQUEST['password']) : $user->password;	
 						$user->save();
 						
 						$db->commit();
@@ -531,8 +531,9 @@
 				break;
 
 				case "updateProfileClient":
+					// pr($_FILES);
 					// $freelancerda= user::find_by_id($_SESSION['user_id']);
-					$record = freelancer::find_by_userid($_SESSION['user_id']);
+					$record = client::find_by_userid($_SESSION['user_id']);
 					// pr($record);
 					
 					// $record->slug 		= create_slug($_REQUEST['title']);							
@@ -542,10 +543,10 @@
 					$record->permanent_address 		= $_REQUEST['permanent_address'];
 					// $record->education_lvl 		= $_REQUEST['education_lvl'];
 					$record->pan_no 		= $_REQUEST['pan_no'];
-					$record->linkedIn_profile 		= $_REQUEST['linkedIn_profile'];
+					$record->linkdin_profile 		= $_REQUEST['linkedIn_profile'];
 					$record->facebook_profile 		= $_REQUEST['facebook_profile'];
 					$record->pan_no 		= $_REQUEST['pan_no'];
-					// $record->upload_certificate       = (!empty($_REQUEST['imageArrayname2'])) ? $_REQUEST['imageArrayname2'] : '';
+					$record->profile_pictiure       = (!empty($_REQUEST['imageArrayname4'])) ? $_REQUEST['imageArrayname4'] : '';
 					$record->status	= 1;
 		
 					$db->begin();

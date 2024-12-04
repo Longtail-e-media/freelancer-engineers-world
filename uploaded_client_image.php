@@ -12,14 +12,13 @@ if (!empty($imageNameArr)):
         <div class="form-row">
             <div class="" id="previewUserimage<?php echo $deleteid; ?>">
                 <div class="infobox info-bg">
-                    <span><?php echo $val; ?></span>
-                   <!-- <img src="<?php echo IMAGE_PATH . 'freelancer/engineeringCertificate/thumbnails/' . $val; ?>" style="width:100%"/>
+                    <img src="<?php echo IMAGE_PATH . 'client/profile/thumbnails/' . $val; ?>" style="width:100%"/>
                     <a href="javascript:void(0);" onclick="deleteTempimage(<?php echo $deleteid; ?>);">
                         <span class="badge badge-absolute float-right bg-red" style="right: -10px !important;">
                             <i class="glyph-icon icon-clock-os"></i>
                         </span>
-                    </a>-->
-                    <input type="hidden" name="imageArrayname2" value="<?php echo $val; ?>" class="validate[required,length[0,250]]"/>
+                    </a>
+                    <input type="hidden" name="imageArrayname4" value="<?php echo $val; ?>" class="validate[required,length[0,250]]"/>
                 </div>
             </div>
         </div>
@@ -30,8 +29,8 @@ endif;
 if (isset($_SESSION['imageNameArr'])) {
     if (count($_SESSION['imageNameArr']) > 0) {
         foreach ($_SESSION['imageNameArr'] as $key => $val) {
-            @unlink(IMAGE_PATH . 'freelancer/engineeringCertificate/thumbnails/' . $val);
-            @unlink(IMAGE_PATH . 'freelancer/engineeringCertificate/' . $val);
+            @unlink(IMAGE_PATH . 'client/profile/thumbnails/' . $val);
+            @unlink(IMAGE_PATH . 'client/profile/' . $val);
         }
         unset($_SESSION['imageNameArr']);
     }

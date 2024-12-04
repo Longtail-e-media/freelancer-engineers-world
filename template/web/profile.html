@@ -42,10 +42,14 @@
             reader.onload = function (e) {
                 previewContainer.style.display = 'block';
                 previewImage.src = e.target.result;
+                previewImage.setAttribute('name', 'img');
             };
             reader.readAsDataURL(input.files[0]);
         } else {
             previewContainer.style.display = 'none';
+
+            // Remove the name attribute if no file is selected
+            previewImage.removeAttribute('name');
         }
     }
 </script>
@@ -99,10 +103,10 @@
 
         $('#eng_certify').uploadify({
             'swf': base_url + 'assets/uploadify/uploadify.swf',
-            'uploader': base_url + 'assets/uploadify/uploadify.php',
+            'uploader': base_url + 'template/web/uploadify/uploadify.php',
             'formData': {
                 PROJECT: '<jcms:site:SITE_FOLDER/>',
-                targetFolder: 'images/freelancer/profile/',
+                targetFolder: 'images/freelancer/engineeringCertificate/',
                 thumb_width: 200,
                 thumb_height: 200
             },
@@ -117,13 +121,13 @@
             'removeCompleted': true,
             'progressData': 'speed',
             'uploadLimit': 100,
-            'fileTypeExts': '*.gif; *.jpg; *.jpeg;  *.png; *.GIF; *.JPG; *.JPEG; *.PNG;',
+            'fileTypeExts': '*.gif; *.jpg; *.jpeg;  *.png; *.pdf; *.GIF; *.JPG; *.JPEG; *.PNG; *.PDF;',
             'buttonClass': 'button formButtons',
             /* 'checkExisting' : '/uploadify/check-exists.php',*/
             'onUploadSuccess': function (file, data, response) {
                 var filename = data;
-                $.post(base_url + 'uploaded_user_image.php', {imagefile: filename}, function (msg) {
-                    $('#preview_Image').html(msg).show();
+                $.post(base_url + 'uploaded_engineeringCertificate_image.php', {imagefile: filename}, function (msg) {
+                    $('#preview_Image2').html(msg).show();
                 });
 
             },
@@ -135,6 +139,92 @@
             'onUploadComplete': function (file) {
                 //alert('The file ' + file.name + ' was successfully uploaded');
             }
+
+           
+        });
+
+        $('#eng_cv').uploadify({
+            'swf': base_url + 'assets/uploadify/uploadify.swf',
+            'uploader': base_url + 'template/web/uploadify/uploadify.php',
+            'formData': {
+                PROJECT: '<jcms:site:SITE_FOLDER/>',
+                targetFolder: 'images/freelancer/cv/',
+                thumb_width: 200,
+                thumb_height: 200
+            },
+            'method': 'post',
+            'cancelImg': base_url + 'assets/uploadify/cancel.png',
+            'auto': true,
+            'multi': true,
+            'hideButton': false,
+            'buttonText': 'Upload Image',
+            'width': 125,
+            'height': 27,
+            'removeCompleted': true,
+            'progressData': 'speed',
+            'uploadLimit': 100,
+            'fileTypeExts': '*.gif; *.jpg; *.jpeg;  *.png; *.pdf; *.GIF; *.JPG; *.JPEG; *.PNG; *.PDF;',
+            'buttonClass': 'button formButtons',
+            /* 'checkExisting' : '/uploadify/check-exists.php',*/
+            'onUploadSuccess': function (file, data, response) {
+                var filename = data;
+                $.post(base_url + 'uploaded_freelancer_cv.php', {imagefile: filename}, function (msg) {
+                    $('#preview_Image3').html(msg).show();
+                });
+
+            },
+            'onDialogOpen': function (event, ID, fileObj) {
+            },
+            'onUploadError': function (file, errorCode, errorMsg, errorString) {
+                alert(errorMsg);
+            },
+            'onUploadComplete': function (file) {
+                //alert('The file ' + file.name + ' was successfully uploaded');
+            }
+
+           
+        });
+
+        $('#clientprofile').uploadify({
+            'swf': base_url + 'assets/uploadify/uploadify.swf',
+            'uploader': base_url + 'assets/uploadify/uploadify.php',
+            'formData': {
+                PROJECT: '<jcms:site:SITE_FOLDER/>',
+                targetFolder: 'images/client/profile/',
+                thumb_width: 200,
+                thumb_height: 200
+            },
+            'method': 'post',
+            'cancelImg': base_url + 'assets/uploadify/cancel.png',
+            'auto': true,
+            'multi': true,
+            'hideButton': false,
+            'buttonText': 'Upload Profile Pictuire',
+            'width': 125,
+            'height': 27,
+            'removeCompleted': true,
+            'progressData': 'speed',
+            'uploadLimit': 1,
+            'fileTypeExts': ' *.jpg; *.jpeg;  *.png;  *.JPG; *.JPEG; *.PNG;',
+            'buttonClass': 'button formButtons',
+            /* 'checkExisting' : '/uploadify/check-exists.php',*/
+            'onUploadSuccess': function (file, data, response) {
+                var filename = data;
+                $.post(base_url + 'uploaded_client_image.php', {imagefile: filename}, function (msg) {
+                    $('#preview_Image4').html(msg).show();
+                });
+
+            },
+            'onDialogOpen': function (event, ID, fileObj) {
+            },
+            'onUploadError': function (file, errorCode, errorMsg, errorString) {
+                alert(errorMsg);
+            },
+            'onUploadComplete': function (file) {
+                //alert('The file ' + file.name + ' was successfully uploaded');
+            }
+
+           
         });
 
         // Save Form

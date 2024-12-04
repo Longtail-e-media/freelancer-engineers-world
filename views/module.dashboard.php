@@ -109,15 +109,31 @@ if (!empty($_SESSION)) {
                                 <div class="col-md-4">
                                     <div class="profile-picture-upload my-4 bg-light">
                                         <label for="profilePicture" class="form-label fw-bold">Upload Profile Picture</label>
-                                        <input type="file" class="form-control border-0 rounded-0 fs-5" id="profilePicture"
+                                        <input type="file" class="form-control border-0 rounded-0 fs-5" id="clientprofile" name="clientprofile"
                                             accept="image/*" onchange="previewImage(event)">
                                     </div>
+                                     <div id="preview_Image4"></div>';
+                                      if (!empty($clientdata->profile_pictiure)) {
+            $profile .= '
+                                <div class="" id="removeSavedimg4">
+                                    <div class="infobox info-bg">
+                                        <div class="button-group" data-toggle="buttons">
+                                            <a class="btn small float-right" href="javascript:void(0);" onclick="deleteSavedimage(4);">
+                                                <i class="fas fa-times"></i>
+                                            </a>
+                                        </div>
+                                        <img src="' . IMAGE_PATH . 'client/profile/thumbnails/' . $clientdata->profile_pictiure . '" style="width:100%"/>
+                                        <input type="hidden" name="imageArrayname" value="' . $clientdata->profile_pictiure . '" class=""/>
+                                    </div>
+                                </div>
+            ';
+        }
         
-                                    <div class="mb-4">
+                            $profile .= '         <div class="mb-4">
                                         <a href="https://chat.openai.com/" target="_blank" class="fst-italic text-dark">Use
                                             ChatGPT to Create Project Details</a>
                                     </div>
-        
+                                    <div id="msgProfile"></div>                                        
                                     <div>
                                         <button type="submit"
                                             class="btn btn-dark bg-dark-blue text-light px-5 py-2 fs-5 rounded-0 border-0 mt-4" id="submitClient">
@@ -125,29 +141,8 @@ if (!empty($_SESSION)) {
                                         </button>
                                     </div>
                                 </div>
-                                <div class="col-md-1"></div>
-                                <div class="col-md-4">
-                                    <div class="profile-picture-preview mt-3" id="profilePicturePreview">
-                                        <img src="" alt="Profile Preview" name="img">
-                                    </div>
-                                </div>
-                                <div id="preview_Image"></div>
                                 ';
-        if (!empty($user->image)) {
-            $profile .= '
-                                <div class="" id="removeSavedimg1">
-                                    <div class="infobox info-bg">
-                                        <div class="button-group" data-toggle="buttons">
-                                            <a class="btn small float-right" href="javascript:void(0);" onclick="deleteSavedimage(1);">
-                                                <i class="fas fa-times"></i>
-                                            </a>
-                                        </div>
-                                        <img src="' . IMAGE_PATH . 'freelancer/profile/thumbnails/' . $user->image . '" style="width:100%"/>
-                                        <input type="hidden" name="imageArrayname" value="' . $user->image . '" class=""/>
-                                    </div>
-                                </div>
-            ';
-        }
+      
         $profile .= '  
                                 <div class="col-md-3"></div>
                             </div>
@@ -301,10 +296,8 @@ if (!empty($_SESSION)) {
                                 <div class="col-md-6">
                                     <label class="form-label">Upload Nepal Engineering Certificate</label>
                                     <input type="file" class="form-control border-0 rounded-0 fs-5" id="eng_certify" name="eng_certify" 
-                                        accept=".pdf,.doc,.docx" required>
-                                </div>
-                                    <div id="preview_Image"></div>
-                                ';
+                                        accept=".pdf,.doc,.docx" required> 
+                                        <div id="preview_Image2"></div>';
         if (!empty($freelancerdata->upload_certificate)) {
             $profile .= '
                                     <div class="" id="removeSavedimg2">
@@ -314,17 +307,36 @@ if (!empty($_SESSION)) {
                                                     <i class="fas fa-times"></i>
                                                 </a>
                                             </div>
-                                            <img src="' . IMAGE_PATH . 'freelancer/engineeringCertificate/thumbnails/' . $freelancerdata->upload_certificate . '" style="width:100%"/>
+                                            <span><a href="' . IMAGE_PATH . 'freelancer/engineeringCertificate/' . $freelancerdata->upload_certificate . '" target="_blank">' . $freelancerdata->upload_certificate . '</a> </span>
                                             <input type="hidden" name="imageArrayname2" value="' . $freelancerdata->upload_certificate . '" class=""/>
                                         </div>
                                     </div>
             ';
         }
-        $profile .= '
+        $profile .= '</div>
+                                 
+       
                                 <div class="col-md-6">
                                     <label class="form-label">Upload CV</label>
-                                    <input type="file" class="form-control border-0 rounded-0 fs-5" id="cv"
+                                    <input type="file" class="form-control border-0 rounded-0 fs-5" id="eng_cv"
                                         accept=".pdf,.doc,.docx" required>
+                                        <div id="preview_Image3"></div>';
+        if (!empty($freelancerdata->upload_cv)) {
+            $profile .= '
+                                    <div class="" id="removeSavedimg3">
+                                        <div class="infobox info-bg">
+                                            <div class="button-group" data-toggle="buttons">
+                                                <a class="btn small float-right" href="javascript:void(0);" onclick="deleteSavedimage(3);">
+                                                    <i class="fas fa-times"></i>
+                                                </a>
+                                            </div>
+                                            <span><a href="' . IMAGE_PATH . 'freelancer/cv/' . $freelancerdata->upload_cv . '" target="_blank">' . $freelancerdata->upload_cv . '</a> </span>
+                                            <input type="hidden" name="imageArrayname2" value="' . $freelancerdata->upload_cv . '" class=""/>
+                                        </div>
+                                    </div>
+            ';
+        }
+        $profile .= '
                                 </div>
                             </div>
         
@@ -358,11 +370,8 @@ if (!empty($_SESSION)) {
                                 <div class="col-md-4">
                                     <label class="form-label">Profile Picture</label>
                                     <input type="file" class="form-control border-0 rounded-0 fs-5" name="img" id="img"
-                                        accept="image/*" >
-                                </div>
-                                <div id="preview_Image"></div>
-                                ';
-        if (!empty($freelancerdata->profile_picture)) {
+                                        accept="image/*" >';
+                                         if (!empty($freelancerdata->profile_picture)) {
             $profile .= '
                                 <div class="" id="removeSavedimg1">
                                     <div class="infobox info-bg">
@@ -377,6 +386,10 @@ if (!empty($_SESSION)) {
                                 </div>
             ';
         }
+                  $profile .= '              </div>
+                                <div id="preview_Image"></div>
+                                ';
+       
         $profile .= ' 
                                 <div class="col-md-1"></div>
                                 <div class="col-md-4 profile-picture-preview" id="profilePicturePreview">
@@ -385,7 +398,7 @@ if (!empty($_SESSION)) {
                                 <div class="col-md-3"></div>
         
                             </div>
-        
+                            <div id="msgProfile"></div>
                             <div class="mt-5">
                                 <button type="submit" id="submitProfile"
                                     class="btn btn-dark bg-dark-blue text-light px-5 py-2 fs-5 rounded-0 border-0 mt-4">
