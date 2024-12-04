@@ -14,10 +14,13 @@ if (!empty($_SESSION)) {
         $profile .= '
             <main class="">
                 <div class="bg-dark-blue">
-                    <div class="container">
-                        <h1 class="text-light py-5 fw-light fs-1">
+                     <div class="container py-5 d-flex align-items-center justify-content-between">
+                        <h1 class="text-light fw-light fs-1">
                             Update your profile
                         </h1>
+                         <a href="'.BASE_URL.'create-job" class="btn btn-dark bg-light text-dark px-4 py-2 fs-6 rounded-0">
+                Create Job
+                        </a>
                     </div>
                 </div>
                 <section class="container form-container">
