@@ -138,26 +138,28 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
         </tr>
         </thead>
         <tbody>
-        <tr>
-    <th class="text-center">ID</th>
-    <td><?php echo $jobsInfo->id; ?></td>
-</tr>
-<tr>
-    <th class="text-center">Client ID</th>
-    <td><?php echo $jobsInfo->client_id; ?></td>
-</tr>
+       
 <tr>
     <th class="text-center">Job Title</th>
     <td><?php echo $jobsInfo->job_title; ?></td>
 </tr>
+
+<tr>
+    <th class="text-center">Job Category</th>
+    <td><?php $jobcate= jobtitle::find_by_id($jobsInfo->job_type); echo $jobcate->title; ?></td>
+</tr>
+
+<tr>
+    <th class="text-center">currency</th>
+    <td><?php  echo $jobsInfo->currency; ?></td>
+</tr>
+
 <tr>
     <th class="text-center">Budget Type</th>
-    <td><?php echo $jobsInfo->budget_type; ?></td>
+    <td><?php $statusbudget = ($jobsInfo->budget_type == 1) ? "Exact" : "Range"; echo $statusbudget; ?></td>
 </tr>
-<tr>
-    <th class="text-center">Exact Budget</th>
-    <td><?php echo $jobsInfo->exact_budget; ?></td>
-</tr>
+<?php if($jobsInfo->budget_type==0){?>
+
 <tr>
     <th class="text-center">Budget Range High</th>
     <td><?php echo $jobsInfo->budget_range_high; ?></td>
@@ -166,6 +168,14 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
     <th class="text-center">Budget Range Low</th>
     <td><?php echo $jobsInfo->budget_range_low; ?></td>
 </tr>
+<?php }
+elseif($jobsInfo->budget_type==1){
+    ?>
+<tr>
+    <th class="text-center">Exact Budget</th>
+    <td><?php echo $jobsInfo->exact_budget; ?></td>
+</tr>
+<?php }?>
 <tr>
     <th class="text-center">Deadline Date</th>
     <td><?php echo $jobsInfo->deadline_date; ?></td>
@@ -173,14 +183,6 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
 <tr>
     <th class="text-center">Content</th>
     <td><?php echo $jobsInfo->content; ?></td>
-</tr>
-<tr>
-    <th class="text-center">Archive Date</th>
-    <td><?php echo $jobsInfo->archive_date; ?></td>
-</tr>
-<tr>
-    <th class="text-center">Status</th>
-    <td><?php echo $jobsInfo->status; ?></td>
 </tr>
 
         </tbody>

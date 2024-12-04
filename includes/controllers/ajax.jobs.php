@@ -24,6 +24,8 @@
 			$record->budget_range_high 		= $_REQUEST['budget_range_high'];
 			$record->exact_budget 		= $_REQUEST['exact_budget'];
 			$record->content	= $_REQUEST['content'];			
+			$record->job_type	= $_REQUEST['job_type'];			
+			$record->currency	= $_REQUEST['currency'];			
 			$record->status		= 1;
 			$record->sortorder	= jobs::find_maximum();		
 			$db->begin();
@@ -35,42 +37,7 @@
 			endif;
 		break;
 			
-		case "edit":
-			$record = jobs::find_by_id($_REQUEST['idValue']);
-			
-			$record->slug 		= create_slug($_REQUEST['title']);							
-			$record->title 		= $_REQUEST['title'];
-			$record->author 	= $_REQUEST['author'];	
-			$record->brief 		= $_REQUEST['brief'];		
-			$record->content	= $_REQUEST['content'];
-			$record->linksrc 		= $_REQUEST['linksrc'];
-			$record->linktype 		= $_REQUEST['linktype'];
-			$record->other_upload       = (!empty($_REQUEST['imageArrayname7'])) ? $_REQUEST['imageArrayname7'] : '';
-			// $record->type 		= $_REQUEST['type'];
-			// if($_REQUEST['type']==1){
-			// 	$record->image		= $_REQUEST['imageArrayname'];
-			// 	$record->source 	= '';
-			// }else{
-			// 	$record->source 	= $_REQUEST['source'];
-			// 	$record->image		= '';
-			// }	    		    
-
-
-			!(empty($_REQUEST['imageArrayname'])) ? ($record->image	= $_REQUEST['imageArrayname']): ($record->image	= '');
-
-
-			$record->jobs_date 	= $_REQUEST['jobs_date'];			
-			$record->status		= $_REQUEST['status'];
-			$record->meta_keywords		= $_REQUEST['meta_keywords'];
-			$record->meta_description	= $_REQUEST['meta_description'];
-
-			$db->begin();
-			if($record->save()): $db->commit();
-			   $message  = sprintf($GLOBALS['basic']['changesSaved_'], "jobs '".$record->title."'");
-			   echo json_encode(array("action"=>"success","message"=>$message));
-			else: $db->rollback(); echo json_encode(array("action"=>"notice","message"=>$GLOBALS['basic']['noChanges']));
-			endif;
-		break;
+		
 			
 		case "delete":
 			$id = $_REQUEST['id'];

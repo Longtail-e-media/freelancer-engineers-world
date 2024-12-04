@@ -5,6 +5,7 @@ class jobs extends DatabaseObject {
 	protected static $db_fields = array(
 		'id',
 		'client_id',
+		'job_type',
 		'slug',
 		'currency',
 		'job_title',
@@ -21,6 +22,7 @@ class jobs extends DatabaseObject {
 	
 	public $id;
 	public $client_id;
+	public $job_type;
 	public $slug;
 	public $currency;
 	public $job_title;
