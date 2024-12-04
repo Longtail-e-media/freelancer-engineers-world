@@ -11,18 +11,6 @@
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css'>
     <link rel="stylesheet" href="assets/css/style.css">
-
-    <style>
-        a.page-link:focus {
-            border: 0;
-            outline: 0;
-            box-shadow: none;
-        }
-
-        .padding-bottom-100 {
-            padding-bottom: 100px;
-        }
-    </style>
 </head>
 
 <body>
@@ -32,7 +20,7 @@
     <div class="bg-dark-blue">
         <div class="container">
             <h1 class="text-light py-4 py-lg-5 fw-light fs-2 fs-lg-1">
-                Top Jobs
+                Searched Jobs
             </h1>
         </div>
     </div>
@@ -40,10 +28,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-lg-9">
-                    <jcms:module:jobs:job-list/>
+                    <jcms:module:jobs:search-list/>
                 </div>
                 <div class="col-12 col-lg-3 mt-4 mt-lg-0">
-                    <div class="advertisement-container d-flex flex-column gap-4">
+                    <div class="advertisement-container d-flex flex-column gap-3 gap-md-4">
                         <jcms:module:advert:job-list/>
                     </div>
                 </div>
@@ -59,21 +47,13 @@
         crossorigin="anonymous"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js'></script>
+<script src="assets/js/jquery.lazyload.min.js"></script>
 <!--<script src="./assets/js/app.js"></script>-->
-<script src="assets/js/jquery.validate.js"></script>
 
 <script>
-    var base_url = $('base').attr('url');
     $(document).ready(function () {
-        $('#searchForm').validate({
-            errorElement: "span",
-            errorClass: "text-danger",
-            rules: {searchkey: {required: !0}},
-            submitHandler: function (form) {
-                form.submit();
-            }
-        })
-    })
+        $('.lazy').lazyload();
+    });
 </script>
 </body>
 

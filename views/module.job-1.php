@@ -59,13 +59,13 @@ if (defined('JOB_LIST_PAGE')) {
 
     if (!empty($Records)) {
         $list_body .= '
-            <div class="input-group input-group-md bg-body-secondary p-2 mb-4 flex-wrap align-items-center flex-lg-nowrap gap-2">
-                <input type="text" class="form-control rounded-0 py-3" placeholder="Search by Keyword">
-                <button type="button" class="bg-danger-subtle text-dark text-decoration-none py-3 px-3 px-lg-5 border-0 outline-0">Search</button>
+            <form action="search" method="post" id="searchForm" class="input-group input-group-md bg-body-secondary p-2 mb-4 flex-wrap align-items-center flex-lg-nowrap gap-2">
+                <input type="text" class="form-control rounded-0 py-3" name="searchkey" placeholder="Search by Keyword">
+                <button type="submit" class="bg-danger-subtle text-dark text-decoration-none py-3 px-3 px-lg-5 border-0 outline-0">Search</button>
                 <nav aria-label="Page navigation" class="">
                     ' . get_front_pagination_new($total, $limit, $page, BASE_URL . 'jobs') . '
                 </nav>
-            </div>
+            </form>
             <div class="jobs-container">
         ';
 
@@ -110,3 +110,86 @@ if (defined('JOB_LIST_PAGE')) {
 }
 
 $jVars['module:jobs:job-list'] = $list_body;
+
+
+/**
+ *      Job Search Page
+ */
+$search_body = '';
+
+if (defined('JOB_SEARCH_PAGE')) {
+    if (isset($_REQUEST)) {
+        foreach ($_REQUEST as $key => $val) {
+            $$key = $val;
+        }
+    }
+
+    if (!empty($searchkey)) {
+        $sql = "SELECT j.*
+            FROM tbl_jobs as j
+            INNER JOIN tbl_jobtitle as jt ON j.job_type = jt.id
+            WHERE j.status=1 AND
+            ( j.job_title LIKE '%" . $searchkey . "%' OR
+              jt.title LIKE '%" . $searchkey . "%' ) ";
+    } else {
+        $sql = "SELECT * FROM tbl_jobs WHERE status=1 ORDER BY sortorder DESC";
+    }
+
+    $res = $db->query($sql);
+    $total = $db->num_rows($res);
+
+    if ($total > 0) {
+        $search_body .= '
+            <div class="input-group input-group-md bg-body-secondary mb-4">
+                <p class="p-4 pb-2">
+                    <em>Search results for "<span>' . (!empty($searchkey) ? $searchkey : '') . '</span>"</em>
+                </p>
+            </div>
+            <div class="jobs-container">
+        ';
+        while ($rows = $db->fetch_object($res)) {
+            $budget_text = ($rows->budget_type == 0) ? $rows->currency . ' ' . $rows->exact_budget : $rows->currency . ' ' . $rows->budget_range_low . ' - ' . $rows->budget_range_high;
+            $bids_txt = Bids::find_total_bids($rows->id);
+            $search_body .= '
+                <div class="lazy"><!--
+                    <div class="bg-body-secondary p-3 p-sm-4 p-lg-4 mb-3">
+                        <div class="d-flex flex-column flex-sm-row justify-content-between gap-3 gap-sm-0">
+                            <div class="mb-2 mb-sm-0">
+                                <a href="' . BASE_URL . 'job/' . $rows->slug . '" class="text-decoration-none text-dark">
+                                    <h5 class="fs-5 fw-bold mb-1">' . $rows->job_title . '</h5>
+                                </a>
+                                <p class="fs-6 mb-0">Bid End Date: ' . date('M d, Y', strtotime($rows->deadline_date)) . '</p>
+                            </div>
+                            <div>
+                                <h5 class="fs-6 fw-bold mb-1">' . $budget_text . '</h5>
+                                <p class="fs-6 mb-0">' . $bids_txt . ' bids</p>
+                            </div>
+                        </div>
+                        <div class="py-3 py-lg-4">
+                            <p class="fs-7 mb-0">
+                                ' . $rows->content . '
+                            </p>
+                        </div>
+                    </div>
+                --></div>
+            ';
+        }
+        $search_body .= '
+            </div>
+        ';
+    } else {
+        $search_body .= '
+            <div class="input-group input-group-md bg-body-secondary mb-4">
+                <p class="p-4 pb-2">
+                    <em>Search results for "<span>' . (!empty($searchkey) ? $searchkey : '') . '</span>"</em>
+                </p>
+            </div>
+            <div class="jobs-container">
+                <h3>No Jobs Found</h3>
+            </div>
+        ';
+    }
+
+}
+
+$jVars['module:jobs:search-list'] = $search_body;
