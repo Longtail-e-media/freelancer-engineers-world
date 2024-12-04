@@ -1,22 +1,42 @@
 <?php
 
-class Advertisement extends DatabaseObject
+class Bids extends DatabaseObject
 {
 
-    protected static $table_name = "tbl_advertisement";
-    protected static $db_fields = array('id', 'title', 'image', 'linktype', 'linksrc', 'status', 'added_date', 'sortorder', 'advertisement');
+    protected static $table_name = "tbl_bids";
+    protected static $db_fields = array(
+        'id', 'job_id', 'client_id', 'freelancer_id', 'bid_amount', 'delivery', 'message', 'project_status', 'added_date', 'sortorder', 'status'
+    );
 
-    public $id;
-    public $title;
-    public $image;
-    public $linktype;
-    public $linksrc;
-    public $status;
-    public $added_date;
-    public $sortorder;
+    public $id, $job_id, $client_id, $freelancer_id, $bid_amount, $delivery, $message, $project_status, $added_date, $sortorder, $status;
 
-    public $advertisement;
 
+    public static function get_by_type($type = "1")
+    {
+        global $db;
+        $result_array = self::find_by_sql("SELECT * FROM " . self::$table_name . " WHERE type='$type' AND status=1 LIMIT 1");
+        return !empty($result_array) ? array_shift($result_array) : false;
+    }
+
+    public static function getTotalSub($parent_id = '')
+    {
+        global $db;
+        $cond = !empty($parent_id) ? ' AND parent_id=' . $parent_id : '';
+        $query = "SELECT COUNT(id) AS tot FROM " . self::$table_name . " WHERE status=1 $cond ";
+        $sql = $db->query($query);
+        $ret = $db->fetch_array($sql);
+        return $ret['tot'];
+    }
+
+    public static function find_total_bids($job_id = '')
+    {
+        global $db;
+        $cond = !empty($job_id) ? ' AND job_id=' . $job_id : '';
+        $query = "SELECT COUNT(id) AS tot FROM " . self::$table_name . " WHERE status=1 $cond ";
+        $sql = $db->query($query);
+        $ret = $db->fetch_array($sql);
+        return $ret['tot'];
+    }
 
     //FIND THE HIGHEST MAX NUMBER.
     public static function find_maximum($field = "sortorder")
@@ -31,31 +51,14 @@ class Advertisement extends DatabaseObject
     public static function find_all()
     {
         global $db;
+        return self::find_by_sql("SELECT * FROM " . self::$table_name . " ORDER BY sortorder ASC");
+    }
+
+    //Find all the rows in the current database table.
+    public static function find_all_active()
+    {
+        global $db;
         return self::find_by_sql("SELECT * FROM " . self::$table_name . " WHERE status=1 ORDER BY sortorder DESC");
-    }
-
-    public static function find_all_with_limit($limit = '')
-    {
-        global $db;
-        $cond = !empty($limit)?' LIMIT '.$limit :'';
-        return self::find_by_sql("SELECT * FROM " . self::$table_name . " WHERE status=1 ORDER BY sortorder DESC $cond");
-    }
-
-    public static function find_main($notid = '')
-    {
-        global $db;
-        $cond1 = !empty($notid) ? ' AND id<>' . $notid : '';
-        return self::find_by_sql("SELECT * FROM " . self::$table_name . " WHERE status=1 $cond1 ORDER BY sortorder DESC");
-    }
-
-
-    //Find by ad type
-
-    public static function find_by_ad_type($type = 0)
-    {
-        global $db;
-        $cond1 = !empty($notid) ? ' AND id<>' . $notid : '';
-        return self::find_by_sql("SELECT * FROM " . self::$table_name . " WHERE status=1 AND advertisement='" . $type . "' ORDER BY sortorder DESC");
     }
 
     //Get sortorder by id

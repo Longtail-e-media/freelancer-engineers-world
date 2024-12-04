@@ -11,63 +11,66 @@ RewriteRule ^sitemap\.xml$ sitemap.php [L]
 #RewriteRule ^(.*)$ https://www.knownepal.com/peninsula.com/$1 [L,R=301]
 
 #For home page. i.e. index.php
-RewriteRule ^home$ index.php [L]
-ErrorDocument 404 /index.php
+RewriteRule ^home$  index.php [L]
+ErrorDocument 404   /index.php
 
 #For Offer page. i.e. book.php
-RewriteRule ^book/([a-zA-Z0-9-]+)/?$ book.php?slug=$1 [L]
+RewriteRule ^book/([a-zA-Z0-9-]+)/?$    book.php?slug=$1 [L]
 
 #For inner pages.
 #RewriteRule ^about-us/?$ about.php [L]
-RewriteRule ^page/([a-zA-Z0-9-=_.]+)$ inner.php?slug=$1 [L]
+RewriteRule ^page/([a-zA-Z0-9-=_.]+)$   inner.php?slug=$1 [L]
 
 #For gallery pages.
-RewriteRule ^gallery-list/?$ gallery.php [L]
+RewriteRule ^gallery-list/?$            gallery.php [L]
 
 #For gallery pages.
-RewriteRule ^signup/?$ signup.php [L]
-RewriteRule ^login/?$ login.php [L]
-RewriteRule ^logout/?$ logout.php [L]
-RewriteRule ^profile/?$ profile.php [L]
+RewriteRule ^signup/?$      signup.php [L]
+RewriteRule ^login/?$       login.php [L]
+RewriteRule ^logout/?$      logout.php [L]
+RewriteRule ^profile/?$     profile.php [L]
 
 #for jobs
 RewriteRule ^create-job/?$ createjob.php [L]
 
 
 #For contact pages.
-RewriteRule ^contact-us/?$ contact.php [L]
+RewriteRule ^contact-us/?$  contact.php [L]
 
 #For reservation pages.
 RewriteRule ^reservation/?$ reservation.php [L]
 
 #For news pages
-RewriteRule ^news/?$ news_list.php [L]
-RewriteRule ^news/([a-zA-Z0-9-]+)?$ news.php?slug=$1 [L]
-RewriteRule ^news/page/([0-9]+)?$ news_list.php?pageno=$1 [L]
-RewriteRule ^news/([0-9]+)/page/([0-9]+)?$ news_list.php?year=$1&pageno=$2 [L]
+RewriteRule ^news/?$                        news_list.php [L]
+RewriteRule ^news/([a-zA-Z0-9-]+)?$         news.php?slug=$1 [L]
+RewriteRule ^news/page/([0-9]+)?$           news_list.php?pageno=$1 [L]
+RewriteRule ^news/([0-9]+)/page/([0-9]+)?$  news_list.php?year=$1&pageno=$2 [L]
+
+# For Job list/search pages
+RewriteRule ^jobs/?$    jobs.php [L]
 
 #For offer pages.
-RewriteRule ^offer-list/?$ offers.php [L]
+RewriteRule ^offer-list/?$  offers.php [L]
 
 #For service pages.
-RewriteRule ^service/([a-zA-Z0-9-]+)$ service_list.php?slug=$1 [L]
-RewriteRule ^services/?$ service_list.php [L]
+RewriteRule ^service/([a-zA-Z0-9-]+)$   service_list.php?slug=$1 [L]
+RewriteRule ^services/?$                service_list.php [L]
 
 #For facilities pages.
-RewriteRule ^facilities-list/?$ facilities.php [L]
+RewriteRule ^facilities-list/?$         facilities.php [L]
 
 #For facq pages.
-RewriteRule ^faq/?$ faq.php [L]
+RewriteRule ^faq/?$     faq.php [L]
 
 #For career pages.
-RewriteRule ^career-form/([a-zA-Z0-9-]+)?$ career-form.php?slug=$1 [L]
+RewriteRule ^career-form/([a-zA-Z0-9-]+)?$  career-form.php?slug=$1 [L]
 
 #For career-form pages.
-RewriteRule ^career/?$ career.php [L]
+RewriteRule ^career/?$          career.php [L]
 
 #For BLOG pages.
-RewriteRule ^blog/?$ blog.php [L]
-RewriteRule ^blog/([a-zA-Z0-9-=]+)$ blog.php?slug=$1 [L]
+RewriteRule ^blog/?$                    blog.php [L]
+RewriteRule ^blog/([a-zA-Z0-9-=]+)$     blog.php?slug=$1 [L]
 
 #For Package and Subpackage Details
 #RewriteRule ^package/([a-zA-Z0-9-=]+)$ package.php?slug=$1 [L]

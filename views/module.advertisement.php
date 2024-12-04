@@ -1,6 +1,6 @@
 <?php
 
-$advertdatas = Advertisement::find_all();
+$advertdatas = Advertisement::find_all_with_limit(4);
 $advertdetail = '';
 
 if (!empty($advertdatas)) {

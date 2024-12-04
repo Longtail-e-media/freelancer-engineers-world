@@ -27,7 +27,7 @@ $email = explode(',', $siteRegulars->email_address);
 
 $footer = '
     <footer class="bg-body-secondary">
-        <div class="container-xxl">
+        <div class="container">
             <div class="row">
                 <div class="col-lg-3">
                     ' . $jVars['module:res-footer2'] . '
