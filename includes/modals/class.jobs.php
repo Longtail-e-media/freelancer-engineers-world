@@ -96,6 +96,14 @@ class jobs extends DatabaseObject {
 		return self::find_by_sql($sql);
 	}
 
+    public static function get_homepage_jobs($limit='')
+    {
+        global $db;
+        $cond = !empty($limit)?' LIMIT '.$limit:'';
+        $sql = "SELECT * FROM ".self::$table_name." WHERE status=1 ORDER BY sortorder DESC ".$cond;
+        return self::find_by_sql($sql);
+    }
+
 	//FIND THE HIGHEST MAX NUMBER BY PARENT ID.
 	static function find_maximum_byparent($field="sortorder",$pid=""){
 		global $db;
