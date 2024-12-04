@@ -30,6 +30,10 @@ RewriteRule ^login/?$ login.php [L]
 RewriteRule ^logout/?$ logout.php [L]
 RewriteRule ^profile/?$ profile.php [L]
 
+#for jobs
+RewriteRule ^create-job/?$ createjob.php [L]
+
+
 #For contact pages.
 RewriteRule ^contact-us/?$ contact.php [L]
 

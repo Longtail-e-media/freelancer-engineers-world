@@ -34,6 +34,8 @@ function className_metatags()
         return $className;
         exit;
     endif;
+;
+    // endif;
     if ($fileName == 'dining_list'):
         $className = 'Dining';
         return $className;
