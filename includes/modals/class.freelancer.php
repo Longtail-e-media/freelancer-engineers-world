@@ -134,7 +134,7 @@ class freelancer extends DatabaseObject
     public static function find_id_by_login_id($id = 0)
     {
         global $db;
-        $sql = "SELECT id FROM " . self::$table_name . " WHERE id={$id} LIMIT 1";
+        $sql = "SELECT id FROM " . self::$table_name . " WHERE user_id={$id} LIMIT 1";
         $result = $db->query($sql);
         $return = $db->fetch_array($result);
         return ($return) ? $return['id'] : '';

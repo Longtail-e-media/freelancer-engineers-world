@@ -573,13 +573,12 @@
             $userId = addslashes($_REQUEST['userId']);
             $jobId = addslashes($_REQUEST['jobId']);
 
-            // TO-DO : check if job status is 1 or not
-            /* $jobRec = jobs::find_by_id($jobId);
+            $jobRec = jobs::find_by_id($jobId);
             if ($jobRec->project_status != 1) {
                 $message = "Bidding Closed !";
                 echo json_encode(array("action" => "biddingClosed", "message" => $message));
                 exit();
-            } */
+            }
 
             $sql = 'SELECT * FROM tbl_users WHERE id="' . $userId . '" LIMIT 1';
             $count = $db->num_rows($db->query($sql));
