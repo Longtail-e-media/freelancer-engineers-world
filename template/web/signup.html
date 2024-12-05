@@ -13,7 +13,7 @@
 </head>
 
 <body>
-<jcms:module:header/>
+<jcms:module:heade r/>
 <main class="container signup-container">
     <div class="d-flex justify-content-center">
         <div class="w-50 mt-5">
@@ -118,10 +118,10 @@
                                    class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
                         </div>
                         <div class="col-12 flex-fill position-relative">
-                            <input type="password" placeholder="Password" id="password" required name="password"
+                            <input type="password" placeholder="Password" id="passwordF" required name="password"
                                    aria-required="true"
                                    class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
-                            <img src="./assets/images/icons/view.png" alt="view and hide" id="showhide">
+                            <img src="./assets/images/icons/view.png" alt="view and hide" id="showhideF">
                         </div>
                         <div class="col-12 d-flex">
                             <div class="mt-4 mb-2">
@@ -158,6 +158,7 @@
         crossorigin="anonymous"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js'></script>
 <script>
+    var base_url = $('base').attr('url');
     window.onload = () => {
         let trigger = true;
         const showhide = document.getElementById('showhide');
@@ -165,13 +166,26 @@
         showhide.addEventListener('click', () => {
             if (trigger) {
                 passwordInput.setAttribute('type', 'text');
-                showhide.setAttribute('src', './assets/images/icons/hide.png');
+                showhide.setAttribute('src', base_url + 'template/web/assets/images/icons/hide.png');
             } else {
                 passwordInput.setAttribute('type', 'password');
-                showhide.setAttribute('src', './assets/images/icons/view.png');
-
+                showhide.setAttribute('src', base_url + 'template/web/assets/images/icons/view.png');
             }
             trigger = !trigger;
+        })
+
+        let triggerF = true;
+        const showhideF = document.getElementById('showhideF');
+        const passwordInputF = document.getElementById('passwordF');
+        showhideF.addEventListener('click', () => {
+            if (triggerF) {
+                passwordInputF.setAttribute('type', 'text');
+                showhideF.setAttribute('src', base_url + 'template/web/assets/images/icons/hide.png');
+            } else {
+                passwordInputF.setAttribute('type', 'password');
+                showhideF.setAttribute('src', base_url + 'template/web/assets/images/icons/view.png');
+            }
+            triggerF = !triggerF;
         })
     }
 </script>
@@ -194,6 +208,7 @@
         }
     });
 </script>
+
 <script type="text/javascript">
     var base_url = $('base').attr('url');
 
@@ -203,7 +218,7 @@
             errorClass: 'validate-has-error text-danger',
             rules: {
                 first_name: {required: !0},
-                middle_name: {required: !0},
+                // middle_name: {required: !0},
                 last_name: {required: !0},
                 email: {required: !0, email: !0},
                 mobile_no: {required: !0},
@@ -214,7 +229,7 @@
             },
             messages: {
                 first_name: {required: "Enter your First Name"},
-                middle_name: {required: "Enter your middle Name"},
+                // middle_name: {required: "Enter your middle Name"},
                 last_name: {required: "Enter your Last Name"},
                 email: {
                     required: "Enter your Email Address",
@@ -259,7 +274,7 @@
             errorClass: 'validate-has-error text-danger',
             rules: {
                 first_name: {required: !0},
-                middle_name: {required: !0},
+                // middle_name: {required: !0},
                 last_name: {required: !0},
                 email: {required: !0, email: !0},
                 mobile_no: {required: !0},
@@ -270,7 +285,7 @@
             },
             messages: {
                 first_name: {required: "Enter your First Name"},
-                middle_name: {required: "Enter your middle Name"},
+                // middle_name: {required: "Enter your middle Name"},
                 last_name: {required: "Enter your Last Name"},
                 email: {
                     required: "Enter your Email Address",
