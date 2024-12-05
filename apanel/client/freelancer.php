@@ -31,7 +31,24 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                 </thead>
                 <tbody>
                 <?php
-                $records = freelancer::find_by_sql("SELECT * FROM tbl_freelancer WHERE job_id=" . $id . "  ORDER BY sortorder DESC");
+                // $jobid= bids::find_by_id
+                // 'SELECT b.id, b.title, b.slug FROM " . self::$table_name . " AS b 
+                // INNER JOIN tbl_product_sub as prod ON prod.brand = b.id
+                // INNER JOIN tbl_services as serv ON serv.id = prod.service_id
+                // WHERE serv.id = {$serviceId} AND serv.status=1 AND prod.status=1 AND prod.type=$type 
+                // GROUP BY b.id 
+                // ORDER BY b.title ASC "';
+                $jobdata= jobs::find_by_id($id);
+                // pr($jobdata);
+                $sql="SELECT f.* FROM tbl_freelancer as f 
+                INNER JOIN tbl_bids as b ON f.id = b.freelancer_id
+                INNER JOIN tbl_jobs as j ON b.job_id = j.id
+                     WHERE (b.job_id=".$id." ) AND 
+                           (j.project_status=".$jobdata->project_status." AND b.project_status=".$jobdata->project_status.") 
+                     ORDER BY f.sortorder DESC";
+                // pr($sql);
+                $records = freelancer::find_by_sql($sql);
+                // pr($records);
                 foreach ($records as $record):
                 ?>
                 <tr id="<?php echo $record->id; ?>">
@@ -43,7 +60,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                     <td><?php echo $record->rating; ?></td>
                     <td class="text-center">
                         <a href="javascript:void(0);" class="loadingbar-demo btn small bg-blue-alt tooltip-button" data-placement="top" title="View detail"
-                           onclick="editfreelancer(<?php echo $record->job_id; ?>,<?php echo $record->id; ?>);">
+                           onclick="editfreelancer(<?php echo $id; ?>,<?php echo $record->id; ?>);">
                             <span class="button-content"> View Detail </span>
                         </a>
                     </td>
@@ -99,7 +116,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
         <tr>
     <th class="text-center">Username</th>
     <td><?php echo $appInfo->username; ?></td>
-</tr>
+</tr> 
 <tr>
     <th class="text-center">Email</th>
     <td><?php echo $appInfo->email; ?></td>

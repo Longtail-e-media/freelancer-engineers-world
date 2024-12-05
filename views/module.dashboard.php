@@ -414,9 +414,277 @@ if (!empty($_SESSION)) {
             </main>
         ';
     }
+   
+
+
 
 } else {
     $profile = 'please login to view profile';
 }
 
 $jVars['module:dashboard-profile'] = $profile;
+
+
+$clientdashboard='';
+if (!empty($_SESSION)) {
+if (!empty($_SESSION['user_type']) && $_SESSION['user_type'] == 'client') {
+
+$clientdata = client::find_by_userid($_SESSION['user_id']);
+$page = (isset($_REQUEST["pageno"]) and !empty($_REQUEST["pageno"])) ? $_REQUEST["pageno"] : 1;
+$sql    = "SELECT * FROM tbl_jobs WHERE status='1' AND client_id= '".$clientdata->id."' ORDER BY sortorder DESC";
+$limit  = 3;
+$total  = $db->num_rows($db->query($sql));
+$startpoint = ($page * $limit) - $limit;
+$sql    .= " LIMIT " . $startpoint . "," . $limit;
+$query  = $db->query($sql);
+$Records = jobs::find_by_sql($sql);
+$jobdetail='';
+if(!empty($Records)){
+    // pr($Records);
+foreach($Records as $record){
+    if ($record->budget_type == 1) {
+        $budget = ' <h5 class="fs-6 fw-bold">' . $record->currency . ' ' . $record->exact_budget . '</h5>';
+    } else {
+        $budget = '<h5 class="fs-6 fw-bold">' . $record->currency . ' ' . $record->budget_range_low . ' - ' . $record->budget_range_high . '</h5>';
+    }
+    $totalbids= bids::find_total_bids($record->id); 
+// pr($totalbids);
+    $jobdetail .=' <div class="bg-body-secondary p-3 p-md-5 mb-3">
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-3 mb-md-0">
+                            <h5 class="fs-5 fw-bold">'.$record->title.'</h5>
+                            <p class="fs-6 m-0">Bid End Date: '.date("M d, Y", strtotime($record->deadline_date)).'</p>
+                        </div>
+                        <div class="col-12 col-md-4 mb-3 mb-md-0">
+                            '.$budget.'
+                            <p class="fs-6 m-0 d-inline-block">No. of Bids: <span>'.$totalbids.'</span></p>
+                            
+                        </div>
+                        <div class="col-12 col-md-2 d-flex align-items-start flex-column">
+                            <p class="text-primary fs-6 fw-bold">
+                                Bid On Progress
+                            </p>
+                            <div class="d-inline-block bg-dark-subtle px-3 view-select">
+                                <a href="" class="text-decoration-none text-dark">View</a>
+                                <span>/</span>
+                                <a href="" class="text-decoration-none text-dark">Select</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+}
+}
+// pr($Records);
+
+    $clientdashboard .='<div class="bg-dark-blue">
+            <div class="container">
+                <h1 class="text-light py-5 fw-light fs-1">
+                    Dashboard
+                </h1>
+            </div>
+        </div>
+        <section>
+            <div class="container">
+                <div class="input-group input-group-md bg-body-secondary p-2 mb-4 justify-content-between flex-wrap">
+                    <div class="dropdown col-12 col-md-3 d-flex align-items-center mb-2 mb-md-0">
+                        <a class="bg-dark-subtle text-decoration-none text-dark py-2 px-4 d-inline-block w-100 fw-bold"
+                            href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="w-100 me-4">Filter by Status</span> &nbsp; <i class="fas fa-chevron-down"></i>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </div>
+                    <nav aria-label="Page navigation" class="col-12 col-md-auto">
+                       ' . get_front_pagination_new($total, $limit, $page, BASE_URL . 'dashboard') . '
+                    </nav>
+                </div>
+                '.$jobdetail.'
+                <!-- Repeat the same structure for other job cards -->
+                <!-- <div class="bg-body-secondary p-3 p-md-5 mb-3">
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-3 mb-md-0">
+                            <h5 class="fs-5 fw-bold">Job-titles</h5>
+                            <p class="fs-6 m-0">Bid End Date: Nov 20, 2024</p>
+                        </div>
+                        <div class="col-12 col-md-4 mb-3 mb-md-0">
+                            <h5 class="fs-6 fw-bold">NRs. 2500 - 25k</h5>
+                            <p class="fs-6 m-0 d-inline-block">Eng. Bid : NRs. <span>2500</span> in <span>7 days </span>
+                            </p>
+                        </div>
+                        <div class="col-12 col-md-2 d-flex align-items-start flex-column">
+                            <p class="text-info fs-6 fw-bold">
+                                Short listed
+                            </p>
+                            <div class="d-inline-block bg-dark-subtle px-3 view-select">
+                                <a href="" class="text-decoration-none text-dark">View</a>
+                                <span>/</span>
+                                <a href="" class="text-decoration-none text-dark">Select</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-body-secondary p-3 p-md-5 mb-3">
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-3 mb-md-0">
+                            <h5 class="fs-5 fw-bold">Job-titles</h5>
+                            <p class="fs-6 m-0">Bid End Date: Nov 20, 2024</p>
+                        </div>
+                        <div class="col-12 col-md-4 mb-3 mb-md-0">
+                            <h5 class="fs-6 fw-bold">NRs. 2500 - 25k</h5>
+                            <p class="fs-6 m-0 d-inline-block">Eng. Bid : NRs. <span>2500</span> in <span>7 days </span>
+                            </p>
+                        </div>
+                        <div class="col-12 col-md-2 d-flex align-items-center">
+                            <p class="text-danger fs-6 fw-bold">
+                                Time Out
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-body-secondary p-3 p-md-5 mb-3">
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-3 mb-md-0">
+                            <h5 class="fs-5 fw-bold">Job-titles</h5>
+                            <p class="fs-6 m-0">Bid End Date: Nov 20, 2024</p>
+                        </div>
+                        <div class="col-12 col-md-4 mb-3 mb-md-0">
+                            <h5 class="fs-6 fw-bold">NRs. 2500 - 25k</h5>
+                            <p class="fs-6 m-0 d-inline-block">Eng. Bid : NRs. <span>2500</span> in <span>7 days </span>
+                            </p>
+                        </div>
+                        <div class="col-12 col-md-2 d-flex align-items-center">
+                            <a class="nav-link text-success fs-6 fw-bold dropdown" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Awarded <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item text-primary-emphasis fs-6" href="#">Work on
+                                        progress</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-body-secondary p-3 p-md-5 mb-3">
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-3 mb-md-0">
+                            <h5 class="fs-5 fw-bold">Job-titles</h5>
+                            <p class="fs-6 m-0">Bid End Date: Nov 20, 2024</p>
+                        </div>
+                        <div class="col-12 col-md-4 mb-3 mb-md-0">
+                            <h5 class="fs-6 fw-bold">NRs. 2500 - 25k</h5>
+                            <p class="fs-6 m-0 d-inline-block">Eng. Bid : NRs. <span>2500</span> in <span>7 days </span>
+                            </p>
+                        </div>
+                        <div class="col-12 col-md-2 d-flex align-items-center">
+                            <a class="nav-link text-primary-emphasis fs-6 fw-bold dropdown" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Work on Progress <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item text-dark fs-6" href="#">Completed</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-body-secondary p-3 p-md-5 mb-3">
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-3 mb-md-0">
+                            <h5 class="fs-5 fw-bold">Job-titles</h5>
+                            <p class="fs-6 m-0">Bid End Date: Nov 20, 2024</p>
+                        </div>
+                        <div class="col-12 col-md-4 mb-3 mb-md-0">
+                            <h5 class="fs-6 fw-bold">NRs. 2500 - 25k</h5>
+                            <p class="fs-6 m-0 d-inline-block">Eng. Bid : NRs. <span>2500</span> in <span>7 days </span>
+                            </p>
+                        </div>
+                        <div class="col-12 col-md-2 d-flex align-items-start flex-column">
+                            <p class="text-dark fs-6 fw-bold">
+                               Completed
+                            </p>
+                            <a href="feedback.html" class="btn btn-outline-success bg-success-subtle text-success fs-7 rounded-0 px-3 py-1">
+                                Review
+                            </a>
+                        </div>
+                    </div>
+                </div>-->
+
+                <div class="bg-body-secondary p-3 p-md-5 mb-3">
+                    <div class="row">
+                        <div class="col-12 col-md-4 col-lg-2 mb-3 mb-md-0">
+                            <h5 class="text-primary fs-6 fw-bold">
+                                Bid On Progress
+                            </h5>
+                            <p class="fs-7">
+                                Freelancers can apply for created jobs.
+                            </p>
+                        </div>
+                        <div class="col-12 col-md-4 col-lg-2 mb-3 mb-md-0">
+                            <h5 class="text-info fs-6 fw-bold">
+                                Short Listed
+                            </h5>
+                            <p class="fs-7">
+                                Eligible freelancers are chosen.
+                            </p>
+                        </div>
+                        <div class="col-12 col-md-4 col-lg-2 mb-3 mb-md-0">
+                            <h5 class="text-success fs-6 fw-bold">
+                                Awarded
+                            </h5>
+                            <p class="fs-7">
+                                Sortlisted Freelancers are selected for the job. Max 5 freelancer
+                            </p>
+                        </div>
+                        <div class="col-12 col-md-4 col-lg-2 mb-3 mb-md-0">
+                            <h5 class="text-danger fs-6 fw-bold">
+                                Timeout
+                            </h5>
+                            <p class="fs-7">
+                                The bid deadline is crossed.
+                            </p>
+                        </div>
+                        <div class="col-12 col-md-4 col-lg-2 mb-3 mb-md-0">
+                            <h5 class="text-info-emphasis fs-6 fw-bold">
+                                Work in progress
+                            </h5>
+                            <p class="fs-7">
+                                Freelancers are working on the job.
+                            </p>
+                        </div>
+                        <div class="col-12 col-md-4 col-lg-2">
+                            <h5 class="text-success-emphasis fs-6 fw-bold">
+                                Completed
+                            </h5>
+                            <p class="fs-7">
+                                The client is happy with the freelancer\'s work.
+                            </p>
+                        </div>
+                        <div class="col-12 col-md-4 col-lg-2 mt-3">
+                            <h5 class="text-secondary fs-6 fw-bold">
+                                Rejected
+                            </h5>
+                            <p class="fs-7">
+                                The client is happy with the freelancer\'s work.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group input-group-md bg-body-secondary p-2 mb-4 justify-content-end">
+                    <nav aria-label="Page navigation">
+                       ' . get_front_pagination_new($total, $limit, $page, BASE_URL . 'dashboard') . '
+                    </nav>
+                </div>
+            </div>
+        </section>';
+
+}
+}else {
+    $clientdashboard = 'please login to view profile';
+}
+
+$jVars['module:dashboard-job-status'] = $clientdashboard;

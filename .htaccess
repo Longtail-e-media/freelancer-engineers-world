@@ -29,6 +29,8 @@ RewriteRule ^signup/?$      signup.php [L]
 RewriteRule ^login/?$       login.php [L]
 RewriteRule ^logout/?$      logout.php [L]
 RewriteRule ^profile/?$     profile.php [L]
+RewriteRule ^dashboard/?$     dashboard.php [L]
+RewriteRule ^dashboard/page/([0-9]+)?$   dashboard.php?pageno=$1 [L]
 
 #for jobs
 RewriteRule ^create-job/?$ createjob.php [L]

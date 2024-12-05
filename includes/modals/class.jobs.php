@@ -8,6 +8,7 @@ class jobs extends DatabaseObject {
 		'job_type',
 		'slug',
 		'currency',
+		'project_status',
 		'title',
 		'budget_type',
 		'exact_budget',
@@ -23,6 +24,7 @@ class jobs extends DatabaseObject {
 	public $id;
 	public $client_id;
 	public $job_type;
+	public $project_status;
 	public $slug;
 	public $currency;
 	public $title;

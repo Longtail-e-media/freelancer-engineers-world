@@ -56,7 +56,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                                onClick="viewfreelancerlist(<?php echo $record->id; ?>);" href="javascript:void(0);">
                         <span class="button-content">
                             <span class="badge bg-orange radius-all-4 mrg5R" title=""
-                                  data-original-title="Badge with tooltip"><?php echo $countImages = jobs::getTotalSub($record->id);
+                                  data-original-title="Badge with tooltip"><?php echo $countImages = bids::find_total_bids($record->id);
                                 //var_dump($countImages);die();?></span>
 
                             <span class="text-transform-upr font-bold font-size-11">View Lists</span>
