@@ -6,6 +6,7 @@
 $profile = "";
 if (!empty($_SESSION)) {
     if (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client") {
+        // pr($_SESSION["user_id"]);
         $clientdata = client::find_by_userid($_SESSION["user_id"]);
         $clientuser = user::find_by_id($_SESSION["user_id"]);
 
@@ -33,9 +34,7 @@ if (!empty($_SESSION)) {
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <input type="text" class="form-control border-0 rounded-0 fs-5" id="username" name="username"
-                                            placeholder="Username" value="' .
-            $clientdata->username .
-            '">
+                                            placeholder="Username" value="' .$clientdata->username .'">
                                         <label for="username">Username <span class="text-danger">*</span></label>
                                     </div>
                                 </div>
@@ -568,7 +567,7 @@ if (!empty($_SESSION)) {
                             <div class="d-inline-block bg-dark-subtle px-3 view-select">
                                 <a href="" class="text-decoration-none text-dark">View</a>
                                 <span>/</span>
-                                <a href="" class="text-decoration-none text-dark">Select</a>
+                                <a href="'.BASE_URL.'freelancer-shortlist/'.$record->slug.'" class="text-decoration-none text-dark">Select</a>
                             </div>
                         </div>';
                         break;
@@ -900,6 +899,116 @@ if (!empty($_SESSION)) {
         }
         $selectbider .= '<div class="bg-dark-blue">
         <div class="container py-5 d-flex align-items-center justify-content-between">
+            <h1 class="text-light fw-light fs-1">
+                Job Titles
+            </h1>
+            <button class="btn btn-primary bg-light text-dark px-4 py-2 fs-6 rounded-0 border-0">
+                Create Job
+            </button>
+        </div>
+    </div>
+    <section class="container">
+        <div class="row job-title-content gx-0">
+            <div class="col-12 col-md-6 bg-light p-3 p-md-5 sticky-lg-top"
+                style="top: 5rem; max-height: max-content; z-index: 10;">
+                <div>
+                    <div class="card-title d-flex align-items-center justify-content-between">
+                        <div class="">
+                            <h3 class="fs-5 fw-bold">'.$jobdatas->title.'</h3>
+                            <span class="fs-7">End Date: ' . date("M d Y", strtotime($jobdatas->deadline_date)) . '</span>
+                        </div>
+                        <div>
+                           '.$budget.'
+                            <span class="fs-7">'.$totalbids.' bids</span>
+                        </div>
+                    </div>
+
+                    <div class="card-body mt-4 mt-md-5">
+                       '.$jobdatas->content.'
+                    </div>
+                </div>
+            </div>';
+
+            $bidderdetail='';
+            $biddatas= bids::find_by_jobid_bop($jobdatas->id);
+            // pr($biddata);
+            if(!empty($biddatas)){
+                $bidderdetail = '';
+                foreach($biddatas as $biddata){
+                    
+                    //freelancer data through
+                    $freelandata= freelancer::find_by_id($biddata->freelancer_id);
+                    // pr($freelandata);
+                    if(!empty($freelandata->profile_picture)){
+                        $profilepic ='';
+                    }
+            $bidderdetail .='<div class="row bg-light p-3 mt-2 gx-0">
+                    <div class="col-2 col-md-2 p-0">
+                        <img src="'.IMAGE_PATH.'/freelancer/profile/'.$freelandata->profile_picture.'"
+                            alt="User" class="user-icon w-100 bg-dark-subtle p-3">
+                    </div>
+                    <div class="col-10 col-md-6 px-3">
+                        <h5 class="fs-6 fw-bold">'.$freelandata->username.'</h5>
+                        <p class="fs-7 line-clamp-2 mb-0">
+                        '.strip_tags($biddata->message).'
+                        </p>
+                        <a href="#" class="fs-7">more</a>
+                    </div>
+                    <div class="col-6 col-md-3 mt-3 mt-md-0">
+                        <h5 class="fs-7"><strong>'.$biddata->currency.' '.$biddata->bid_amount.'</strong> in '.$biddata->delivery.' days</h5>
+                        <span class="fs-5"> ★☆☆☆☆
+                        </span>
+                    </div>
+                    <div class="col-2 col-md-1 d-flex align-items-center mt-3 mt-md-0">
+                        <input type="checkbox" name="bidder[]" value="'.$biddata->freelancer_id.'"
+                            class="form-check-input bg-dark-subtle rounded-0 text-dark w-75 py-3 border-dark" />
+                    </div>
+                </div>';
+                
+            }
+            }
+             $selectbider .= '
+            <div class="col-12 col-md-6 bg-white ps-0 ps-md-5">
+            
+            <form id="selectfreelancer">
+            <input type="hidden" name="jobid" value="'.$jobdatas->id.'">
+                '.$bidderdetail.'
+                <div id="result_msg"></div>
+                <button id="submit" class="mt-3 btn btn-primary bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0">
+                    Shortlist freelancer
+                </button>
+
+
+                
+            </form>
+            </div>
+        </div>
+    </section>';
+    }
+   
+} else {
+    $selectbider = "please login to view profile";
+}
+
+$jVars["module:dashboard-selectfreelancer"] = $selectbider;
+
+
+//select Shortlisted dashboard
+$selectshortlisted = "";
+if (!empty($_SESSION)) {
+    if (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client" && isset($_REQUEST['slug'])) {
+
+        $slug = !empty($_REQUEST['slug']) ? addslashes($_REQUEST['slug']) : '';
+        $jobdatas= jobs::find_by_slug($slug);
+        $totalbids = bids::find_total_bids($jobdatas->id);
+        if ($jobdatas->budget_type == 1) {
+            $budget = ' <h4 class="fs-6 fw-bold">' . $jobdatas->currency . ' ' . $jobdatas->exact_budget . '</h4>';
+        } else {
+            $budget = '<h4 class="fs-6 fw-bold">' . $jobdatas->currency . ' ' . $jobdatas->budget_range_low . ' - ' . $jobdatas->budget_range_high . '</h4>';
+        }
+        $selectshortlisted .= '
+        <div class="bg-dark-blue">
+        <div class="container py-5 d-flex align-items-center justify-content-between">
             <h1 class="text-light fw-light fs-3 fs-md-1">
                 Shortlist Freelancer
             </h1>
@@ -931,16 +1040,17 @@ if (!empty($_SESSION)) {
             </div>';
 
             $bidderdetail='';
-            $biddatas= bids::find_by_jobid($jobdatas->id);
+            $biddatas= bids::find_by_jobid_short($jobdatas->id);
             // pr($biddata);
+            // $profilepic='';
             if(!empty($biddatas)){
                 foreach($biddatas as $biddata){
 
                     //freelancer data through
-                    $freelandata= freelancer::find_by_id($biddata->id);
+                    $freelandata= freelancer::find_by_id($biddata->freelancer_id);
                     if(!empty($freelandata->profile_picture)){
-                        $profilepic='<div class="col-2 col-md-2 p-0">
-                        <img src="'.IMAGE_PATH.'/freelancer/profile/'.$freelandata->profile_picture.'"
+                        $profilepic ='<div class="col-2 col-md-2 p-0">
+                        <img src="'.IMAGE_PATH.'freelancer/profile/'.$freelandata->profile_picture.'"
                             alt="User" class="user-icon w-100 bg-dark-subtle p-3">
                     </div>';
                     }
@@ -959,18 +1069,21 @@ if (!empty($_SESSION)) {
                         </span>
                     </div>
                     <div class="col-2 col-md-1 d-flex align-items-center mt-3 mt-md-0">
-                        <input type="checkbox" name="bidder['.$biddata->freelancer_id.']"
+                        <input type="checkbox" name="bidder[]" value="'.$biddata->freelancer_id.'"
                             class="form-check-input bg-dark-subtle rounded-0 text-dark w-75 py-3 border-dark" />
                     </div>
                 </div>';
             }
             }
-             $selectbider .= '
+             $selectshortlisted .= '
             <div class="col-12 col-md-6 bg-white ps-0 ps-md-5">
+            <h5 class="fs-5 fw-bold mb-3">Shortlisted Freelancer</h5>
             <form id="selectfreelancer">
+            <input type="hidden" name="jobid" value="'.$jobdatas->id.'">
                 '.$bidderdetail.'
+                <div id="result_msg"></div>
                 <button id="submit" class="mt-3 btn btn-primary bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0">
-                    Shortlist freelancer
+                    Reward freelancer
                 </button>
 
 
@@ -981,7 +1094,7 @@ if (!empty($_SESSION)) {
     </section>';
     }
 } else {
-    $selectbider = "please login to view profile";
+    $selectshortlisted = "please login to view profile";
 }
 
-$jVars["module:dashboard-selectfreelancer"] = $selectbider;
+$jVars["module:dashboard-selectshortlist"] = $selectshortlisted;

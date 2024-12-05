@@ -36,16 +36,10 @@
                 errorElement: 'span',
                 errorClass: 'validate-has-error',
                 rules: {
-                    name: {required: true},
-                    subject: {required: true},
-                    email: {required: true, email: true},
-                    message: {required: true}
+                    "bidder[]": {required: true},
                 },
                 messages: {
-                    name: {required: "Please enter your Name."},
-                    subject: {required: "Please enter Subject."},
-                    email: {required: "Please enter your Email."},
-                    message: {required: "Please enter your Message."}
+                    "bidder[]": {required: "please select ateast 1 freelancer."},
                 },
                 submitHandler: function (form) {
                     // var recaptcha = $("#g-recaptcha-response").val();
@@ -64,9 +58,11 @@
                         data: "action=selectfreelancer&" + Frmval,
                         success: function (data) {
                             var msg = eval(data);
-                            $("button#submit").removeAttr("disabled").text('SEND');
+                            $("button#submit").removeAttr("disabled").text('updated');
                             $('div#result_msg').html(msg.message).css('display', 'block').addClass('alert alert-success').fadeOut(8000);
-                            $("form#selectfreelancer")[0].reset();
+                            setTimeout(function () {
+                                        return window.location.href = base_url + "dashboard";
+                                    }, 1500);
                         }
                     });
                     return false;
