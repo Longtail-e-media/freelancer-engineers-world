@@ -18,15 +18,15 @@
 			$record->title 			= $_REQUEST['title'];
 			$record->linksrc 		= $_REQUEST['linksrc'];
 			$record->linktype 		= $_REQUEST['linktype'];
-			$record->content		= $_REQUEST['content'];			
+// 			$record->content		= $_REQUEST['content'];			
 			$record->status			= $_REQUEST['status'];
             $record->type           = $_REQUEST['type'];
-
-            if($_REQUEST['type']==1){
-                $record->image		= !empty($_REQUEST['imageArrayname'])?$_REQUEST['imageArrayname']:'';
-            }else{
                 $record->source 	= $_REQUEST['videoArrayname'];
-            }
+
+            // if($_REQUEST['type']==1){
+            //     $record->image		= !empty($_REQUEST['imageArrayname'])?$_REQUEST['imageArrayname']:'';
+            // }else{
+            // }
 			
 			$record->sortorder		= Slideshow::find_maximum();
 			$record->added_date 	= registered();
@@ -52,8 +52,9 @@
 			$record->title 			= $_REQUEST['title'];
 			$record->linksrc 		= $_REQUEST['linksrc'];
 			$record->linktype 		= $_REQUEST['linktype'];
-			$record->content		= $_REQUEST['content'];			
+// 			$record->content		= $_REQUEST['content'];			
 			$record->status			= $_REQUEST['status'];
+			$record->source 	= $_REQUEST['videoArrayname'];
 			// $record->m_status		= $_REQUEST['m_status'];
 //			$record->type 			= 1;
 //
@@ -62,15 +63,15 @@
 //			endif;
 
             $record->type           = $_REQUEST['type'];
-            if($_REQUEST['type']==1){
-                if(!empty($_REQUEST['imageArrayname'])) {
-                    $record->image		= $_REQUEST['imageArrayname'];
-                }
-                $record->source 	= '';
-            }else{
-                $record->source 	= $_REQUEST['videoArrayname'];
-                $record->image		= '';
-            }
+            // if($_REQUEST['type']==1){
+            //     if(!empty($_REQUEST['imageArrayname'])) {
+            //         $record->image		= $_REQUEST['imageArrayname'];
+            //     }
+            //     $record->source 	= '';
+            // }else{
+            //     $record->source 	= $_REQUEST['videoArrayname'];
+            //     $record->image		= '';
+            // }
 
             $db->begin();
 			if($record->save()): $db->commit();
