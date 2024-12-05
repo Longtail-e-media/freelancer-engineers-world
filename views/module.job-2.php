@@ -1,16 +1,16 @@
 <?php
 if (!empty($_SESSION)) {
-    $createajob='';
+    $createajob = '';
 // pr($_SESSION);
     if (!empty($_SESSION['user_type']) && $_SESSION['user_type'] == 'client' && defined('CREATE_A_JOB')) {
 
         $record = client::find_by_userid($_SESSION['user_id']);
-        $createajob .='
+        $createajob .= '
         <section class="container">
             <div class="row job-title-content gx-0">
                 <div class="col-md-7 bg-light p-5" style="position: sticky; top: 5rem; max-height: max-content;">
                     <form class="client-form" id="createjob">
-                    <input type="hidden" name="client_id" value="'.$record->id.'">
+                    <input type="hidden" name="client_id" value="' . $record->id . '">
                         <div class="row g-3">
                             <div class="col-md-12">
                                 <div class="form-floating">
@@ -97,13 +97,13 @@ if (!empty($_SESSION)) {
                                 <label for="budgetUnit">Budget Unit <span class="text-danger">*</span></label>
                                 <select class="border-0 rounded-0 fs-7 pt-2 mt-4 px-4" id="budgetUnit" name="job_type"
                                     style="width: 100%; height: 100%!important;">';
-                                        $jobcategorys= jobtitle::find_all_active();
-                                    foreach($jobcategorys as $key => $jobcategory){
-                                        $createajob .='   <option value="'.$jobcategory->id.'" >'.$jobcategory->title.'</option>';
+        $jobcategorys = jobtitle::find_all_active();
+        foreach ($jobcategorys as $key => $jobcategory) {
+            $createajob .= '   <option value="' . $jobcategory->id . '" >' . $jobcategory->title . '</option>';
 
-                                    }
-                                 
-                              $createajob .=  '</select>
+        }
+
+        $createajob .= '</select>
                             </div>
                             </div>
     
@@ -164,19 +164,19 @@ if (!empty($_SESSION)) {
     }
 
     $jVars['module:job-creation'] = $createajob;
-    
+
 }
 
-$jobdetails='';
-if(defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
+$jobdetails = '';
+if (defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
 
     $slug = !empty($_REQUEST['slug']) ? addslashes($_REQUEST['slug']) : '';
 
-    $jobdatas= jobs::find_by_slug($slug);
+    $jobdatas = jobs::find_by_slug($slug);
     // pr($jobdatas);
-    if(!empty($jobdatas)){
-    $clientdatas= client::find_by_id($jobdatas->client_id);
-    $jobdetails .='<div class="bg-dark-blue">
+    if (!empty($jobdatas)) {
+        $clientdatas = client::find_by_id($jobdatas->client_id);
+        $jobdetails .= '<div class="bg-dark-blue">
         <div class="container">
             <h1 class="text-light py-5 fw-light fs-1">
                 Job Detail
@@ -189,24 +189,24 @@ if(defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
                 <div>
                     <div class="card-title d-flex align-items-center justify-content-between">
                         <div class="">
-                            <h3 class="fs-5 fw-bold">Job Title</h3>
-                            <span class="fs-7">End Date: '.date("M d Y",strtotime($jobdatas->deadline_date)).'</span>
+                            <h3 class="fs-5 fw-bold">' . $jobdatas->title . '</h3>
+                            <span class="fs-7">End Date: ' . date("M d Y", strtotime($jobdatas->deadline_date)) . '</span>
                         </div>
                         <div>';
-                        if($jobdatas->budget_type==1){
-                            $budget =' <h4 class="fs-6 fw-bold">'.$jobdatas->currency.'. '.$jobdatas->exact_budget.'</h4>';
-                        }else{
-                            $budget ='<h4 class="fs-6 fw-bold">'.$jobdatas->currency.' . '. $jobdatas->budget_range_low - $jobdatas->budget_range_high .'</h4>';
-                        }
+        if ($jobdatas->budget_type == 1) {
+            $budget = ' <h4 class="fs-6 fw-bold">' . $jobdatas->currency . ' ' . $jobdatas->exact_budget . '</h4>';
+        } else {
+            $budget = '<h4 class="fs-6 fw-bold">' . $jobdatas->currency . ' ' . $jobdatas->budget_range_low . ' - ' . $jobdatas->budget_range_high . '</h4>';
+        }
 
-                           $jobdetails .='
-                           '.$budget.' 
+        $jobdetails .= '
+                           ' . $budget . ' 
                             <span class="fs-7">0 bids</span>
                         </div>
                     </div>
 
                     <div class="card-body mt-5 pt-5">
-                       '.$jobdatas->content.'
+                       ' . $jobdatas->content . '
                     </div>
                 </div>
             </div>
@@ -234,41 +234,40 @@ if(defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
                     <ul class="d-flex gap-1 flex-column list-unstyled">
                         <li class="d-flex align-items-center gap-2">
                             <i class="fa-solid fa-location-dot"></i>
-                            '.$clientdatas->permanent_address.'
+                            ' . $clientdatas->permanent_address . '
                         </li>
                         <li class="d-flex align-items-center gap-2">
                             <i class="fa-solid fa-user"></i>
-                            <span class="fs-4"> ★☆☆☆☆
-                                </span>
+                            <span class="fs-4"> ' . str_repeat('★', $clientdatas->rating) . ' ' . str_repeat('☆', (5 - $clientdatas->rating)) . '</span>
                         </li>
                         <li class="d-flex align-items-center gap-2">
                             <i class="fa-solid fa-clock"></i>
-                            Member since '.date("M d Y",strtotime($clientdatas->added_date)).'
+                            Member since ' . date("M d, Y", strtotime($clientdatas->added_date)) . '
                         </li>
                     </ul>
                 </div>
 
                 ';
-                $related='';
-                $relatedjobs= jobs::get_relatedsub_by($jobdatas->client_id,$jobdatas->id,4);
-                foreach($relatedjobs as $relatedjob){
-                    $related .='   <div class="card-body">
-                        <h5 class="fs-7 fw-bold">'.$relatedjob->title.'</h5>';
-                        if($relatedjob->budget_type==1){
-                            $relbudget =' <p class="fs-7">'.$relatedjob->currency.'. '. $relatedjob->exact_budget.'</p>'; 
-                        }else{
-                            $relbudget='  <p class="fs-7">'.$relatedjob->currency.'. '. $relatedjob->budget_range_low.'  - '.$relatedjob->budget_range_high.'</p>';
-                        }
-                    $related .='  '.$relbudget.'</div>';
-                }
-               $jobdetails .=' <hr class="my-5">
+        $related = '';
+        $relatedjobs = jobs::get_relatedsub_by($jobdatas->client_id, $jobdatas->id, 4);
+        foreach ($relatedjobs as $relatedjob) {
+            $related .= '   <div class="card-body">
+                        <h5 class="fs-7 fw-bold">' . $relatedjob->title . '</h5>';
+            if ($relatedjob->budget_type == 1) {
+                $relbudget = ' <p class="fs-7">' . $relatedjob->currency . ' ' . $relatedjob->exact_budget . '</p>';
+            } else {
+                $relbudget = '  <p class="fs-7">' . $relatedjob->currency . ' ' . $relatedjob->budget_range_low . '  - ' . $relatedjob->budget_range_high . '</p>';
+            }
+            $related .= '  ' . $relbudget . '</div>';
+        }
+        $jobdetails .= ' <hr class="my-5">
 
                 <h3 class="fs-5 fw-bold">
                     Similar Jobs
                 </h3>
 
                 <div class="similar-jobs mt-4">  
-                '.$related.'
+                ' . $related . '
                 </div>
             </div>
         </div>
@@ -393,10 +392,8 @@ if(defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
     </div>';
 
 
-
-    
-}
+    }
 
 }
 
-$jVars['module:job-details']= $jobdetails;
+$jVars['module:job-details'] = $jobdetails;

@@ -10,7 +10,7 @@ if (defined('HOME_PAGE')) {
 
     if (!empty($jobs)) {
         foreach ($jobs as $job) {
-            $budget_text = ($job->budget_type == 0) ? $job->currency . ' ' . $job->exact_budget : $job->currency . ' ' . $job->budget_range_low . ' - ' . $job->budget_range_high;
+            $budget_text = ($job->budget_type == 1) ? $job->currency . ' ' . $job->exact_budget : $job->currency . ' ' . $job->budget_range_low . ' - ' . $job->budget_range_high;
             $bids_txt = Bids::find_total_bids($job->id);
             $home_job .= '
                 <div class="bg-body-secondary p-5 mb-3">
@@ -70,7 +70,7 @@ if (defined('JOB_LIST_PAGE')) {
         ';
 
         foreach ($Records as $key => $RecRow) {
-            $budget_text = ($RecRow->budget_type == 0) ? $RecRow->currency . ' ' . $RecRow->exact_budget : $RecRow->currency . ' ' . $RecRow->budget_range_low . ' - ' . $RecRow->budget_range_high;
+            $budget_text = ($RecRow->budget_type == 1) ? $RecRow->currency . ' ' . $RecRow->exact_budget : $RecRow->currency . ' ' . $RecRow->budget_range_low . ' - ' . $RecRow->budget_range_high;
             $bids_txt = Bids::find_total_bids($RecRow->id);
             $list_body .= '
                 <div class="bg-body-secondary p-3 p-sm-4 p-lg-4 mb-3">
@@ -148,7 +148,7 @@ if (defined('JOB_SEARCH_PAGE')) {
             <div class="jobs-container">
         ';
         while ($rows = $db->fetch_object($res)) {
-            $budget_text = ($rows->budget_type == 0) ? $rows->currency . ' ' . $rows->exact_budget : $rows->currency . ' ' . $rows->budget_range_low . ' - ' . $rows->budget_range_high;
+            $budget_text = ($rows->budget_type == 1) ? $rows->currency . ' ' . $rows->exact_budget : $rows->currency . ' ' . $rows->budget_range_low . ' - ' . $rows->budget_range_high;
             $bids_txt = Bids::find_total_bids($rows->id);
             $search_body .= '
                 <div class="lazy"><!--
