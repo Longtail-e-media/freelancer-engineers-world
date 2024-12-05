@@ -106,6 +106,47 @@
             endif;
 
             break;
+
+
+			case "selectfreelancer":
+				$sqlids='';
+				$job = jobs::find_by_id($_REQUEST['jobid']);
+				$job->project_status = 2;
+	
+				$db->begin();
+				if($job->save()):
+					$jobid=$_REQUEST['jobid'];
+					$bidderIds = implode(',', array_map('intval', $_REQUEST['bidder']));
+					$sql='update tbl_bids set project_status=2 where job_id='.$jobid.' and freelancer_id in ('.$bidderIds.')';
+					$db->query($sql);
+					$db->commit();
+					$message = "Jobs bid in " . $job->title;
+					echo json_encode(array("action" => "success", "message" => "Freelancer has been Selected!"));
+				else: $db->rollback();
+					echo json_encode(array("action" => "error", "message" =>"Job Bid unsuccessfully !"));
+				endif;
+	
+				break;
+
+				case "selectshortlist":
+					$sqlids='';
+					$job = jobs::find_by_id($_REQUEST['jobid']);
+					$job->project_status = 3;
+		
+					$db->begin();
+					if($job->save()):
+						$jobid=$_REQUEST['jobid'];
+						$bidderIds = implode(',', array_map('intval', $_REQUEST['bidder']));
+						$sql='update tbl_bids set project_status=3 where job_id='.$jobid.' and freelancer_id in ('.$bidderIds.')';
+						$db->query($sql);
+						$db->commit();
+						$message = "Jobs bid in " . $job->title;
+						echo json_encode(array("action" => "success", "message" => "Freelancer has been Rewarded!"));
+					else: $db->rollback();
+						echo json_encode(array("action" => "error", "message" =>"Job Bid unsuccessfully !"));
+					endif;
+		
+					break;
 			
 	}
 ?>

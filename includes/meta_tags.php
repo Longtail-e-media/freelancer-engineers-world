@@ -46,6 +46,11 @@ function className_metatags()
         return $className;
         exit;
     endif;
+    if ($fileName == 'freelancer-shortlist'):
+        $className = 'jobs';
+        return $className;
+        exit;
+    endif;
 ;
     // endif;
     if ($fileName == 'dining_list'):
