@@ -293,80 +293,59 @@ if (defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
                 </div>
             </div>
         </section>
-    
-        <section class="container mt-4 pt-2">
-            <h5 class="fw-bold fs-6 fs-md-5 my-4">12 freelancers are bidding on average NPR 50,000 </h5>
-            <div class="row job-review-content">
-                <div class="col-md-9">
-                    <div class="row bg-light p-3 p-md-5 mt-2 gx-0">
-                        <div class="col-12 col-md-3 p-0">
-                            <img src="https://static-00.iconduck.com/assets.00/user-icon-1024x1024-unb6q333.png"
-                                 alt="User" class="user-icon bg-dark-subtle">
+        ';
+
+        // getting total bids data
+        $bidsRec = bids::find_by_jobid($jobdatas->id);
+        if (!empty($bidsRec)) {
+            $total_bids = sizeof($bidsRec);
+            $average_bids = bids::get_average_bid_by_job_id($jobdatas->id);
+            $jobdetails .= '
+                <section class="container mt-4 pt-2">
+                    <h5 class="fw-bold fs-6 fs-md-5 my-4">' . $total_bids . ' freelancers are bidding on average ' . $jobdatas->currency . ' ' . $average_bids . ' </h5>
+                    <div class="row job-review-content">
+                        <div class="col-md-9">
+            ';
+            foreach ($bidsRec as $bidsRow) {
+                $freelancerRec = freelancer::find_by_id($bidsRow->freelancer_id);
+                $img = 'https://static-00.iconduck.com/assets.00/user-icon-1024x1024-unb6q333.png';
+                if (!empty($freelancerRec->profile_picture)) {
+                    $file_path = SITE_ROOT . 'images/freelancer/profile/' . $freelancerRec->profile_picture;
+                    if (file_exists($file_path)) {
+                        $img = IMAGE_PATH . 'freelancer/profile/' . $freelancerRec->profile_picture;
+                    }
+                }
+
+                $jobdetails .= '
+                            <div class="row bg-light p-3 p-md-5 mt-2 gx-0">
+                                <div class="col-12 col-md-3 p-0">
+                                    <img src="' . $img . '" alt="' . $freelancerRec->username . '" class="user-icon bg-dark-subtle">
+                                </div>
+                                <div class="col-8 col-md-6 px-0 px-md-5">
+                                    <h5 class="fs-6 fw-bold mt-3">@' . $freelancerRec->username . '</h5>
+                                    <p class="fs-7 line-clamp-2 mb-0">' . strip_tags($bidsRow->message) . '</p>
+                                    <!--<a href="#" class="fs-7">more</a>-->
+                                </div>
+                                <div class="col-3 col-md-3 mt-md-0 ms-3 ms-md-0 mt-3">
+                                    <h5 class="fs-7"><strong>' . $bidsRow->currency . ' ' . $bidsRow->bid_amount . '</strong> in ' . $bidsRow->delivery . ' days</h5>
+                                    <span class="fs-4"> ' . str_repeat('★', $freelancerRec->rating) . ' ' . str_repeat('☆', (5 - $freelancerRec->rating)) . '</span>
+                                </div>
+                            </div>
+                ';
+            }
+            $jobdetails .= '
                         </div>
-                        <div class="col-8 col-md-6 px-0 px-md-5">
-                            <h5 class="fs-6 fw-bold mt-3">@Purna0310</h5>
-                            <p class="fs-7 line-clamp-2 mb-0">Hello Matthew R., I went through your project description
-                                and
-                                it seems like
-                                I am a great fit for this job.
-                            </p>
-                            <a href="#" class="fs-7">more</a>
-                        </div>
-                        <div class="col-3 col-md-3 mt-md-0 ms-3 ms-md-0 mt-3">
-                            <h5 class="fs-7"><strong>NRs. 2500</strong> in 7 days</h5>
-                            <span class="fs-4"> ★☆☆☆☆
-                                </span>
-                        </div>
-                    </div>
-                    <div class="row bg-light p-3 p-md-5 mt-2 gx-0">
-                        <div class="col-12 col-md-3 p-0">
-                            <img src="https://static-00.iconduck.com/assets.00/user-icon-1024x1024-unb6q333.png"
-                                 alt="User" class="user-icon bg-dark-subtle">
-                        </div>
-                        <div class="col-8 col-md-6 px-0 px-md-5">
-                            <h5 class="fs-6 fw-bold mt-3">@Purna0310</h5>
-                            <p class="fs-7 line-clamp-2 mb-0">Hello Matthew R., I went through your project description
-                                and
-                                it seems like
-                                I am a great fit for this job.
-                            </p>
-                            <a href="#" class="fs-7">more</a>
-                        </div>
-                        <div class="col-3 col-md-3 mt-md-0 ms-3 ms-md-0 mt-3">
-                            <h5 class="fs-7"><strong>NRs. 2500</strong> in 7 days</h5>
-                            <span class="fs-4"> ★☆☆☆☆
-                                </span>
-                        </div>
-                    </div>
-                    <div class="row bg-light p-3 p-md-5 mt-2 gx-0">
-                        <div class="col-12 col-md-3 p-0">
-                            <img src="https://static-00.iconduck.com/assets.00/user-icon-1024x1024-unb6q333.png"
-                                 alt="User" class="user-icon bg-dark-subtle">
-                        </div>
-                        <div class="col-8 col-md-6 px-0 px-md-5">
-                            <h5 class="fs-6 fw-bold mt-3">@Purna0310</h5>
-                            <p class="fs-7 line-clamp-2 mb-0">Hello Matthew R., I went through your project description
-                                and
-                                it seems like
-                                I am a great fit for this job.
-                            </p>
-                            <a href="#" class="fs-7">more</a>
-                        </div>
-                        <div class="col-3 col-md-3 mt-md-0 ms-3 ms-md-0 mt-3">
-                            <h5 class="fs-7"><strong>NRs. 2500</strong> in 7 days</h5>
-                            <span class="fs-4"> ★☆☆☆☆
-                                </span>
+                        <div class="biddy-sticky col-md-3 bg-white ps-3 mt-2 sticky-top d-none">
+                            <div class="card p-5 border-0 rounded-0 bg-dark-subtle">
+                                <img src="" alt="Advertisement" class="advertisement">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="biddy-sticky col-md-3 bg-white ps-3 mt-2 sticky-top d-none">
-                    <div class="card p-5 border-0 rounded-0 bg-dark-subtle">
-                        <img src="" alt="Advertisement" class="advertisement">
-                    </div>
-                </div>
-            </div>
-        </section>
-    
+                </section>
+            ';
+        }
+
+        $jobdetails .= '    
         <!-- Modal -->
         <div class="modal fade" id="bidModal" tabindex="-1" aria-labelledby="bidModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">

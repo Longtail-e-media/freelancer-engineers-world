@@ -18,12 +18,21 @@ class Bids extends DatabaseObject
         return !empty($result_array) ? array_shift($result_array) : false;
     }
 
-    public static function find_by_jobid($jobid=0)
+    public static function find_by_jobid($jobid = 0)
     {
         global $db;
-        $sql= "SELECT * FROM " . self::$table_name . " WHERE job_id='$jobid' AND status=1 ";
+        $sql = "SELECT * FROM " . self::$table_name . " WHERE job_id='$jobid' AND status=1 ";
         return self::find_by_sql($sql);
         // return !empty($result_array) ? array_shift($result_array) : false;
+    }
+
+    public static function get_average_bid_by_job_id($jobid = 0)
+    {
+        global $db;
+        $query = "SELECT AVG(bid_amount) as bid_amouunt FROM " . self::$table_name . " WHERE job_id='$jobid' AND status=1 ";
+        $sql = $db->query($query);
+        $ret = $db->fetch_array($sql);
+        return $ret['bid_amouunt'];
     }
 
     public static function getTotalSub($parent_id = '')
