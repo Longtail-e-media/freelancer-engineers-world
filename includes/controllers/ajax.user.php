@@ -568,5 +568,38 @@
 					else: $db->rollback(); echo json_encode(array("action"=>"notice","message"=>$GLOBALS['basic']['noChanges']));
 					endif;
 				break;
+
+        case "checkFreelancerLoginForBid":
+            $userId = addslashes($_REQUEST['userId']);
+            $jobId = addslashes($_REQUEST['jobId']);
+
+            // TO-DO : check if job status is 1 or not
+            /* $jobRec = jobs::find_by_id($jobId);
+            if ($jobRec->project_status != 1) {
+                $message = "Bidding Closed !";
+                echo json_encode(array("action" => "biddingClosed", "message" => $message));
+                exit();
+            } */
+
+            $sql = 'SELECT * FROM tbl_users WHERE id="' . $userId . '" LIMIT 1';
+            $count = $db->num_rows($db->query($sql));
+
+            if ($count > 0) {
+                $uprec = $db->fetch_object($db->query($sql));
+                if ($uprec->status == 0) {
+                    $message = "Your account has been disabled !";
+                    echo json_encode(array("action" => "disabled", "message" => $message));
+                } elseif ($uprec->group_id != 4) {
+                    $message = "Only Freelancers can bid !";
+                    echo json_encode(array("action" => "onlyFreelancer", "message" => $message));
+                } else {
+                    $message = "Success";
+                    echo json_encode(array("action" => "success", "message" => $message));
+                }
+            } else {
+                $message = "Please Login !";
+                echo json_encode(array("action" => "noLogin", "message" => $message));
+            }
+        break;
 	}
 ?>

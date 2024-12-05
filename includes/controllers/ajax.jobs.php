@@ -30,7 +30,8 @@
 			$record->sortorder	= jobs::find_maximum();		
 			$db->begin();
 			if($record->save()): $db->commit();
-			   $message  = sprintf($GLOBALS['basic']['addedSuccess_'], "jobs '".$record->title."'");
+			    $message  = sprintf($GLOBALS['basic']['addedSuccess_'], "jobs '".$record->title."'");
+                log_action($message,1,3);
 			echo json_encode(array("action"=>"success","message"=>$message));
 			else: $db->rollback();
 				echo json_encode(array("action"=>"error","message"=>$GLOBALS['basic']['unableToSave']));
@@ -60,7 +61,51 @@
 			$record->save();
 			echo "";
 		break;
-			
+
+        case "jobBid":
+            $record         = new Bids();
+
+            // finding client id and freelancer id
+            $jobRec         = jobs::find_by_id($_REQUEST['jobId']);
+            $clientId       = $jobRec->client_id;
+            $freelancerId   = freelancer::find_id_by_login_id($_REQUEST['userId']);
+
+            // removing number and email from message
+            // Pattern to match email addresses
+            $email_pattern = '/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/';
+
+            // Pattern to match phone numbers (varies based on format, here's a generic one)
+            $phone_pattern = '/\b(\+?\d{1,3}[-.\s]?)?(\(?\d{1,4}\)?[-.\s]?)?\d{1,4}[-.\s]?\d{1,4}([-.\s]?\d{1,9})?\b/';
+
+            // Remove email addresses
+            $message = preg_replace($email_pattern, '', $_REQUEST['message']);
+
+            // Remove phone numbers
+            $message = preg_replace($phone_pattern, '', $message);
+
+            $record->job_id         = $_REQUEST['jobId'];
+            $record->client_id      = $clientId;
+            $record->freelancer_id  = $freelancerId;
+            $record->bid_amount     = $_REQUEST['bid_amount'];
+            $record->delivery       = $_REQUEST['delivery'];
+            $record->message        = $message;
+
+            $record->project_status = 1;
+            $record->added_date     = registered();
+            $record->sortorder      = Bids::find_maximum();
+            $record->status         = 1;
+
+            $db->begin();
+            if($record->save()):
+                $db->commit();
+                $message = "Jobs bid in " . $jobRec->title;
+                echo json_encode(array("action" => "success", "message" => "Job Bid successfully !"));
+                log_action($message, 1, 3);
+            else: $db->rollback();
+                echo json_encode(array("action" => "error", "message" =>"Job Bid unsuccessfully !"));
+            endif;
+
+            break;
 			
 	}
 ?>

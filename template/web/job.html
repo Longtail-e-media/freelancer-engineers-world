@@ -29,6 +29,85 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js'></script>
 <!--<script src="./assets/js/app.js"></script>-->
+<script src="assets/js/jquery.validate.js"></script>
+
+<script>
+    const base_url = $('base').attr('url');
+    $(document).ready(function () {
+        // placing bid amount on page load
+        $('#bid_amount').val($('#bid-amount').val());
+        // picking bid amount from bid amount field
+        $('#bid-amount').on('change', function (){
+            const value = $(this).val();
+            $('#bid_amount').val(value)
+        })
+
+        // validating first bid form
+        $('#place-bid-form-1').validate({
+            errorElement: 'span',
+            errorClass: 'text-danger',
+            rules: {"bid-amount": {required: true}},
+            messages: {"bid-amount": {required: "Please enter your Bid Amount."}},
+            submitHandler: function (form) {
+                var Frmval = $("form#place-bid-form-1").serialize();
+                $.ajax({
+                    type: "POST",
+                    dataType: "JSON",
+                    url: base_url + "includes/controllers/ajax.user.php",
+                    data: "action=checkFreelancerLoginForBid&" + Frmval,
+                    success: function (data) {
+                        var msg = eval(data);
+                        if (msg.action == 'noLogin' || msg.action == 'disabled' || msg.action == 'onlyFreelancer' || msg.action == 'biddingClosed') {
+                            alert(msg.message);
+                        }
+                        if (msg.action == 'success') {
+                            // opening modal
+                            const myModal = new bootstrap.Modal('#bidModal')
+                            myModal.show();
+                        }
+                    }
+                });
+                return false;
+            }
+        })
+
+        // validating second bid form
+        $('#bidForm').validate({
+            errorElement: 'span',
+            errorClass: 'text-danger',
+            rules: {
+                bid_amount: {required: true},
+                delivery: {required: true},
+                message: {required: true}
+            },
+            messages: {
+                bid_amount: {required: "Please enter your Bid Amount."},
+                delivery: {required: "Please enter your Delivery Time."},
+                message: {required: "Please enter your Message"},
+            },
+            submitHandler: function (form) {
+                var Frmval = $("form#bidForm").serialize();
+                $("a#submitBid").attr("disabled", "true").html('Processing...');
+                $.ajax({
+                    type: "POST",
+                    dataType: "JSON",
+                    url: base_url + "includes/controllers/ajax.jobs.php",
+                    data: "action=jobBid&" + Frmval,
+                    success: function (data) {
+                        var msg = eval(data);
+                        $("a#submitBid").removeAttr("disabled").html('Submit Bid');
+                        $('div#bidMsg').html(msg.message).css('display', 'block').fadeOut(10000);
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 5000);
+                    }
+                });
+                return false;
+            }
+        })
+    })
+</script>
+
 </body>
 
 </html>
