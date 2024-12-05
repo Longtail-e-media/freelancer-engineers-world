@@ -24,6 +24,7 @@ class client extends DatabaseObject {
 		'category_id',
 		'rating',
 		'archive_date',
+		'added_date',
 		'sortorder',
 		'status'
 	);
@@ -49,6 +50,7 @@ class client extends DatabaseObject {
 	public $rating;
 	public $category_id;
 	public $archive_date;
+	public $added_date;
 	public $sortorder;
 	public $status;
 	

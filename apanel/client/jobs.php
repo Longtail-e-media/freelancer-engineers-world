@@ -48,7 +48,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                                 <a href="javascript:void(0);"
                                    onClick="editjobs(<?php echo $record->client_id; ?>,<?php echo $record->id; ?>);"
                                    class="loadingbar-demo"
-                                   title="<?php echo $record->job_title; ?>"><?php echo $record->job_title; ?></a>
+                                   title="<?php echo $record->title; ?>"><?php echo $record->title; ?></a>
                             </div>
                         </td>
                         <td>
@@ -118,7 +118,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
     ?>
     <h3>
         <?php //echo (isset($_GET['subid'])) ? 'Edit Job' : 'Add Jobs'; ?>
-        <?php echo 'Edit Job' .' '.$jobsInfo->job_title ;  ?>
+        <?php echo 'Edit Job' .' '.$jobsInfo->title ;  ?>
         <a class="loadingbar-demo btn medium bg-blue-alt float-right" href="javascript:void(0);"
            onClick="viewjobslist(<?php echo $pid; ?>);">
     <span class="glyph-icon icon-separator">
@@ -141,7 +141,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
        
 <tr>
     <th class="text-center">Job Title</th>
-    <td><?php echo $jobsInfo->job_title; ?></td>
+    <td><?php echo $jobsInfo->title; ?></td>
 </tr>
 
 <tr>

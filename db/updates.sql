@@ -19,3 +19,9 @@ INSERT INTO `tbl_modules` (`id`, `parent_id`, `name`, `link`, `mode`, `icon_link
 -- 2024-12-04
 ALTER TABLE `tbl_jobs` ADD `currency` VARCHAR(255) NOT NULL AFTER `job_title`;
 ALTER TABLE `tbl_jobs` ADD `job_type` INT(11) NOT NULL AFTER `client_id`;
+
+
+-- 2024-12-05
+ALTER TABLE `tbl_freelancer` CHANGE `archive_date` `added_date` DATE NOT NULL;
+ALTER TABLE `tbl_client` CHANGE `archive_date` `added_date` DATE NOT NULL;
+ALTER TABLE `tbl_jobs` CHANGE `job_title` `title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL;

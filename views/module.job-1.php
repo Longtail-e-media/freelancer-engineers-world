@@ -17,7 +17,7 @@ if (defined('HOME_PAGE')) {
                     <div class="d-flex justify-content-between">
                         <div>
                             <a href="' . BASE_URL . 'job/' . $job->slug . '" class="text-decoration-none text-dark">
-                                <h5 class="fs-6 fw-bold">' . $job->job_title . '</h5>
+                                <h5 class="fs-6 fw-bold">' . $job->title . '</h5>
                             </a>
                             <p class="fs-6">Bid End Date: ' . date('M d, Y', strtotime($job->deadline_date)) . '</p>
                         </div>
@@ -77,7 +77,7 @@ if (defined('JOB_LIST_PAGE')) {
                     <div class="d-flex flex-column flex-sm-row justify-content-between gap-3 gap-sm-0">
                         <div class="mb-2 mb-sm-0">
                             <a href="' . BASE_URL . 'job/' . $RecRow->slug . '" class="text-decoration-none text-dark">
-                                <h5 class="fs-5 fw-bold mb-1">' . $RecRow->job_title . '</h5>
+                                <h5 class="fs-5 fw-bold mb-1">' . $RecRow->title . '</h5>
                             </a>
                             <p class="fs-6 mb-0">Bid End Date: ' . date('M d, Y', strtotime($RecRow->deadline_date)) . '</p>
                         </div>
@@ -129,7 +129,7 @@ if (defined('JOB_SEARCH_PAGE')) {
             FROM tbl_jobs as j
             INNER JOIN tbl_jobtitle as jt ON j.job_type = jt.id
             WHERE j.status=1 AND
-            ( j.job_title LIKE '%" . $searchkey . "%' OR
+            ( j.title LIKE '%" . $searchkey . "%' OR
               jt.title LIKE '%" . $searchkey . "%' ) ";
     } else {
         $sql = "SELECT * FROM tbl_jobs WHERE status=1 ORDER BY sortorder DESC";
@@ -156,7 +156,7 @@ if (defined('JOB_SEARCH_PAGE')) {
                         <div class="d-flex flex-column flex-sm-row justify-content-between gap-3 gap-sm-0">
                             <div class="mb-2 mb-sm-0">
                                 <a href="' . BASE_URL . 'job/' . $rows->slug . '" class="text-decoration-none text-dark">
-                                    <h5 class="fs-5 fw-bold mb-1">' . $rows->job_title . '</h5>
+                                    <h5 class="fs-5 fw-bold mb-1">' . $rows->title . '</h5>
                                 </a>
                                 <p class="fs-6 mb-0">Bid End Date: ' . date('M d, Y', strtotime($rows->deadline_date)) . '</p>
                             </div>

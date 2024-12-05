@@ -15,8 +15,8 @@
 		case "addjob":	
 			$record = new jobs();		
 			
-			$record->slug 		= create_slug($_REQUEST['job_title']);	
-			$record->job_title 		= $_REQUEST['job_title'];
+			$record->slug 		= create_slug($_REQUEST['title']);	
+			$record->title 		= $_REQUEST['title'];
 			$record->client_id 	= $_REQUEST['client_id'];		
 			$record->deadline_date 		= $_REQUEST['deadline_date'];
 			$record->budget_type 		= $_REQUEST['budget_type'];
@@ -30,7 +30,7 @@
 			$record->sortorder	= jobs::find_maximum();		
 			$db->begin();
 			if($record->save()): $db->commit();
-			   $message  = sprintf($GLOBALS['basic']['addedSuccess_'], "jobs '".$record->job_title."'");
+			   $message  = sprintf($GLOBALS['basic']['addedSuccess_'], "jobs '".$record->title."'");
 			echo json_encode(array("action"=>"success","message"=>$message));
 			else: $db->rollback();
 				echo json_encode(array("action"=>"error","message"=>$GLOBALS['basic']['unableToSave']));

@@ -30,7 +30,7 @@ class freelancer extends DatabaseObject
         'linkedIn_profile',
         'profile_picture',
         'rating',
-        'archive_date',
+        'added_date',
         'sortorder',
         'status'
     );
@@ -59,7 +59,7 @@ class freelancer extends DatabaseObject
     public $linkedIn_profile;
     public $profile_picture;
     public $rating;
-    public $archive_date;
+    public $added_date;
     public $sortorder;
     public $status;
 

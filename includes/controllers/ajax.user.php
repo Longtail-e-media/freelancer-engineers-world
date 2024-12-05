@@ -287,8 +287,9 @@
 				$record->group_id		= 3;
 				$record->status         = 1;
 				$record->sortorder      = User::find_maximum();
-	
-	
+				$record->added_date      = registered();
+				
+				
 				$checkDupliEmail        = User::checkDupliEmail($record->email);
 				if ($checkDupliEmail):
 					$message = "This email already exists.";
@@ -301,12 +302,12 @@
 					echo json_encode(array("action" => "warning", "message" => $message));
 					exit;
 				endif;
-	
+				
 				$db->begin();
 				if ($record->save()): $db->commit();
-
+				
 				$client= new client();
-
+				
 				
 				$client->first_name     = $_REQUEST['first_name'];
 				$client->middle_name     = $_REQUEST['middle_name'];
@@ -319,6 +320,7 @@
 				$client->user_id		= $record->id;
 				$client->status         = 1;
 				$client->sortorder      = User::find_maximum();
+				$client->added_date      = registered();
 				$db->begin();
 				$client->save();
 				$db->commit();
@@ -369,6 +371,7 @@
 				$record->group_id		= 4;
 				$record->status         = 1;
 				$record->sortorder      = User::find_maximum();
+				$record->added_date      = registered();
 	
 	
 				$checkDupliEmail        = User::checkDupliEmail($record->email);
@@ -401,6 +404,7 @@
 				$freelancer->user_id		= $record->id;
 				$freelancer->status         = 1;
 				$freelancer->sortorder      = User::find_maximum();
+				$freelancer->added_date      = registered();
 				$db->begin();
 				$freelancer->save();
 				$db->commit();

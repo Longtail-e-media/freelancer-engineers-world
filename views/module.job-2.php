@@ -15,7 +15,7 @@ if (!empty($_SESSION)) {
                             <div class="col-md-12">
                                 <div class="form-floating">
                                     <input type="text" class="form-control border-0 rounded-0 fs-6" id="jobtitle"
-                                           placeholder="Job Title" name="job_title">
+                                           placeholder="Job Title" name="title">
                                     <label for="jobtitle">Job Title <span class="text-danger">*</span></label>
                                 </div>
                             </div>
@@ -164,4 +164,239 @@ if (!empty($_SESSION)) {
     }
 
     $jVars['module:job-creation'] = $createajob;
+    
 }
+
+$jobdetails='';
+if(defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
+
+    $slug = !empty($_REQUEST['slug']) ? addslashes($_REQUEST['slug']) : '';
+
+    $jobdatas= jobs::find_by_slug($slug);
+    // pr($jobdatas);
+    if(!empty($jobdatas)){
+    $clientdatas= client::find_by_id($jobdatas->client_id);
+    $jobdetails .='<div class="bg-dark-blue">
+        <div class="container">
+            <h1 class="text-light py-5 fw-light fs-1">
+                Job Detail
+            </h1>
+        </div>
+    </div>
+    <section class="container pb-0">
+        <div class="row job-title-content gx-0">
+            <div class="col-md-9 bg-light p-3 p-md-5">
+                <div>
+                    <div class="card-title d-flex align-items-center justify-content-between">
+                        <div class="">
+                            <h3 class="fs-5 fw-bold">Job Title</h3>
+                            <span class="fs-7">End Date: '.date("M d Y",strtotime($jobdatas->deadline_date)).'</span>
+                        </div>
+                        <div>';
+                        if($jobdatas->budget_type==1){
+                            $budget =' <h4 class="fs-6 fw-bold">'.$jobdatas->currency.'. '.$jobdatas->exact_budget.'</h4>';
+                        }else{
+                            $budget ='<h4 class="fs-6 fw-bold">'.$jobdatas->currency.' . '. $jobdatas->budget_range_low - $jobdatas->budget_range_high .'</h4>';
+                        }
+
+                           $jobdetails .='
+                           '.$budget.' 
+                            <span class="fs-7">0 bids</span>
+                        </div>
+                    </div>
+
+                    <div class="card-body mt-5 pt-5">
+                       '.$jobdatas->content.'
+                    </div>
+                </div>
+            </div>
+            <div class="biddy-sticky col-md-3 bg-white pt-5 pt-md-0 ps-md-5 sticky-top">
+                <h3 class="fs-5 fw-bold">
+                    Place your Bid
+                </h3>
+                <form action="" class="bidding-form mt-4 d-flex align-items-center">
+                    <div class="bidding">
+                        <!-- <label for="bid-amount" class="form-label fw-bold">NRs. 2500</label> -->
+                        <input type="text" class="bg-light form-control ps-3 fw-bold text-dark" id="bid-amount"
+                               name="bid-amount" placeholder="NRs. 25000">
+                    </div>
+                    <button type="button" class="btn btn-dark bg-dark-blue text-white" data-bs-toggle="modal"
+                            data-bs-target="#bidModal">Bid
+                    </button>
+                </form>
+
+                <hr class="my-5">
+
+                <h3 class="fs-5 fw-bold">
+                    About Client
+                </h3>
+                <div class="client-info mt-4">
+                    <ul class="d-flex gap-1 flex-column list-unstyled">
+                        <li class="d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-location-dot"></i>
+                            '.$clientdatas->permanent_address.'
+                        </li>
+                        <li class="d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-user"></i>
+                            <span class="fs-4"> ★☆☆☆☆
+                                </span>
+                        </li>
+                        <li class="d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-clock"></i>
+                            Member since '.date("M d Y",strtotime($clientdatas->added_date)).'
+                        </li>
+                    </ul>
+                </div>
+
+                ';
+                $related='';
+                $relatedjobs= jobs::get_relatedsub_by($jobdatas->client_id,$jobdatas->id,4);
+                foreach($relatedjobs as $relatedjob){
+                    $related .='   <div class="card-body">
+                        <h5 class="fs-7 fw-bold">'.$relatedjob->title.'</h5>';
+                        if($relatedjob->budget_type==1){
+                            $relbudget =' <p class="fs-7">'.$relatedjob->currency.'. '. $relatedjob->exact_budget.'</p>'; 
+                        }else{
+                            $relbudget='  <p class="fs-7">'.$relatedjob->currency.'. '. $relatedjob->budget_range_low.'  - '.$relatedjob->budget_range_high.'</p>';
+                        }
+                    $related .='  '.$relbudget.'</div>';
+                }
+               $jobdetails .=' <hr class="my-5">
+
+                <h3 class="fs-5 fw-bold">
+                    Similar Jobs
+                </h3>
+
+                <div class="similar-jobs mt-4">  
+                '.$related.'
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container mt-4 pt-2">
+        <h5 class="fw-bold fs-6 fs-md-5 my-4">12 freelancers are bidding on average NPR 50,000 </h5>
+        <div class="row job-review-content">
+            <div class="col-md-9">
+                <div class="row bg-light p-3 p-md-5 mt-2 gx-0">
+                    <div class="col-12 col-md-3 p-0">
+                        <img src="https://static-00.iconduck.com/assets.00/user-icon-1024x1024-unb6q333.png"
+                             alt="User" class="user-icon bg-dark-subtle">
+                    </div>
+                    <div class="col-8 col-md-6 px-0 px-md-5">
+                        <h5 class="fs-6 fw-bold mt-3">@Purna0310</h5>
+                        <p class="fs-7 line-clamp-2 mb-0">Hello Matthew R., I went through your project description
+                            and
+                            it seems like
+                            I am a great fit for this job.
+                        </p>
+                        <a href="#" class="fs-7">more</a>
+                    </div>
+                    <div class="col-3 col-md-3 mt-md-0 ms-3 ms-md-0 mt-3">
+                        <h5 class="fs-7"><strong>NRs. 2500</strong> in 7 days</h5>
+                        <span class="fs-4"> ★☆☆☆☆
+                            </span>
+                    </div>
+                </div>
+                <div class="row bg-light p-3 p-md-5 mt-2 gx-0">
+                    <div class="col-12 col-md-3 p-0">
+                        <img src="https://static-00.iconduck.com/assets.00/user-icon-1024x1024-unb6q333.png"
+                             alt="User" class="user-icon bg-dark-subtle">
+                    </div>
+                    <div class="col-8 col-md-6 px-0 px-md-5">
+                        <h5 class="fs-6 fw-bold mt-3">@Purna0310</h5>
+                        <p class="fs-7 line-clamp-2 mb-0">Hello Matthew R., I went through your project description
+                            and
+                            it seems like
+                            I am a great fit for this job.
+                        </p>
+                        <a href="#" class="fs-7">more</a>
+                    </div>
+                    <div class="col-3 col-md-3 mt-md-0 ms-3 ms-md-0 mt-3">
+                        <h5 class="fs-7"><strong>NRs. 2500</strong> in 7 days</h5>
+                        <span class="fs-4"> ★☆☆☆☆
+                            </span>
+                    </div>
+                </div>
+                <div class="row bg-light p-3 p-md-5 mt-2 gx-0">
+                    <div class="col-12 col-md-3 p-0">
+                        <img src="https://static-00.iconduck.com/assets.00/user-icon-1024x1024-unb6q333.png"
+                             alt="User" class="user-icon bg-dark-subtle">
+                    </div>
+                    <div class="col-8 col-md-6 px-0 px-md-5">
+                        <h5 class="fs-6 fw-bold mt-3">@Purna0310</h5>
+                        <p class="fs-7 line-clamp-2 mb-0">Hello Matthew R., I went through your project description
+                            and
+                            it seems like
+                            I am a great fit for this job.
+                        </p>
+                        <a href="#" class="fs-7">more</a>
+                    </div>
+                    <div class="col-3 col-md-3 mt-md-0 ms-3 ms-md-0 mt-3">
+                        <h5 class="fs-7"><strong>NRs. 2500</strong> in 7 days</h5>
+                        <span class="fs-4"> ★☆☆☆☆
+                            </span>
+                    </div>
+                </div>
+            </div>
+            <div class="biddy-sticky col-md-3 bg-white ps-3 mt-2 sticky-top d-none">
+                <div class="card p-5 border-0 rounded-0 bg-dark-subtle">
+                    <img src="" alt="Advertisement" class="advertisement">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="bidModal" tabindex="-1" aria-labelledby="bidModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="bidModalLabel">Place Your Bid</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <form id="bidForm">
+                        <div class="mb-3">
+                            <label for="bid-amount" class="form-label fw-semibold">Bid Amount<span
+                                    class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control bg-white" id="bid-amount" name="bid-amount"
+                                   value="NRs. 25000" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="deliveryTime" class="form-label fw-semibold">Delivery Time (in days) <span
+                                    class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="deliveryTime" name="deliveryTime"
+                                   placeholder="Number of days to complete the project">
+                        </div>
+                        <div class="mb-3">
+                            <label for="bidMessage" class="form-label font-semibold">Message<span
+                                    class="text-danger">*</span></label>
+                            <textarea class="form-control" id="bidMessage" name="bidMessage" rows="4"
+                                      placeholder="Add a message for the client..."></textarea>
+                        </div>
+                        <div class="alert alert-primary">
+                            <strong>Note:</strong> You will get the bid amount after deducting the
+                            service charge.
+                        </div>
+                        <button type="submit"
+                                class="btn btn-dark bg-dark-blue text-white px-4 py-2 rounded-0 fs-6">Submit
+                            Bid
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>';
+
+
+
+    
+}
+
+}
+
+$jVars['module:job-details']= $jobdetails;
