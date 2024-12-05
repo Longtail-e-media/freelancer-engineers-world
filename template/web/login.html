@@ -13,21 +13,21 @@
 </head>
 
 <body>
-<main class="container-xxl">
+<main class="container">
     <div class="d-flex justify-content-center mt-5">
-        <div class="w-25 mt-5">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-4 mt-5">
             <h1 class="text-center fs-3 fw-bold my-3 mt-5">Welcome Back</h1>
             <div class="mt-4">
                 <form id="loginForm" class="row g-4">
                     <div class="col-12">
                         <input type="text" placeholder="Email or Username"
-                               class="w-100 fs-6 py-2 px-4 border border-dark-subtle rounded-1" name="email">
+                               class="form-control fs-6 py-3 px-3 border border-dark-subtle rounded-0" name="email">
                     </div>
                     <div class="col-12 position-relative">
                         <input type="password" placeholder="Password"
-                               class="w-100 fs-6 py-2 px-4 border border-dark-subtle rounded-1" id="password"
+                               class="form-control fs-6 py-3 px-3 border border-dark-subtle rounded-0" id="password"
                                name="password">
-                        <img src="./assets/images/icons/view.png" alt="view and hide" id="showhide">
+                        <img src="assets/images/icons/view.png" alt="view and hide" id="showhide">
                     </div>
                     <div class="col-12 d-flex justify-content-between">
                         <label for="agreement" class="fs-6">
@@ -38,15 +38,15 @@
                     </div>
                     <div id="loginMsg"></div>
                     <div class="col-12">
-                        <button type="submit" class="bg-primary text-white w-100 px-5 py-2 border-0 rounded-1"
-                                id="submitLogin">Log
-                            in
+                        <button type="submit" class="btn btn-primary text-white form-control fs-6 py-3 px-3 border border-dark-subtle rounded-0 fw-bold"
+                                id="submitLogin">
+                            Log in
                         </button>
                     </div>
                 </form>
                 <hr class="w-100 my-4">
                 <div class="text-center">
-                    Already have an account? <a href="login" class="text-decoration-none fs-6"> Log in</a>
+                    Don't have an account? <a href="signup" class="text-decoration-none fs-6"> Sign up</a>
                 </div>
             </div>
         </div>
@@ -60,6 +60,8 @@
         crossorigin="anonymous"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js'></script>
 <script>
+    var base_url = $('base').attr('url');
+
     window.onload = () => {
         let trigger = true;
         const showhide = document.getElementById('showhide');
@@ -67,18 +69,16 @@
         showhide.addEventListener('click', () => {
             if (trigger) {
                 passwordInput.setAttribute('type', 'text');
-                showhide.setAttribute('src', './assets/images/icons/hide.png');
+                showhide.setAttribute('src', base_url + 'template/web/assets/images/icons/hide.png');
             } else {
                 passwordInput.setAttribute('type', 'password');
-                showhide.setAttribute('src', './assets/images/icons/view.png');
-
+                showhide.setAttribute('src', base_url + 'template/web/assets/images/icons/view.png');
             }
             trigger = !trigger;
         })
     }
 </script>
 <script type="text/javascript">
-    var base_url = $('base').attr('url');
 
     $(document).ready(function () {
         $("#loginForm").validate({
