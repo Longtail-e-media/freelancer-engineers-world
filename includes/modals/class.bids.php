@@ -5,10 +5,10 @@ class Bids extends DatabaseObject
 
     protected static $table_name = "tbl_bids";
     protected static $db_fields = array(
-        'id', 'job_id', 'client_id', 'currency', 'freelancer_id', 'bid_amount', 'delivery', 'message', 'project_status', 'added_date', 'sortorder', 'status'
+        'id', 'job_id', 'client_id', 'currency', 'freelancer_id', 'bid_amount', 'delivery', 'message','client_rating','freelancer_rating', 'project_status', 'added_date', 'sortorder', 'status'
     );
 
-    public $id, $job_id, $client_id, $freelancer_id, $currency, $bid_amount, $delivery, $message, $project_status, $added_date, $sortorder, $status;
+    public $id, $job_id, $client_id, $freelancer_id, $currency, $bid_amount, $delivery, $message, $client_rating, $freelancer_rating, $project_status, $added_date, $sortorder, $status;
 
 
     public static function get_by_type($type = "1")

@@ -579,9 +579,10 @@ if (!empty($_SESSION)) {
                                 Awarded <i class="fas fa-chevron-down"></i>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item text-primary-emphasis fs-6" href="#">Work on
+                                <li><a class="dropdown-item text-primary-emphasis fs-6" id="wop" value="'.$record->id.'">Work on
                                         progress</a></li>
                             </ul>
+                            <div id="setup"></div>
                         </div>';
                         break;
                     case 4:
@@ -598,17 +599,19 @@ if (!empty($_SESSION)) {
                                 Work on Progress <i class="fas fa-chevron-down"></i>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item text-dark fs-6" href="#">Completed</a>
+                                <li><a class="dropdown-item text-dark fs-6" id="complete" value="'.$record->id.'">Completed</a>
                                 </li>
                             </ul>
-                        </div>';
-                        break;
+                            </div>
+                            <div id="setup"></div>
+                        ';
+                            break;
                     case 6:
                         $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                             <p class="text-dark fs-6 fw-bold">
                                Completed
                             </p>
-                            <a href="feedback.html" class="btn btn-outline-success bg-success-subtle text-success fs-7 rounded-0 px-3 py-1">
+                            <a href="'.BASE_URL.'review/'.$record->slug.'" class="btn btn-outline-success bg-success-subtle text-success fs-7 rounded-0 px-3 py-1">
                                 Review
                             </a>
                         </div>';
@@ -663,8 +666,9 @@ if (!empty($_SESSION)) {
         </div>
         <section>
             <div class="container">
-                <div class="input-group input-group-md bg-body-secondary p-2 mb-4 justify-content-between flex-wrap">
-                    <div class="dropdown col-12 col-md-3 d-flex align-items-center mb-2 mb-md-0">
+            <div>
+               <!--  <div class="input-group input-group-md bg-body-secondary p-2 mb-4 justify-content-between flex-wrap">
+                   <div class="dropdown col-12 col-md-3 d-flex align-items-center mb-2 mb-md-0">
                         <a class="bg-dark-subtle text-decoration-none text-dark py-2 px-4 d-inline-block w-100 fw-bold"
                             href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <span class="w-100 me-4">Filter by Status</span> &nbsp; <i class="fas fa-chevron-down"></i>
@@ -675,7 +679,7 @@ if (!empty($_SESSION)) {
                             <li><a class="dropdown-item" href="#">Another action</a></li>
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
-                    </div>
+                    </div>-->
                     <nav aria-label="Page navigation" class="col-12 col-md-auto">
                        ' .
             get_front_pagination_new(
@@ -956,7 +960,7 @@ if (!empty($_SESSION)) {
                     </div>
                     <div class="col-6 col-md-3 mt-3 mt-md-0">
                         <h5 class="fs-7"><strong>'.$biddata->currency.' '.$biddata->bid_amount.'</strong> in '.$biddata->delivery.' days</h5>
-                        <span class="fs-5"> ★☆☆☆☆
+                        <span class="fs-5"> ' . str_repeat('★', $biddata->freelancer_rating) . ' ' . str_repeat('☆', (5 - $freelancer_rating)) . '
                         </span>
                     </div>
                     <div class="col-2 col-md-1 d-flex align-items-center mt-3 mt-md-0">
@@ -1065,7 +1069,7 @@ if (!empty($_SESSION)) {
                     </div>
                     <div class="col-6 col-md-3 mt-3 mt-md-0">
                         <h5 class="fs-7"><strong>'.$biddata->currency.' '.$biddata->bid_amount.'</strong> in '.$biddata->delivery.' days</h5>
-                        <span class="fs-5"> ★☆☆☆☆
+                        <span class="fs-5"> ' . str_repeat('★', $biddata->freelancer_rating) . ' ' . str_repeat('☆', (5 - $freelancer_rating)) . '
                         </span>
                     </div>
                     <div class="col-2 col-md-1 d-flex align-items-center mt-3 mt-md-0">

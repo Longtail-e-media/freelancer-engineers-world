@@ -33,3 +33,8 @@ ALTER TABLE `tbl_jobs` ADD `project_status` INT(11) NOT NULL AFTER `job_type`;
 -- 2024-12-05 [Swarna]
 ALTER TABLE `tbl_bids` CHANGE `bid amount` `bid_amount` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL;
 ALTER TABLE `tbl_bids` ADD `currency` VARCHAR(255) NOT NULL AFTER `freelancer_id`;
+
+
+-- 2024-12-05[sahas]
+ALTER TABLE `tbl_bids` ADD `freelancer_rating` INT(11) NOT NULL AFTER `message`;
+ALTER TABLE `tbl_bids` ADD `client_rating` INT(11) NOT NULL AFTER `freelancer_rating`;

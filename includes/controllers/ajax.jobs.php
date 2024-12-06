@@ -147,6 +147,48 @@
 					endif;
 		
 					break;
+
+					case "forwop":
+						// pr($_REQUEST['jobid']);
+						$sqlids='';
+						$job = jobs::find_by_id($_REQUEST['jobid']);
+						$job->project_status = 5;
+			
+						$db->begin();
+						if($job->save()):
+							// $jobid=$_REQUEST['jobid'];
+							// $bidderIds = implode(',', array_map('intval', $_REQUEST['bidder']));
+							// $sql='update tbl_bids set project_status=3 where job_id='.$jobid.' and freelancer_id in ('.$bidderIds.')';
+							// $db->query($sql);
+							$db->commit();
+							// $message = "Jobs bid in " . $job->title;
+							echo json_encode(array("action" => "success", "message" => "The Work is on Progress!"));
+						else: $db->rollback();
+							echo json_encode(array("action" => "error", "message" =>"Job Bid unsuccessfully !"));
+						endif;
+			
+						break;
+
+						case "forcomplete":
+							// pr($_REQUEST['jobid']);
+							$sqlids='';
+							$job = jobs::find_by_id($_REQUEST['jobid']);
+							$job->project_status = 6;
+				
+							$db->begin();
+							if($job->save()):
+								// $jobid=$_REQUEST['jobid'];
+								// $bidderIds = implode(',', array_map('intval', $_REQUEST['bidder']));
+								// $sql='update tbl_bids set project_status=3 where job_id='.$jobid.' and freelancer_id in ('.$bidderIds.')';
+								// $db->query($sql);
+								$db->commit();
+								// $message = "Jobs bid in " . $job->title;
+								echo json_encode(array("action" => "success", "message" => "The Work is on Progress!"));
+							else: $db->rollback();
+								echo json_encode(array("action" => "error", "message" =>"Job Bid unsuccessfully !"));
+							endif;
+				
+							break;
 			
 	}
 ?>
