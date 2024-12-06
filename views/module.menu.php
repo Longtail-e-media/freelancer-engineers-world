@@ -80,7 +80,8 @@ if ($menuRec):
         $result .= '</li>';
     endforeach;
     $result .= '  ';
-    if(empty($_SESSION)){
+    // pr($_SESSION);
+    if(empty($_SESSION['user_id'])){
                  $result .= '   <li class="nav-item">     <a class="nav-link fs-6 bg-white px-5 py-2" href="'.BASE_URL.'signup">Sign in</a>';
                 }
                 else{
