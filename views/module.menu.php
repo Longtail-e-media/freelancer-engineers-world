@@ -79,9 +79,20 @@ if ($menuRec):
         endif;
         $result .= '</li>';
     endforeach;
-    $result .= '    <li class="nav-item ">
-                        <a class="nav-link fs-6 bg-white px-5 py-2" href="'.BASE_URL.'signup">Sign in</a>
-                    </li>
+    $result .= '  ';
+    if(empty($_SESSION)){
+                 $result .= '   <li class="nav-item">     <a class="nav-link fs-6 bg-white px-5 py-2" href="'.BASE_URL.'signup">Sign in</a>';
+                }
+                else{
+                    $userdata= user::find_by_id($_SESSION['user_id']);
+                  $result .= ' <li class="nav-item dropdown "> <a class="nav-link fs-6" href="#" type="button" data-bs-toggle="dropdown" aria-expanded="false">Welcome '.$userdata->username.' <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="'.BASE_URL.'profile">Profile</a></li>
+                        <li><a class="dropdown-item" href="'.BASE_URL.'dashboard">Dashboard</a></li>
+                        <li><a class="dropdown-item" href="'.BASE_URL.'logout">Logout</a></li>
+                      </ul> ';  
+                }
+                 $result .= '         </li>
                 </ul>';
 endif;
 

@@ -25,6 +25,8 @@ class Bids extends DatabaseObject
         return self::find_by_sql($sql);
         // return !empty($result_array) ? array_shift($result_array) : false;
     }
+
+   
     public static function find_by_jobid_bop($jobid=0)
     {
         global $db;
@@ -37,6 +39,13 @@ class Bids extends DatabaseObject
     {
         global $db;
         $sql= "SELECT * FROM " . self::$table_name . " WHERE job_id='$jobid' AND status=1 AND project_status=2";
+        return self::find_by_sql($sql);
+        // return !empty($result_array) ? array_shift($result_array) : false;
+    }
+    public static function find_by_freelancerid($fereelancerid = 0)
+    {
+        global $db;
+        $sql = "SELECT * FROM " . self::$table_name . " WHERE freelancer_id='$fereelancerid' AND status=1 ";
         return self::find_by_sql($sql);
         // return !empty($result_array) ? array_shift($result_array) : false;
     }

@@ -119,6 +119,8 @@
 					$bidderIds = implode(',', array_map('intval', $_REQUEST['bidder']));
 					$sql='update tbl_bids set project_status=2 where job_id='.$jobid.' and freelancer_id in ('.$bidderIds.')';
 					$db->query($sql);
+					$sql1='update tbl_bids set project_status=4 where job_id='.$jobid.' and freelancer_id NOT in ('.$bidderIds.')';
+					$db->query($sql1);
 					$db->commit();
 					$message = "Jobs bid in " . $job->title;
 					echo json_encode(array("action" => "success", "message" => "Freelancer has been Selected!"));
