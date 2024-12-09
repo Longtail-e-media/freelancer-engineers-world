@@ -33,13 +33,49 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                     <th class="text-center"><input class="check-all" type="checkbox"/></th>
                     <th>Job Name</th>
                     <th class="text-center">Freelancer</th>
+                    <th>Job status</th>
                     <th class="text-center"><?php echo $GLOBALS['basic']['action']; ?></th>
                 </tr>
                 </thead>
 
                 <tbody>
                 <?php $records = jobs::find_by_sql("SELECT * FROM " . $jobsTablename . " WHERE client_id=" . $id . " ORDER BY sortorder DESC ");
-                foreach ($records as $key => $record): ?>
+                
+                foreach ($records as $key => $record): 
+                
+                
+                    switch ($record->project_status) {
+                        case 1:
+                            $jobstatus = '
+                                    Bid On Progress';
+                            break;
+                        case 2:
+                            $jobstatus = '
+                                    Short listed
+                                ';
+                            break;
+    
+                        case 3:
+                            $jobstatus = '
+                                    Awarded ';
+                            break;
+                        case 4:
+                            $jobstatus = '
+                                    Timeout
+                               ';
+                            break;
+                        case 5:
+                            $jobstatus = '
+                                    Work on Progress 
+                            ';
+                                break;
+                        case 6:
+                            $jobstatus = '
+                                   Completed
+                               ';
+                            break;
+                       
+                    }?>
                     <tr id="<?php echo $record->id; ?>">
                         <td style="display:none;"><?php echo $key + 1; ?></td>
                         <td><input type="checkbox" class="bulkCheckbox" bulkId="<?php echo $record->id; ?>"/></td>
@@ -63,6 +99,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                         </span>
                             </a>
                         </td>
+                        <td><?php echo $jobstatus; ?></td>
                         <td class="text-center">
                             <?php
                             $statusImage = ($record->status == 1) ? "bg-green" : "bg-red";

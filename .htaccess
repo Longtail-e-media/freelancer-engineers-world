@@ -34,6 +34,7 @@ RewriteRule ^dashboard/page/([0-9]+)?$   dashboard.php?pageno=$1 [L]
 RewriteRule ^freelancer-select/([a-zA-Z0-9-=_.]+)$  freelancer-select.php?slug=$1  [L]
 RewriteRule ^freelancer-shortlist/([a-zA-Z0-9-=_.]+)$  freelancer-shortlist.php?slug=$1  [L]
 RewriteRule ^review/([a-zA-Z0-9-=_.]+)$  review.php?slug=$1  [L]
+RewriteRule ^awarded/([a-zA-Z0-9-=_.]+)$  awarded.php?slug=$1  [L]
 
 #for jobs
 RewriteRule ^create-job/?$ createjob.php [L]

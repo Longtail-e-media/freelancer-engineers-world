@@ -171,6 +171,7 @@
 			$emailAddress  = addslashes($_REQUEST['mailaddress']);
 			$mailcheck     = User::get_validMember_mail($emailAddress);
 			
+			
 			if($mailcheck):			
 				$accessToken = randomKeys(10);			
 				$row = User::find_by_mail($emailAddress);
@@ -302,6 +303,7 @@
 					echo json_encode(array("action" => "warning", "message" => $message));
 					exit;
 				endif;
+
 				
 				$db->begin();
 				if ($record->save()): $db->commit();
@@ -325,6 +327,8 @@
 				$client->save();
 				$db->commit();
 
+		
+
 					$message = "Your registration is successful, you will be redirected to Login page!";
 					echo json_encode(array('action' => 'success', 'message' => $message ));
 					log_action("User [" . $record->first_name . " " . $record->last_name . "] login Created " . $GLOBALS['basic']['addedSuccess'], 1, 3);
@@ -334,26 +338,49 @@
 				endif;
 
 				
+				$mailcheck = addslashes($_REQUEST['email']);
+				// $mailcheck  = User::get_validMember_mail($emailAddress);
+				// pr($mailcheck);
+				if ($mailcheck):
 	
+					$row = User::find_by_mail($mailcheck);
 	
-				// $checkDupliEmail        = User::checkDupliEmail($client->email);
-				// if ($checkDupliEmail):
-				// 	$message = "This email already exists.";
-				// 	echo json_encode(array("action" => "warning", "message" => $message));
-				// 	exit;
-				// endif;
-				// $checkDupliusername        = User::checkDupliEmail($client->username);
-				// if ($checkDupliusername):
-				// 	$message = "This Username already exists.";
-				// 	echo json_encode(array("action" => "warning", "message" => $message));
-				// 	exit;
-				// endif;
-				// $dbclient->begin();
-				// if ($client->save()): $dbclient->commit();
-				// log_action("User [" . $client->first_name . " " . $client->last_name . "] login Created " . $GLOBALS['basic']['addedSuccess'], 1, 3);
-				// else:
-				// $message = "Internal error!";
-				// endif;
+					/* Mail Format */
+					$siteName       = Config::getField('sitename', true);
+					$AdminEmail     = User::get_UseremailAddress_byId(1);
+					$fullName       = $_REQUEST['username'];
+	
+					$msgbody = '<div>
+					<h3>you have been registered as Client for ' . $siteName . '</h3>                
+					<div><font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
+					Please <a href="' . BASE_URL . 'login">click here to login.</a> <br><br>
+					<br><br>
+					<p>Thanks,<br>
+					' . $siteName . '
+					</p>
+					</div>
+					</div>';
+	
+					$mail = new PHPMailer();
+	
+					$mail->SetFrom($AdminEmail, $siteName, 0);
+					$mail->AddReplyTo($mailcheck, $fullName);
+					$mail->AddAddress($mailcheck, $fullName);
+					$mail->Subject = "Forgot password on " . $siteName;
+					$mail->MsgHTML($msgbody);
+	
+					if (!$mail->Send()):
+						$message = "Not valid User email address";
+						echo json_encode(array('action' => 'unsuccess', 'message' => $message));
+					else:
+						$forgetRec->save();
+						// $message = "Please check your mail for login";
+						echo json_encode(array('action' => 'success', 'message' => $message));
+					endif;
+				else:
+					$message = "Not valid User email address";
+					echo json_encode(array('action' => 'unsuccess', 'message' => $message));
+				endif;
 			break;
 
 			// Front User client
@@ -386,6 +413,10 @@
 					echo json_encode(array("action" => "warning", "message" => $message));
 					exit;
 				endif;
+
+				
+
+				
 	
 				$db->begin();
 				if ($record->save()): $db->commit();
@@ -409,11 +440,56 @@
 				$freelancer->save();
 				$db->commit();
 
+			
+
 					$message = "Your registration is successful, you will be redirected to Login page!";
 					echo json_encode(array('action' => 'success', 'message' => $message ));
 					log_action("User [" . $record->first_name . " " . $record->last_name . "] login Created " . $GLOBALS['basic']['addedSuccess'], 1, 3);
 				else:
 					$message = "Internal error!";
+					echo json_encode(array('action' => 'unsuccess', 'message' => $message));
+				endif;
+				$mailcheck = addslashes($_REQUEST['email']);
+				// $mailcheck  = User::get_validMember_mail($emailAddress);
+				// pr($mailcheck);
+				if ($mailcheck):
+	
+					$row = User::find_by_mail($mailcheck);
+	
+					/* Mail Format */
+					$siteName       = Config::getField('sitename', true);
+					$AdminEmail     = User::get_UseremailAddress_byId(1);
+					$fullName       = $_REQUEST['username'];
+	
+					$msgbody = '<div>
+					<h3>you have been registered as Freelancer for ' . $siteName . '</h3>                
+					<div><font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
+					Please <a href="' . BASE_URL . 'login">click here to login.</a> <br><br>
+					<br><br>
+					<p>Thanks,<br>
+					' . $siteName . '
+					</p>
+					</div>
+					</div>';
+	
+					$mail = new PHPMailer();
+	
+					$mail->SetFrom($AdminEmail, $siteName, 0);
+					$mail->AddReplyTo($mailcheck, $fullName);
+					$mail->AddAddress($mailcheck, $fullName);
+					$mail->Subject = "Forgot password on " . $siteName;
+					$mail->MsgHTML($msgbody);
+	
+					if (!$mail->Send()):
+						$message = "Not valid User email address";
+						echo json_encode(array('action' => 'unsuccess', 'message' => $message));
+					else:
+						$forgetRec->save();
+						// $message = "Please check your mail for login";
+						echo json_encode(array('action' => 'success', 'message' => $message));
+					endif;
+				else:
+					$message = "Not valid User email address";
 					echo json_encode(array('action' => 'unsuccess', 'message' => $message));
 				endif;
 			break;
@@ -574,6 +650,7 @@
             $jobId = addslashes($_REQUEST['jobId']);
 
             $jobRec = jobs::find_by_id($jobId);
+			pr($jobRec);
             if ($jobRec->project_status != 1) {
                 $message = "Bidding Closed !";
                 echo json_encode(array("action" => "biddingClosed", "message" => $message));

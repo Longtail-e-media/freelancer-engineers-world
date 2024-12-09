@@ -35,6 +35,14 @@ class Bids extends DatabaseObject
         // return !empty($result_array) ? array_shift($result_array) : false;
     }
 
+    public static function find_by_jobid_single_award($jobid=0)
+    {
+        global $db;
+        $result_array = self::find_by_sql("SELECT * FROM " . self::$table_name . " WHERE job_id='$jobid' AND status=1 AND project_status=3");
+        // return self::find_by_sql($sql);
+        return !empty($result_array) ? array_shift($result_array) : false;
+    }
+
     public static function find_by_jobid_short($jobid=0)
     {
         global $db;

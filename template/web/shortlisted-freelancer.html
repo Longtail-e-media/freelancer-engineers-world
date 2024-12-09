@@ -39,18 +39,18 @@
             errorElement: 'span',
             errorClass: 'validate-has-error',
             rules: {
-                "bidder[]": {required: true},
+            "bidder[]": {
+                required: true,
+                maxlength: 5 // Set maximum selections allowed
             },
-            messages: {
-                "bidder[]": {required: "please select ateast 1 freelancer."},
+        },
+        messages: {
+            "bidder[]": {
+                required: "Please select at least 1 freelancer.",
+                maxlength: "You can select up to 5 freelancers only."
             },
+        },
             submitHandler: function (form) {
-                // var recaptcha = $("#g-recaptcha-response").val();
-                // if (recaptcha === "") {
-                //     event.preventDefault();
-                //     alert("Please check the recaptcha");
-                //     return false;
-                // }
         
                 var Frmval = $("form#selectfreelancer").serialize();
                 $("button#submit").attr("disabled", "true").text('Processing...');

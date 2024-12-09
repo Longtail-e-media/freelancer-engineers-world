@@ -795,7 +795,7 @@ if (!empty($_SESSION)) {
         if (!empty($Records)) {
             // pr($Records);
             foreach ($Records as $record) {
-
+                $jobdatas= jobs::find_by_id($record->job_id);
                
                 $totalbids = bids::find_total_bids($record->job_id);
                 $jobstatus = "";
@@ -822,16 +822,21 @@ if (!empty($_SESSION)) {
                             <!--<div class="d-inline-block bg-dark-subtle px-3 view-select">
                                 <a href="" class="text-decoration-none text-dark">View</a>
                                 <span>/</span>
-                                <a href="'.BASE_URL.'freelancer-shortlist/'.$record->slug.'" class="text-decoration-none text-dark">Select</a>
+                                <a href="'.BASE_URL.'freelancer-shortlist/'.$jobdatas->slug.'" class="text-decoration-none text-dark">Select</a>
                             </div>-->
                         </div>';
                         break;
 
                     case 3:
-                        $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-center">
-                        <p class="text-success fs-6 fw-bold">
-                                Awarded
+                        $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
+                            <p class="text-success fs-6 fw-bold">
+                                 Awarded
                             </p>
+                            <div class="d-inline-block bg-dark-subtle px-3 view-select">
+                                <a href="" class="text-decoration-none text-dark">View</a>
+                                <span>/</span>
+                                <a href="'.BASE_URL.'awarded/'.$jobdatas->slug.'" class="text-decoration-none text-dark">Select</a>
+                            </div>
                         </div>';
                         break;
                     case 4:
@@ -846,7 +851,7 @@ if (!empty($_SESSION)) {
                 // pr($jobstatus);
 
                 // pr($totalbids);
-                $jobdatas= jobs::find_by_id($record->job_id);
+                
                 // pr($jobdatas);
                  if ($jobdatas->budget_type == 1) {
                     $budget =
@@ -1042,6 +1047,10 @@ if (!empty($_SESSION)) {
         </div>
     </div>
     <section class="container">
+     <a href="'.BASE_URL.'dashboard" class="text-dark fs-7 d-block mb-3 mb-lg-5">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to list page
+            </a>
         <div class="row job-title-content gx-0">
             <div class="col-12 col-md-6 bg-light p-3 p-md-5 sticky-lg-top"
                 style="top: 5rem; max-height: max-content; z-index: 10;">
@@ -1152,6 +1161,10 @@ if (!empty($_SESSION)) {
         </div>
     </div>
     <section class="container">
+     <a href="'.BASE_URL.'dashboard" class="text-dark fs-7 d-block mb-3 mb-lg-5">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to list page
+            </a>
         <div class="row job-title-content gx-0">
             <div class="col-12 col-md-6 bg-light p-3 p-md-5 sticky-lg-top"
                 style="top: 5rem; max-height: max-content; z-index: 10;">
@@ -1236,5 +1249,110 @@ $jVars["module:dashboard-selectshortlist"] = $selectshortlisted;
 
 
 
-//freelancer dashboard
+//freelancer view awarded job details dashboard
+$awarddetail = "";
+if (!empty($_SESSION)) {
+    if (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "freelancer" && isset($_REQUEST['slug'])) {
+
+        $slug = !empty($_REQUEST['slug']) ? addslashes($_REQUEST['slug']) : '';
+        $jobdatas= jobs::find_by_slug($slug);
+        // $totalbids = bids::find_total_bids($jobdatas->id);   
+        if ($jobdatas->budget_type == 1) {
+            $budget = ' <h4 class="fs-6 fw-bold">' . $jobdatas->currency . ' ' . $jobdatas->exact_budget . '</h4>';
+        } else {
+            $budget = '<h4 class="fs-6 fw-bold">' . $jobdatas->currency . ' ' . $jobdatas->budget_range_low . ' - ' . $jobdatas->budget_range_high . '</h4>';
+        }
+        $awarddetail .= '<div class="bg-dark-blue">
+        <div class="container py-5 d-flex align-items-center justify-content-between">
+            <h1 class="text-light fw-light fs-1">
+                Job Titles
+            </h1>
+            <button class="btn btn-primary bg-light text-dark px-4 py-2 fs-6 rounded-0 border-0">
+                Create Job
+            </button>
+        </div>
+    </div>
+    <section class="container">
+    <a href="'.BASE_URL.'dashboard" class="text-dark fs-7 d-block mb-3 mb-lg-5">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to list page
+            </a>
+        <div class="row job-title-content gx-0">
+            <div class="col-12 col-md-6 bg-light p-3 p-md-5 sticky-lg-top"
+                style="top: 5rem; max-height: max-content; z-index: 10;">
+                <div>
+                    <div class="card-title d-flex align-items-center justify-content-between">
+                        <div class="">
+                            <h3 class="fs-5 fw-bold">'.$jobdatas->title.'</h3>
+                            <span class="fs-7">End Date: ' . date("M d Y", strtotime($jobdatas->deadline_date)) . '</span>
+                        </div>
+                        <div>
+                           '.$budget.'
+                        </div>
+                    </div>
+
+                    <div class="card-body mt-4 mt-md-5">
+                       '.$jobdatas->content.'
+                    </div>
+                </div>
+            </div>';
+
+            $bidderdetail='';
+            $biddata= bids::find_by_jobid_single_award($jobdatas->id);
+            // pr($biddata);
+            if(!empty($biddata)){
+                $bidderdetail = '';
+                // foreach($biddatas as $biddata){
+                    
+                    //freelancer data through
+                    $freelandata= freelancer::find_by_id($biddata->freelancer_id);
+                    // pr($freelandata);
+                    if(!empty($freelandata->profile_picture)){
+                        $profilepic ='';
+                    }
+            $bidderdetail .='<div class="row bg-light p-3 mt-2 gx-0">
+                    <div class="col-2 col-md-2 p-0">
+                        <img src="'.IMAGE_PATH.'/freelancer/profile/'.$freelandata->profile_picture.'"
+                            alt="User" class="user-icon w-100 bg-dark-subtle p-3">
+                    </div>
+                    <div class="col-10 col-md-6 px-3">
+                        <h5 class="fs-6 fw-bold">'.$freelandata->username.'</h5>
+                        <p class="fs-7 line-clamp-2 mb-0">
+                        '.strip_tags($biddata->message).'
+                        </p>
+                        <a href="#" class="fs-7">more</a>
+                    </div>
+                    <div class="col-6 col-md-3 mt-3 mt-md-0">
+                        <h5 class="fs-7"><strong>'.$biddata->currency.' '.$biddata->bid_amount.'</strong> in '.$biddata->delivery.' days</h5>
+                        <span class="fs-5"> ' . str_repeat('★', $biddata->freelancer_rating) . ' ' . str_repeat('☆', (5 - $biddata->freelancer_rating)) . '
+                        </span>
+                    </div>
+                    <!--<div class="col-2 col-md-1 d-flex align-items-center mt-3 mt-md-0">
+                        <input type="checkbox" name="bidder[]" value="'.$biddata->freelancer_id.'"
+                            class="form-check-input bg-dark-subtle rounded-0 text-dark w-75 py-3 border-dark" />
+                    </div>-->
+                </div>';
+                
+            // }
+            }
+             $awarddetail .= '
+            <div class="col-12 col-md-6 bg-white ps-0 ps-md-5">
+            <h5 class="fs-5 fw-bold mb-3">Awarded Freelancer</h5>
+            <form id="selectfreelancer">
+            <input type="hidden" name="jobid" value="'.$jobdatas->id.'">
+                '.$bidderdetail.'
+
+
+                
+            </form>
+            </div>
+        </div>
+    </section>';
+    }
+   
+} else {
+    $awarddetail = "please login to view profile";
+}
+
+$jVars["module:dashboard-rewardfreelancer"] = $awarddetail;
 
