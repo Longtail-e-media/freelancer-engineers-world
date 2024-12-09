@@ -1,13 +1,13 @@
 <script language="javascript">
 
     function getLocation() {
-        return '<?php echo BASE_URL;?>includes/controllers/ajax.vacency.php';
-        
+        return '<?php echo BASE_URL;?>includes/controllers/ajax.freelancer.php';
+
     }
 
     function getApp() {
-         return '<?php echo BASE_URL;?>includes/controllers/ajax.freelancer.php';
-       
+        return '<?php echo BASE_URL;?>includes/controllers/ajax.freelancer.php';
+
     }
 
     function getTableId() {
@@ -29,14 +29,6 @@
 
     /***************************************** Vacency Create Date *******************************************/
     $(document).ready(function () {
-        $('#vacency_date').datepicker({
-            changeMonth: true,
-            changeYear: true,
-            showButtonPanel: true,
-            dateFormat: 'yy-mm-dd'
-        });
-    });
-    $(document).ready(function () {
         $('#date1').datepicker({
             changeMonth: true,
             changeYear: true,
@@ -50,11 +42,6 @@
         window.location.href = "<?php echo ADMIN_URL?>vacency/vacencylist/" + Re;
     }
 
-    /*************************************** Toggle AddEdit Form ********************************************/
-    function toggleMetadata() {
-        $(".metadata").slideToggle("slow", function () {
-        });
-    }
 
     $(document).ready(function () {
         // form submisstion actions
@@ -107,22 +94,58 @@
                 }
             }
         })
-    });
 
-    // Edit records
-    function editRecord(Re) {
-        $.ajax({
-            type: "POST",
-            dataType: "JSON",
-            url: getLocation(),
-            data: 'action=editExistsRecord&id=' + Re,
-            success: function (data) {
-                var msg = eval(data);
-                $("#title").val(msg.title);
-                $("#idValue").val(msg.editId);
+        jQuery('#add_rating_frm').validationEngine({
+            autoHidePrompt: true,
+            promptPosition: "bottomLeft",
+            scroll: true,
+            onValidationComplete: function (form, status) {
+                if (status == true) {
+                    $('.btn-submit').attr('disabled', 'true');
+                    var action = ($('#idValue').val() == 0) ? "action=addRating&" : "action=addRating&";
+                    var data = $('#add_rating_frm').serialize();
+                    queryString = action + data;
+                    $.ajax({
+                        type: "POST",
+                        dataType: "JSON",
+                        url: getLocation(),
+                        data: queryString,
+                        success: function (data) {
+                            var msg = eval(data);
+                            if (msg.action == 'warning') {
+                                showMessage(msg.action, msg.message);
+                                setTimeout(function () {
+                                    $('.my-msg').html('');
+                                }, 3000);
+                                $('.btn-submit').removeAttr('disabled');
+                                $('.formButtons').show();
+                                return false
+                            }
+                            if (msg.action == 'success') {
+                                showMessage(msg.action, msg.message);
+                                setTimeout(function () {
+                                    window.location.href = "";
+                                }, 3000);
+                            }
+                            if (msg.action == 'notice') {
+                                showMessage(msg.action, msg.message);
+                                setTimeout(function () {
+                                    window.location.href = window.location.href;
+                                }, 3000);
+                            }
+                            if (msg.action == 'error') {
+                                showMessage(msg.action, msg.message);
+                                $('#buttonsP img').remove();
+                                $('.formButtons').show();
+                                return false;
+                            }
+                        }
+                    });
+                    return false;
+                }
             }
-        });
-    }
+        })
+    });
 
     // Deleting Record
     function recordDelete(Re) {
@@ -184,6 +207,7 @@
     function viewvacencylist() {
         window.location.href = "<?php echo ADMIN_URL?>vacency/list";
     }
+
     function viewfreelancerlist(Re) {
         window.location.href = "<?php echo ADMIN_URL?>freelancer/list/";
     }
@@ -195,11 +219,15 @@
 
     /***************************************** Edit records *****************************************/
     function editRecord(Re) {
-        window.location.href = "<?php echo ADMIN_URL?>vacency/addEdit/"+Re;
+        window.location.href = "<?php echo ADMIN_URL?>vacency/addEdit/" + Re;
     }
 
     /***************************************** Edit records *****************************************/
     function editfreelancer(Re) {
         window.location.href = "<?php echo ADMIN_URL?>freelancer/addEditfreelancer/" + Re;
+    }
+
+    function addRating(Re) {
+        window.location.href = "<?php echo ADMIN_URL?>freelancer/addRating/" + Re;
     }
 </script>
