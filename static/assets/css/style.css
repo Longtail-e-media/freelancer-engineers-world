@@ -114,7 +114,8 @@ input[type="number"]::-webkit-inner-spin-button {
     max-width: 900px;
 }
 
-#showhide, #showhideF {
+#showhide,
+#showhideF {
     width: 1.5rem;
     position: absolute;
     right: 7%;
@@ -308,4 +309,10 @@ a.page-link:focus {
     border: 0;
     outline: 0;
     box-shadow: none;
+}
+
+
+.star {
+    cursor: pointer;
+    transition: all 0.3s ease-in;
 }

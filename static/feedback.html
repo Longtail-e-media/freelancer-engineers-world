@@ -58,13 +58,18 @@
                         <!-- Review Section -->
                         <div class="card-body mt-4 mt-lg-5">
                             <h5 class="fw-bold fs-6 my-3 my-lg-4">Review and Rate Client on project complete</h5>
-                            <textarea name="" id="write-a-review"
+                            <textarea id="write-a-review"
                                 class="form-control bg-light border-0 p-3 p-lg-5 fs-6 w-100 rounded-0"
                                 placeholder="Write a review" rows="5"></textarea>
                             <div class="my-3 my-lg-4">
-                                <span class="fs-4"> ★☆☆☆☆ </span>
+                                <div id="rating-container" class="ratings d-flex gap-1">
+                                    <span class="star fs-4 text-muted" data-value="1">☆</span>
+                                    <span class="star fs-4 text-muted" data-value="2">☆</span>
+                                    <span class="star fs-4 text-muted" data-value="3">☆</span>
+                                    <span class="star fs-4 text-muted" data-value="4">☆</span>
+                                    <span class="star fs-4 text-muted" data-value="5">☆</span>
+                                </div>
                             </div>
-
                             <button
                                 class="btn btn-dark bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0 w-auto">
                                 Submit Review
@@ -86,7 +91,7 @@
                             </li>
                             <li class="d-flex align-items-center gap-2">
                                 <i class="fa-solid fa-user"></i>
-                                <span class="fs-4"> ★☆☆☆☆ </span>
+                                <span class="fs-4 text-warning"> ★★★★☆ </span>
                             </li>
                             <li class="d-flex align-items-center gap-2">
                                 <i class="fa-solid fa-clock"></i>
@@ -106,7 +111,8 @@
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="./assets/js/app.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/rating.js"></script>
 </body>
 
 </html>
