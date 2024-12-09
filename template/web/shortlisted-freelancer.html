@@ -39,15 +39,12 @@
             errorElement: 'span',
             errorClass: 'validate-has-error',
             rules: {
-            "bidder[]": {
-                required: true,
-                maxlength: 5 // Set maximum selections allowed
-            },
+           
+                "bidder[]": {required: true},
         },
         messages: {
             "bidder[]": {
-                required: "Please select at least 1 freelancer.",
-                maxlength: "You can select up to 5 freelancers only."
+               required: "please select ateast 1 freelancer."
             },
         },
             submitHandler: function (form) {
