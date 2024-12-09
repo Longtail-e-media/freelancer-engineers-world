@@ -70,6 +70,10 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                                data-placement="top" title="Edit" onclick="editRecord(<?php echo $record->id; ?>);">
                                 <span class="button-content"> View Detail </span>
                             </a>
+                            <a href="javascript:void(0);" class="loadingbar-demo btn small bg-blue-alt tooltip-button"
+                               data-placement="top" title="Edit" onclick="addRating(<?php echo $record->id; ?>);">
+                                <span class="button-content"> Add Rating </span>
+                            </a>
                             <!--<a href="javascript:void(0);" class="btn small bg-red tooltip-button" data-placement="top"
                                title="Remove" onclick="recordDelete(<?php echo $record->id; ?>);">
                                 <i class="glyph-icon icon-remove"></i>
@@ -86,7 +90,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
             <select name="dropdown" id="groupTaskField" class="custom-select">
                 <option value="0"><?php echo $GLOBALS['basic']['choseAction']; ?></option>
                 <option value="delete"><?php echo $GLOBALS['basic']['delete']; ?></option>
-                <option value="toggleStatus"><?php echo $GLOBALS['basic']['toggleStatus']; ?></option>
+                <!--<option value="toggleStatus"><?php echo $GLOBALS['basic']['toggleStatus']; ?></option>-->
             </select>
         </div>
         <a class="btn medium primary-bg" href="javascript:void(0);" id="applySelected_btn">
@@ -196,6 +200,55 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
         </div>
     </div>
 
+<?php elseif (isset($_GET['mode']) && $_GET['mode'] == "addRating"):
+    if (isset($_GET['id']) && !empty($_GET['id'])):
+        $clientId   = addslashes($_REQUEST['id']);
+        $clientInfo = client::find_by_id($clientId);
+    endif;
+    ?>
+
+    <h3>
+        Add Rating for ['<?= $clientInfo->first_name ?> <?= $clientInfo->last_name ?>']
+        <a class="loadingbar-demo btn medium bg-blue-alt float-right" href="javascript:void(0);"
+           onClick="viewclientlist();">
+            <span class="glyph-icon icon-separator"><i class="glyph-icon icon-arrow-circle-left"></i></span>
+            <span class="button-content"> Back </span>
+        </a>
+    </h3>
+
+    <div class="my-msg"></div>
+    <div class="example-box">
+        <div class="example-code">
+            <form action="" class="col-md-12 center-margin" id="add_rating_frm">
+
+                <div class="form-row">
+                    <div class="form-label col-md-2">
+                        <label for="">
+                            Rating :
+                        </label>
+                    </div>
+                    <div class="form-input col-md-20">
+                        <select name="admin_rating" id="admin_rating" class="validate[required] col-md-1">
+                            <?php
+                            for ($i = 0; $i < 4; $i++) {
+                                $sel = ($clientInfo->admin_rating == $i) ? 'selected' : '';
+                                echo '<option value="' . $i . '" ' . $sel . '>' . $i . '</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+
+                <button btn-action='0' type="submit" name="submit" id="btn-submit" title="Save"
+                        class="btn-submit btn large primary-bg text-transform-upr font-bold font-size-11 radius-all-4">
+                <span class="button-content">Save</span>
+                </button>
+
+                <input myaction='0' type="hidden" name="idValue" id="idValue"
+                       value="<?php echo !empty($clientInfo->id) ? $clientInfo->id : 0; ?>"/>
+            </form>
+        </div>
+    </div>
 
 <?php endif;
 include("jobs.php");

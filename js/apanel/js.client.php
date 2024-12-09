@@ -214,6 +214,57 @@
             }
         })
 
+        jQuery('#add_rating_frm').validationEngine({
+            autoHidePrompt: true,
+            promptPosition: "bottomLeft",
+            scroll: true,
+            onValidationComplete: function (form, status) {
+                if (status == true) {
+                    $('.btn-submit').attr('disabled', 'true');
+                    var action = ($('#idValue').val() == 0) ? "action=addRating&" : "action=addRating&";
+                    var data = $('#add_rating_frm').serialize();
+                    queryString = action + data;
+                    $.ajax({
+                        type: "POST",
+                        dataType: "JSON",
+                        url: getLocation(),
+                        data: queryString,
+                        success: function (data) {
+                            var msg = eval(data);
+                            if (msg.action == 'warning') {
+                                showMessage(msg.action, msg.message);
+                                setTimeout(function () {
+                                    $('.my-msg').html('');
+                                }, 3000);
+                                $('.btn-submit').removeAttr('disabled');
+                                $('.formButtons').show();
+                                return false
+                            }
+                            if (msg.action == 'success') {
+                                showMessage(msg.action, msg.message);
+                                setTimeout(function () {
+                                    window.location.href = "";
+                                }, 3000);
+                            }
+                            if (msg.action == 'notice') {
+                                showMessage(msg.action, msg.message);
+                                setTimeout(function () {
+                                    window.location.href = window.location.href;
+                                }, 3000);
+                            }
+                            if (msg.action == 'error') {
+                                showMessage(msg.action, msg.message);
+                                $('#buttonsP img').remove();
+                                $('.formButtons').show();
+                                return false;
+                            }
+                        }
+                    });
+                    return false;
+                }
+            }
+        })
+
     });
     /*************************** Shorting Sub Image Gallery Postion *******************************/
     $(document).ready(function () {
@@ -407,6 +458,10 @@
     /***************************************** Edit records *****************************************/
     function editRecord(Re) {
         window.location.href = "<?php echo ADMIN_URL?>client/addEdit/" + Re;
+    }
+
+    function addRating(Re) {
+        window.location.href = "<?php echo ADMIN_URL?>client/addRating/" + Re;
     }
 
 

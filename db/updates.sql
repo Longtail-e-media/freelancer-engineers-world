@@ -38,3 +38,6 @@ ALTER TABLE `tbl_bids` ADD `currency` VARCHAR(255) NOT NULL AFTER `freelancer_id
 -- 2024-12-05[sahas]
 ALTER TABLE `tbl_bids` ADD `freelancer_rating` INT(11) NOT NULL AFTER `message`;
 ALTER TABLE `tbl_bids` ADD `client_rating` INT(11) NOT NULL AFTER `freelancer_rating`;
+
+-- 2024-12-09 [Swarna]
+ALTER TABLE `tbl_client` ADD `admin_rating` INT NOT NULL DEFAULT '0' AFTER `rating`;
