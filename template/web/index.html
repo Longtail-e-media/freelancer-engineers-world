@@ -73,7 +73,7 @@
     $(document).ready(function () {
         $('#searchForm1').validate({
             errorElement: "span",
-            errorClass: "text-danger",
+            errorClass: "error-message text-danger",
             rules: {searchkey: {required: !0}},
             submitHandler: function (form) {
                 form.submit();
@@ -81,7 +81,7 @@
         })
         $('#searchForm2').validate({
             errorElement: "span",
-            errorClass: "text-danger",
+            errorClass: "error-message text-danger",
             rules: {searchkey: {required: !0}},
             submitHandler: function (form) {
                 form.submit();
