@@ -43,7 +43,6 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
 
                 foreach ($records as $key => $record):
 
-
                     switch ($record->project_status) {
                         case 1:
                             $jobstatus = '
@@ -106,13 +105,13 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                             $statusImage = ($record->status == 1) ? "bg-green" : "bg-red";
                             $statusText = ($record->status == 1) ? $GLOBALS['basic']['clickUnpub'] : $GLOBALS['basic']['clickPub'];
                             ?>
-                            <!---  <a href="javascript:void(0);"
-                               class="btn small <?php echo $statusImage; ?> tooltip-button statusSubToggler"
+                            <a href="javascript:void(0);"
+                               class="btn small <?php echo $statusImage; ?> tooltip-button statusJobToggler"
                                data-placement="top" title="<?php echo $statusText; ?>"
                                status="<?php echo $record->status; ?>" id="imgHolder_<?php echo $record->id; ?>"
                                moduleId="<?php echo $record->id; ?>">
                                 <i class="glyph-icon icon-flag"></i>
-                            </a>-->
+                            </a>
                             <a href="javascript:void(0);" class="loadingbar-demo btn small bg-blue-alt tooltip-button"
                                data-placement="top" title="Edit"
                                onclick="editjobs(<?php echo $record->client_id; ?>,<?php echo $record->id; ?>);">
