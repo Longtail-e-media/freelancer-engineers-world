@@ -230,53 +230,56 @@
         // Save Form
         $("#freelancerfrm").validate({
             rules: {
-                // first_name: {
-                //     required: !0
-                // },
-                // last_name: {
-                //     required: !0
-                // },
-                // engineering_license_no: {
-                //     required: !0
-                // },
-                // engineering_field: {
-                //     required: !0
-                // },
-                // mobile_no: {
-                //     required: !0
-                // },
-                // education_lvl: {
-                //     required: !0
-                // },
-                // education_lvl: {
-                //     required: !0
-                // },
-                // pan_no: {
-                //     required: !0
-                // },
-                // eng_certify:{
-                //     required: !0
-                // },
-
-                // email: {
-                //     // required: !0,
-                //     email: !0
-                // },
-                // phone: {required: !0},
-                // repassword: {equalTo: "#password-profile"},
-                // address: {required: !0}
+                first_name: {
+                    required: !0
+                },
+                last_name: {
+                    required: !0
+                },
+                engineering_license_no: {
+                    required: !0
+                },
+                engineering_field: {
+                    required: !0
+                },
+                mobile_no: {
+                    required: !0
+                },
+                education_lvl: {
+                    required: !0
+                },
+                current_address: {
+                    required: !0
+                },
+                permanent_address: {
+                    required: !0
+                }
             },
             messages: {
-                // name: {
-                //     required: "Enter your Full Name"
-                // },
-                // email: {
-                //     // required: "Enter your Email Address",
-                //     email: "Enter a valid email address"
-                // },
-                // phone: {required: "Enter your Phone Number"},
-                // repassword: {equalTo: "Password does not match"},
-                // address: {required: "Enter your Address"}
+                first_name: {
+                    required: "Please enter your first name"
+                },
+                last_name: {
+                    required: "Please enter your last name"
+                },
+                engineering_license_no: {
+                    required: "Please enter your Engineering License Number"
+                },
+                engineering_field: {
+                    required: "Please enter your Field of Engineering Studies"
+                },
+                mobile_no: {
+                    required: "Please enter your Mobile no"
+                },
+                education_lvl: {
+                    required: "Please enter your Highest Level of Education"
+                },
+                current_address: {
+                    required: "Please enter your current address"
+                },
+                permanent_address: {
+                    required: "Please enter your permanent address"
+                }
             },
             submitHandler: function (form) {
                 if (form) {
@@ -314,53 +317,32 @@
         // Save Form
         $("#clientfrm").validate({
             rules: {
-                // first_name: {
-                //     required: !0
-                // },
-                // last_name: {
-                //     required: !0
-                // },
-                // engineering_license_no: {
-                //     required: !0
-                // },
-                // engineering_field: {
-                //     required: !0
-                // },
-                // mobile_no: {
-                //     required: !0
-                // },
-                // education_lvl: {
-                //     required: !0
-                // },
-                // education_lvl: {
-                //     required: !0
-                // },
-                // pan_no: {
-                //     required: !0
-                // },
-                // eng_certify:{
-                //     required: !0
-                // },
-
-                // email: {
-                //     // required: !0,
-                //     email: !0
-                // },
-                // phone: {required: !0},
-                // repassword: {equalTo: "#password-profile"},
-                // address: {required: !0}
+                username: {
+                    required: "Please enter your username"
+                },
+                mobile_no: {
+                    required: "Please enter your mobile no"
+                },
+                current_address: {
+                    required: "Please enter your current address"
+                },
+                permanent_address: {
+                    required:  "Please enter your permanent address"
+                }
             },
             messages: {
-                // name: {
-                //     required: "Enter your Full Name"
-                // },
-                // email: {
-                //     // required: "Enter your Email Address",
-                //     email: "Enter a valid email address"
-                // },
-                // phone: {required: "Enter your Phone Number"},
-                // repassword: {equalTo: "Password does not match"},
-                // address: {required: "Enter your Address"}
+                username: {
+                    required: !0
+                },
+                mobile_no: {
+                    required: !0
+                },
+                current_address: {
+                    required: !0
+                },
+                permanent_address: {
+                    required: !0
+                }
             },
             submitHandler: function (form) {
                 if (form) {
