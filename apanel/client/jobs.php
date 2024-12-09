@@ -40,10 +40,10 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
 
                 <tbody>
                 <?php $records = jobs::find_by_sql("SELECT * FROM " . $jobsTablename . " WHERE client_id=" . $id . " ORDER BY sortorder DESC ");
-                
-                foreach ($records as $key => $record): 
-                
-                
+
+                foreach ($records as $key => $record):
+
+
                     switch ($record->project_status) {
                         case 1:
                             $jobstatus = '
@@ -54,7 +54,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                                     Short listed
                                 ';
                             break;
-    
+
                         case 3:
                             $jobstatus = '
                                     Awarded ';
@@ -68,14 +68,14 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                             $jobstatus = '
                                     Work on Progress 
                             ';
-                                break;
+                            break;
                         case 6:
                             $jobstatus = '
                                    Completed
                                ';
                             break;
-                       
-                    }?>
+
+                    } ?>
                     <tr id="<?php echo $record->id; ?>">
                         <td style="display:none;"><?php echo $key + 1; ?></td>
                         <td><input type="checkbox" class="bulkCheckbox" bulkId="<?php echo $record->id; ?>"/></td>
@@ -93,7 +93,8 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                         <span class="button-content">
                             <span class="badge bg-orange radius-all-4 mrg5R" title=""
                                   data-original-title="Badge with tooltip"><?php echo $countImages = bids::find_total_bids($record->id);
-                                //var_dump($countImages);die();?></span>
+                                //var_dump($countImages);die();
+                                ?></span>
 
                             <span class="text-transform-upr font-bold font-size-11">View Lists</span>
                         </span>
@@ -105,7 +106,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                             $statusImage = ($record->status == 1) ? "bg-green" : "bg-red";
                             $statusText = ($record->status == 1) ? $GLOBALS['basic']['clickUnpub'] : $GLOBALS['basic']['clickPub'];
                             ?>
-                          <!---  <a href="javascript:void(0);"
+                            <!---  <a href="javascript:void(0);"
                                class="btn small <?php echo $statusImage; ?> tooltip-button statusSubToggler"
                                data-placement="top" title="<?php echo $statusText; ?>"
                                status="<?php echo $record->status; ?>" id="imgHolder_<?php echo $record->id; ?>"
@@ -115,7 +116,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                             <a href="javascript:void(0);" class="loadingbar-demo btn small bg-blue-alt tooltip-button"
                                data-placement="top" title="Edit"
                                onclick="editjobs(<?php echo $record->client_id; ?>,<?php echo $record->id; ?>);">
-                               <span class="button-content"> View Detail </span>
+                                <span class="button-content"> View Detail </span>
                             </a>
                             <!--<a href="javascript:void(0);" class="btn small bg-red tooltip-button" data-placement="top"
                                title="Remove" onclick="subrecordDelete(<?php echo $record->id; ?>);">
@@ -145,7 +146,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
 
 <?php elseif (isset($_GET['mode']) && $_GET['mode'] == "addEditjobs"):
     $pid = addslashes($_REQUEST['id']);
-    
+
     if (isset($_GET['subid']) and !empty($_GET['subid'])):
         $jobsId = addslashes($_REQUEST['subid']);
         $jobsInfo = jobs::find_by_id($jobsId);
@@ -154,8 +155,9 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
     endif;
     ?>
     <h3>
-        <?php //echo (isset($_GET['subid'])) ? 'Edit Job' : 'Add Jobs'; ?>
-        <?php echo 'Edit Job' .' '.$jobsInfo->title ;  ?>
+        <?php //echo (isset($_GET['subid'])) ? 'Edit Job' : 'Add Jobs';
+        ?>
+        <?php echo 'Edit Job' . ' ' . $jobsInfo->title; ?>
         <a class="loadingbar-demo btn medium bg-blue-alt float-right" href="javascript:void(0);"
            onClick="viewjobslist(<?php echo $pid; ?>);">
     <span class="glyph-icon icon-separator">
@@ -168,62 +170,63 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
     <div class="my-msg"></div>
     <div class="example-box">
         <div class="example-code">
-        <table cellpadding="0" cellspacing="0" border="0" class="table">
-        <thead>
-        <tr>
-            <th style="display:none;"></th>
-        </tr>
-        </thead>
-        <tbody>
-       
-<tr>
-    <th class="text-center">Job Title</th>
-    <td><?php echo $jobsInfo->title; ?></td>
-</tr>
+            <table cellpadding="0" cellspacing="0" border="0" class="table">
+                <thead>
+                <tr>
+                    <th style="display:none;"></th>
+                </tr>
+                </thead>
+                <tbody>
 
-<tr>
-    <th class="text-center">Job Category</th>
-    <td><?php $jobcate= jobtitle::find_by_id($jobsInfo->job_type); echo $jobcate->title; ?></td>
-</tr>
+                <tr>
+                    <th class="text-center">Job Title</th>
+                    <td><?php echo $jobsInfo->title; ?></td>
+                </tr>
 
-<tr>
-    <th class="text-center">currency</th>
-    <td><?php  echo $jobsInfo->currency; ?></td>
-</tr>
+                <tr>
+                    <th class="text-center">Job Category</th>
+                    <td><?php $jobcate = jobtitle::find_by_id($jobsInfo->job_type);
+                        echo $jobcate->title; ?></td>
+                </tr>
 
-<tr>
-    <th class="text-center">Budget Type</th>
-    <td><?php $statusbudget = ($jobsInfo->budget_type == 1) ? "Exact" : "Range"; echo $statusbudget; ?></td>
-</tr>
-<?php if($jobsInfo->budget_type==0){?>
+                <tr>
+                    <th class="text-center">currency</th>
+                    <td><?php echo $jobsInfo->currency; ?></td>
+                </tr>
 
-<tr>
-    <th class="text-center">Budget Range High</th>
-    <td><?php echo $jobsInfo->budget_range_high; ?></td>
-</tr>
-<tr>
-    <th class="text-center">Budget Range Low</th>
-    <td><?php echo $jobsInfo->budget_range_low; ?></td>
-</tr>
-<?php }
-elseif($jobsInfo->budget_type==1){
-    ?>
-<tr>
-    <th class="text-center">Exact Budget</th>
-    <td><?php echo $jobsInfo->exact_budget; ?></td>
-</tr>
-<?php }?>
-<tr>
-    <th class="text-center">Deadline Date</th>
-    <td><?php echo $jobsInfo->deadline_date; ?></td>
-</tr>
-<tr>
-    <th class="text-center">Content</th>
-    <td><?php echo $jobsInfo->content; ?></td>
-</tr>
+                <tr>
+                    <th class="text-center">Budget Type</th>
+                    <td><?php $statusbudget = ($jobsInfo->budget_type == 1) ? "Exact" : "Range";
+                        echo $statusbudget; ?></td>
+                </tr>
+                <?php if ($jobsInfo->budget_type == 0) { ?>
 
-        </tbody>
-        </table>
+                    <tr>
+                        <th class="text-center">Budget Range High</th>
+                        <td><?php echo $jobsInfo->budget_range_high; ?></td>
+                    </tr>
+                    <tr>
+                        <th class="text-center">Budget Range Low</th>
+                        <td><?php echo $jobsInfo->budget_range_low; ?></td>
+                    </tr>
+                <?php } elseif ($jobsInfo->budget_type == 1) {
+                    ?>
+                    <tr>
+                        <th class="text-center">Exact Budget</th>
+                        <td><?php echo $jobsInfo->exact_budget; ?></td>
+                    </tr>
+                <?php } ?>
+                <tr>
+                    <th class="text-center">Deadline Date</th>
+                    <td><?php echo $jobsInfo->deadline_date; ?></td>
+                </tr>
+                <tr>
+                    <th class="text-center">Content</th>
+                    <td><?php echo $jobsInfo->content; ?></td>
+                </tr>
+
+                </tbody>
+            </table>
 
         </div>
     </div>
@@ -435,9 +438,9 @@ elseif($jobsInfo->budget_type==1){
         //     },
         // });
         // });
-        
+
         // ]]>
     </script>
 <?php endif;
 include("freelancer.php");
- ?>
+?>

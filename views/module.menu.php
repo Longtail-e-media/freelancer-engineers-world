@@ -26,9 +26,9 @@ if ($menuRec):
         $classLink = !empty($menusubRec) ? '' : 'nav-link fs-6';
         $chkchild = !empty($menusubRec) ? '' : '';
         $drop1 = !empty($menusubRec) ? '<i class="ti-angle-down"></i>' : '';
-        $result .=  '<li class="'. $subclass .$linkActive . $PlinkActive.' ">';
+        $result .= '<li class="' . $subclass . $linkActive . $PlinkActive . ' ">';
         $result .= getMenuList($menuRow->name, $menuRow->linksrc, $menuRow->linktype, $linkActive . $PlinkActive . $classLink, $drop1);
-        
+
         /* Second Level Menu */
         if ($menusubRec):
             $result .= '<ul class="navbar-nav ms-auto gap-5 align-items-center">';
@@ -36,7 +36,7 @@ if ($menuRec):
                 $menusub2Rec = Menu::getMenuByParent($menusubRow->id, 1);
                 $chkparent2 = (!empty($menusub2Rec)) ? 1 : 0;
                 $drop2 = !empty($menusub2Rec) ? 'menu-item' : 'menu-item';
-                $result .= '<li class="'.$drop2.'">';
+                $result .= '<li class="' . $drop2 . '">';
                 $result .= getMenuList($menusubRow->name, $menusubRow->linksrc, $menusubRow->linktype, '', $chkparent2);
                 /* Third Level Menu */
                 if ($menusub2Rec):
@@ -81,27 +81,22 @@ if ($menuRec):
     endforeach;
     $result .= '  ';
     // pr($_SESSION);
-    if(empty($_SESSION['user_id'])){
-                 $result .= '   <li class="nav-item">     <a class="nav-link fs-6 bg-white px-5 py-2" href="'.BASE_URL.'signup">Sign in</a>';
-                }
-                else{
-                    $userdata= user::find_by_id($_SESSION['user_id']);
-                  $result .= ' <li class="nav-item dropdown "> <a class="nav-link fs-6" href="#" type="button" data-bs-toggle="dropdown" aria-expanded="false">Welcome '.$userdata->username.' <i class="fas fa-chevron-down"></i></a>
+    if (empty($_SESSION['user_id'])) {
+        $result .= '   <li class="nav-item">     <a class="nav-link fs-6 bg-white px-5 py-2" href="' . BASE_URL . 'signup">Sign in</a>';
+    } else {
+        $userdata = user::find_by_id($_SESSION['user_id']);
+        $result .= ' <li class="nav-item dropdown "> <a class="nav-link fs-6" href="#" type="button" data-bs-toggle="dropdown" aria-expanded="false">Welcome ' . $userdata->username . ' <i class="fas fa-chevron-down"></i></a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="'.BASE_URL.'profile">Profile</a></li>
-                        <li><a class="dropdown-item" href="'.BASE_URL.'dashboard">Dashboard</a></li>
-                        <li><a class="dropdown-item" href="'.BASE_URL.'logout">Logout</a></li>
-                      </ul> ';  
-                }
-                 $result .= '         </li>
+                        <li><a class="dropdown-item" href="' . BASE_URL . 'profile">Profile</a></li>
+                        <li><a class="dropdown-item" href="' . BASE_URL . 'dashboard">Dashboard</a></li>
+                        <li><a class="dropdown-item" href="' . BASE_URL . 'logout">Logout</a></li>
+                      </ul> ';
+    }
+    $result .= '         </li>
                 </ul>';
 endif;
 
 $jVars['module:res-menu'] = $result;
-
-
-
-
 
 
 $result = '';
@@ -131,7 +126,7 @@ if ($menuRec):
         $classLink = !empty($menusubRec) ? ' dropdown-toggle' : '';
         $chkchild = !empty($menusubRec) ? ' data-bs-toggle="dropdown" role="button" ' : ' role="button" aria-haspopup="true" aria-expanded="false" ';
         $drop1 = !empty($menusubRec) ? ' <i class=icon-down-open-mini></i>' : '';
-        $result .= '<li class="'. $subclass .$linkActive . $PlinkActive.' ">';
+        $result .= '<li class="' . $subclass . $linkActive . $PlinkActive . ' ">';
         $result .= getMenuList($menuRow->name, $menuRow->linksrc, $menuRow->linktype, $linkActive . $PlinkActive . $classLink, $chkchild);
         /* Second Level Menu */
         if ($menusubRec):
@@ -194,7 +189,7 @@ $resfooter = '';
 $FmenuRec = Menu::getMenuByParent(0, 3);
 if ($FmenuRec):
     $resfooter .= '<ul class="list-unstyled p-0">';
-    
+
     foreach ($FmenuRec as $FmenuRow):
         $resfooter .= '<li class="mb-3 fs-6 fw-normal">';
         $resfooter .= getMenuList($FmenuRow->name, $FmenuRow->linksrc, $FmenuRow->linktype, 'text-decoration-none text-dark');
@@ -209,7 +204,7 @@ $resfooter2 = '';
 $FmenuRec2 = Menu::getMenuByParent(0, 2);
 if ($FmenuRec2):
     $resfooter2 .= '<ul class="list-unstyled p-0">';
-    
+
     foreach ($FmenuRec2 as $FmenuRow2):
         $resfooter2 .= '<li class="mb-3 fs-6 fw-normal">';
         $resfooter2 .= getMenuList($FmenuRow2->name, $FmenuRow2->linksrc, $FmenuRow2->linktype, 'text-decoration-none text-dark');
@@ -254,7 +249,6 @@ if ($menuRec):
     endforeach;
     $result .= '</ul>';
 endif;
-
 
 
 $jVars['module:footer-menu'] = $result;

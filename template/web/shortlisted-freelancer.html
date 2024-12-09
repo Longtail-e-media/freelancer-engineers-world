@@ -11,7 +11,7 @@
     <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css'>
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="shortcut icon" href="./assets/logo.svg" type="image/x-icon">
-    
+
 </head>
 
 <body>
@@ -34,21 +34,21 @@
 <script type="text/javascript">
     var base_url = $('base').attr('url');
     $(document).ready(function () {
-            
+
         $('#selectfreelancer').validate({
             errorElement: 'span',
             errorClass: 'validate-has-error',
             rules: {
-           
+
                 "bidder[]": {required: true},
-        },
-        messages: {
-            "bidder[]": {
-               required: "please select ateast 1 freelancer."
             },
-        },
+            messages: {
+                "bidder[]": {
+                    required: "please select ateast 1 freelancer."
+                },
+            },
             submitHandler: function (form) {
-        
+
                 var Frmval = $("form#selectfreelancer").serialize();
                 $("button#submit").attr("disabled", "true").text('Processing...');
                 $.ajax({
@@ -61,8 +61,8 @@
                         $("button#submit").removeAttr("disabled").text('updated');
                         $('div#result_msg').html(msg.message).css('display', 'block').addClass('alert alert-success').fadeOut(8000);
                         setTimeout(function () {
-                                    return window.location.href = base_url + "dashboard";
-                                }, 1500);
+                            return window.location.href = base_url + "dashboard";
+                        }, 1500);
                     }
                 });
                 return false;

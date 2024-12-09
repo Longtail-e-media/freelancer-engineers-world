@@ -30,16 +30,15 @@ $jVars['site:titlescript']	= ' <script>
         });
     </script>';
 
-	function changestatustimeout($tablename=""){
-		$currentdate= date('Y-m-d');
-		// pr($currentdate);
-		global $db;
-		
-		$db->begin();
-		$sql = $db->query("update {$tablename} set project_status=4 where deadline_date<'.$currentdate.' and project_status<=2");
-		$db->commit();
-		// $result = $db->num_rows($sql);
-	}
+function changestatustimeout($tablename = "")
+{
+    $currentdate = date('Y-m-d');
+    global $db;
+
+    $db->begin();
+    $db->query("update {$tablename} set project_status=4 where deadline_date<'.$currentdate.' and project_status<=2");
+    $db->commit();
+}
 
 require_once("views/module.booking.php");
 

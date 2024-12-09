@@ -273,84 +273,76 @@
 		break;
 
 
-			// Front User client
-			case "registerNewClient":
-				$record = new User();
-	
-				$record->first_name     = $_REQUEST['first_name'];
-				$record->middle_name     = $_REQUEST['middle_name'];
-				$record->last_name      = $_REQUEST['last_name'];
-				$record->email          = $_REQUEST['email'];
-				$record->contact        = $_REQUEST['mobile_no'];
-				$record->username   = $_REQUEST['username'];
-				$record->password       = md5($_REQUEST['password']);
-				$record->accesskey      = @randomKeys(25);
-				$record->group_id		= 3;
-				$record->status         = 1;
-				$record->sortorder      = User::find_maximum();
-				$record->added_date      = registered();
-				
-				
-				$checkDupliEmail        = User::checkDupliEmail($record->email);
-				if ($checkDupliEmail):
-					$message = "This email already exists.";
-					echo json_encode(array("action" => "warning", "message" => $message));
-					exit;
-				endif;
-				$checkDupliusername        = User::checkDupliEmail($record->username);
-				if ($checkDupliusername):
-					$message = "This Username already exists.";
-					echo json_encode(array("action" => "warning", "message" => $message));
-					exit;
-				endif;
+        // Front User client
+        case "registerNewClient":
+            $record             = new User();
 
-				
-				$db->begin();
-				if ($record->save()): $db->commit();
-				
-				$client= new client();
-				
-				
-				$client->first_name     = $_REQUEST['first_name'];
-				$client->middle_name     = $_REQUEST['middle_name'];
-				$client->last_name      = $_REQUEST['last_name'];
-				$client->email          = $_REQUEST['email'];
-				$client->mobile_no        = $_REQUEST['mobile_no'];
-				$client->username   = $_REQUEST['username'];
-				// $client->password       = md5($_REQUEST['password']);
-				// $client->accesskey      = @randomKeys(25);
-				$client->user_id		= $record->id;
-				$client->status         = 1;
-				$client->sortorder      = User::find_maximum();
-				$client->added_date      = registered();
-				$db->begin();
-				$client->save();
-				$db->commit();
+            $record->first_name     = $_REQUEST['first_name'];
+            $record->middle_name    = $_REQUEST['middle_name'];
+            $record->last_name      = $_REQUEST['last_name'];
+            $record->email          = $_REQUEST['email'];
+            $record->contact        = $_REQUEST['mobile_no'];
+            $record->username       = $_REQUEST['username'];
+            $record->password       = md5($_REQUEST['password']);
+            $record->accesskey      = @randomKeys(25);
+            $record->group_id       = 3;
+            $record->status         = 1;
+            $record->sortorder      = User::find_maximum();
+            $record->added_date     = registered();
 
-		
+            $checkDupliEmail    = User::checkDupliEmail($record->email);
+            if ($checkDupliEmail):
+                $message        = "This email already exists.";
+                echo json_encode(array("action" => "warning", "message" => $message));
+                exit;
+            endif;
+            $checkDupliusername = User::checkDupliEmail($record->username);
+            if ($checkDupliusername):
+                $message        = "This Username already exists.";
+                echo json_encode(array("action" => "warning", "message" => $message));
+                exit;
+            endif;
 
-					$message = "Your registration is successful, you will be redirected to Login page!";
-					echo json_encode(array('action' => 'success', 'message' => $message ));
-					log_action("User [" . $record->first_name . " " . $record->last_name . "] login Created " . $GLOBALS['basic']['addedSuccess'], 1, 3);
-				else:
-					$message = "Internal error!";
-					echo json_encode(array('action' => 'unsuccess', 'message' => $message));
-				endif;
+            $db->begin();
+            if ($record->save()): $db->commit();
 
-				
-				$mailcheck = addslashes($_REQUEST['email']);
-				// $mailcheck  = User::get_validMember_mail($emailAddress);
-				// pr($mailcheck);
-				if ($mailcheck):
-	
-					$row = User::find_by_mail($mailcheck);
-	
-					/* Mail Format */
-					$siteName       = Config::getField('sitename', true);
-					$AdminEmail     = User::get_UseremailAddress_byId(1);
-					$fullName       = $_REQUEST['username'];
-	
-					$msgbody = '<div>
+                $client = new client();
+
+                $client->first_name     = $_REQUEST['first_name'];
+                $client->middle_name    = $_REQUEST['middle_name'];
+                $client->last_name      = $_REQUEST['last_name'];
+                $client->email          = $_REQUEST['email'];
+                $client->mobile_no      = $_REQUEST['mobile_no'];
+                $client->username       = $_REQUEST['username'];
+                // $client->password       = md5($_REQUEST['password']);
+                // $client->accesskey      = @randomKeys(25);
+                $client->user_id        = $record->id;
+                $client->status         = 1;
+                $client->sortorder      = User::find_maximum();
+                $client->added_date     = registered();
+                $db->begin();
+                $client->save();
+                $db->commit();
+
+                $message    = "Your registration is successful, you will be redirected to Login page!";
+                echo json_encode(array('action' => 'success', 'message' => $message));
+                log_action("User [" . $record->first_name . " " . $record->last_name . "] login Created " . $GLOBALS['basic']['addedSuccess'], 1, 3);
+            else:
+                $message    = "Internal error!";
+                echo json_encode(array('action' => 'unsuccess', 'message' => $message));
+            endif;
+
+            $mailcheck = addslashes($_REQUEST['email']);
+            if ($mailcheck):
+
+                $row    = User::find_by_mail($mailcheck);
+
+                /* Mail Format */
+                $siteName   = Config::getField('sitename', true);
+                $AdminEmail = User::get_UseremailAddress_byId(1);
+                $fullName   = $_REQUEST['username'];
+
+                $msgbody    = '<div>
 					<h3>you have been registered as Client for ' . $siteName . '</h3>                
 					<div><font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
 					Please <a href="' . BASE_URL . 'login">click here to login.</a> <br><br>
@@ -360,108 +352,98 @@
 					</p>
 					</div>
 					</div>';
-	
-					$mail = new PHPMailer();
-	
-					$mail->SetFrom($AdminEmail, $siteName, 0);
-					$mail->AddReplyTo($mailcheck, $fullName);
-					$mail->AddAddress($mailcheck, $fullName);
-					$mail->Subject = "Forgot password on " . $siteName;
-					$mail->MsgHTML($msgbody);
-	
-					if (!$mail->Send()):
-						$message = "Not valid User email address";
-						echo json_encode(array('action' => 'unsuccess', 'message' => $message));
-					else:
-						$forgetRec->save();
-						// $message = "Please check your mail for login";
-						echo json_encode(array('action' => 'success', 'message' => $message));
-					endif;
-				else:
-					$message = "Not valid User email address";
-					echo json_encode(array('action' => 'unsuccess', 'message' => $message));
-				endif;
-			break;
 
-			// Front User client
-			case "registerNewfreelancer":
-				$record = new User();
-	
-				$record->first_name     = $_REQUEST['first_name'];
-				$record->middle_name     = $_REQUEST['middle_name'];
-				$record->last_name      = $_REQUEST['last_name'];
-				$record->email          = $_REQUEST['email'];
-				$record->contact        = $_REQUEST['mobile_no'];
-				$record->username   = $_REQUEST['username'];
-				$record->password       = md5($_REQUEST['password']);
-				$record->accesskey      = @randomKeys(25);
-				$record->group_id		= 4;
-				$record->status         = 1;
-				$record->sortorder      = User::find_maximum();
-				$record->added_date      = registered();
-	
-	
-				$checkDupliEmail        = User::checkDupliEmail($record->email);
-				if ($checkDupliEmail):
-					$message = "This email already exists.";
-					echo json_encode(array("action" => "warning", "message" => $message));
-					exit;
-				endif;
-				$checkDupliusername        = User::checkDupliEmail($record->username);
-				if ($checkDupliusername):
-					$message = "This Username already exists.";
-					echo json_encode(array("action" => "warning", "message" => $message));
-					exit;
-				endif;
+                $mail   = new PHPMailer();
 
-				
+                $mail->SetFrom($AdminEmail, $siteName, 0);
+                $mail->AddReplyTo($mailcheck, $fullName);
+                $mail->AddAddress($mailcheck, $fullName);
+                $mail->Subject = "Forgot password on " . $siteName;
+                $mail->MsgHTML($msgbody);
 
-				
-	
-				$db->begin();
-				if ($record->save()): $db->commit();
+                if (!$mail->Send()):
+                    $message    = "Not valid User email address";
+                    echo json_encode(array('action' => 'unsuccess', 'message' => $message));
+                else:
+                    $forgetRec->save();
+                    // $message = "Please check your mail for login";
+                    echo json_encode(array('action' => 'success', 'message' => $message));
+                endif;
+            else:
+                $message    = "Not valid User email address";
+                echo json_encode(array('action' => 'unsuccess', 'message' => $message));
+            endif;
+        break;
 
-				$freelancer= new freelancer();
+        // Front User client
+        case "registerNewfreelancer":
+            $record                 = new User();
 
-				
-				$freelancer->first_name     = $_REQUEST['first_name'];
-				$freelancer->middle_name     = $_REQUEST['middle_name'];
-				$freelancer->last_name      = $_REQUEST['last_name'];
-				$freelancer->email          = $_REQUEST['email'];
-				$freelancer->mobile_no        = $_REQUEST['mobile_no'];
-				$freelancer->username   = $_REQUEST['username'];
-				// $freelancer->password       = md5($_REQUEST['password']);
-				// $freelancer->accesskey      = @randomKeys(25);
-				$freelancer->user_id		= $record->id;
-				$freelancer->status         = 1;
-				$freelancer->sortorder      = User::find_maximum();
-				$freelancer->added_date      = registered();
-				$db->begin();
-				$freelancer->save();
-				$db->commit();
+            $record->first_name     = $_REQUEST['first_name'];
+            $record->middle_name    = $_REQUEST['middle_name'];
+            $record->last_name      = $_REQUEST['last_name'];
+            $record->email          = $_REQUEST['email'];
+            $record->contact        = $_REQUEST['mobile_no'];
+            $record->username       = $_REQUEST['username'];
+            $record->password       = md5($_REQUEST['password']);
+            $record->accesskey      = @randomKeys(25);
+            $record->group_id       = 4;
+            $record->status         = 1;
+            $record->sortorder      = User::find_maximum();
+            $record->added_date     = registered();
 
-			
+            $checkDupliEmail    = User::checkDupliEmail($record->email);
+            if ($checkDupliEmail):
+                $message        = "This email already exists.";
+                echo json_encode(array("action" => "warning", "message" => $message));
+                exit;
+            endif;
+            $checkDupliusername = User::checkDupliEmail($record->username);
+            if ($checkDupliusername):
+                $message        = "This Username already exists.";
+                echo json_encode(array("action" => "warning", "message" => $message));
+                exit;
+            endif;
 
-					$message = "Your registration is successful, you will be redirected to Login page!";
-					echo json_encode(array('action' => 'success', 'message' => $message ));
-					log_action("User [" . $record->first_name . " " . $record->last_name . "] login Created " . $GLOBALS['basic']['addedSuccess'], 1, 3);
-				else:
-					$message = "Internal error!";
-					echo json_encode(array('action' => 'unsuccess', 'message' => $message));
-				endif;
-				$mailcheck = addslashes($_REQUEST['email']);
-				// $mailcheck  = User::get_validMember_mail($emailAddress);
-				// pr($mailcheck);
-				if ($mailcheck):
-	
-					$row = User::find_by_mail($mailcheck);
-	
-					/* Mail Format */
-					$siteName       = Config::getField('sitename', true);
-					$AdminEmail     = User::get_UseremailAddress_byId(1);
-					$fullName       = $_REQUEST['username'];
-	
-					$msgbody = '<div>
+            $db->begin();
+            if ($record->save()): $db->commit();
+
+                $freelancer = new freelancer();
+
+                $freelancer->first_name     = $_REQUEST['first_name'];
+                $freelancer->middle_name    = $_REQUEST['middle_name'];
+                $freelancer->last_name      = $_REQUEST['last_name'];
+                $freelancer->email          = $_REQUEST['email'];
+                $freelancer->mobile_no      = $_REQUEST['mobile_no'];
+                $freelancer->username       = $_REQUEST['username'];
+                // $freelancer->password       = md5($_REQUEST['password']);
+                // $freelancer->accesskey      = @randomKeys(25);
+                $freelancer->user_id        = $record->id;
+                $freelancer->status         = 1;
+                $freelancer->sortorder      = User::find_maximum();
+                $freelancer->added_date     = registered();
+                $db->begin();
+                $freelancer->save();
+                $db->commit();
+
+                $message    = "Your registration is successful, you will be redirected to Login page!";
+                echo json_encode(array('action' => 'success', 'message' => $message));
+                log_action("User [" . $record->first_name . " " . $record->last_name . "] login Created " . $GLOBALS['basic']['addedSuccess'], 1, 3);
+            else:
+                $message    = "Internal error!";
+                echo json_encode(array('action' => 'unsuccess', 'message' => $message));
+            endif;
+            $mailcheck = addslashes($_REQUEST['email']);
+            if ($mailcheck):
+
+                $row    = User::find_by_mail($mailcheck);
+
+                /* Mail Format */
+                $siteName   = Config::getField('sitename', true);
+                $AdminEmail = User::get_UseremailAddress_byId(1);
+                $fullName   = $_REQUEST['username'];
+
+                $msgbody    = '<div>
 					<h3>you have been registered as Freelancer for ' . $siteName . '</h3>                
 					<div><font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
 					Please <a href="' . BASE_URL . 'login">click here to login.</a> <br><br>
@@ -471,209 +453,198 @@
 					</p>
 					</div>
 					</div>';
-	
-					$mail = new PHPMailer();
-	
-					$mail->SetFrom($AdminEmail, $siteName, 0);
-					$mail->AddReplyTo($mailcheck, $fullName);
-					$mail->AddAddress($mailcheck, $fullName);
-					$mail->Subject = "Forgot password on " . $siteName;
-					$mail->MsgHTML($msgbody);
-	
-					if (!$mail->Send()):
-						$message = "Not valid User email address";
-						echo json_encode(array('action' => 'unsuccess', 'message' => $message));
-					else:
-						$forgetRec->save();
-						// $message = "Please check your mail for login";
-						echo json_encode(array('action' => 'success', 'message' => $message));
-					endif;
-				else:
-					$message = "Not valid User email address";
-					echo json_encode(array('action' => 'unsuccess', 'message' => $message));
-				endif;
-			break;
 
-			case "frontLogin":
-				$email      = addslashes($_REQUEST['email']);
-				$emailoruser = explode("@",$email);
-				// pr($emailoruser);
-				// if(!empty($emailoruser[1])){
-					// 	$sqluser='email="' . $email . '"';
-					// }
-					// else{
-						// 	$sqluser='username="' . $email . '"';
-						
-						// }
-						$paccess    = addslashes($_REQUEST['password']);
-						
-						$sql = 'SELECT * FROM tbl_users WHERE ((email="' . $email . '" or username="' . $email . '")';
-						// pr($sql);
-						$sql .= ' AND password="' . md5($paccess) . '") AND (group_id=3 OR group_id=4) LIMIT 1';
-						// $sql .= ' AND password="' . md5($paccess) . '"  LIMIT 1';
-						// pr($sql);
-				$count = $db->num_rows($db->query($sql));
-	
-				if ($count > 0) {
-					$sqlid = $db->fetch_object($db->query($sql));
-					
-					$userid = $sqlid->id;
-					// $client= client::find_by_email($sqlid->email);
-					// $freelancer= freelancer::find_by_email($sqlid->email);
-					if($sqlid->group_id==3){
-						$usertype='client';
-					}
-					elseif($sqlid->group_id==4){
-						$usertype='freelancer';
-					}
-					else{
-						$usertype='';
-					}
+                $mail = new PHPMailer();
 
-					if(!empty($emailoruser[1])){
-						$uprec = User::find_by_mail($email);
-					}
-					else{
-						$uprec = User::find_by_username($email);
-						
-					}
-					// pr();
+                $mail->SetFrom($AdminEmail, $siteName, 0);
+                $mail->AddReplyTo($mailcheck, $fullName);
+                $mail->AddAddress($mailcheck, $fullName);
+                $mail->Subject = "Forgot password on " . $siteName;
+                $mail->MsgHTML($msgbody);
 
-					// $uprec = User::find_by_mail($email);
-	
-					if ($uprec->status == 0) {
-						$message = "Your account has not been approved!";
-						echo json_encode(array("action" => "error", "message" => $message));
-					} else {
-						$session->set('email_logged', $email);
-						$session->set('user_id', $userid);
-						$session->set('user_type', $usertype);
-						$remember = isset($_REQUEST['remember']) ? 1 : 0;
-	
-						if (!empty($remember)) {
-							setcookie("remem_email", $email, time() + (60 * 60), "/", "");
-							setcookie("remem_pass", $paccess, time() + (60 * 60), "/", "");
-						} else {
-							setcookie("remem_email", '', time() - (60 * 60), "/", "");
-							setcookie("remem_pass", '', time() - (60 * 60), "/", "");
-						}
-						$message = "Welcome " . $uprec->first_name . "! You will be redirected to Dashboard shortly!";
-						if (isset($_REQUEST['page']) and $_REQUEST['page'] == 'checkout') {
-							$message = "Welcome " . $uprec->first_name . "!";
-						}
-						echo json_encode(array("action" => "success", "message" => $message));
-					}
-				} else {
-					$message = "Email or Password doesn't match !";
-					echo json_encode(array("action" => "error", "message" => $message));
-				}
-				break;
+                if (!$mail->Send()):
+                    $message = "Not valid User email address";
+                    echo json_encode(array('action' => 'unsuccess', 'message' => $message));
+                else:
+                    $forgetRec->save();
+                    // $message = "Please check your mail for login";
+                    echo json_encode(array('action' => 'success', 'message' => $message));
+                endif;
+            else:
+                $message = "Not valid User email address";
+                echo json_encode(array('action' => 'unsuccess', 'message' => $message));
+            endif;
+        break;
 
-				case "updateProfileFreelancer":
-					// $freelancerda= user::find_by_id($_SESSION['user_id']);
-					$record = freelancer::find_by_userid($_SESSION['user_id']);
-					// pr($record);
-					
-					// $record->slug 		= create_slug($_REQUEST['title']);							
-					// $record->email 		= $_REQUEST['email'];
-					$record->first_name 	= $_REQUEST['firstname'];	
-					$record->middle_name 	= $_REQUEST['middle_name'];	
-					$record->last_name 	= $_REQUEST['last_name'];	
-					$record->engineering_license_no 		= $_REQUEST['engineering_license_no'];		
-					$record->engineering_field	= $_REQUEST['engineering_field'];
-					$record->mobile_no 		= $_REQUEST['mobile_no'];
-					// $record->education_lvl 		= $_REQUEST['education_lvl'];
-					$record->current_address 		= $_REQUEST['current_address'];
-					$record->permanent_address 		= $_REQUEST['permanent_address'];
-					$record->pan_no 		= $_REQUEST['pan_no'];
-					$record->permanent_address 		= $_REQUEST['permanent_address'];
-					$record->upload_cv       = (!empty($_REQUEST['imageArrayname3'])) ? $_REQUEST['imageArrayname3'] : '';	
-					$record->upload_certificate       = (!empty($_REQUEST['imageArrayname2'])) ? $_REQUEST['imageArrayname2'] : '';	
-					$record->profile_picture       = (!empty($_REQUEST['imageArrayname'])) ? $_REQUEST['imageArrayname'] : '';	
-					$record->portfolio_website 	= $_REQUEST['portfolio_website'];			
-					$record->facebook_profile		= $_REQUEST['facebook_profile'];
-					$record->linkedIn_profile		= $_REQUEST['linkedIn_profile'];
-					$record->status	= 1;
-		
-					$db->begin();
-					if($record->save()): 
+        case "frontLogin":
+            $email          = addslashes($_REQUEST['email']);
+            $emailoruser    = explode("@", $email);
+            // pr($emailoruser);
+            // if(!empty($emailoruser[1])){
+            // 	$sqluser='email="' . $email . '"';
+            // }
+            // else{
+            // 	$sqluser='username="' . $email . '"';
+            // }
+            $paccess = addslashes($_REQUEST['password']);
 
-						$user = User::find_by_id($_SESSION['user_id']);
-						$user->password       = (!empty($_REQUEST['password'])) ? md5($_REQUEST['password']) : $user->password;	
-						$user->save();
-						
-						$db->commit();
-					   $message  = sprintf($GLOBALS['basic']['changesSaved_'], "Freelancer '".$record->first_name."'");
-					   echo json_encode(array("action"=>"success","message"=>$message));
-					   log_action("Freelancer [".$record->first_name."] Edit Successfully",1,4);
-					else: $db->rollback(); echo json_encode(array("action"=>"notice","message"=>$GLOBALS['basic']['noChanges']));
-					endif;
-				break;
+            $sql    = 'SELECT * FROM tbl_users WHERE ((email="' . $email . '" or username="' . $email . '")';
+            $sql    .= ' AND password="' . md5($paccess) . '") AND (group_id=3 OR group_id=4) LIMIT 1';
+            $count  = $db->num_rows($db->query($sql));
 
-				case "updateProfileClient":
-					// pr($_FILES);
-					// $freelancerda= user::find_by_id($_SESSION['user_id']);
-					$record = client::find_by_userid($_SESSION['user_id']);
-					// pr($record);
-					
-					// $record->slug 		= create_slug($_REQUEST['title']);							
-					// $record->email 		= $_REQUEST['email'];
-					$record->mobile_no 		= $_REQUEST['mobile_no'];		
-					$record->current_address	= $_REQUEST['current_address'];
-					$record->permanent_address 		= $_REQUEST['permanent_address'];
-					// $record->education_lvl 		= $_REQUEST['education_lvl'];
-					$record->pan_no 		= $_REQUEST['pan_no'];
-					$record->linkdin_profile 		= $_REQUEST['linkedIn_profile'];
-					$record->facebook_profile 		= $_REQUEST['facebook_profile'];
-					$record->pan_no 		= $_REQUEST['pan_no'];
-					$record->profile_pictiure       = (!empty($_REQUEST['imageArrayname4'])) ? $_REQUEST['imageArrayname4'] : '';
-					$record->status	= 1;
-		
-					$db->begin();
-					if($record->save()): 
+            if ($count > 0) {
+                $sqlid  = $db->fetch_object($db->query($sql));
 
-						$user = User::find_by_id($_SESSION['user_id']);
-						$user->contact 		= $_REQUEST['mobile_no'];	
-						$user->password       = (!empty($_REQUEST['password'])) ? md5($_REQUEST['password']) : $user->password;	
-						$user->save();
-						
-						$db->commit();
-					   $message  = sprintf($GLOBALS['basic']['changesSaved_'], "Freelancer '".$record->first_name."'");
-					   echo json_encode(array("action"=>"success","message"=>$message));
-					   log_action("Freelancer [".$record->first_name."] Edit Successfully",1,4);
-					else: $db->rollback(); echo json_encode(array("action"=>"notice","message"=>$GLOBALS['basic']['noChanges']));
-					endif;
-				break;
+                $userid = $sqlid->id;
+                $usertype = '';
+                if ($sqlid->group_id == 3) {
+                    $usertype = 'client';
+                } elseif ($sqlid->group_id == 4) {
+                    $usertype = 'freelancer';
+                }
+
+                if (!empty($emailoruser[1])) {
+                    $uprec = User::find_by_mail($email);
+                } else {
+                    $uprec = User::find_by_username($email);
+                }
+
+                // $uprec = User::find_by_mail($email);
+
+                if ($uprec->status == 0) {
+                    $message = "Your account has not been approved!";
+                    echo json_encode(array("action" => "error", "message" => $message));
+                } else {
+                    $session->set('email_logged', $email);
+                    $session->set('user_id', $userid);
+                    $session->set('user_type', $usertype);
+                    $remember = isset($_REQUEST['remember']) ? 1 : 0;
+
+                    if (!empty($remember)) {
+                        setcookie("remem_email", $email, time() + (60 * 60), "/", "");
+                        setcookie("remem_pass", $paccess, time() + (60 * 60), "/", "");
+                    } else {
+                        setcookie("remem_email", '', time() - (60 * 60), "/", "");
+                        setcookie("remem_pass", '', time() - (60 * 60), "/", "");
+                    }
+                    $message = "Welcome " . $uprec->first_name . "! You will be redirected to Dashboard shortly!";
+                    if (isset($_REQUEST['page']) and $_REQUEST['page'] == 'checkout') {
+                        $message = "Welcome " . $uprec->first_name . "!";
+                    }
+                    echo json_encode(array("action" => "success", "message" => $message));
+                }
+            } else {
+                $message = "Email or Password doesn't match !";
+                echo json_encode(array("action" => "error", "message" => $message));
+            }
+        break;
+
+        case "updateProfileFreelancer":
+            // $freelancerda= user::find_by_id($_SESSION['user_id']);
+            $record     = freelancer::find_by_userid($_SESSION['user_id']);
+            // pr($record);
+
+            // $record->slug 		= create_slug($_REQUEST['title']);
+            // $record->email 		= $_REQUEST['email'];
+            $record->first_name         = $_REQUEST['firstname'];
+            $record->middle_name        = $_REQUEST['middle_name'];
+            $record->last_name          = $_REQUEST['last_name'];
+            $record->engineering_license_no = $_REQUEST['engineering_license_no'];
+            $record->engineering_field  = $_REQUEST['engineering_field'];
+            $record->mobile_no          = $_REQUEST['mobile_no'];
+            // $record->education_lvl 		= $_REQUEST['education_lvl'];
+            $record->current_address    = $_REQUEST['current_address'];
+            $record->permanent_address  = $_REQUEST['permanent_address'];
+            $record->pan_no             = $_REQUEST['pan_no'];
+            $record->permanent_address  = $_REQUEST['permanent_address'];
+            $record->upload_cv          = (!empty($_REQUEST['imageArrayname3'])) ? $_REQUEST['imageArrayname3'] : '';
+            $record->upload_certificate = (!empty($_REQUEST['imageArrayname2'])) ? $_REQUEST['imageArrayname2'] : '';
+            $record->profile_picture    = (!empty($_REQUEST['imageArrayname'])) ? $_REQUEST['imageArrayname'] : '';
+            $record->portfolio_website  = $_REQUEST['portfolio_website'];
+            $record->facebook_profile   = $_REQUEST['facebook_profile'];
+            $record->linkedIn_profile   = $_REQUEST['linkedIn_profile'];
+            $record->status             = 1;
+
+            $db->begin();
+            if ($record->save()):
+
+                $user           = User::find_by_id($_SESSION['user_id']);
+                $user->password = (!empty($_REQUEST['password'])) ? md5($_REQUEST['password']) : $user->password;
+                $user->save();
+
+                $db->commit();
+                $message    = sprintf($GLOBALS['basic']['changesSaved_'], "Freelancer '" . $record->first_name . "'");
+                echo json_encode(array("action" => "success", "message" => $message));
+                log_action("Freelancer [" . $record->first_name . "] Edit Successfully", 1, 4);
+            else: $db->rollback();
+                echo json_encode(array("action" => "notice", "message" => $GLOBALS['basic']['noChanges']));
+            endif;
+        break;
+
+        case "updateProfileClient":
+            // pr($_FILES);
+            // $freelancerda= user::find_by_id($_SESSION['user_id']);
+            $record     = client::find_by_userid($_SESSION['user_id']);
+            // pr($record);
+
+            // $record->slug 		= create_slug($_REQUEST['title']);
+            // $record->email 		= $_REQUEST['email'];
+            $record->mobile_no          = $_REQUEST['mobile_no'];
+            $record->current_address    = $_REQUEST['current_address'];
+            $record->permanent_address  = $_REQUEST['permanent_address'];
+            // $record->education_lvl 		= $_REQUEST['education_lvl'];
+            $record->pan_no             = $_REQUEST['pan_no'];
+            $record->linkdin_profile    = $_REQUEST['linkedIn_profile'];
+            $record->facebook_profile   = $_REQUEST['facebook_profile'];
+            $record->pan_no             = $_REQUEST['pan_no'];
+            $record->profile_pictiure   = (!empty($_REQUEST['imageArrayname4'])) ? $_REQUEST['imageArrayname4'] : '';
+            $record->status             = 1;
+
+            $db->begin();
+            if ($record->save()):
+
+                $user           = User::find_by_id($_SESSION['user_id']);
+                $user->contact  = $_REQUEST['mobile_no'];
+                $user->password = (!empty($_REQUEST['password'])) ? md5($_REQUEST['password']) : $user->password;
+                $user->save();
+
+                $db->commit();
+                $message        = sprintf($GLOBALS['basic']['changesSaved_'], "Freelancer '" . $record->first_name . "'");
+                echo json_encode(array("action" => "success", "message" => $message));
+                log_action("Freelancer [" . $record->first_name . "] Edit Successfully", 1, 4);
+            else: $db->rollback();
+                echo json_encode(array("action" => "notice", "message" => $GLOBALS['basic']['noChanges']));
+            endif;
+        break;
 
         case "checkFreelancerLoginForBid":
-            $userId = addslashes($_REQUEST['userId']);
-            $jobId = addslashes($_REQUEST['jobId']);
+            $userId     = addslashes($_REQUEST['userId']);
+            $jobId      = addslashes($_REQUEST['jobId']);
 
-            $jobRec = jobs::find_by_id($jobId);
-			pr($jobRec);
+            $jobRec     = jobs::find_by_id($jobId);
             if ($jobRec->project_status != 1) {
                 $message = "Bidding Closed !";
                 echo json_encode(array("action" => "biddingClosed", "message" => $message));
                 exit();
             }
 
-            $sql = 'SELECT * FROM tbl_users WHERE id="' . $userId . '" LIMIT 1';
-            $count = $db->num_rows($db->query($sql));
+            $sql    = 'SELECT * FROM tbl_users WHERE id="' . $userId . '" LIMIT 1';
+            $count  = $db->num_rows($db->query($sql));
 
             if ($count > 0) {
-                $uprec = $db->fetch_object($db->query($sql));
+                $uprec          = $db->fetch_object($db->query($sql));
                 if ($uprec->status == 0) {
-                    $message = "Your account has been disabled !";
+                    $message    = "Your account has been disabled !";
                     echo json_encode(array("action" => "disabled", "message" => $message));
                 } elseif ($uprec->group_id != 4) {
-                    $message = "Only Freelancers can bid !";
+                    $message    = "Only Freelancers can bid !";
                     echo json_encode(array("action" => "onlyFreelancer", "message" => $message));
                 } else {
-                    $message = "Success";
+                    $message    = "Success";
                     echo json_encode(array("action" => "success", "message" => $message));
                 }
             } else {
-                $message = "Please Login !";
+                $message    = "Please Login !";
                 echo json_encode(array("action" => "noLogin", "message" => $message));
             }
         break;

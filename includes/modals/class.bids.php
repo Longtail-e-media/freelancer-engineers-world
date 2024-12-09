@@ -5,7 +5,7 @@ class Bids extends DatabaseObject
 
     protected static $table_name = "tbl_bids";
     protected static $db_fields = array(
-        'id', 'job_id', 'client_id', 'currency', 'freelancer_id', 'bid_amount', 'delivery', 'message','client_rating','freelancer_rating', 'project_status', 'added_date', 'sortorder', 'status'
+        'id', 'job_id', 'client_id', 'currency', 'freelancer_id', 'bid_amount', 'delivery', 'message', 'client_rating', 'freelancer_rating', 'project_status', 'added_date', 'sortorder', 'status'
     );
 
     public $id, $job_id, $client_id, $freelancer_id, $currency, $bid_amount, $delivery, $message, $client_rating, $freelancer_rating, $project_status, $added_date, $sortorder, $status;
@@ -26,16 +26,16 @@ class Bids extends DatabaseObject
         // return !empty($result_array) ? array_shift($result_array) : false;
     }
 
-   
-    public static function find_by_jobid_bop($jobid=0)
+
+    public static function find_by_jobid_bop($jobid = 0)
     {
         global $db;
-        $sql= "SELECT * FROM " . self::$table_name . " WHERE job_id='$jobid' AND status=1 AND project_status=1";
+        $sql = "SELECT * FROM " . self::$table_name . " WHERE job_id='$jobid' AND status=1 AND project_status=1";
         return self::find_by_sql($sql);
         // return !empty($result_array) ? array_shift($result_array) : false;
     }
 
-    public static function find_by_jobid_single_award($jobid=0)
+    public static function find_by_jobid_single_award($jobid = 0)
     {
         global $db;
         $result_array = self::find_by_sql("SELECT * FROM " . self::$table_name . " WHERE job_id='$jobid' AND status=1 AND project_status=3");
@@ -43,13 +43,14 @@ class Bids extends DatabaseObject
         return !empty($result_array) ? array_shift($result_array) : false;
     }
 
-    public static function find_by_jobid_short($jobid=0)
+    public static function find_by_jobid_short($jobid = 0)
     {
         global $db;
-        $sql= "SELECT * FROM " . self::$table_name . " WHERE job_id='$jobid' AND status=1 AND project_status=2";
+        $sql = "SELECT * FROM " . self::$table_name . " WHERE job_id='$jobid' AND status=1 AND project_status=2";
         return self::find_by_sql($sql);
         // return !empty($result_array) ? array_shift($result_array) : false;
     }
+
     public static function find_by_freelancerid($fereelancerid = 0)
     {
         global $db;
