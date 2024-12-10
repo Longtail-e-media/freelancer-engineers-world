@@ -15,7 +15,7 @@ if (!empty($_SESSION)) {
             <main class="">
                 <div class="bg-dark-blue">
                      <div class="container py-5 d-flex align-items-center justify-content-between">
-                        <h1 class="text-light fw-light fs-1">
+                        <h1 class="text-light fw-light fs-3">
                             Update your profile
                         </h1>
                          <a href="' .
@@ -26,8 +26,8 @@ if (!empty($_SESSION)) {
                     </div>
                 </div>
                 <section class="container form-container">
-                    <div class="card p-5 bg-light border-0 rounded-0 shadow-sm">
-                        <h2 class="fs-5 fw-bold mb-4">Client (Seller) Signup</h2>
+                     <div class="card p-3 p-md-5 bg-light border-0 rounded-0 shadow-sm">
+                <h2 class="fs-5 fw-bold mb-4">Client Signup</h2>
                         <form id="clientfrm" class="client-form">
                             <!-- Username and Email -->
                             <div class="row g-3">
@@ -155,14 +155,17 @@ if (!empty($_SESSION)) {
             ';
         }
 
-        $profile .= '         <div class="mb-4">
+        $profile .= '        
+       <!--  <div class="mb-4">
                                         <a href="https://chat.openai.com/" target="_blank" class="fst-italic text-dark">Use
                                             ChatGPT to Create Project Details</a>
                                     </div>
-                                    <div id="msgProfile"></div>                                        
+                                    <div id="msgProfile"></div>            
+                                    -->                            
                                     <div>
                                         <button type="submit"
-                                            class="btn btn-dark bg-dark-blue text-light px-5 py-2 fs-5 rounded-0 border-0 mt-4" id="submitClient">
+                                    class="btn btn-dark bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0 mt-4"
+                                        id="submitClient">
                                             Update Profile
                                         </button>
                                     </div>
@@ -188,17 +191,17 @@ if (!empty($_SESSION)) {
 
         $profile =
             '
-            <main class="">
-                <div class="bg-dark-blue">
-                    <div class="container">
-                        <h1 class="text-light py-5 fw-light fs-1">
+              <main class="">
+        <div class="bg-dark-blue">
+            <div class="container">
+                <h1 class="text-light py-5 fw-light fs-1 text-center text-md-start">
                             Update your Freelancer profile
                         </h1>
                     </div>
                 </div>
-                <section class="container form-container">
-                    <div class="card p-5 bg-light border-0 rounded-0 shadow-sm">
-                        <h2 class="fs-5 fw-bold mb-4">Freelancer (Engineer) Signup</h2>
+                 <section class="container form-container my-0 my-md-5">
+            <div class="card p-2 p-md-5 bg-light border-0 rounded-0 shadow-sm">
+                <h2 class="fs-5 fw-bold mb-4">Freelancer Signup</h2>
                         <form class="freelancer-form" id="freelancerfrm">
                             <!-- Basic Information -->
                             <div class="row g-3">
@@ -486,7 +489,7 @@ if (!empty($_SESSION)) {
                             <div id="msgProfile"></div>
                             <div class="mt-5">
                                 <button type="submit" id="submitProfile"
-                                    class="btn btn-dark bg-dark-blue text-light px-5 py-2 fs-5 rounded-0 border-0 mt-4">
+                                   class="btn btn-dark bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0 mt-4">
                                     Update Profile
                                 </button>
                             </div>
