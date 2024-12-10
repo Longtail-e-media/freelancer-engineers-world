@@ -52,26 +52,25 @@
 <script src="assets/js/app.js"></script>
 <script>
     var base_url = $('base').attr('url');
-    jQuery(document).ready(function () {
-        $('#wop').on('click', function () {
-            var job_id = $(this).attr("value");
-            // console.log(job_id);
-            $.ajax({
-                type: "POST",
-                dataType: "JSON",
-                url: base_url + "includes/controllers/ajax.jobs.php",
-                data: "action=forwop&jobid=" + job_id,
-                success: function (data) {
-                    var msg = eval(data);
-                    $('#setup').html(msg.message);
-                    setTimeout(function () {
-                        return window.location.href = "dashboard";
-                    }, 1000);
+    var job_id = $(this).attr("value");
+
+    
+        $.ajax({
+            type: "POST",
+            dataType: "JSON",
+            url: base_url + "includes/controllers/ajax.jobs.php",
+            data: "action=forwop&jobid=" + job_id,
+            success: function (data) {
+                var msg = eval(data);
+                $('#setup').html(msg.message);
+                setTimeout(function () {
+                    return window.location.href = "dashboard";
+                }, 1000);
                 }
 
             });
-        })
-
+        
+        jQuery(document).ready(function () {
 
         $('#complete').on('click', function () {
             var job_id = $(this).attr("value");

@@ -554,7 +554,7 @@ if (!empty($_SESSION)) {
                             $jobstatus .= '<div class="d-inline-block bg-dark-subtle px-3 view-select">
                                 <a href="" class="text-decoration-none text-dark">View</a>
                                 <span>/</span>
-                                <a href="' . BASE_URL . 'freelancer-select/' . $record->slug . '" class="text-decoration-none text-dark">Select</a>
+                                <a href="'.BASE_URL.'freelancer-select/'.$record->slug.'" class="text-decoration-none text-dark">Select</a>
                             </div>';
                         }
                         $jobstatus .= "</div>";
@@ -567,7 +567,7 @@ if (!empty($_SESSION)) {
                             <div class="d-inline-block bg-dark-subtle px-3 view-select">
                                 <a href="" class="text-decoration-none text-dark">View</a>
                                 <span>/</span>
-                                <a href="' . BASE_URL . 'freelancer-shortlist/' . $record->slug . '" class="text-decoration-none text-dark">Select</a>
+                                <a href="'.BASE_URL.'freelancer-shortlist/'.$record->slug.'" class="text-decoration-none text-dark">Select</a>
                             </div>
                         </div>';
                         break;
@@ -579,7 +579,7 @@ if (!empty($_SESSION)) {
                                 Awarded <i class="fas fa-chevron-down"></i>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item text-primary-emphasis fs-6" id="wop" value="' . $record->id . '">Work on
+                                <li><a class="dropdown-item text-primary-emphasis fs-6" id="wop" onclick="recordDelete('.$record->id.')">Work on
                                         progress</a></li>
                             </ul>
                             <div id="setup"></div>
@@ -599,19 +599,19 @@ if (!empty($_SESSION)) {
                                 Work on Progress <i class="fas fa-chevron-down"></i>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item text-dark fs-6" id="complete" value="' . $record->id . '">Completed</a>
+                                <li><a class="dropdown-item text-dark fs-6" id="complete" onclick="recordcompleteDelete('.$record->id.')">Completed</a>
                                 </li>
                             </ul>
                             </div>
                             <div id="setup"></div>
                         ';
-                        break;
+                            break;
                     case 6:
                         $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                             <p class="text-dark fs-6 fw-bold">
                                Completed
                             </p>
-                            <a href="' . BASE_URL . 'review/' . $record->slug . '" class="btn btn-outline-success bg-success-subtle text-success fs-7 rounded-0 px-3 py-1">
+                            <a href="'.BASE_URL.'review/'.$record->slug.'" class="btn btn-outline-success bg-success-subtle text-success fs-7 rounded-0 px-3 py-1">
                                 Review
                             </a>
                         </div>';
@@ -785,7 +785,7 @@ if (!empty($_SESSION)) {
             </div>
         </section>';
     }
-    elseif (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "freelancer" && defined('DASHBOARD')) {
+    elseif(!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "freelancer" && defined('DASHBOARD')){
         $freelancerdata = freelancer::find_by_userid($_SESSION["user_id"]);
         // $biddata= bids::find_by_freelancerid($freelancerdata->id);
 
@@ -796,7 +796,7 @@ if (!empty($_SESSION)) {
                 : 1;
         $sql =
             "SELECT * FROM tbl_bids WHERE status='1' AND freelancer_id= '" .
-            $freelancerdata->id .
+            $freelancerdata->id.
             "' ORDER BY sortorder DESC";
         $limit = 8;
         $total = $db->num_rows($db->query($sql));
@@ -808,8 +808,8 @@ if (!empty($_SESSION)) {
         if (!empty($Records)) {
             // pr($Records);
             foreach ($Records as $record) {
-                $jobdatas = jobs::find_by_id($record->job_id);
-
+                $jobdatas= jobs::find_by_id($record->job_id);
+               
                 $totalbids = bids::find_total_bids($record->job_id);
                 $jobstatus = "";
                 switch ($record->project_status) {
@@ -835,7 +835,7 @@ if (!empty($_SESSION)) {
                             <!--<div class="d-inline-block bg-dark-subtle px-3 view-select">
                                 <a href="" class="text-decoration-none text-dark">View</a>
                                 <span>/</span>
-                                <a href="' . BASE_URL . 'freelancer-shortlist/' . $jobdatas->slug . '" class="text-decoration-none text-dark">Select</a>
+                                <a href="'.BASE_URL.'freelancer-shortlist/'.$jobdatas->slug.'" class="text-decoration-none text-dark">Select</a>
                             </div>-->
                         </div>';
                         break;
@@ -848,7 +848,7 @@ if (!empty($_SESSION)) {
                             <div class="d-inline-block bg-dark-subtle px-3 view-select">
                                 <a href="" class="text-decoration-none text-dark">View</a>
                                 <span>/</span>
-                                <a href="' . BASE_URL . 'awarded/' . $jobdatas->slug . '" class="text-decoration-none text-dark">Select</a>
+                                <a href="'.BASE_URL.'awarded/'.$jobdatas->slug.'" class="text-decoration-none text-dark">Select</a>
                             </div>
                         </div>';
                         break;
@@ -859,14 +859,14 @@ if (!empty($_SESSION)) {
                                     </p>
                                     </div>';
                         break;
-
+                   
                 }
                 // pr($jobstatus);
 
                 // pr($totalbids);
-
+                
                 // pr($jobdatas);
-                if ($jobdatas->budget_type == 1) {
+                 if ($jobdatas->budget_type == 1) {
                     $budget =
                         ' <h5 class="fs-6 fw-bold">' .
                         $jobdatas->currency .
@@ -1026,7 +1026,7 @@ if (!empty($_SESSION)) {
                     </nav>
                 </div>
             </div>
-        </section>';
+        </section>'; 
     }
 } else {
     $clientdashboard = "please login to view profile";
@@ -1042,7 +1042,7 @@ if (!empty($_SESSION)) {
     if (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client" && isset($_REQUEST['slug'])) {
 
         $slug = !empty($_REQUEST['slug']) ? addslashes($_REQUEST['slug']) : '';
-        $jobdatas = jobs::find_by_slug($slug);
+        $jobdatas= jobs::find_by_slug($slug);
         $totalbids = bids::find_total_bids($jobdatas->id);
         if ($jobdatas->budget_type == 1) {
             $budget = ' <h4 class="fs-6 fw-bold">' . $jobdatas->currency . ' ' . $jobdatas->exact_budget . '</h4>';
@@ -1060,7 +1060,7 @@ if (!empty($_SESSION)) {
         </div>
     </div>
     <section class="container">
-     <a href="' . BASE_URL . 'dashboard" class="text-dark fs-7 d-block mb-3 mb-lg-5">
+     <a href="'.BASE_URL.'dashboard" class="text-dark fs-7 d-block mb-3 mb-lg-5">
                 <i class="fa-solid fa-arrow-left"></i>
                 Back to list page
             </a>
@@ -1070,65 +1070,65 @@ if (!empty($_SESSION)) {
                 <div>
                     <div class="card-title d-flex align-items-center justify-content-between">
                         <div class="">
-                            <h3 class="fs-5 fw-bold">' . $jobdatas->title . '</h3>
+                            <h3 class="fs-5 fw-bold">'.$jobdatas->title.'</h3>
                             <span class="fs-7">End Date: ' . date("M d Y", strtotime($jobdatas->deadline_date)) . '</span>
                         </div>
                         <div>
-                           ' . $budget . '
-                            <span class="fs-7">' . $totalbids . ' bids</span>
+                           '.$budget.'
+                            <span class="fs-7">'.$totalbids.' bids</span>
                         </div>
                     </div>
 
                     <div class="card-body mt-4 mt-md-5">
-                       ' . $jobdatas->content . '
+                       '.$jobdatas->content.'
                     </div>
                 </div>
             </div>';
 
-        $bidderdetail = '';
-        $biddatas = bids::find_by_jobid_bop($jobdatas->id);
-        // pr($biddata);
-        if (!empty($biddatas)) {
-            $bidderdetail = '';
-            foreach ($biddatas as $biddata) {
-
-                //freelancer data through
-                $freelandata = freelancer::find_by_id($biddata->freelancer_id);
-                // pr($freelandata);
-                if (!empty($freelandata->profile_picture)) {
-                    $profilepic = '';
-                }
-                $bidderdetail .= '<div class="row bg-light p-3 mt-2 gx-0">
+            $bidderdetail='';
+            $biddatas= bids::find_by_jobid_bop($jobdatas->id);
+            // pr($biddata);
+            if(!empty($biddatas)){
+                $bidderdetail = '';
+                foreach($biddatas as $biddata){
+                    
+                    //freelancer data through
+                    $freelandata= freelancer::find_by_id($biddata->freelancer_id);
+                    // pr($freelandata);
+                    if(!empty($freelandata->profile_picture)){
+                        $profilepic ='';
+                    }
+            $bidderdetail .='<div class="row bg-light p-3 mt-2 gx-0">
                     <div class="col-2 col-md-2 p-0">
-                        <img src="' . IMAGE_PATH . '/freelancer/profile/' . $freelandata->profile_picture . '"
+                        <img src="'.IMAGE_PATH.'/freelancer/profile/'.$freelandata->profile_picture.'"
                             alt="User" class="user-icon w-100 bg-dark-subtle p-3">
                     </div>
                     <div class="col-10 col-md-6 px-3">
-                        <h5 class="fs-6 fw-bold">' . $freelandata->username . '</h5>
+                        <h5 class="fs-6 fw-bold">'.$freelandata->username.'</h5>
                         <p class="fs-7 line-clamp-2 mb-0">
-                        ' . strip_tags($biddata->message) . '
+                        '.strip_tags($biddata->message).'
                         </p>
                         <a href="#" class="fs-7">more</a>
                     </div>
                     <div class="col-6 col-md-3 mt-3 mt-md-0">
-                        <h5 class="fs-7"><strong>' . $biddata->currency . ' ' . $biddata->bid_amount . '</strong> in ' . $biddata->delivery . ' days</h5>
+                        <h5 class="fs-7"><strong>'.$biddata->currency.' '.$biddata->bid_amount.'</strong> in '.$biddata->delivery.' days</h5>
                         <span class="fs-5"> ' . str_repeat('★', $biddata->freelancer_rating) . ' ' . str_repeat('☆', (5 - $biddata->freelancer_rating)) . '
                         </span>
                     </div>
                     <div class="col-2 col-md-1 d-flex align-items-center mt-3 mt-md-0">
-                        <input type="checkbox" name="bidder[]" value="' . $biddata->freelancer_id . '"
+                        <input type="checkbox" name="bidder[]" value="'.$biddata->freelancer_id.'"
                             class="form-check-input bg-dark-subtle rounded-0 text-dark w-75 py-3 border-dark" />
                     </div>
                 </div>';
-
+                
             }
-        }
-        $selectbider .= '
+            }
+             $selectbider .= '
             <div class="col-12 col-md-6 bg-white ps-0 ps-md-5">
             
             <form id="selectfreelancer">
-            <input type="hidden" name="jobid" value="' . $jobdatas->id . '">
-                ' . $bidderdetail . '
+            <input type="hidden" name="jobid" value="'.$jobdatas->id.'">
+                '.$bidderdetail.'
                 <div id="result_msg"></div>
                 <button id="submit" class="mt-3 btn btn-primary bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0">
                     Shortlist freelancer
@@ -1141,6 +1141,7 @@ if (!empty($_SESSION)) {
         </div>
     </section>';
     }
+   
 } else {
     $selectbider = "please login to view profile";
 }
@@ -1154,7 +1155,7 @@ if (!empty($_SESSION)) {
     if (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client" && isset($_REQUEST['slug'])) {
 
         $slug = !empty($_REQUEST['slug']) ? addslashes($_REQUEST['slug']) : '';
-        $jobdatas = jobs::find_by_slug($slug);
+        $jobdatas= jobs::find_by_slug($slug);
         $totalbids = bids::find_total_bids($jobdatas->id);
         if ($jobdatas->budget_type == 1) {
             $budget = ' <h4 class="fs-6 fw-bold">' . $jobdatas->currency . ' ' . $jobdatas->exact_budget . '</h4>';
@@ -1173,7 +1174,7 @@ if (!empty($_SESSION)) {
         </div>
     </div>
     <section class="container">
-     <a href="' . BASE_URL . 'dashboard" class="text-dark fs-7 d-block mb-3 mb-lg-5">
+     <a href="'.BASE_URL.'dashboard" class="text-dark fs-7 d-block mb-3 mb-lg-5">
                 <i class="fa-solid fa-arrow-left"></i>
                 Back to list page
             </a>
@@ -1183,63 +1184,63 @@ if (!empty($_SESSION)) {
                 <div>
                     <div class="card-title d-flex align-items-center justify-content-between">
                         <div class="">
-                            <h3 class="fs-5 fw-bold">' . $jobdatas->title . '</h3>
+                            <h3 class="fs-5 fw-bold">'.$jobdatas->title.'</h3>
                             <span class="fs-7">End Date: ' . date("M d Y", strtotime($jobdatas->deadline_date)) . '</span>
                         </div>
                         <div>
-                           ' . $budget . '
-                            <span class="fs-7">' . $totalbids . ' bids</span>
+                           '.$budget.'
+                            <span class="fs-7">'.$totalbids.' bids</span>
                         </div>
                     </div>
 
                     <div class="card-body mt-4 mt-md-5">
-                       ' . $jobdatas->content . '
+                       '.$jobdatas->content.'
                     </div>
                 </div>
             </div>';
 
-        $bidderdetail = '';
-        $biddatas = bids::find_by_jobid_short($jobdatas->id);
-        // pr($biddata);
-        // $profilepic='';
-        if (!empty($biddatas)) {
-            foreach ($biddatas as $biddata) {
-
-                //freelancer data through
-                $freelandata = freelancer::find_by_id($biddata->freelancer_id);
-                if (!empty($freelandata->profile_picture)) {
-                    $profilepic = '<div class="col-2 col-md-2 p-0">
-                        <img src="' . IMAGE_PATH . 'freelancer/profile/' . $freelandata->profile_picture . '"
+            $bidderdetail='';
+            $biddatas= bids::find_by_jobid_short($jobdatas->id);
+            // pr($biddata);
+            $profilepic='';
+            if(!empty($biddatas)){
+                foreach($biddatas as $biddata){
+                    
+                    //freelancer data through
+                    $freelandata= freelancer::find_by_id($biddata->freelancer_id);
+                    if(!empty($freelandata->profile_picture)){
+                        $profilepic ='<div class="col-2 col-md-2 p-0">
+                        <img src="'.IMAGE_PATH.'freelancer/profile/'.$freelandata->profile_picture.'"
                             alt="User" class="user-icon w-100 bg-dark-subtle p-3">
                     </div>';
-                }
-                $bidderdetail .= '<div class="row bg-light p-3 mt-2 gx-0">
-                    ' . $profilepic . '
+                    }
+            $bidderdetail .='<div class="row bg-light p-3 mt-2 gx-0">
+                    '.$profilepic.'
                     <div class="col-10 col-md-6 px-3">
-                        <h5 class="fs-6 fw-bold">' . $freelandata->username . '</h5>
+                        <h5 class="fs-6 fw-bold">'.$freelandata->username.'</h5>
                         <p class="fs-7 line-clamp-2 mb-0">
-                        ' . strip_tags($biddata->message) . '
+                        '.strip_tags($biddata->message).'
                         </p>
                         <a href="#" class="fs-7">more</a>
                     </div>
                     <div class="col-6 col-md-3 mt-3 mt-md-0">
-                        <h5 class="fs-7"><strong>' . $biddata->currency . ' ' . $biddata->bid_amount . '</strong> in ' . $biddata->delivery . ' days</h5>
+                        <h5 class="fs-7"><strong>'.$biddata->currency.' '.$biddata->bid_amount.'</strong> in '.$biddata->delivery.' days</h5>
                         <span class="fs-5"> ' . str_repeat('★', $biddata->freelancer_rating) . ' ' . str_repeat('☆', (5 - $biddata->freelancer_rating)) . '
                         </span>
                     </div>
                     <div class="col-2 col-md-1 d-flex align-items-center mt-3 mt-md-0">
-                        <input type="checkbox" name="bidder[]" value="' . $biddata->freelancer_id . '"
+                        <input type="checkbox" name="bidder[]" value="'.$biddata->freelancer_id.'"
                             class="form-check-input bg-dark-subtle rounded-0 text-dark w-75 py-3 border-dark" />
                     </div>
                 </div>';
             }
-        }
-        $selectshortlisted .= '
+            }
+             $selectshortlisted .= '
             <div class="col-12 col-md-6 bg-white ps-0 ps-md-5">
             <h5 class="fs-5 fw-bold mb-3">Shortlisted Freelancer</h5>
             <form id="selectfreelancer">
-            <input type="hidden" name="jobid" value="' . $jobdatas->id . '">
-                ' . $bidderdetail . '
+            <input type="hidden" name="jobid" value="'.$jobdatas->id.'">
+                '.$bidderdetail.'
                 <div id="result_msg"></div>
                 <button id="submit" class="mt-3 btn btn-primary bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0">
                     Reward freelancer
@@ -1267,7 +1268,7 @@ if (!empty($_SESSION)) {
     if (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "freelancer" && isset($_REQUEST['slug'])) {
 
         $slug = !empty($_REQUEST['slug']) ? addslashes($_REQUEST['slug']) : '';
-        $jobdatas = jobs::find_by_slug($slug);
+        $jobdatas= jobs::find_by_slug($slug);
         // $totalbids = bids::find_total_bids($jobdatas->id);   
         if ($jobdatas->budget_type == 1) {
             $budget = ' <h4 class="fs-6 fw-bold">' . $jobdatas->currency . ' ' . $jobdatas->exact_budget . '</h4>';
@@ -1285,7 +1286,7 @@ if (!empty($_SESSION)) {
         </div>
     </div>
     <section class="container">
-    <a href="' . BASE_URL . 'dashboard" class="text-dark fs-7 d-block mb-3 mb-lg-5">
+    <a href="'.BASE_URL.'dashboard" class="text-dark fs-7 d-block mb-3 mb-lg-5">
                 <i class="fa-solid fa-arrow-left"></i>
                 Back to list page
             </a>
@@ -1295,64 +1296,64 @@ if (!empty($_SESSION)) {
                 <div>
                     <div class="card-title d-flex align-items-center justify-content-between">
                         <div class="">
-                            <h3 class="fs-5 fw-bold">' . $jobdatas->title . '</h3>
+                            <h3 class="fs-5 fw-bold">'.$jobdatas->title.'</h3>
                             <span class="fs-7">End Date: ' . date("M d Y", strtotime($jobdatas->deadline_date)) . '</span>
                         </div>
                         <div>
-                           ' . $budget . '
+                           '.$budget.'
                         </div>
                     </div>
 
                     <div class="card-body mt-4 mt-md-5">
-                       ' . $jobdatas->content . '
+                       '.$jobdatas->content.'
                     </div>
                 </div>
             </div>';
 
-        $bidderdetail = '';
-        $biddata = bids::find_by_jobid_single_award($jobdatas->id);
-        // pr($biddata);
-        if (!empty($biddata)) {
-            $bidderdetail = '';
-            // foreach($biddatas as $biddata){
-
-            //freelancer data through
-            $freelandata = freelancer::find_by_id($biddata->freelancer_id);
-            // pr($freelandata);
-            if (!empty($freelandata->profile_picture)) {
-                $profilepic = '';
-            }
-            $bidderdetail .= '<div class="row bg-light p-3 mt-2 gx-0">
+            $bidderdetail='';
+            $biddata= bids::find_by_jobid_single_award($jobdatas->id);
+            // pr($biddata);
+            if(!empty($biddata)){
+                $bidderdetail = '';
+                // foreach($biddatas as $biddata){
+                    
+                    //freelancer data through
+                    $freelandata= freelancer::find_by_id($biddata->freelancer_id);
+                    // pr($freelandata);
+                    if(!empty($freelandata->profile_picture)){
+                        $profilepic ='';
+                    }
+            $bidderdetail .='<div class="row bg-light p-3 mt-2 gx-0">
                     <div class="col-2 col-md-2 p-0">
-                        <img src="' . IMAGE_PATH . '/freelancer/profile/' . $freelandata->profile_picture . '"
+                        <img src="'.IMAGE_PATH.'/freelancer/profile/'.$freelandata->profile_picture.'"
                             alt="User" class="user-icon w-100 bg-dark-subtle p-3">
                     </div>
                     <div class="col-10 col-md-6 px-3">
-                        <h5 class="fs-6 fw-bold">' . $freelandata->username . '</h5>
+                        <h5 class="fs-6 fw-bold">'.$freelandata->username.'</h5>
                         <p class="fs-7 line-clamp-2 mb-0">
-                        ' . strip_tags($biddata->message) . '
+                        '.strip_tags($biddata->message).'
                         </p>
                         <a href="#" class="fs-7">more</a>
                     </div>
                     <div class="col-6 col-md-3 mt-3 mt-md-0">
-                        <h5 class="fs-7"><strong>' . $biddata->currency . ' ' . $biddata->bid_amount . '</strong> in ' . $biddata->delivery . ' days</h5>
+                        <h5 class="fs-7"><strong>'.$biddata->currency.' '.$biddata->bid_amount.'</strong> in '.$biddata->delivery.' days</h5>
                         <span class="fs-5"> ' . str_repeat('★', $biddata->freelancer_rating) . ' ' . str_repeat('☆', (5 - $biddata->freelancer_rating)) . '
                         </span>
                     </div>
                     <!--<div class="col-2 col-md-1 d-flex align-items-center mt-3 mt-md-0">
-                        <input type="checkbox" name="bidder[]" value="' . $biddata->freelancer_id . '"
+                        <input type="checkbox" name="bidder[]" value="'.$biddata->freelancer_id.'"
                             class="form-check-input bg-dark-subtle rounded-0 text-dark w-75 py-3 border-dark" />
                     </div>-->
                 </div>';
-
+                
             // }
-        }
-        $awarddetail .= '
+            }
+             $awarddetail .= '
             <div class="col-12 col-md-6 bg-white ps-0 ps-md-5">
             <h5 class="fs-5 fw-bold mb-3">Awarded Freelancer</h5>
             <form id="selectfreelancer">
-            <input type="hidden" name="jobid" value="' . $jobdatas->id . '">
-                ' . $bidderdetail . '
+            <input type="hidden" name="jobid" value="'.$jobdatas->id.'">
+                '.$bidderdetail.'
 
 
                 
@@ -1361,6 +1362,7 @@ if (!empty($_SESSION)) {
         </div>
     </section>';
     }
+   
 } else {
     $awarddetail = "please login to view profile";
 }
