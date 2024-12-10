@@ -113,10 +113,18 @@
             $job        = jobs::find_by_id($_REQUEST['jobid']);
             $job->project_status = 2;
 
+            $clientdata= client::find_by_id($job->client_id);
+            $clientuserdata= User::find_by_id($clientdata->user_id);
+            
+
             $db->begin();
             if ($job->save()):
                 $jobid      = $_REQUEST['jobid'];
                 $bidderIds = implode(',', array_map('intval', $_REQUEST['bidder']));
+                $freelancers =explode(',',$bidderIds);
+
+                
+                // pr($freelancers);
                 $sql        = 'update tbl_bids set project_status=2 where job_id=' . $jobid . ' and freelancer_id in (' . $bidderIds . ')';
                 $db->query($sql);
                 $sql1       = 'update tbl_bids set project_status=4 where job_id=' . $jobid . ' and freelancer_id NOT in (' . $bidderIds . ')';
@@ -127,6 +135,99 @@
             else: $db->rollback();
                 echo json_encode(array("action" => "error", "message" => "Job Bid unsuccessfully !"));
             endif;
+            
+            if(!empty($freelancers)){
+                foreach($freelancers as $freelancer){
+                    $freelancerdata= freelancer::find_by_id($freelancer);
+                    $freeuserdata= User::find_by_id($freelancerdata->user_id);
+                    $mailcheck= $freeuserdata->email;
+                    // pr($mailcheck);
+                    if ($mailcheck):
+
+                        $row    = User::find_by_mail($mailcheck);
+        
+                        /* Mail Format */
+                        $siteName   = Config::getField('sitename', true);
+                        $AdminEmail = User::get_UseremailAddress_byId(1);
+                        $fullName   = $_REQUEST['username'];
+        
+                        $msgbody    = '<div>
+                            <h3>you have been short listed for job- ' . $job->title . '</h3>                
+                            <div><font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
+                            Please <a href="' . BASE_URL . 'login">click here to login.</a> <br><br>
+                            <br><br>
+                            <p>Thanks,<br>
+                            ' . $siteName . '
+                            </p>
+                            </div>
+                            </div>';
+        
+                        $mail = new PHPMailer();
+        
+                        $mail->SetFrom($AdminEmail, $siteName, 0);
+                        $mail->AddReplyTo($mailcheck, $fullName);
+                        $mail->AddAddress($mailcheck, $fullName);
+                        $mail->Subject = "Forgot password on " . $siteName;
+                        $mail->MsgHTML($msgbody);
+        
+                        if (!$mail->Send()):
+                            $message = "Not valid User email address";
+                            echo json_encode(array('action' => 'unsuccess', 'message' => $message));
+                        else:
+                            $forgetRec->save();
+                            // $message = "Please check your mail for login";
+                            echo json_encode(array('action' => 'success', 'message' => $message));
+                        endif;
+                    else:
+                        $message = "Not valid User email address";
+                        echo json_encode(array('action' => 'unsuccess', 'message' => $message));
+                    endif;
+
+                }
+            }
+
+            $clientmailcheck= $clientdata->email;
+            if ($clientmailcheck):
+
+                $row    = User::find_by_mail($clientmailcheck);
+
+                /* Mail Format */
+                $siteName   = Config::getField('sitename', true);
+                $AdminEmail = User::get_UseremailAddress_byId(1);
+                $fullName   = $_REQUEST['username'];
+
+                $msgbody    = '<div>
+                    <h3>you have been short listed  ' . $job->title . '</h3>                
+                    <div><font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
+                    Please <a href="' . BASE_URL . 'login">click here to login.</a> <br><br>
+                    <br><br>
+                    <p>Thanks,<br>
+                    ' . $siteName . '
+                    </p>
+                    </div>
+                    </div>';
+
+                $mail = new PHPMailer();
+
+                $mail->SetFrom($AdminEmail, $siteName, 0);
+                $mail->AddReplyTo($clientmailcheck, $fullName);
+                $mail->AddAddress($clientmailcheck, $fullName);
+                $mail->Subject = "Forgot password on " . $siteName;
+                $mail->MsgHTML($msgbody);
+
+                if (!$mail->Send()):
+                    $message = "Not valid User email address";
+                    echo json_encode(array('action' => 'unsuccess', 'message' => $message));
+                else:
+                    $forgetRec->save();
+                    // $message = "Please check your mail for login";
+                    echo json_encode(array('action' => 'success', 'message' => $message));
+                endif;
+            else:
+                $message = "Not valid User email address";
+                echo json_encode(array('action' => 'unsuccess', 'message' => $message));
+            endif;
+              
         break;
 
         case "selectshortlist":
@@ -134,10 +235,15 @@
             $job        = jobs::find_by_id($_REQUEST['jobid']);
             $job->project_status = 3;
 
+            $clientdata= client::find_by_id($job->client_id);
+            $clientuserdata= User::find_by_id($clientdata->user_id);
+
             $db->begin();
             if ($job->save()):
                 $jobid      = $_REQUEST['jobid'];
                 $bidderIds = implode(',', array_map('intval', $_REQUEST['bidder']));
+                $freelancers =explode(',',$bidderIds);
+
                 $sql        = 'update tbl_bids set project_status=3 where job_id=' . $jobid . ' and freelancer_id in (' . $bidderIds . ')';
                 $db->query($sql);
                 $db->commit();
@@ -145,6 +251,98 @@
                 echo json_encode(array("action" => "success", "message" => "Freelancer has been Rewarded!"));
             else: $db->rollback();
                 echo json_encode(array("action" => "error", "message" => "Job Bid unsuccessfully !"));
+            endif;
+
+            if(!empty($freelancers)){
+                foreach($freelancers as $freelancer){
+                    $freelancerdata= freelancer::find_by_id($freelancer);
+                    $freeuserdata= User::find_by_id($freelancerdata->user_id);
+                    $mailcheck= $freeuserdata->email;
+                    // pr($mailcheck);
+                    if ($mailcheck):
+
+                        $row    = User::find_by_mail($mailcheck);
+        
+                        /* Mail Format */
+                        $siteName   = Config::getField('sitename', true);
+                        $AdminEmail = User::get_UseremailAddress_byId(1);
+                        $fullName   = $_REQUEST['username'];
+        
+                        $msgbody    = '<div>
+                            <h3>you have been Awarded for job- ' . $job->title . '</h3>                
+                            <div><font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
+                            Please <a href="' . BASE_URL . 'login">click here to login.</a> <br><br>
+                            <br><br>
+                            <p>Thanks,<br>
+                            ' . $siteName . '
+                            </p>
+                            </div>
+                            </div>';
+        
+                        $mail = new PHPMailer();
+        
+                        $mail->SetFrom($AdminEmail, $siteName, 0);
+                        $mail->AddReplyTo($mailcheck, $fullName);
+                        $mail->AddAddress($mailcheck, $fullName);
+                        $mail->Subject = "Forgot password on " . $siteName;
+                        $mail->MsgHTML($msgbody);
+        
+                        if (!$mail->Send()):
+                            $message = "Not valid User email address";
+                            echo json_encode(array('action' => 'unsuccess', 'message' => $message));
+                        else:
+                            $forgetRec->save();
+                            // $message = "Please check your mail for login";
+                            echo json_encode(array('action' => 'success', 'message' => $message));
+                        endif;
+                    else:
+                        $message = "Not valid User email address";
+                        echo json_encode(array('action' => 'unsuccess', 'message' => $message));
+                    endif;
+
+                }
+            }
+
+            $clientmailcheck= $clientdata->email;
+            if ($clientmailcheck):
+
+                $row    = User::find_by_mail($clientmailcheck);
+
+                /* Mail Format */
+                $siteName   = Config::getField('sitename', true);
+                $AdminEmail = User::get_UseremailAddress_byId(1);
+                $fullName   = $_REQUEST['username'];
+
+                $msgbody    = '<div>
+                    <h3>you have been  Awarded ' . $job->title . '</h3>                
+                    <div><font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
+                    Please <a href="' . BASE_URL . 'login">click here to login.</a> <br><br>
+                    <br><br>
+                    <p>Thanks,<br>
+                    ' . $siteName . '
+                    </p>
+                    </div>
+                    </div>';
+
+                $mail = new PHPMailer();
+
+                $mail->SetFrom($AdminEmail, $siteName, 0);
+                $mail->AddReplyTo($clientmailcheck, $fullName);
+                $mail->AddAddress($clientmailcheck, $fullName);
+                $mail->Subject = "Forgot password on " . $siteName;
+                $mail->MsgHTML($msgbody);
+
+                if (!$mail->Send()):
+                    $message = "Not valid User email address";
+                    echo json_encode(array('action' => 'unsuccess', 'message' => $message));
+                else:
+                    $forgetRec->save();
+                    // $message = "Please check your mail for login";
+                    echo json_encode(array('action' => 'success', 'message' => $message));
+                endif;
+            else:
+                $message = "Not valid User email address";
+                echo json_encode(array('action' => 'unsuccess', 'message' => $message));
             endif;
         break;
 
