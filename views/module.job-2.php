@@ -181,7 +181,7 @@ if (defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
                 </h1>
             </div>
         </div>
-        <section class="container pb-0">
+        <section class="container">
             <div class="row job-title-content gx-0">
                 <div class="col-md-9 bg-light p-3 p-md-5">
                     <div>
@@ -213,7 +213,7 @@ if (defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
                     <h3 class="fs-5 fw-bold">
                         Place your Bid
                     </h3>
-                    <form class="bidding-form mt-4 d-flex align-items-center" id="place-bid-form-1">
+                    <form class="bidding-form mt-4 d-flex flex-column" id="place-bid-form-1">
                         <div class="bidding">
                             <!-- <label for="bid-amount" class="form-label fw-bold">NRs. 2500</label> -->
         ';
@@ -255,7 +255,7 @@ if (defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
                             </li>
                             <li class="d-flex align-items-center gap-2">
                                 <i class="fa-solid fa-user"></i>
-                                <span class="fs-4">' . str_repeat('★', $clientdatas->rating) . ' ' . str_repeat('☆', (5 - $clientdatas->rating)) . '</span>
+                                <span class="fs-4 text-warning">' . str_repeat('★', $clientdatas->rating) . ' ' . str_repeat('☆', (5 - $clientdatas->rating)) . '</span>
                             </li>
                             <li class="d-flex align-items-center gap-2">
                                 <i class="fa-solid fa-clock"></i>

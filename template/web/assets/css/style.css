@@ -46,6 +46,9 @@ body {
 .bg-dark-blue {
     background-color: var(--dark-bg);
 }
+.text-dark-blue {
+    color: var(--dark-bg);
+}
 
 input:focus,
 textarea:focus,
@@ -361,4 +364,9 @@ span.text-danger {
     z-index: 99;
     pointer-events: none;
     user-select: none;
+}
+
+.jobs-container .bg-body-secondary:hover {
+    background: #d4d4d4 !important;
+    transition: all 0.3s ease 0s;
 }

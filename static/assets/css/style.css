@@ -47,6 +47,10 @@ body {
     background-color: var(--dark-bg);
 }
 
+.text-dark-blue {
+    color: var(--dark-bg);
+}
+
 input:focus,
 textarea:focus,
 select:focus,
