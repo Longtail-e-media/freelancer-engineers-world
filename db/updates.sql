@@ -43,3 +43,11 @@ ALTER TABLE `tbl_bids` ADD `client_rating` INT(11) NOT NULL AFTER `freelancer_ra
 -- 2024-12-09[sahas]
 ALTER TABLE `tbl_bids` ADD `reviewed_freelancer` INT(1) NOT NULL AFTER `freelancer_rating`;
 ALTER TABLE `tbl_bids` ADD `reviewed_client` INT(1) NOT NULL AFTER `client_rating`;
+-- 2024-12-09 [Swarna]
+ALTER TABLE `tbl_client` ADD `admin_rating` INT NOT NULL DEFAULT '0' AFTER `rating`;
+ALTER TABLE `tbl_freelancer` ADD `admin_rating` INT NOT NULL DEFAULT '0' AFTER `rating`;
+
+
+-- 2024-12-09[sahas]
+ALTER TABLE `tbl_bids` ADD `reviewed_freelancer` INT(1) NOT NULL AFTER `freelancer_rating`;
+ALTER TABLE `tbl_bids` ADD `reviewed_client` INT(1) NOT NULL AFTER `client_rating`;

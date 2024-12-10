@@ -23,7 +23,7 @@ class client extends DatabaseObject {
 		'facebook_profile',
 		'category_id',
 		'rating',
-		'archive_date',
+		'admin_rating',
 		'added_date',
 		'sortorder',
 		'status'
@@ -48,8 +48,8 @@ class client extends DatabaseObject {
 	public $linkdin_profile;
 	public $facebook_profile;
 	public $rating;
+	public $admin_rating;
 	public $category_id;
-	public $archive_date;
 	public $added_date;
 	public $sortorder;
 	public $status;

@@ -214,6 +214,57 @@
             }
         })
 
+        jQuery('#add_rating_frm').validationEngine({
+            autoHidePrompt: true,
+            promptPosition: "bottomLeft",
+            scroll: true,
+            onValidationComplete: function (form, status) {
+                if (status == true) {
+                    $('.btn-submit').attr('disabled', 'true');
+                    var action = ($('#idValue').val() == 0) ? "action=addRating&" : "action=addRating&";
+                    var data = $('#add_rating_frm').serialize();
+                    queryString = action + data;
+                    $.ajax({
+                        type: "POST",
+                        dataType: "JSON",
+                        url: getLocation(),
+                        data: queryString,
+                        success: function (data) {
+                            var msg = eval(data);
+                            if (msg.action == 'warning') {
+                                showMessage(msg.action, msg.message);
+                                setTimeout(function () {
+                                    $('.my-msg').html('');
+                                }, 3000);
+                                $('.btn-submit').removeAttr('disabled');
+                                $('.formButtons').show();
+                                return false
+                            }
+                            if (msg.action == 'success') {
+                                showMessage(msg.action, msg.message);
+                                setTimeout(function () {
+                                    window.location.href = "";
+                                }, 3000);
+                            }
+                            if (msg.action == 'notice') {
+                                showMessage(msg.action, msg.message);
+                                setTimeout(function () {
+                                    window.location.href = window.location.href;
+                                }, 3000);
+                            }
+                            if (msg.action == 'error') {
+                                showMessage(msg.action, msg.message);
+                                $('#buttonsP img').remove();
+                                $('.formButtons').show();
+                                return false;
+                            }
+                        }
+                    });
+                    return false;
+                }
+            }
+        })
+
     });
     /*************************** Shorting Sub Image Gallery Postion *******************************/
     $(document).ready(function () {
@@ -281,21 +332,6 @@
        }*/
     }
 
-    // Edit records
-    function editRecord(Re) {
-        $.ajax({
-            type: "POST",
-            dataType: "JSON",
-            url: getLocation(),
-            data: 'action=editExistsRecord&id=' + Re,
-            success: function (data) {
-                var msg = eval(data);
-                $("#title").val(msg.title);
-                $("#idValue").val(msg.editId);
-            }
-        });
-    }
-
     // Deleting Record
     function recordDelete(Re) {
         $('.MsgTitle').html('<?php echo sprintf($GLOBALS['basic']['deleteRecord_'], "client")?>');
@@ -346,6 +382,28 @@
             } else {
                 $('#toggleImg' + Re).removeClass("icon-clock-os-circle-o");
                 $('#toggleImg' + Re).addClass("icon-check-circle-o");
+            }
+        });
+
+        $('.statusJobToggler').on('click', function () {
+            var id      = $(this).attr('moduleId');
+            var status  = $(this).attr('status');
+            newStatus   = (status == 1) ? 0 : 1;
+            $.ajax({
+                type: "POST",
+                url: getLocation(),
+                data: "action=jobToggleStatus&id=" + id,
+                success: function (msg) {}
+            });
+            $(this).attr({'status': newStatus});
+            if (status == 1) {
+                $('#imgHolder_' + id).removeClass("bg-green");
+                $('#imgHolder_' + id).addClass("bg-red");
+                $(this).attr("data-original-title", "Click to Publish");
+            } else {
+                $('#imgHolder_' + id).removeClass("bg-red");
+                $('#imgHolder_' + id).addClass("bg-green");
+                $(this).attr("data-original-title", "Click to Un-publish");
             }
         });
     });
@@ -402,8 +460,10 @@
         window.location.href = "<?php echo ADMIN_URL?>client/addEdit/" + Re;
     }
 
+    function addRating(Re) {
+        window.location.href = "<?php echo ADMIN_URL?>client/addRating/" + Re;
+    }
 
-   
 
     /***************************************** Add New Subclient *******************************************/
     function AddNewSubclient(Re) {
@@ -411,18 +471,20 @@
     }
 
     /***************************************** View Subclient Lists *******************************************/
- function viewjobslist(Re) {
+    function viewjobslist(Re) {
         window.location.href = "<?php echo ADMIN_URL?>client/jobslist/" + Re;
     }
+
     /***************************************** Edit Subclient records *****************************************/
     function editjobs(Pid, Re) {
         window.location.href = "<?php echo ADMIN_URL?>client/addEditjobs/" + Pid + "/" + Re;
     }
 
     /***************************************** View Subclient Lists *******************************************/
- function viewfreelancerlist(Re) {
+    function viewfreelancerlist(Re) {
         window.location.href = "<?php echo ADMIN_URL?>client/freelancerlist/" + Re;
     }
+
     /***************************************** Edit Subclient records *****************************************/
     function editfreelancer(Pid, Re) {
         window.location.href = "<?php echo ADMIN_URL?>client/addEditfreelancer/" + Pid + "/" + Re;
@@ -474,6 +536,7 @@
             $('.MessageBoxContainer').fadeOut(1000);
         });
     }
+
     function deleteSavedCompanyDoc(Re) {
         $('.MsgTitle').html('<?php echo sprintf($GLOBALS['basic']['deleteRecord_'], "pdf")?>');
         $('.pText').html('Click on yes button to delete this pdf permanently.!!');
@@ -493,6 +556,7 @@
             $('.MessageBoxContainer').fadeOut(1000);
         });
     }
+
     /******************************** Remove User saved client images ********************************/
     function deleteSavedclientimage(Re) {
         $('.MsgTitle').html('<?php echo sprintf($GLOBALS['basic']['deleteRecord_'], "image")?>');

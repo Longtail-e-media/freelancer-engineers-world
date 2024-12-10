@@ -65,7 +65,7 @@ $header = ob_start();
 <?php
 $header = ob_get_clean();
 
-$header = ''.changestatustimeout('tbl_jobs').'
+$header = '' . changestatustimeout('tbl_jobs') . '
     <nav class="navbar navbar-expand-lg bg-body-secondary">
         <div class="container">
             <a class="navbar-brand bg-white p-1" href="' . BASE_URL . 'home">

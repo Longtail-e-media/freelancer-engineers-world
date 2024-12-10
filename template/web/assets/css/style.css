@@ -114,7 +114,8 @@ input[type="number"]::-webkit-inner-spin-button {
     max-width: 900px;
 }
 
-#showhide, #showhideF {
+#showhide,
+#showhideF {
     width: 1.5rem;
     position: absolute;
     right: 7%;
@@ -308,4 +309,56 @@ a.page-link:focus {
     border: 0;
     outline: 0;
     box-shadow: none;
+}
+
+.star {
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+}
+
+/* .error-message {
+    display: inline-block;
+    padding: 0.5em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    pointer-events: none;
+    user-select: none;
+} */
+
+form>div {
+    position: relative;
+}
+
+span.validate-has-error,
+span.text-danger {
+    background-color: #fff;
+    /* position: absolute;
+    top: 50%;
+    left: 0; */
+    z-index: 99;
+    pointer-events: none;
+    user-select: none;
+    height: 100%;
+    font-size: 0.85em;
+    color: #f00 !important;
+}
+
+#searchForm1,
+#searchForm2 {
+    position: relative
+}
+
+#searchForm1 span.text-danger,
+#searchForm2 span.text-danger {
+    display: inline-block;
+    margin-top: 5px;
+    padding: 0.5em;
+    position: absolute;
+    top: 0;
+    right: 25%;
+    z-index: 99;
+    pointer-events: none;
+    user-select: none;
 }
