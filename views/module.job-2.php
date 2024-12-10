@@ -319,7 +319,7 @@ if (defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
                 }
 
                 $jobdetails .= '
-                            <div class="row bg-light p-3 p-md-5 mt-2 gx-0">
+                            <div class="row bg-light p-3 p-md-5 mt-2 gx-0 hover-effect">
                                 <div class="col-12 col-md-3 p-0">
                                     <img src="' . $img . '" alt="' . $freelancerRec->username . '" class="user-icon bg-dark-subtle">
                                 </div>
@@ -330,7 +330,7 @@ if (defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
                                 </div>
                                 <div class="col-3 col-md-3 mt-md-0 ms-3 ms-md-0 mt-3">
                                     <h5 class="fs-7"><strong>' . $bidsRow->currency . ' ' . $bidsRow->bid_amount . '</strong> in ' . $bidsRow->delivery . ' days</h5>
-                                    <span class="fs-4"> ' . str_repeat('★', $freelancerRec->rating) . ' ' . str_repeat('☆', (5 - $freelancerRec->rating)) . '</span>
+                                    <span class="fs-4 text-warning"> ' . str_repeat('★', $freelancerRec->rating) . ' ' . str_repeat('☆', (5 - $freelancerRec->rating)) . '</span>
                                 </div>
                             </div>
                 ';

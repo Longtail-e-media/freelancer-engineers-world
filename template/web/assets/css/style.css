@@ -367,8 +367,13 @@ span.text-danger {
     user-select: none;
 }
 
-.hover-effect:hover,
 .jobs-container .bg-body-secondary:hover {
     background: #d4d4d4 !important;
+    transition: all 0.3s ease;
+}
+
+.hover-effect:hover {
+    background: #fdfdfd !important;
+    box-shadow: 0 2px 5px 5px rgba(0, 64, 128, 0.05);
     transition: all 0.3s ease;
 }

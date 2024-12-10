@@ -56,11 +56,11 @@ if (defined('CONTACT_PAGE')) {
                                     <div class="col-12 col-md-6">
                                         <label for="email" class="form-label">Email <span
                                                 class="text-danger">*</span></label>
-                                        <div class="input-group">
+                                        <div class="input-group d-flex flex-column">
                                             <!-- <span class="input-group-text rounded-0">
                                                 <i class="fa-solid fa-envelope text-dark me-2"></i> 
                                             </span> -->
-                                            <input type="email" class="form-control rounded-0" id="email" name="email">
+                                            <input type="email" class="form-control rounded-0 w-100" id="email" name="email">
                                         </div>
                                     </div>
 

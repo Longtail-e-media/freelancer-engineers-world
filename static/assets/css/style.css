@@ -325,6 +325,7 @@ a.page-link:focus {
     background: #d4d4d4 !important;
     transition: all 0.3s ease;
 }
+
 .hover-effect:hover {
     background: #fdfdfd !important;
     transition: all 0.3s ease;
