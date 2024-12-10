@@ -579,7 +579,7 @@ if (!empty($_SESSION)) {
                                 Awarded <i class="fas fa-chevron-down"></i>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item text-primary-emphasis fs-6" id="wop" onclick="recordDelete('.$record->id.')">Work on
+                                <li><a class="dropdown-item text-primary-emphasis fs-6" id="wop" onclick="changetowop('.$record->id.')">Work on
                                         progress</a></li>
                             </ul>
                             <div id="setup"></div>
@@ -599,7 +599,7 @@ if (!empty($_SESSION)) {
                                 Work on Progress <i class="fas fa-chevron-down"></i>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item text-dark fs-6" id="complete" onclick="recordcompleteDelete('.$record->id.')">Completed</a>
+                                <li><a class="dropdown-item text-dark fs-6" id="complete" onclick="changetoawarded('.$record->id.')">Completed</a>
                                 </li>
                             </ul>
                             </div>

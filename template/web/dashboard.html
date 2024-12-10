@@ -54,7 +54,14 @@
     var base_url = $('base').attr('url');
     var job_id = $(this).attr("value");
 
-    
+    function changetowop(job_id){													
+	$('.pText').html('Click on yes button to change status into work on progress permanently.!!');
+	$('.divMessageBox').fadeIn();
+	$('.MessageBoxContainer').fadeIn(1000);
+	
+	$(".botTempo").on("click",function(){
+        var popAct=$(this).attr("id");						
+		if(popAct=='yes'){	 
         $.ajax({
             type: "POST",
             dataType: "JSON",
@@ -69,28 +76,40 @@
                 }
 
             });
-        
-        jQuery(document).ready(function () {
+        }
+		$('.divMessageBox').fadeOut();
+		$('.MessageBoxContainer').fadeOut(1000);
+	});	
+}
 
-        $('#complete').on('click', function () {
-            var job_id = $(this).attr("value");
-            // console.log(job_id);
-            $.ajax({
-                type: "POST",
-                dataType: "JSON",
-                url: base_url + "includes/controllers/ajax.jobs.php",
-                data: "action=forcomplete&jobid=" + job_id,
-                success: function (data) {
-                    var msg = eval(data);
-                    $('#setup').html(msg.message);
-                    setTimeout(function () {
-                        return window.location.href = "dashboard";
-                    }, 1000);
-                }
-
-            });
-        })
-    });
+var job_id = $(this).attr("value");
+function changetoawarded(job_id){													
+	$('.pText').html('Click on yes button to change status into completed permanently.!!');
+	$('.divMessageBox').fadeIn();
+	$('.MessageBoxContainer').fadeIn(1000);
+	
+	$(".botTempo").on("click",function(){
+        var popAct=$(this).attr("id");						
+            if(popAct=='yes'){	
+                // console.log(job_id);
+                $.ajax({
+                    type: "POST",
+                    dataType: "JSON",
+                    url: base_url + "includes/controllers/ajax.jobs.php",
+                    data: "action=forcomplete&jobid=" + job_id,
+                        success: function (data) {
+                            var msg = eval(data);
+                            $('#setup').html(msg.message);
+                            setTimeout(function () {
+                                return window.location.href = "dashboard";
+                            }, 1000);
+                        }
+                    })
+                    }
+                    $('.divMessageBox').fadeOut();
+                    $('.MessageBoxContainer').fadeOut(1000);
+                })
+            }
 </script>
 </body>
 
