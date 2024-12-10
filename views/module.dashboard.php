@@ -1526,9 +1526,9 @@ elseif (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client" && 
                         <!-- Job Title Card -->
                         <div class="bg-light card-title p-3 p-lg-5">
                             <div>
-                                <div
+                               <div
                                     class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between gap-3">
-                                    <div>
+                                      <div>
                                         <h3 class="fs-5 fw-bold mb-2 mb-sm-0">'.$jobdatas->title.'
                                             <span class="fs-7 text-success">(Completed)</span>
                                         </h3>
@@ -1544,24 +1544,61 @@ elseif (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client" && 
 
                         <!-- Review Section -->
                         <div class="card-body mt-4 mt-lg-5">
-                            <h5 class="fw-bold fs-6 my-3 my-lg-4">Review and Rate freelancer on project complete</h5>
-                            <div class="my-3 my-lg-4">
-                                <div id="rating-container" class="ratings d-flex gap-1">
-                                 
-                            <input type="hidden" id="rating" name="rating" value="">
-                                    <span class="star fs-4 text-muted" data-value="1">☆</span>
-                                    <span class="star fs-4 text-muted" data-value="2">☆</span>
-                                    <span class="star fs-4 text-muted" data-value="3">☆</span>
-                                    <span class="star fs-4 text-muted" data-value="4">☆</span>
-                                    <span class="star fs-4 text-muted" data-value="5">☆</span>
+                            <h5 class="fw-bold fs-6 my-3 my-lg-4">Review and Rate Client on project complete</h5>
+                            <textarea id="write-a-review"
+                                class="form-control bg-light border-0 p-3 p-lg-5 fs-6 w-100 rounded-0 mb-3 mb-md-5"
+                                placeholder="Write a review" rows="5"></textarea>';
+
+$biddatas= bids::find_by_jobid_review($jobdatas->id);
+foreach($biddatas as $biddata){
+    $freelancerdata= freelancer::find_by_id($biddata->freelancer_id);
+    $reviewdetail .=' <div class="row bg-light p-3 mt-2 gx-0 hover-effect">
+    <div class="col-3 col-md-2 p-0">
+        <img src="https://static-00.iconduck.com/assets.00/user-icon-1024x1024-unb6q333.png"
+            alt="User" class="user-icon w-100 bg-dark-subtle p-3">
+    </div>
+    <div class="col-9 col-md-6 px-3 d-flex justify-content-center flex-column">
+        <h5 class="fs-6 fw-bold">@Purna0310</h5>
+    </div>
+    <div class="col-12 col-md-3 d-flex justify-content-center flex-column">
+        <h5 class="fs-7">Rate the Freelancer</h5>
+        <div id="rating-container" class="ratings d-flex gap-1">
+            <span class="star fs-4 text-muted" data-value="1">☆</span>
+            <span class="star fs-4 text-muted" data-value="2">☆</span>
+            <span class="star fs-4 text-muted" data-value="3">☆</span>
+            <span class="star fs-4 text-muted" data-value="4">☆</span>
+            <span class="star fs-4 text-muted" data-value="5">☆</span>
+        </div>
+    </div>
+</div>';
+}
+// pr($biddata);
+                           
+                         $reviewdetail .='   <div class="row bg-light p-3 mt-2 gx-0 hover-effect">
+                                <div class="col-3 col-md-2 p-0">
+                                    <img src="https://static-00.iconduck.com/assets.00/user-icon-1024x1024-unb6q333.png"
+                                        alt="User" class="user-icon w-100 bg-dark-subtle p-3">
+                                </div>
+                                <div class="col-9 col-md-6 px-3 d-flex justify-content-center flex-column">
+                                    <h5 class="fs-6 fw-bold">@Purna0310</h5>
+                                </div>
+                                <div class="col-12 col-md-3 d-flex justify-content-center flex-column">
+                                    <h5 class="fs-7">Rate the Freelancer</h5>
+                                    <div id="rating-container" class="ratings d-flex gap-1">
+                                        <span class="star fs-4 text-muted" data-value="1">☆</span>
+                                        <span class="star fs-4 text-muted" data-value="2">☆</span>
+                                        <span class="star fs-4 text-muted" data-value="3">☆</span>
+                                        <span class="star fs-4 text-muted" data-value="4">☆</span>
+                                        <span class="star fs-4 text-muted" data-value="5">☆</span>
+                                    </div>
                                 </div>
                             </div>
-                           <div id="result_msg"></div>
+
+
                             <button
-                                class="btn btn-dark bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0 w-auto" id="submit">
+                                class="btn btn-dark bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0 w-auto mt-4">
                                 Submit Review
                             </button>
-                            </form>
                         </div>
                     </div>
                 </div>
