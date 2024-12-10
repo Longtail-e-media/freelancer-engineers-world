@@ -579,11 +579,7 @@ if (!empty($_SESSION)) {
                                 Awarded <i class="fas fa-chevron-down"></i>
                             </a>
                             <ul class="dropdown-menu">
-<<<<<<< HEAD
-                                <li><a class="dropdown-item text-primary-emphasis fs-6" id="wop" onclick="recordDelete('.$record->id.')">Work on
-=======
                                 <li><a class="dropdown-item text-primary-emphasis fs-6" id="wop" value="' . $record->id . '">Work on
->>>>>>> 73832d10df82da3baa3c31bfa7dfa4f4b3671e21
                                         progress</a></li>
                             </ul>
                             <div id="setup"></div>
@@ -603,11 +599,7 @@ if (!empty($_SESSION)) {
                                 Work on Progress <i class="fas fa-chevron-down"></i>
                             </a>
                             <ul class="dropdown-menu">
-<<<<<<< HEAD
-                                <li><a class="dropdown-item text-dark fs-6" id="complete" onclick="recordcompleteDelete('.$record->id.')">Completed</a>
-=======
                                 <li><a class="dropdown-item text-dark fs-6" id="complete" value="' . $record->id . '">Completed</a>
->>>>>>> 73832d10df82da3baa3c31bfa7dfa4f4b3671e21
                                 </li>
                             </ul>
                             </div>
@@ -1206,20 +1198,6 @@ if (!empty($_SESSION)) {
                 </div>
             </div>';
 
-<<<<<<< HEAD
-            $bidderdetail='';
-            $biddatas= bids::find_by_jobid_short($jobdatas->id);
-            // pr($biddata);
-            $profilepic='';
-            if(!empty($biddatas)){
-                foreach($biddatas as $biddata){
-                    
-                    //freelancer data through
-                    $freelandata= freelancer::find_by_id($biddata->freelancer_id);
-                    if(!empty($freelandata->profile_picture)){
-                        $profilepic ='<div class="col-2 col-md-2 p-0">
-                        <img src="'.IMAGE_PATH.'freelancer/profile/'.$freelandata->profile_picture.'"
-=======
         $bidderdetail = '';
         $biddatas = bids::find_by_jobid_short($jobdatas->id);
         // pr($biddata);
@@ -1232,7 +1210,6 @@ if (!empty($_SESSION)) {
                 if (!empty($freelandata->profile_picture)) {
                     $profilepic = '<div class="col-2 col-md-2 p-0">
                         <img src="' . IMAGE_PATH . 'freelancer/profile/' . $freelandata->profile_picture . '"
->>>>>>> 73832d10df82da3baa3c31bfa7dfa4f4b3671e21
                             alt="User" class="user-icon w-100 bg-dark-subtle p-3">
                     </div>';
                 }
