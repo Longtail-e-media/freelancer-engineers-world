@@ -29,7 +29,7 @@ class Bids extends DatabaseObject
     public static function find_by_jobid($jobid = 0)
     {
         global $db;
-        $sql = "SELECT * FROM " . self::$table_name . " WHERE job_id='$jobid' AND status=1 ";
+        $sql = "SELECT * FROM " . self::$table_name . " WHERE job_id='$jobid' AND status=1 ORDER BY sortorder DESC";
         return self::find_by_sql($sql);
         // return !empty($result_array) ? array_shift($result_array) : false;
     }

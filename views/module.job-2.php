@@ -301,10 +301,10 @@ if (defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
         $bidsRec = bids::find_by_jobid($jobdatas->id);
         if (!empty($bidsRec)) {
             $total_bids = sizeof($bidsRec);
-            $average_bids = bids::get_average_bid_by_job_id($jobdatas->id);
+            // $average_bids = bids::get_average_bid_by_job_id($jobdatas->id);
             $jobdetails .= '
                 <section class="container mt-4 pt-2">
-                    <h5 class="fw-bold fs-6 fs-md-5 my-4">' . $total_bids . ' freelancers are bidding on average ' . $jobdatas->currency . ' ' . $average_bids . ' </h5>
+                    <h5 class="fw-bold fs-6 fs-md-5 my-4">' . $total_bids . ' freelancers are bidding</h5>
                     <div class="row job-review-content">
                         <div class="col-md-9">
             ';
