@@ -5,10 +5,10 @@ class Bids extends DatabaseObject
 
     protected static $table_name = "tbl_bids";
     protected static $db_fields = array(
-        'id', 'job_id', 'client_id', 'currency', 'freelancer_id', 'bid_amount', 'delivery', 'message', 'client_rating', 'freelancer_rating', 'project_status', 'added_date', 'sortorder', 'status'
+        'id', 'job_id', 'client_id', 'currency', 'freelancer_id', 'bid_amount', 'delivery', 'message', 'client_rating','reviewed_client', 'freelancer_rating', 'reviewed_freelancer	','project_status', 'added_date', 'sortorder', 'status'
     );
 
-    public $id, $job_id, $client_id, $freelancer_id, $currency, $bid_amount, $delivery, $message, $client_rating, $freelancer_rating, $project_status, $added_date, $sortorder, $status;
+    public $id, $job_id, $client_id, $freelancer_id, $currency, $bid_amount, $delivery, $message, $client_rating,$reviewed_client, $freelancer_rating,$reviewed_freelancer, $project_status, $added_date, $sortorder, $status;
 
 
     public static function get_by_type($type = "1")
@@ -50,6 +50,15 @@ class Bids extends DatabaseObject
         // return self::find_by_sql($sql);
         return !empty($result_array) ? array_shift($result_array) : false;
     }
+
+
+    
+	public static function find_by_all_id($client_id,$freeid,$job_id){
+		global $db;
+		$sql = "SELECT * FROM ".self::$table_name." WHERE client_id=$client_id AND freelancer_id=$freeid AND job_id=$job_id LIMIT 1";
+		$result_array = self::find_by_sql($sql);
+		return !empty($result_array) ? array_shift($result_array) : false;
+	}
 
     public static function find_by_jobid_short($jobid = 0)
     {

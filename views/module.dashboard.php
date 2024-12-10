@@ -859,6 +859,18 @@ if (!empty($_SESSION)) {
                                     </p>
                                     </div>';
                         break;
+                        case 5:
+                            $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
+                                <p class="text-dark fs-6 fw-bold">
+                                   Completed
+                                </p>';
+                                if($record->reviewed_client==0){
+                              $jobstatus .= '  <a href="'.BASE_URL.'review/'.$jobdatas->slug.'" class="btn btn-outline-success bg-success-subtle text-success fs-7 rounded-0 px-3 py-1">
+                                    Review
+                                </a>';
+                            }
+                           $jobstatus .= '  </div>';
+                            break;
                    
                 }
                 // pr($jobstatus);
@@ -1373,7 +1385,113 @@ $jVars["module:dashboard-rewardfreelancer"] = $awarddetail;
 
 $reviewdetail = "";
 if (!empty($_SESSION)) {
-    if (defined('REVIEW') && isset($_REQUEST['slug'])) {
+    if (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "freelancer" && defined('REVIEW') && isset($_REQUEST['slug'])) {
+
+        $slug = !empty($_REQUEST['slug']) ? addslashes($_REQUEST['slug']) : '';
+        $freelancerdata= freelancer::find_by_userid($_SESSION["user_id"]);
+        // pr($freelancerdata);
+        $jobdatas= jobs::find_by_slug($slug);
+        $clientdatas = client::find_by_id($jobdatas->client_id);
+        // $totalbids = bids::find_total_bids($jobdatas->id);   
+        if ($jobdatas->budget_type == 1) {
+            $budget = ' <h4 class="fs-6 fw-bold">' . $jobdatas->currency . ' ' . $jobdatas->exact_budget . '</h4>';
+        } else {
+            $budget = '<h4 class="fs-6 fw-bold">' . $jobdatas->currency . ' ' . $jobdatas->budget_range_low . ' - ' . $jobdatas->budget_range_high . '</h4>';
+        }
+        $reviewdetail .= ' <main class="">
+        <!-- Header -->
+        <div class="bg-dark-blue">
+            <div class="container">
+                <h1 class="text-light py-4 py-lg-5 fw-light fs-2 fs-lg-1">
+                    '.$jobdatas->title.'
+                </h1>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <section class="container">
+            <a href="#" class="text-dark fs-7 d-block mb-3 mb-lg-5">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to list page
+            </a>
+
+            <div class="row job-title-content gx-0">
+                <!-- Left Content -->
+                <div class="col-12 col-lg-9">
+                    <div>
+                        <!-- Job Title Card -->
+                        <div class="bg-light card-title p-3 p-lg-5">
+                            <div>
+                                <div
+                                    class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between gap-3">
+                                    <div>
+                                        <h3 class="fs-5 fw-bold mb-2 mb-sm-0">'.$jobdatas->title.'
+                                            <span class="fs-7 text-success">(Completed)</span>
+                                        </h3>
+                                        <span class="fs-7">End Date: ' . date("M d Y", strtotime($jobdatas->deadline_date)) . '</span>
+                                    </div>
+                                    <div class="text-start text-sm-end">
+                                        '.$budget.'
+                                        <span class="fs-7">0 bids</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Review Section -->
+                        <div class="card-body mt-4 mt-lg-5">
+                            <h5 class="fw-bold fs-6 my-3 my-lg-4">Review and Rate Client on project complete</h5>
+                            <div class="my-3 my-lg-4">
+                                <div id="rating-container" class="ratings d-flex gap-1">
+                                 <form id="reviewset">
+                            <input type="hidden" id="rating" name="rating" value="">
+                            <input type="hidden" name="freelancerid" value="'.$freelancerdata->id.'">
+                            <input type="hidden" name="clientid" value="'.$clientdatas->id.'">
+                            <input type="hidden" name="jobid" value="'.$jobdatas->id.'">
+                                    <span class="star fs-4 text-muted" data-value="1">☆</span>
+                                    <span class="star fs-4 text-muted" data-value="2">☆</span>
+                                    <span class="star fs-4 text-muted" data-value="3">☆</span>
+                                    <span class="star fs-4 text-muted" data-value="4">☆</span>
+                                    <span class="star fs-4 text-muted" data-value="5">☆</span>
+                                </div>
+                            </div>
+                           <div id="result_msg"></div>
+                            <button
+                                class="btn btn-dark bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0 w-auto" id="submit">
+                                Submit Review
+                            </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Sidebar -->
+                <div class="biddy-sticky col-12 col-lg-3 bg-white p-3 ps-lg-5 mt-4 mt-lg-0">
+                    <h3 class="fs-5 fw-bold">
+                        About Client
+                    </h3>
+                    <div class="client-info mt-3 mt-lg-4">
+                        <ul class="d-flex gap-1 flex-column list-unstyled mb-0">
+                            <li class="d-flex align-items-center gap-2">
+                                <i class="fa-solid fa-location-dot"></i>
+                                '. $clientdatas->current_address.'
+                            </li>
+                            <li class="d-flex align-items-center gap-2">
+                                <i class="fa-solid fa-user"></i>
+                                <span class="fs-4 text-warning"> ' . str_repeat('★', $clientdatas->rating) . ' ' . str_repeat('☆', (5 - $clientdatas->rating)) . '</span>
+                            </li>
+                            <li class="d-flex align-items-center gap-2">
+                                <i class="fa-solid fa-clock"></i>
+                                Member since ' . date("M d, Y", strtotime($clientdatas->added_date)) . '
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>';
+    }
+    elseif (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client" && defined('REVIEW') && isset($_REQUEST['slug'])) {
 
         $slug = !empty($_REQUEST['slug']) ? addslashes($_REQUEST['slug']) : '';
         $jobdatas= jobs::find_by_slug($slug);
@@ -1426,7 +1544,7 @@ if (!empty($_SESSION)) {
 
                         <!-- Review Section -->
                         <div class="card-body mt-4 mt-lg-5">
-                            <h5 class="fw-bold fs-6 my-3 my-lg-4">Review and Rate Client on project complete</h5>
+                            <h5 class="fw-bold fs-6 my-3 my-lg-4">Review and Rate freelancer on project complete</h5>
                             <div class="my-3 my-lg-4">
                                 <div id="rating-container" class="ratings d-flex gap-1">
                                  <form id="reviewset">

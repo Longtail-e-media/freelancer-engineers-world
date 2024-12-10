@@ -175,15 +175,34 @@
 
             $db->begin();
             if ($job->save()):
-                // $jobid=$_REQUEST['jobid'];
+                $jobid=$_REQUEST['jobid'];
                 // $bidderIds = implode(',', array_map('intval', $_REQUEST['bidder']));
-                // $sql='update tbl_bids set project_status=3 where job_id='.$jobid.' and freelancer_id in ('.$bidderIds.')';
-                // $db->query($sql);
+                $sql='update tbl_bids set project_status=5 where job_id='.$jobid.' and project_status=3';
+                $db->query($sql);
                 $db->commit();
                 // $message = "Jobs bid in " . $job->title;
                 echo json_encode(array("action" => "success", "message" => "The Work is on Progress!"));
             else: $db->rollback();
                 echo json_encode(array("action" => "error", "message" => "Job Bid unsuccessfully !"));
+            endif;
+        break;
+
+
+        case "forclientreview":
+          
+            // pr($_POST);
+            // $sqlids     = '';
+            $bids        = Bids::find_by_all_id($_REQUEST['clientid'],$_REQUEST['freelancerid'],$_REQUEST['jobid']);
+            // pr($bids);
+            $bids->client_rating = $_REQUEST['rating'];
+            $bids->reviewed_client = 1;
+
+            $db->begin();
+            if ($bids->save()):
+                $db->commit();
+                echo json_encode(array("action" => "success", "message" => "review submiited!"));
+            else: $db->rollback();
+                echo json_encode(array("action" => "error", "message" => "review not submiited !"));
             endif;
         break;
 			
