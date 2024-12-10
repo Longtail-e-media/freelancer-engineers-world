@@ -650,7 +650,7 @@
             $jobId = addslashes($_REQUEST['jobId']);
 
             $jobRec = jobs::find_by_id($jobId);
-			pr($jobRec);
+			// pr($jobRec);
             if ($jobRec->project_status != 1) {
                 $message = "Bidding Closed !";
                 echo json_encode(array("action" => "biddingClosed", "message" => $message));

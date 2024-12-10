@@ -18,6 +18,14 @@ class Bids extends DatabaseObject
         return !empty($result_array) ? array_shift($result_array) : false;
     }
 
+    public static function find_for_client_review($id=0){
+		global $db;
+		$sql = "SELECT * FROM ".self::$table_name." WHERE job_id='$id' AND project_status=4 LIMIT 1";
+		$result_array = self::find_by_sql($sql);
+		return !empty($result_array) ? array_shift($result_array) : false;
+	}
+
+
     public static function find_by_jobid($jobid = 0)
     {
         global $db;

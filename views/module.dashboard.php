@@ -579,7 +579,7 @@ if (!empty($_SESSION)) {
                                 Awarded <i class="fas fa-chevron-down"></i>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item text-primary-emphasis fs-6" id="wop" value="'.$record->id.'">Work on
+                                <li><a class="dropdown-item text-primary-emphasis fs-6" id="wop" onclick="recordDelete('.$record->id.')">Work on
                                         progress</a></li>
                             </ul>
                             <div id="setup"></div>
@@ -599,7 +599,7 @@ if (!empty($_SESSION)) {
                                 Work on Progress <i class="fas fa-chevron-down"></i>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item text-dark fs-6" id="complete" value="'.$record->id.'">Completed</a>
+                                <li><a class="dropdown-item text-dark fs-6" id="complete" onclick="recordcompleteDelete('.$record->id.')">Completed</a>
                                 </li>
                             </ul>
                             </div>
@@ -657,7 +657,20 @@ if (!empty($_SESSION)) {
         // pr($Records);
 
         $clientdashboard .=
-            '<div class="bg-dark-blue">
+            '
+            
+             <div class="divMessageBox" style="display:none;"></div>      
+        <div class="MessageBoxContainer" style="display:none;">
+            <div class="MessageBoxMiddle">
+            <span class="MsgTitle"></span>
+            <p class="pText"></p>
+                <div class="MessageBoxButtonSection">
+                <button id="no" class="botTempo"> No</button>
+                <button id="yes" class="botTempo"> Yes</button>
+                </div>
+            </div>
+        </div>
+        <div class="bg-dark-blue">
             <div class="container">
                 <h1 class="text-light py-5 fw-light fs-1">
                     Dashboard
@@ -1189,10 +1202,10 @@ if (!empty($_SESSION)) {
             $bidderdetail='';
             $biddatas= bids::find_by_jobid_short($jobdatas->id);
             // pr($biddata);
-            // $profilepic='';
+            $profilepic='';
             if(!empty($biddatas)){
                 foreach($biddatas as $biddata){
-
+                    
                     //freelancer data through
                     $freelandata= freelancer::find_by_id($biddata->freelancer_id);
                     if(!empty($freelandata->profile_picture)){
@@ -1355,4 +1368,117 @@ if (!empty($_SESSION)) {
 }
 
 $jVars["module:dashboard-rewardfreelancer"] = $awarddetail;
+
+
+
+$reviewdetail = "";
+if (!empty($_SESSION)) {
+    if (defined('REVIEW') && isset($_REQUEST['slug'])) {
+
+        $slug = !empty($_REQUEST['slug']) ? addslashes($_REQUEST['slug']) : '';
+        $jobdatas= jobs::find_by_slug($slug);
+        $clientdatas = client::find_by_id($jobdatas->client_id);
+        // $totalbids = bids::find_total_bids($jobdatas->id);   
+        if ($jobdatas->budget_type == 1) {
+            $budget = ' <h4 class="fs-6 fw-bold">' . $jobdatas->currency . ' ' . $jobdatas->exact_budget . '</h4>';
+        } else {
+            $budget = '<h4 class="fs-6 fw-bold">' . $jobdatas->currency . ' ' . $jobdatas->budget_range_low . ' - ' . $jobdatas->budget_range_high . '</h4>';
+        }
+        $reviewdetail .= ' <main class="">
+        <!-- Header -->
+        <div class="bg-dark-blue">
+            <div class="container">
+                <h1 class="text-light py-4 py-lg-5 fw-light fs-2 fs-lg-1">
+                    '.$jobdatas->title.'
+                </h1>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <section class="container">
+            <a href="#" class="text-dark fs-7 d-block mb-3 mb-lg-5">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to list page
+            </a>
+
+            <div class="row job-title-content gx-0">
+                <!-- Left Content -->
+                <div class="col-12 col-lg-9">
+                    <div>
+                        <!-- Job Title Card -->
+                        <div class="bg-light card-title p-3 p-lg-5">
+                            <div>
+                                <div
+                                    class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between gap-3">
+                                    <div>
+                                        <h3 class="fs-5 fw-bold mb-2 mb-sm-0">'.$jobdatas->title.'
+                                            <span class="fs-7 text-success">(Completed)</span>
+                                        </h3>
+                                        <span class="fs-7">End Date: ' . date("M d Y", strtotime($jobdatas->deadline_date)) . '</span>
+                                    </div>
+                                    <div class="text-start text-sm-end">
+                                        '.$budget.'
+                                        <span class="fs-7">0 bids</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Review Section -->
+                        <div class="card-body mt-4 mt-lg-5">
+                            <h5 class="fw-bold fs-6 my-3 my-lg-4">Review and Rate Client on project complete</h5>
+                            <div class="my-3 my-lg-4">
+                                <div id="rating-container" class="ratings d-flex gap-1">
+                                 <form id="reviewset">
+                            <input type="hidden" id="rating" name="rating" value="">
+                                    <span class="star fs-4 text-muted" data-value="1">☆</span>
+                                    <span class="star fs-4 text-muted" data-value="2">☆</span>
+                                    <span class="star fs-4 text-muted" data-value="3">☆</span>
+                                    <span class="star fs-4 text-muted" data-value="4">☆</span>
+                                    <span class="star fs-4 text-muted" data-value="5">☆</span>
+                                </div>
+                            </div>
+                           <div id="result_msg"></div>
+                            <button
+                                class="btn btn-dark bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0 w-auto" id="submit">
+                                Submit Review
+                            </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Sidebar -->
+                <div class="biddy-sticky col-12 col-lg-3 bg-white p-3 ps-lg-5 mt-4 mt-lg-0">
+                    <h3 class="fs-5 fw-bold">
+                        About Client
+                    </h3>
+                    <div class="client-info mt-3 mt-lg-4">
+                        <ul class="d-flex gap-1 flex-column list-unstyled mb-0">
+                            <li class="d-flex align-items-center gap-2">
+                                <i class="fa-solid fa-location-dot"></i>
+                                '. $clientdatas->current_address.'
+                            </li>
+                            <li class="d-flex align-items-center gap-2">
+                                <i class="fa-solid fa-user"></i>
+                                <span class="fs-4 text-warning"> ' . str_repeat('★', $clientdatas->rating) . ' ' . str_repeat('☆', (5 - $clientdatas->rating)) . '</span>
+                            </li>
+                            <li class="d-flex align-items-center gap-2">
+                                <i class="fa-solid fa-clock"></i>
+                                Member since ' . date("M d, Y", strtotime($clientdatas->added_date)) . '
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>';
+    }
+   
+} else {
+    $reviewdetail = "please login to view profile";
+}
+
+$jVars["module:dashboard-review"] = $reviewdetail;
+
 

@@ -89,7 +89,7 @@ if (!empty($_SESSION)) {
                         </div>
                         <div class="row g-3 mt-3">
                             <div class="col-md-3 d-flex align-items-start flex-column">
-                                <label for="budgetUnit">Budget Unit <span class="text-danger">*</span></label>
+                                <label for="budgetUnit">Job category <span class="text-danger">*</span></label>
                                 <select class="border-0 rounded-0 fs-7 pt-2 mt-4 px-4" id="budgetUnit" name="job_type"
                                     style="width: 100%; height: 100%!important;">';
 
@@ -98,7 +98,9 @@ if (!empty($_SESSION)) {
             $createajob .= '   <option value="' . $jobcategory->id . '" >' . $jobcategory->title . '</option>';
         }
 
-        $createajob .= '        </select>
+        $createajob .= '     
+        <option value="0" >Other</option>
+           </select>
                             </div>
                         </div>
  

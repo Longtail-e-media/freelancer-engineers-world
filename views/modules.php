@@ -36,7 +36,8 @@ $jVars['site:titlescript']	= ' <script>
 		global $db;
 		
 		$db->begin();
-		$sql = $db->query("update {$tablename} set project_status=4 where deadline_date<'.$currentdate.' and project_status<=2");
+		$sql = $db->query("update {$tablename} set project_status=4 where deadline_date<='$currentdate' and project_status<=2");
+		// pr($sql);
 		$db->commit();
 		// $result = $db->num_rows($sql);
 	}

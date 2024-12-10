@@ -26,6 +26,7 @@
 			$record->content	= $_REQUEST['content'];			
 			$record->job_type	= $_REQUEST['job_type'];			
 			$record->currency	= $_REQUEST['currency'];			
+			$record->project_status	= 1;			
 			$record->status		= 1;
 			$record->sortorder	= jobs::find_maximum();		
 			$db->begin();
@@ -127,6 +128,49 @@
 				else: $db->rollback();
 					echo json_encode(array("action" => "error", "message" =>"Job Bid unsuccessfully !"));
 				endif;
+					$mailcheck = addslashes($_REQUEST['email']);
+				// $mailcheck  = User::get_validMember_mail($emailAddress);
+				// pr($mailcheck);
+				if ($mailcheck):
+	
+					$row = User::find_by_mail($mailcheck);
+	
+					/* Mail Format */
+					$siteName       = Config::getField('sitename', true);
+					$AdminEmail     = User::get_UseremailAddress_byId(1);
+					$fullName       = $_REQUEST['username'];
+	
+					$msgbody = '<div>
+					<h3>you have been registered as Freelancer for ' . $siteName . '</h3>                
+					<div><font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
+					Please <a href="' . BASE_URL . 'login">click here to login.</a> <br><br>
+					<br><br>
+					<p>Thanks,<br>
+					' . $siteName . '
+					</p>
+					</div>
+					</div>';
+	
+					$mail = new PHPMailer();
+	
+					$mail->SetFrom($AdminEmail, $siteName, 0);
+					$mail->AddReplyTo($mailcheck, $fullName);
+					$mail->AddAddress($mailcheck, $fullName);
+					$mail->Subject = "Forgot password on " . $siteName;
+					$mail->MsgHTML($msgbody);
+	
+					if (!$mail->Send()):
+						$message = "Not valid User email address";
+						echo json_encode(array('action' => 'unsuccess', 'message' => $message));
+					else:
+						$forgetRec->save();
+						// $message = "Please check your mail for login";
+						echo json_encode(array('action' => 'success', 'message' => $message));
+					endif;
+				else:
+					$message = "Not valid User email address";
+					echo json_encode(array('action' => 'unsuccess', 'message' => $message));
+				endif;
 	
 				break;
 
@@ -180,9 +224,10 @@
 							$db->begin();
 							if($job->save()):
 								// $jobid=$_REQUEST['jobid'];
+								$jobid=$_REQUEST['jobid'];
 								// $bidderIds = implode(',', array_map('intval', $_REQUEST['bidder']));
-								// $sql='update tbl_bids set project_status=3 where job_id='.$jobid.' and freelancer_id in ('.$bidderIds.')';
-								// $db->query($sql);
+								$sql='update tbl_bids set project_status=5 where job_id='.$jobid.' and project_status=3';
+								$db->query($sql);
 								$db->commit();
 								// $message = "Jobs bid in " . $job->title;
 								echo json_encode(array("action" => "success", "message" => "The Work is on Progress!"));
@@ -191,6 +236,29 @@
 							endif;
 				
 							break;
+
+
+							case "forclientreview":
+								pr($_REQUEST['jobid']);
+								$sqlids='';
+								$job = jobs::find_by_slug($_REQUEST['jobslug']);
+								// $biddata= bid::find_for_review
+								$job->project_status = 6;
+					
+								$db->begin();
+								if($job->save()):
+									// $jobid=$_REQUEST['jobid'];
+									// $bidderIds = implode(',', array_map('intval', $_REQUEST['bidder']));
+									// $sql='update tbl_bids set project_status=3 where job_id='.$jobid.' and freelancer_id in ('.$bidderIds.')';
+									// $db->query($sql);
+									$db->commit();
+									// $message = "Jobs bid in " . $job->title;
+									echo json_encode(array("action" => "success", "message" => "The Work is on Progress!"));
+								else: $db->rollback();
+									echo json_encode(array("action" => "error", "message" =>"Job Bid unsuccessfully !"));
+								endif;
+					
+								break;
 			
 	}
 ?>

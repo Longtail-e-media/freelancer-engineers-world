@@ -14,7 +14,12 @@ document.addEventListener("DOMContentLoaded", () => {
       selectedRating = star.dataset.value;
       resetStars();
       fillStars(selectedRating);
-      console.log(selectedRating);
+      const ratingInput = document.getElementById("rating");
+if (ratingInput) {
+  ratingInput.value = selectedRating; // Safe to set the value
+} else {
+  console.error("Input field with id 'rating' not found!");
+}
     });
 
     // Reset on mouse out

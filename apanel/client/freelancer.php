@@ -46,11 +46,18 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                 //      WHERE (b.job_id=".$id." ) AND 
                 //            (j.project_status=".$jobdata->project_status." AND b.project_status=".$jobdata->project_status.") 
                 //      ORDER BY f.sortorder DESC";
+                if($jobdata->project_status==5 OR $jobdata->project_status==6){
+                    $statusb=3;
+
+                }
+                else{
+                    $statusb=$jobdata->project_status;
+                }
                 $sql="SELECT f.* FROM tbl_freelancer as f 
                 INNER JOIN tbl_bids as b ON f.id = b.freelancer_id
                 INNER JOIN tbl_jobs as j ON b.job_id = j.id
                      WHERE (b.job_id=".$id." ) AND 
-                           (j.project_status=".$jobdata->project_status." AND b.project_status=".$jobdata->project_status.") 
+                           (j.project_status=".$jobdata->project_status." AND b.project_status=".$statusb.") 
                      ORDER BY f.sortorder DESC";
                 // pr($sql);
                 $records = freelancer::find_by_sql($sql);
