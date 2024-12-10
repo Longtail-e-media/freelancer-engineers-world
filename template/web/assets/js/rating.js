@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const stars = document.querySelectorAll("#rating-container .star");
+  const stars = document.querySelectorAll(".rating-container .star");
   let selectedRating = 0;
 
   stars.forEach((star) => {

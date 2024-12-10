@@ -1490,8 +1490,8 @@ if (!empty($_SESSION)) {
             </div>
         </section>
     </main>';
-    }
-    elseif (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client" && defined('REVIEW') && isset($_REQUEST['slug'])) {
+}
+elseif (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client" && defined('REVIEW') && isset($_REQUEST['slug'])) {
 
         $slug = !empty($_REQUEST['slug']) ? addslashes($_REQUEST['slug']) : '';
         $jobdatas= jobs::find_by_slug($slug);
@@ -1547,7 +1547,7 @@ if (!empty($_SESSION)) {
                             <h5 class="fw-bold fs-6 my-3 my-lg-4">Review and Rate freelancer on project complete</h5>
                             <div class="my-3 my-lg-4">
                                 <div id="rating-container" class="ratings d-flex gap-1">
-                                 <form id="reviewset">
+                                 
                             <input type="hidden" id="rating" name="rating" value="">
                                     <span class="star fs-4 text-muted" data-value="1">☆</span>
                                     <span class="star fs-4 text-muted" data-value="2">☆</span>
@@ -1591,7 +1591,7 @@ if (!empty($_SESSION)) {
             </div>
         </section>
     </main>';
-    }
+}
    
 } else {
     $reviewdetail = "please login to view profile";
