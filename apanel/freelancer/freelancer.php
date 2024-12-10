@@ -42,11 +42,11 @@ if (isset($_GET['page']) && $_GET['page'] == "freelancer" && isset($_GET['mode']
                            data-placement="top" title="Edit" onclick="addRating(<?php echo $record->id; ?>);">
                             <span class="button-content"> Add Rating </span>
                         </a>
-                        <a href="javascript:void(0);" class="btn small bg-red tooltip-button" data-placement="top"
+                       <!-- <a href="javascript:void(0);" class="btn small bg-red tooltip-button" data-placement="top"
                            title="Remove"
                            onclick="recordApplicationDelete(<?php echo $record->id; ?>);">
                             <i class="glyph-icon icon-remove"></i>
-                        </a>
+                        </a>-->
                     </td>
                     <?php endforeach; ?>
                 </tbody>
