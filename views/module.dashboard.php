@@ -1654,6 +1654,7 @@ $jVars["module:dashboard-review"] = $reviewdetail;
 $jVars["module:dashboard-review-js"] = $reviewdetailjs;
 
 
+$rest_password_form = '';
 if (defined('RESET_PASSWORD_PAGE')) {
     $token = $_REQUEST['access_code'];
     $user = User::get_uid_by_accessToken($token);
@@ -1666,13 +1667,13 @@ if (defined('RESET_PASSWORD_PAGE')) {
                         <input type="password" placeholder="Password"
                                class="form-control fs-6 py-3 px-3 border border-dark-subtle rounded-0" id="password"
                                name="password">
-                        <img src="assets/images/icons/view.png" alt="view and hide" id="showhide">
+                        <img src="'.BASE_URL.'template/web/assets/images/icons/view.png" alt="view and hide" id="showhide">
                     </div>
                     <div class="col-12 position-relative">
                         <input type="password" placeholder="confirm Password"
                                class="form-control fs-6 py-3 px-3 border border-dark-subtle rounded-0" id="confirm_password"
                                name="confirm_password">
-                        <img src="assets/images/icons/view.png" alt="view and hide" id="cshowhide">
+                        <img src="'.BASE_URL.'template/web/assets/images/icons/view.png" alt="view and hide" id="cshowhide">
                     </div>
                     <div class="col-12 d-flex justify-content-between">
                         <label for="agreement" class="fs-6">
