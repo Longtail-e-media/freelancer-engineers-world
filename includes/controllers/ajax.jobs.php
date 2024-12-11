@@ -441,11 +441,11 @@
             if ($job->save()):
                 $jobid=$_REQUEST['jobid'];
                 // $bidderIds = implode(',', array_map('intval', $_REQUEST['bidder']));
-                $sql='update tbl_bids set project_status=5 where job_id='.$jobid.' and project_status=3';
+                $sql="update tbl_bids set project_status=5 where job_id='.$jobid.' and project_status=3";
                 $db->query($sql);
                 $db->commit();
                 // $message = "Jobs bid in " . $job->title;
-                echo json_encode(array("action" => "success", "message" => "The Work is on Progress!"));
+                echo json_encode(array("action" => "success", "message" => "The Work is Completed!"));
             else: $db->rollback();
                 echo json_encode(array("action" => "error", "message" => "Job Bid unsuccessfully !"));
             endif;
