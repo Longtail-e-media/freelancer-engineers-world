@@ -69,16 +69,17 @@
                         </div>
                         <div class="col-12 d-flex">
                             <div class="mt-4">
-                                <label for="agreement" class="fs-7">
-                                    <input type="checkbox" id="agreement">
+                                <label for="agreement_client" class="fs-7">
+                                    <input type="checkbox" id="agreement_client" name="consent">
                                     I agree to the client <a href="#">User Agreement</a> and <a
                                         href="/policy.html">Privacy
                                     Policy</a>
                                 </label>
                             </div>
                         </div>
+                        <div id="registerMsgClient"></div>
                         <div class="col-12 d-flex justify-content-center">
-                            <button type="submit" id="submitRegister"
+                            <button type="submit" id="submitClientRegister"
                                     class="border-0 bg-primary text-white py-3 px-5 mt-2 w-100">Join
                                 now
                             </button>
@@ -125,17 +126,17 @@
                         </div>
                         <div class="col-12 d-flex">
                             <div class="mt-4 mb-2">
-                                <label for="agreement" class="fs-7">
-                                    <input type="checkbox" id="agreement" name="consent">
+                                <label for="agreement_freelancer" class="fs-7">
+                                    <input type="checkbox" id="agreement_freelancer" name="consent">
                                     I agree to the freelancer <a href="#">User Agreement</a> and <a
                                         href="/policy.html">Privacy
                                     Policy</a>
                                 </label>
                             </div>
                         </div>
-                        <div id="registerMsg"></div>
+                        <div id="registerMsgFreelancer"></div>
                         <div class="col-12 d-flex justify-content-center">
-                            <button type="submit" id="submitRegister"
+                            <button type="submit" id="submitFreelancerRegister"
                                     class="border-0 bg-primary text-white py-3 px-5 w-100">Join
                                 now
                             </button>
@@ -243,7 +244,7 @@
             submitHandler: function (form) {
                 if (form) {
                     var Frmval = $("#registerClientForm").serialize();
-                    $("button#submitRegister").attr("disabled", "true").text('Processing...');
+                    $("button#submitClientRegister").attr("disabled", "true").text('Processing...');
                     $.ajax({
                         type: "POST",
                         dataType: "JSON",
@@ -252,12 +253,12 @@
                         success: function (data) {
                             var msg = eval(data);
                             if (msg.action == 'warning' || msg.action == 'unsuccess') {
-                                $('#registerMsg').html(msg.message).removeClass('alert-success').addClass('alert alert-danger').css('display', 'block').fadeOut(8000);
-                                $("button#submitRegister").removeAttr("disabled").text('CREATE ACCOUNT');
+                                $('#registerMsgClient').html(msg.message).removeClass('alert-success').addClass('alert alert-danger').css('display', 'block').fadeOut(8000);
+                                $("button#submitClientRegister").removeAttr("disabled").text('Join now');
                             }
                             if (msg.action == 'success') {
-                                $('#registerMsg').html(msg.message).removeClass('alert-danger').addClass('alert alert-success').css('display', 'block').fadeOut(8000);
-                                $("button#submitRegister").removeAttr("disabled").text('CREATE ACCOUNT');
+                                $('#registerMsgClient').html(msg.message).removeClass('alert-danger').addClass('alert alert-success').css('display', 'block').fadeOut(8000);
+                                $("button#submitClientRegister").removeAttr("disabled").text('Join now');
                                 setTimeout(function () {
                                     window.location.href = base_url + "login";
                                 }, 3000);
@@ -299,7 +300,7 @@
             submitHandler: function (form) {
                 if (form) {
                     var Frmval = $("#registerFreelancerForm").serialize();
-                    $("button#submitRegister").attr("disabled", "true").text('Processing...');
+                    $("button#submitFreelancerRegister").attr("disabled", "true").text('Processing...');
                     $.ajax({
                         type: "POST",
                         dataType: "JSON",
@@ -308,12 +309,12 @@
                         success: function (data) {
                             var msg = eval(data);
                             if (msg.action == 'warning' || msg.action == 'unsuccess') {
-                                $('#registerMsg').html(msg.message).removeClass('alert-success').addClass('alert alert-danger').css('display', 'block').fadeOut(8000);
-                                $("button#submitRegister").removeAttr("disabled").text('CREATE ACCOUNT');
+                                $('#registerMsgFreelancer').html(msg.message).removeClass('alert-success').addClass('alert alert-danger').css('display', 'block').fadeOut(8000);
+                                $("button#submitFreelancerRegister").removeAttr("disabled").text('Join now');
                             }
                             if (msg.action == 'success') {
-                                $('#registerMsg').html(msg.message).removeClass('alert-danger').addClass('alert alert-success').css('display', 'block').fadeOut(8000);
-                                $("button#submitRegister").removeAttr("disabled").text('CREATE ACCOUNT');
+                                $('#registerMsgFreelancer').html(msg.message).removeClass('alert-danger').addClass('alert alert-success').css('display', 'block').fadeOut(8000);
+                                $("button#submitFreelancerRegister").removeAttr("disabled").text('Join now');
                                 setTimeout(function () {
                                     window.location.href = base_url + "login";
                                 }, 3000);
