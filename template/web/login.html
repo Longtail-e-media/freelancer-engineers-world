@@ -116,7 +116,7 @@
                                     .fadeOut(8000);
                                 $("button#submitLogin").removeAttr("disabled").text('Log In');
                                 setTimeout(function () {
-                                    window.location.href = base_url + "profile";
+                                    window.location.href = msg.url;
                                 }, 3000);
                             }
                             if (msg.action == 'error') {
