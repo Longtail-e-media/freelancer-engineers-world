@@ -286,6 +286,21 @@
         $("#clientfrm").validate({
             rules: {
                 username: {
+                    required: !0
+                },
+                mobile_no: {
+                    required: !0
+                },
+                current_address: {
+                    required: !0
+                },
+                permanent_address: {
+                    required: !0
+                }
+              
+            },
+            messages: {
+                username: {
                     required: "Please enter your username"
                 },
                 mobile_no: {
@@ -296,20 +311,6 @@
                 },
                 permanent_address: {
                     required: "Please enter your permanent address"
-                }
-            },
-            messages: {
-                username: {
-                    required: !0
-                },
-                mobile_no: {
-                    required: !0
-                },
-                current_address: {
-                    required: !0
-                },
-                permanent_address: {
-                    required: !0
                 }
             },
             submitHandler: function (form) {

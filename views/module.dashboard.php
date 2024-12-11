@@ -1265,7 +1265,7 @@ if (!empty($_SESSION)) {
                 '.$bidderdetail.'
                 <div id="result_msg"></div>
                 <button id="submit" class="mt-3 btn btn-primary bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0">
-                    Reward freelancer
+                    Award freelancer
                 </button>
 
 
@@ -1452,7 +1452,7 @@ if (!empty($_SESSION)) {
                         <!-- Review Section -->
                         <div class="card-body mt-4 mt-lg-5">
                         <form id="reviewset">
-                            <h5 class="fw-bold fs-6 my-3 my-lg-4">Review and Rate Client on project complete</h5>
+                            <h5 class="fw-bold fs-6 my-3 my-lg-4">Rate Client on project complete</h5>
                             <div class="my-3 my-lg-4">
                                 <div id="rating-container" class="ratings d-flex gap-1">
                             <input type="hidden" id="rating" name="rating" value="">
@@ -1461,9 +1461,9 @@ if (!empty($_SESSION)) {
                             <input type="hidden" name="jobid" value="'.$jobdatas->id.'">
                                     <span class="star fs-4 text-muted" data-value="1">☆</span>
                                     <span class="star fs-4 text-muted" data-value="2">☆</span>
-                                    <span class="star fs-4 text-muted" data-value="3">☆</span>
+                                    <!--<span class="star fs-4 text-muted" data-value="3">☆</span>
                                     <span class="star fs-4 text-muted" data-value="4">☆</span>
-                                    <span class="star fs-4 text-muted" data-value="5">☆</span>
+                                    <span class="star fs-4 text-muted" data-value="5">☆</span>-->
                                 </div>
                             </div>
                            <div id="result_msg"></div>
@@ -1556,11 +1556,8 @@ elseif (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client" && 
 
                         <!-- Review Section -->
                         <div class="card-body mt-4 mt-lg-5">
-                            <h5 class="fw-bold fs-6 my-3 my-lg-4">Review and Rate Client on project complete</h5>
+                            <h5 class="fw-bold fs-6 my-3 my-lg-4">Rate Freelancers on project complete</h5>
                             <form id="reviewsetmulti">
-                            <textarea id="write-a-review"
-                                class="form-control bg-light border-0 p-3 p-lg-5 fs-6 w-100 rounded-0 mb-3 mb-md-5"
-                                placeholder="Write a review" rows="5"></textarea>
                                         ';
 
 $biddatas= bids::find_by_jobid_review($jobdatas->id);
@@ -1585,9 +1582,9 @@ foreach($biddatas as $biddata){
         <div id="rating-container" class="ratings d-flex gap-1">
             <span class="star fs-4 text-muted" data-value="1">☆</span>
             <span class="star fs-4 text-muted" data-value="2">☆</span>
-            <span class="star fs-4 text-muted" data-value="3">☆</span>
+            <!--<span class="star fs-4 text-muted" data-value="3">☆</span>
             <span class="star fs-4 text-muted" data-value="4">☆</span>
-            <span class="star fs-4 text-muted" data-value="5">☆</span>
+            <span class="star fs-4 text-muted" data-value="5">☆</span>-->
         </div>
     </div>
 </div>';
@@ -1596,7 +1593,7 @@ foreach($biddatas as $biddata){
                            
                          $reviewdetail .=' 
 
-
+<div id="result_msg"></div>
                             <button
                                 class="btn btn-dark bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0 w-auto mt-4" id="submitmulti">
                                 Submit Review

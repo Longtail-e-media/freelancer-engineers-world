@@ -1191,4 +1191,79 @@ if (!function_exists('save_file')) {
         }
     }
 }
+
+/**
+ *  Rating for Client
+ */
+if (!function_exists('calculate_rating_for_client')) {
+
+    /**
+     * rating formula
+        Latest project rating = P  = (g+h)
+        Total weightage rating = Rc = (x*(n-1)+P)/n
+        g = rating from freelancer  	[0,1,2]
+        h = rating from the platform 	[0,1,2,3]
+        x = previous rating
+        n = number of project (completed)
+     */
+    function calculate_rating_for_client($bidId = '')
+    {
+        if (!empty($bidId)) {
+            $bidRecord      = Bids::find_by_id($bidId);
+            $clientRecord   = client::find_by_id($bidRecord->client_id);
+
+            $ratingFromFreelancer   = $bidRecord->client_rating;
+            $ratingFromPlatform     = $clientRecord->admin_rating;
+            $previousRating         = $clientRecord->rating;
+            $noOfCompletedProjects  = jobs::find_completed_jobs($bidRecord->client_id);
+
+            $latestRating = round(($previousRating * ($noOfCompletedProjects - 1) + ($ratingFromFreelancer + $ratingFromPlatform)) / $noOfCompletedProjects , 2);
+
+            $clientRecord->rating = $latestRating;
+            $clientRecord->save();
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+/**
+ *  Rating for Freelancer
+ */
+if (!function_exists('calculate_rating_for_freelancer')) {
+
+    /**
+     * rating formula
+        R(f) = b+(c+d+(n-1)x)/n, where
+        b = 0 for no online verification, 1 for online verification
+        c = rating from client       	[0,1,2]
+        d = rating from platform 		[0,1,2]
+        x = previous rating value,
+        n = number of projects (completed)
+     */
+    function calculate_rating_for_freelancer($bidId = '')
+    {
+        if (!empty($bidId)) {
+            $bidRecord      = Bids::find_by_id($bidId);
+            $freelancerRecord = freelancer::find_by_id($bidRecord->freelancer_id);
+
+            $onlineVerificationRating = $freelancerRecord->online_verification_rating;
+            $ratingFromClient       = $bidRecord->freelancer_rating;
+            $ratingFromPlatform     = $freelancerRecord->admin_rating;
+            $previousRating         = $freelancerRecord->rating;
+            $noOfCompletedProjects  = bids::find_completed_jobs_per_freelancer($bidRecord->freelancer_id);
+
+            $latestRating = round(($onlineVerificationRating + ($ratingFromClient + $ratingFromPlatform + ($noOfCompletedProjects - 1) * $previousRating) / $noOfCompletedProjects), 2);
+
+            $freelancerRecord->rating = $latestRating;
+            $freelancerRecord->save();
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
 ?>
