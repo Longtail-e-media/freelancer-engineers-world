@@ -272,6 +272,9 @@
                                     }, 1500);
                                 }
                             }
+                            if(msg.action == 'warning'){
+                                $('#msgProfile').html(msg.message).addClass('alert alert-danger').css('display', 'flex').fadeOut(8000);
+                            }
                             if (msg.action == 'unsuccess') {
                                 $('#msgProfile').html(msg.message).css('display', 'flex').fadeOut(8000);
                             }

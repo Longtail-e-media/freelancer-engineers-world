@@ -45,7 +45,7 @@ if (!empty($_SESSION)) {
             $clientdata->mobile_no .
             '"
                                             placeholder="Mobile">
-                                        <label for="mobile">Mobile Number</label>
+                                        <label for="mobile">Mobile Number <span class="text-danger">*</span></label>
                                     </div>
                                 </div>
                             </div>
@@ -300,14 +300,20 @@ if (!empty($_SESSION)) {
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-floating">
-                                        <select class="form-select border-0 rounded-0 fs-5" id="education" value="' .
+                                        <select class="form-select border-0 rounded-0 fs-5" id="education" name="education_lvl" value="' .
             $freelancerdata->education_lvl .
-            '" name="education_lvl">
-                                            <option value="" disabled selected>Select</option>
-                                            <option value="Bachelor">Bachelor</option>
-                                            <option value="Masters">Masters</option>
-                                            <option value="PhD">PhD</option>
-                                            <option value="PostDoc">PostDoc</option>
+            '" name="education_lvl">';
+            $edus=array('Bachelor','Masters','PhD','PostDoc');
+            $option='<option value="" disabled selected>Select</option>';
+            foreach($edus as $edu){
+                if($edu==$freelancerdata->education_lvl){
+                    $sel='selected';
+                }
+                $option .='<option value="'.$edu.'" '.$sel.'>'.$edu.'</option>';
+                $sel='';
+            }
+                                $profile .=
+            '             ;'.$option.'
                                         </select>
                                         <label for="education">Highest Level of Education <span
                                                 class="text-danger">*</span></label>
@@ -350,7 +356,7 @@ if (!empty($_SESSION)) {
                             <!-- File Uploads -->
                             <div class="row g-3 mt-3">
                                 <div class="col-md-6">
-                                    <label class="form-label">Upload Nepal Engineering Certificate</label>
+                                    <label class="form-label">Upload Nepal Engineering Certificate <span class="text-danger">*</span></label>
                                     <input type="file" class="form-control border-0 rounded-0 fs-5" id="eng_certify" name="eng_certify" 
                                         accept=".pdf,.doc,.docx" required> 
                                         <div id="preview_Image2"></div>';
@@ -382,7 +388,7 @@ if (!empty($_SESSION)) {
                                  
        
                                 <div class="col-md-6">
-                                    <label class="form-label">Upload CV</label>
+                                    <label class="form-label">Upload CV <span class="text-danger">*</span></label>
                                     <input type="file" class="form-control border-0 rounded-0 fs-5" id="eng_cv"
                                         accept=".pdf,.doc,.docx" required>
                                         <div id="preview_Image3"></div>';
@@ -449,7 +455,7 @@ if (!empty($_SESSION)) {
                             <!-- Profile Picture -->
                             <div class="row g-3 mt-3">
                                 <div class="col-md-4">
-                                    <label class="form-label">Profile Picture</label>
+                                    <label class="form-label">Profile Picture <span class="text-danger">*</span> </label>
                                     <input type="file" class="form-control border-0 rounded-0 fs-5" name="img" id="img"
                                         accept="image/*" >';
         if (!empty($freelancerdata->profile_picture)) {
@@ -572,7 +578,7 @@ if (!empty($_SESSION)) {
                         $totalshortlisted = bids::find_total_shortlisted($record->id);
                         $bidstatus = '<p class="fs-7 m-0 d-inline-block">No. of Shortlisted: <span>' .
                         $totalshortlisted .'</span></p>';
-                        $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
+                        $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                             <p class="text-info fs-6 fw-bold">
                                 Short listed
                             </p>
@@ -588,7 +594,7 @@ if (!empty($_SESSION)) {
                         $totalawarded = bids::find_total_awarded($record->id);
                         $bidstatus = '<p class="fs-7 m-0 d-inline-block">No. of awarded: <span>' .
                         $totalawarded .'</span></p>';
-                        $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-center">
+                        $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-center">
                             <a class="nav-link text-success fs-6 fw-bold dropdown" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Awarded <i class="fas fa-chevron-down"></i>
@@ -602,7 +608,7 @@ if (!empty($_SESSION)) {
                         break;
                     case 4:
                         
-                        $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
+                        $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                             <p class="text-danger fs-6 fw-bold">
                                 Timeout
                             </p>
@@ -611,7 +617,7 @@ if (!empty($_SESSION)) {
                     case 5:
                         $totalwop = bids::find_total_wop($record->id);
                         $bidstatus = '<p class="fs-6 m-0 d-inline-block">No. of Wok on Progress: <span>' .
-                        $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-center">
+                        $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-center">
                             <a class="nav-link text-primary-emphasis fs-6 fw-bold dropdown" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Work on Progress <i class="fas fa-chevron-down"></i>
@@ -639,7 +645,7 @@ if (!empty($_SESSION)) {
                        $jobstatus .= '  </div>';
                         break;
                     case 7:
-                        $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
+                        $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                                     <p class="text-secondary fs-6 fw-bold">
                                         Rejected
                                     </p>
@@ -837,10 +843,10 @@ if (!empty($_SESSION)) {
                 $jobstatus = "";
                 switch ($record->project_status) {
                     case 1:
-                        $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
+                        $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                             <p class="text-primary fs-6 fw-bold">
                                 Bid On Progress
-                            </p>';
+                            </p></div>"';
                         // if ($totalbids > 0) {
                         //     $jobstatus .= '<div class="d-inline-block bg-dark-subtle px-3 view-select">
                         //         <a href="" class="text-decoration-none text-dark">View</a>
@@ -848,10 +854,9 @@ if (!empty($_SESSION)) {
                         //         <a href="'.BASE_URL.'freelancer-select/'.$record->slug.'" class="text-decoration-none text-dark">Select</a>
                         //     </div>';
                         // }
-                        $jobstatus .= "</div>";
                         break;
                     case 2:
-                        $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
+                        $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                             <p class="text-info fs-6 fw-bold">
                                 Short listed
                             </p>
@@ -864,7 +869,7 @@ if (!empty($_SESSION)) {
                         break;
 
                     case 3:
-                        $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
+                        $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                             <p class="text-success fs-6 fw-bold">
                                  Awarded
                             </p>
@@ -876,7 +881,7 @@ if (!empty($_SESSION)) {
                         </div>';
                         break;
                     case 4:
-                        $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
+                        $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                                     <p class="text-secondary fs-6 fw-bold">
                                         Rejected
                                     </p>
@@ -1660,7 +1665,7 @@ if (defined('RESET_PASSWORD_PAGE')) {
     $user = User::get_uid_by_accessToken($token);
 
     $rest_password_form .= '
-     <form id="loginForm" class="row g-4">
+     <form id="resetPasswordForm" class="row g-4">
       <input type="hidden" name="id" value="' . $user->id . '">
             <input type="hidden" name="token" value="' . $token . '">
                     <div class="col-12 position-relative">
@@ -1670,20 +1675,20 @@ if (defined('RESET_PASSWORD_PAGE')) {
                         <img src="'.BASE_URL.'template/web/assets/images/icons/view.png" alt="view and hide" id="showhide">
                     </div>
                     <div class="col-12 position-relative">
-                        <input type="password" placeholder="confirm Password"
-                               class="form-control fs-6 py-3 px-3 border border-dark-subtle rounded-0" id="confirm_password"
+                        <input type="password" placeholder="Confirm Password"
+                               class="form-control fs-6 py-3 px-3 border border-dark-subtle rounded-0" id="passwordF"
                                name="confirm_password">
-                        <img src="'.BASE_URL.'template/web/assets/images/icons/view.png" alt="view and hide" id="cshowhide">
+                        <img src="'.BASE_URL.'template/web/assets/images/icons/view.png" alt="view and hide" id="showhideF">
                     </div>
                     <div class="col-12 d-flex justify-content-between">
                         <label for="agreement" class="fs-6">
                         </label>
                         <a href="login" class="fs-6 text-primary text-decoration-none">login?</a>
                     </div>
-                    <div id="loginMsg"></div>
+                    <div id="resetMsg"></div>
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary text-white form-control fs-6 py-3 px-3 border border-dark-subtle rounded-0 fw-bold"
-                                id="submitLogin">
+                                id="submitReset">
                             submit
                         </button>
                     </div>
