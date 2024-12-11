@@ -192,7 +192,7 @@ if (isset($_GET['page']) && $_GET['page'] == "freelancer" && isset($_GET['mode']
                     <div class="form-input col-md-20">
                         <select name="admin_rating" id="admin_rating" class="validate[required] col-md-1">
                             <?php
-                            for ($i = 0; $i < 4; $i++) {
+                            for ($i = 0; $i < 3; $i++) {
                                 $sel = ($freelancerInfo->admin_rating == $i) ? 'selected' : '';
                                 echo '<option value="' . $i . '" ' . $sel . '>' . $i . '</option>';
                             }
