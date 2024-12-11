@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   ratingContainers.forEach((container) => {
     const stars = container.querySelectorAll(".star");
+    const hiddenInput = container.closest(".row").querySelector("input.rating"); // Find the hidden input in the same row
     let selectedRating = 0;
 
     stars.forEach((star) => {
@@ -17,7 +18,10 @@ document.addEventListener("DOMContentLoaded", () => {
         selectedRating = star.dataset.value;
         resetStars();
         fillStars(selectedRating);
-        console.log(`Selected Rating for user: ${selectedRating}`);
+        if (hiddenInput) {
+          hiddenInput.value = selectedRating; // Update the hidden input value
+          console.log(`Updated hidden input with rating: ${hiddenInput.value}`);
+        }
       });
 
       // Reset on mouse out

@@ -867,7 +867,7 @@ if (!empty($_SESSION)) {
                                 <p class="text-dark fs-6 fw-bold">
                                    Completed
                                 </p>';
-                                if($record->reviewed_client==0){
+                                if($record->reviewed_freelancer==0){
                               $jobstatus .= '  <a href="'.BASE_URL.'review/'.$jobdatas->slug.'" class="btn btn-outline-success bg-success-subtle text-success fs-7 rounded-0 px-3 py-1">
                                     Review
                                 </a>';
@@ -1548,20 +1548,28 @@ elseif (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client" && 
                         <!-- Review Section -->
                         <div class="card-body mt-4 mt-lg-5">
                             <h5 class="fw-bold fs-6 my-3 my-lg-4">Review and Rate Client on project complete</h5>
+                            <form id="reviewsetmulti">
                             <textarea id="write-a-review"
                                 class="form-control bg-light border-0 p-3 p-lg-5 fs-6 w-100 rounded-0 mb-3 mb-md-5"
-                                placeholder="Write a review" rows="5"></textarea>';
+                                placeholder="Write a review" rows="5"></textarea>
+                                        ';
 
 $biddatas= bids::find_by_jobid_review($jobdatas->id);
 foreach($biddatas as $biddata){
     $freelancerdata= freelancer::find_by_id($biddata->freelancer_id);
-    $reviewdetail .=' <div class="row bg-light p-3 mt-2 gx-0 hover-effect">
-    <div class="col-3 col-md-2 p-0">
-        <img src="https://static-00.iconduck.com/assets.00/user-icon-1024x1024-unb6q333.png"
-            alt="User" class="user-icon w-100 bg-dark-subtle p-3">
-    </div>
+    // pr($freelancerdata);
+    $profilepic ='<div class="col-2 col-md-2 p-0">
+                        <img src="'.IMAGE_PATH.'freelancer/profile/'.$freelancerdata->profile_picture.'"
+                            alt="User" class="user-icon w-100 bg-dark-subtle p-3">
+                    </div>';
+    $reviewdetail .=' 
+    <input type="hidden" name="jobid" value="'.$jobdatas->id.'">
+                            <input type="hidden" name="clientid" value="'.$clientdatas->id.'"><div class="row bg-light p-3 mt-2 gx-0 hover-effect">
+  '.$profilepic.'
+  
+   <input type="hidden" class="rating" name="rating['.$freelancerdata->id.']" value="0">
     <div class="col-9 col-md-6 px-3 d-flex justify-content-center flex-column">
-        <h5 class="fs-6 fw-bold">@Purna0310</h5>
+        <h5 class="fs-6 fw-bold">'.$freelancerdata->username.'</h5>
     </div>
     <div class="col-12 col-md-3 d-flex justify-content-center flex-column">
         <h5 class="fs-7">Rate the Freelancer</h5>
@@ -1577,31 +1585,14 @@ foreach($biddatas as $biddata){
 }
 // pr($biddata);
                            
-                         $reviewdetail .='   <div class="row bg-light p-3 mt-2 gx-0 hover-effect">
-                                <div class="col-3 col-md-2 p-0">
-                                    <img src="https://static-00.iconduck.com/assets.00/user-icon-1024x1024-unb6q333.png"
-                                        alt="User" class="user-icon w-100 bg-dark-subtle p-3">
-                                </div>
-                                <div class="col-9 col-md-6 px-3 d-flex justify-content-center flex-column">
-                                    <h5 class="fs-6 fw-bold">@Purna0310</h5>
-                                </div>
-                                <div class="col-12 col-md-3 d-flex justify-content-center flex-column">
-                                    <h5 class="fs-7">Rate the Freelancer</h5>
-                                    <div id="rating-container" class="ratings d-flex gap-1">
-                                        <span class="star fs-4 text-muted" data-value="1">☆</span>
-                                        <span class="star fs-4 text-muted" data-value="2">☆</span>
-                                        <span class="star fs-4 text-muted" data-value="3">☆</span>
-                                        <span class="star fs-4 text-muted" data-value="4">☆</span>
-                                        <span class="star fs-4 text-muted" data-value="5">☆</span>
-                                    </div>
-                                </div>
-                            </div>
+                         $reviewdetail .=' 
 
 
                             <button
-                                class="btn btn-dark bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0 w-auto mt-4">
+                                class="btn btn-dark bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0 w-auto mt-4" id="submitmulti">
                                 Submit Review
                             </button>
+                            </form>
                         </div>
                     </div>
                 </div>

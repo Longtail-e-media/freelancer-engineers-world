@@ -64,6 +64,7 @@ class Bids extends DatabaseObject
 	public static function find_by_all_id($client_id,$freeid,$job_id){
 		global $db;
 		$sql = "SELECT * FROM ".self::$table_name." WHERE client_id=$client_id AND freelancer_id=$freeid AND job_id=$job_id LIMIT 1";
+        // pr($sql);
 		$result_array = self::find_by_sql($sql);
 		return !empty($result_array) ? array_shift($result_array) : false;
 	}

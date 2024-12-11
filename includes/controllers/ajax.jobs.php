@@ -397,6 +397,31 @@
                 echo json_encode(array("action" => "error", "message" => "review not submiited !"));
             endif;
         break;
+
+        case "forfreelancerreview":
+          
+        //    pr($_POST);
+            $ratings = $_REQUEST['rating'];
+            
+            foreach($ratings as $key => $rating){
+                // pr($_POST);
+                $bids        = Bids::find_by_all_id($_REQUEST['clientid'],$key,$_REQUEST['jobid']);
+                // pr($bids);
+                $bids->freelancer_rating = $rating;
+                $bids->reviewed_freelancer = 1;
+                $save=$bids->save();
+            }
+            $db->begin();
+            if ($save):
+                $db->commit();
+                echo json_encode(array("action" => "success", "message" => "review submiited!"));
+            else: $db->rollback();
+                echo json_encode(array("action" => "error", "message" => "review not submiited !"));
+            endif;
+        
+
+            
+        break;
 			
 	}
 ?>
