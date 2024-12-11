@@ -653,10 +653,10 @@ if (!empty($_SESSION)) {
                     ' <div class="bg-body-secondary p-3 p-md-5 mb-3">
                     <div class="row">
                         <div class="col-12 col-md-6 mb-3 mb-md-0">
-                            <h5 class="fs-5 fw-bold">' .
+                            <h5 class="fs-6 fw-bold text-dark-blue">' .
                     $record->title .
                     '</h5>
-                            <p class="fs-6 m-0">Bid End Date: ' .
+                            <p class="fs-7 m-0">Bid End Date: ' .
                     date("M d, Y", strtotime($record->deadline_date)) .
                     '</p>
                         </div>
@@ -923,10 +923,10 @@ if (!empty($_SESSION)) {
                     ' <div class="bg-body-secondary p-3 p-md-5 mb-3">
                     <div class="row">
                         <div class="col-12 col-md-6 mb-3 mb-md-0">
-                            <h5 class="fs-5 fw-bold">' .
+                            <h5 class="fs-6 fw-bold text-dark-blue">' .
                     $jobdatas->title .
                     '</h5>
-                            <p class="fs-6 m-0">Bid End Date: ' .
+                            <p class="fs-7 m-0">Bid End Date: ' .
                     date("M d, Y", strtotime($jobdatas->deadline_date)) .
                     '</p>
                         </div>
@@ -934,7 +934,7 @@ if (!empty($_SESSION)) {
                             ' .
                     $budget .
                     '
-                            <!--<p class="fs-6 m-0 d-inline-block">No. of Bids: <span>' .
+                            <!--<p class="fs-7 m-0 d-inline-block">No. of Bids: <span>' .
                     $totalbids .
                     '</span></p>-->
                             
@@ -956,7 +956,7 @@ if (!empty($_SESSION)) {
                 </h1>
             </div>
         </div>
-        <section>
+        <section class="dashboard-container">
             <div class="container">
              
                 <div class="input-group input-group-md bg-body-secondary p-2 mb-4 justify-content-between flex-wrap">
@@ -1574,7 +1574,7 @@ elseif (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client" && 
                             <form id="reviewsetmulti">
                                         ';
 
-$biddatas= bids::find_by_jobid_review($jobdatas->id);
+$biddatas= bids::find_by_jobid_review($jobdatas->id, $jobdatas->client_id);
 foreach($biddatas as $biddata){
     $freelancerdata= freelancer::find_by_id($biddata->freelancer_id);
     // pr($freelancerdata);

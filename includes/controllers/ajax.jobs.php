@@ -480,7 +480,7 @@
             $ratings = $_REQUEST['rating'];
             
             foreach($ratings as $key => $rating){
-                $bids        = Bids::find_by_all_id($_REQUEST['clientid'],$key,$_REQUEST['jobid']);
+                $bids = Bids::find_by_all_id($_REQUEST['clientid'], $key, $_REQUEST['jobid']);
                 $bids->freelancer_rating = $rating;
                 $bids->reviewed_freelancer = 1;
                 $save=$bids->save();
