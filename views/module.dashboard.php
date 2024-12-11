@@ -1265,7 +1265,7 @@ if (!empty($_SESSION)) {
                 '.$bidderdetail.'
                 <div id="result_msg"></div>
                 <button id="submit" class="mt-3 btn btn-primary bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0">
-                    Reward freelancer
+                    Award freelancer
                 </button>
 
 
