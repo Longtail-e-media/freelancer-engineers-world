@@ -60,10 +60,10 @@ class Bids extends DatabaseObject
     }
 
 
-    public static function find_by_jobid_review($jobid = 0)
+    public static function find_by_jobid_review($jobid = 0, $clientId = 0)
     {
         global $db;
-        $sql = "SELECT * FROM " . self::$table_name . " WHERE job_id='$jobid' AND status=1 AND (project_status=3 OR project_status=5)";
+        $sql = "SELECT * FROM " . self::$table_name . " WHERE job_id='$jobid' AND client_id='$clientId' AND status=1 AND (project_status=3 OR project_status=5)";
         return self::find_by_sql($sql);
         // return !empty($result_array) ? array_shift($result_array) : false;
     }
@@ -73,7 +73,6 @@ class Bids extends DatabaseObject
     {
         global $db;
         $sql = "SELECT * FROM " . self::$table_name . " WHERE client_id=$client_id AND freelancer_id=$freeid AND job_id=$job_id LIMIT 1";
-        // pr($sql);
         $result_array = self::find_by_sql($sql);
         return !empty($result_array) ? array_shift($result_array) : false;
     }

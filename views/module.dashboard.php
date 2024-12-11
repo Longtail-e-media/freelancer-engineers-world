@@ -1560,7 +1560,7 @@ elseif (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client" && 
                             <form id="reviewsetmulti">
                                         ';
 
-$biddatas= bids::find_by_jobid_review($jobdatas->id);
+$biddatas= bids::find_by_jobid_review($jobdatas->id, $jobdatas->client_id);
 foreach($biddatas as $biddata){
     $freelancerdata= freelancer::find_by_id($biddata->freelancer_id);
     // pr($freelancerdata);
