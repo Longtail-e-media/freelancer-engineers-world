@@ -152,7 +152,7 @@ class Bids extends DatabaseObject
     {
         global $db;
         $cond = !empty($job_id) ? ' AND job_id=' . $job_id : '';
-        $query = "SELECT COUNT(id) AS tot FROM " . self::$table_name . " WHERE status=1 $cond AND project_status=5 ";
+        $query = "SELECT COUNT(id) AS tot FROM " . self::$table_name . " WHERE status=1 $cond AND project_status=3 ";
         $sql = $db->query($query);
         $ret = $db->fetch_array($sql);
         return $ret['tot'];
@@ -162,7 +162,7 @@ class Bids extends DatabaseObject
     {
         global $db;
         $cond = !empty($job_id) ? ' AND job_id=' . $job_id : '';
-        $query = "SELECT COUNT(id) AS tot FROM " . self::$table_name . " WHERE status=1 $cond AND project_status=6 ";
+        $query = "SELECT COUNT(id) AS tot FROM " . self::$table_name . " WHERE status=1 $cond AND project_status=5 ";
         $sql = $db->query($query);
         $ret = $db->fetch_array($sql);
         return $ret['tot'];

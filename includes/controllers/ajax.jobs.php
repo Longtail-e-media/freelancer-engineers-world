@@ -154,11 +154,11 @@
 
                         $shortListedFreelancers .= $fullName . '<br>';
 
-                        $msgbody    = '<div>
-                            <h3>you have been short listed for job- ' . $job->title . '</h3>                
-                            <div><font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
-                            Please <a href="' . BASE_URL . 'login">click here to login.</a> <br><br>
-                            <br><br>
+                        $msgbody    = '<div>                
+                            <div>
+                            <font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br />
+                            <h3>you have been shortlisted for - ' . $job->title . '</h3> <br>
+                            Please <a href="' . BASE_URL . 'login">click here to login and check details.</a> <br><br>
                             <p>Thanks,<br>
                             ' . $siteName . '
                             </p>
@@ -168,7 +168,7 @@
                         $mail = new PHPMailer();
 
                         $mail->SetFrom($AdminEmail, $siteName, 0);
-                        $mail->AddReplyTo($mailcheck, $fullName);
+                        $mail->AddReplyTo($AdminEmail, $siteName);
                         $mail->AddAddress($mailcheck, $fullName);
                         $mail->Subject = "You have been short listed - " . $siteName;
                         $mail->MsgHTML($msgbody);
@@ -195,12 +195,11 @@
                 $AdminEmail = User::get_UseremailAddress_byId(1);
                 $fullName   = $clientdata->first_name.' '.$clientdata->middle_name.''. $clientdata->last_name;
 
-                $msgbody    = '<div>
-                    <h3>you have been short listed  ' . $job->title . '</h3>                
-                    <div><font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
+                $msgbody    = '<div>                
+                    <div>
+                    <font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br />
+                    <h3>You have shortlisted the following freelancers for ' . $job->title . '</h3>:<br>
                     '.$shortListedFreelancers.'<br>
-                    Please <a href="' . BASE_URL . 'login">click here to login.</a> <br><br>
-                    <br><br>
                     <p>Thanks,<br>
                     ' . $siteName . '
                     </p>
@@ -210,7 +209,7 @@
                 $mail = new PHPMailer();
 
                 $mail->SetFrom($AdminEmail, $siteName, 0);
-                $mail->AddReplyTo($clientmailcheck, $fullName);
+                $mail->AddReplyTo($AdminEmail, $siteName);
                 $mail->AddAddress($clientmailcheck, $fullName);
                 $mail->Subject = "Short listed - " . $siteName;
                 $mail->MsgHTML($msgbody);
@@ -223,33 +222,34 @@
                 $message = "Not valid User email address";
                 echo json_encode(array('action' => 'unsuccess', 'message' => $message));
             endif;
+
             $siteReg				= user::find_by_id(1);
 
-            $clientmailcheck= $clientuserdata->email;
+            $clientmailcheck = $clientuserdata->email;
             if ((!empty($mailcheck) && !empty($clientmailcheck) && !empty($siteReg->email))):
                 /* Mail Format */
                 $siteName   = Config::getField('sitename', true);
                 $AdminEmail = User::get_UseremailAddress_byId(1);
-                $clientname= $clientdata->first_name.' '.$clientdata->middle_name.''. $clientdata->last_name;
+                $clientname = $clientdata->first_name.' '.$clientdata->middle_name.''. $clientdata->last_name;
                 $fullName   = $siteReg->first_name .' '. $siteReg->middle_name .' '.$siteReg->last_name;
 
                 $msgbody    = '<div>
-                    <h3>The client '.$clientname.' <br />
-                    has short listed '.$shortListedFreelancers.'<br> for Job-' . $job->title . '</h3>                
-                    <div><font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
-                    <br><br>
+                    <h3> ' . $job->title . ' Update : </h3><br />
+                    Shortlisted freelancers : <br>
+                    '.$shortListedFreelancers.'<br>                
+                    <div>
                     <p>Thanks,<br>
-                    ' . $siteName . '
+                    ' . $clientname . '
                     </p>
                     </div>
                     </div>';
 
                 $mail = new PHPMailer();
 
-                $mail->SetFrom($AdminEmail, $siteName, 0);
-                $mail->AddReplyTo($AdminEmail, $fullName);
-                $mail->AddAddress($AdminEmail, $fullName);
-                $mail->Subject = "Short listed - " . $siteName;
+                $mail->SetFrom($clientmailcheck, $clientname, 0);
+                $mail->AddReplyTo($clientmailcheck, $clientname);
+                $mail->AddAddress($AdminEmail, $siteName);
+                $mail->Subject = "Short listed for " . $job->title . " - " . $siteName;
                 $mail->MsgHTML($msgbody);
 
                 if (!$mail->Send()):
@@ -260,8 +260,6 @@
                 $message = "Not valid User email address";
                 echo json_encode(array('action' => 'unsuccess', 'message' => $message));
             endif;
-
-
         break;
 
         case "selectshortlist":
@@ -273,12 +271,10 @@
             $clientuserdata= User::find_by_id($clientdata->user_id);
             $jobid      = $_REQUEST['jobid'];
             $bidderIds = implode(',', array_map('intval', $_REQUEST['bidder']));
-            $freelancers =explode(',',$bidderIds);
+            $freelancers = explode(',',$bidderIds);
 
             $db->begin();
             if ($job->save()):
-                
-
                 $sql        = 'update tbl_bids set project_status=3 where job_id=' . $jobid . ' and freelancer_id in (' . $bidderIds . ')';
                 $db->query($sql);
                 $db->commit();
@@ -287,6 +283,7 @@
             else: $db->rollback();
                 echo json_encode(array("action" => "error", "message" => "Job Bid unsuccessfully !"));
             endif;
+
             $shortListedFreelancers = '';
             if(!empty($freelancers)){
                 foreach($freelancers as $freelancer){
@@ -306,11 +303,11 @@
 
                         $shortListedFreelancers .= $fullName . '<br>';
 
-                        $msgbody    = '<div>
-                            <h3>you have been Awarded for job- ' . $job->title . '</h3>                
-                            <div><font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
-                            Please <a href="' . BASE_URL . 'login">click here to login.</a> <br><br>
-                            <br><br>
+                        $msgbody    = '<div>                
+                            <div>
+                            <font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br />
+                            <h3>You have been awarded for - ' . $job->title . '</h3><br>
+                            Please <a href="' . BASE_URL . 'login">click here to login and check details.</a> <br><br>
                             <p>Thanks,<br>
                             ' . $siteName . '
                             </p>
@@ -320,7 +317,7 @@
                         $mail = new PHPMailer();
 
                         $mail->SetFrom($AdminEmail, $siteName, 0);
-                        $mail->AddReplyTo($mailcheck, $fullName);
+                        $mail->AddReplyTo($AdminEmail, $siteName);
                         $mail->AddAddress($mailcheck, $fullName);
                         $mail->Subject = "You have been Awarded - " . $siteName;
                         $mail->MsgHTML($msgbody);
@@ -347,12 +344,11 @@
                 $AdminEmail = User::get_UseremailAddress_byId(1);
                 $fullName   = $clientdata->username;
 
-                $msgbody    = '<div>
-                    <h3>your Awarded freelancers for job-  ' . $job->title . '</h3>                
+                $msgbody    = '<div>                
+                    <div>
+                    <font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br />
+                    <h3>You have awarded the following freelancers for ' . $job->title . '</h3>:<br>
                     '.$shortListedFreelancers.'<br>
-                    <div><font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
-                    Please <a href="' . BASE_URL . 'login">click here to login.</a> <br><br>
-                    <br><br>
                     <p>Thanks,<br>
                     ' . $siteName . '
                     </p>
@@ -362,7 +358,7 @@
                 $mail = new PHPMailer();
 
                 $mail->SetFrom($AdminEmail, $siteName, 0);
-                $mail->AddReplyTo($clientmailcheck, $fullName);
+                $mail->AddReplyTo($AdminEmail, $siteName);
                 $mail->AddAddress($clientmailcheck, $fullName);
                 $mail->Subject = "Awarded - " . $siteName;
                 $mail->MsgHTML($msgbody);
@@ -375,6 +371,7 @@
                 $message = "Not valid User email address";
                 echo json_encode(array('action' => 'unsuccess', 'message' => $message));
             endif;
+
             $siteReg				= user::find_by_id(1);
 
             $clientmailcheck= $clientuserdata->email;
@@ -382,16 +379,16 @@
                 /* Mail Format */
                 $siteName   = Config::getField('sitename', true);
                 $AdminEmail = User::get_UseremailAddress_byId(1);
-                $clientname= $clientdata->first_name.' '.$clientdata->middle_name.''. $clientdata->last_name;
+                $clientname = $clientdata->first_name.' '.$clientdata->middle_name.''. $clientdata->last_name;
                 $fullName   = $siteReg->first_name .' '. $siteReg->middle_name .' '.$siteReg->last_name;
 
                 $msgbody    = '<div>
-                    <h3>The client '.$clientname.' <br />
-                    has Awarded '.$shortListedFreelancers.'<br> for Job-' . $job->title . '</h3>                
-                    <div><font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
-                    <br><br>
+                    <h3> ' . $job->title . ' Update : </h3><br />
+                    Awarded freelancers : <br>
+                    '.$shortListedFreelancers.'<br>                
+                    <div>
                     <p>Thanks,<br>
-                    ' . $siteName . '
+                    ' . $clientname . '
                     </p>
                     </div>
                     </div>';
@@ -401,7 +398,7 @@
                 $mail->SetFrom($AdminEmail, $siteName, 0);
                 $mail->AddReplyTo($AdminEmail, $fullName);
                 $mail->AddAddress($AdminEmail, $fullName);
-                $mail->Subject = "Awarded by -.$clientname. for job.$job->title  " . $siteName;
+                $mail->Subject = "Awarded for " . $job->title . " - " . $siteName;
                 $mail->MsgHTML($msgbody);
 
                 if (!$mail->Send()):
@@ -444,11 +441,11 @@
             if ($job->save()):
                 $jobid=$_REQUEST['jobid'];
                 // $bidderIds = implode(',', array_map('intval', $_REQUEST['bidder']));
-                $sql='update tbl_bids set project_status=5 where job_id='.$jobid.' and project_status=3';
+                $sql="update tbl_bids set project_status=5 where job_id='.$jobid.' and project_status=3";
                 $db->query($sql);
                 $db->commit();
                 // $message = "Jobs bid in " . $job->title;
-                echo json_encode(array("action" => "success", "message" => "The Work is on Progress!"));
+                echo json_encode(array("action" => "success", "message" => "The Work is Completed!"));
             else: $db->rollback();
                 echo json_encode(array("action" => "error", "message" => "Job Bid unsuccessfully !"));
             endif;
