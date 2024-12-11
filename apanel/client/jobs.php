@@ -42,33 +42,39 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                 <?php $records = jobs::find_by_sql("SELECT * FROM " . $jobsTablename . " WHERE client_id=" . $id . " ORDER BY sortorder DESC ");
 
                 foreach ($records as $key => $record):
-
+                    $countImages = bids::find_total_bids($record->id);
                     switch ($record->project_status) {
                         case 1:
+                            $countImages = bids::find_total_bids($record->id);
                             $jobstatus = '
                                     Bid On Progress';
                             break;
                         case 2:
+                            $countImages = bids::find_total_shortlisted($record->id);
                             $jobstatus = '
                                     Short listed
                                 ';
                             break;
 
                         case 3:
+                            $countImages = bids::find_total_awarded($record->id);
                             $jobstatus = '
                                     Awarded ';
                             break;
                         case 4:
+                            $countImages = bids::find_total_bids($record->id);
                             $jobstatus = '
                                     Timeout
                                ';
                             break;
                         case 5:
+                            $countImages = bids::find_total_wop($record->id);
                             $jobstatus = '
                                     Work on Progress 
                             ';
                             break;
                         case 6:
+                            $countImages = bids::find_total_comp($record->id);
                             $jobstatus = '
                                    Completed
                                ';
@@ -91,7 +97,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                                onClick="viewfreelancerlist(<?php echo $record->id; ?>);" href="javascript:void(0);">
                         <span class="button-content">
                             <span class="badge bg-orange radius-all-4 mrg5R" title=""
-                                  data-original-title="Badge with tooltip"><?php echo $countImages = bids::find_total_bids($record->id);
+                                  data-original-title="Badge with tooltip"><?php echo $countImages;
                                 //var_dump($countImages);die();
                                 ?></span>
 

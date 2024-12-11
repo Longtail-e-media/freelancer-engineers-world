@@ -158,6 +158,17 @@ class Bids extends DatabaseObject
         return $ret['tot'];
     }
 
+    public static function find_total_comp($job_id = '')
+    {
+        global $db;
+        $cond = !empty($job_id) ? ' AND job_id=' . $job_id : '';
+        $query = "SELECT COUNT(id) AS tot FROM " . self::$table_name . " WHERE status=1 $cond AND project_status=6 ";
+        $sql = $db->query($query);
+        $ret = $db->fetch_array($sql);
+        return $ret['tot'];
+    }
+
+
 
     //FIND THE HIGHEST MAX NUMBER.
     public static function find_maximum($field = "sortorder")

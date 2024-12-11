@@ -129,7 +129,7 @@
                 $db->commit();
 
                 $message    = "Jobs bid in " . $job->title;
-                echo json_encode(array("action" => "success", "message" => "Freelancer has been Selected!"));
+                echo json_encode(array("action" => "success", "message" => "Freelancer has been short listed!"));
             else: $db->rollback();
                 echo json_encode(array("action" => "error", "message" => "Job Bid unsuccessfully !"));
             endif;

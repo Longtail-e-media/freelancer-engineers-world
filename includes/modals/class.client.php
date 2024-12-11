@@ -156,9 +156,9 @@ class client extends DatabaseObject {
 	// get the client name from it's id
 	static function getclientName($id=0){
 		global $db;
-		$result = $db->query("SELECT client_name FROM ".self::$table_name." WHERE id='{$id}'");
+		$result = $db->query("SELECT first_name FROM ".self::$table_name." WHERE id='{$id}'");
 		$return = $db->fetch_array($result);
-		return ($return) ? $return['client_name'] : '' ;
+		return ($return) ? $return['first_name'] : '' ;
 	}
 	
 	//Find all the rows in the current database table.

@@ -617,6 +617,7 @@ if (!empty($_SESSION)) {
                     case 5:
                         $totalwop = bids::find_total_wop($record->id);
                         $bidstatus = '<p class="fs-6 m-0 d-inline-block">No. of Wok on Progress: <span>' .
+                        $totalwop .'</span></p>';
                         $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-center">
                             <a class="nav-link text-primary-emphasis fs-6 fw-bold dropdown" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -631,6 +632,9 @@ if (!empty($_SESSION)) {
                         ';
                             break;
                     case 6:
+                        $totalcomp = bids::find_total_comp($record->id);
+                        $bidstatus = '<p class="fs-6 m-0 d-inline-block">No. of Wok on Progress: <span>' .
+                        $totalcomp .'</span></p>';
                         $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                             <p class="text-dark fs-6 fw-bold">
                                Completed
