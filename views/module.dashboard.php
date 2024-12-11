@@ -1593,7 +1593,7 @@ foreach($biddatas as $biddata){
                            
                          $reviewdetail .=' 
 
-
+<div id="result_msg"></div>
                             <button
                                 class="btn btn-dark bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0 w-auto mt-4" id="submitmulti">
                                 Submit Review
