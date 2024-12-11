@@ -35,7 +35,7 @@
             <div class="tab-content mt-4" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-client" role="tabpanel"
                      aria-labelledby="pills-client-tab" tabindex="0">
-                    <form id="registerFormclient" class="row g-3">
+                    <form id="registerClientForm" class="row g-3">
                         <div class="col-md-4 flex-fill">
                             <input type="text" placeholder="First Name" required aria-required="true" name="first_name"
                                    class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
@@ -91,7 +91,7 @@
                 </div>
                 <div class="tab-pane fade" id="pills-freelancer" role="tabpanel"
                      aria-labelledby="pills-freelancer-tab" tabindex="0">
-                    <form id="registerFormfreelancer" class="row g-3">
+                    <form id="registerFreelancerForm" class="row g-3">
                         <div class="col-md-4 flex-fill">
                             <input type="text" placeholder="First Name" required aria-required="true" name="first_name"
                                    class="w-100 border border-light-subtle rounded-0 fs-6 px-3 py-2">
@@ -213,7 +213,7 @@
     var base_url = $('base').attr('url');
 
     $(document).ready(function () {
-        $("#registerFormclient").validate({
+        $("#registerClientForm").validate({
             errorElement: 'span',
             errorClass: 'validate-has-error text-danger',
             rules: {
@@ -242,7 +242,7 @@
             },
             submitHandler: function (form) {
                 if (form) {
-                    var Frmval = $("#registerFormclient").serialize();
+                    var Frmval = $("#registerClientForm").serialize();
                     $("button#submitRegister").attr("disabled", "true").text('Processing...');
                     $.ajax({
                         type: "POST",
@@ -269,7 +269,7 @@
             }
         })
 
-        $("#registerFormfreelancer").validate({
+        $("#registerFreelancerForm").validate({
             errorElement: 'span',
             errorClass: 'validate-has-error text-danger',
             rules: {
@@ -298,7 +298,7 @@
             },
             submitHandler: function (form) {
                 if (form) {
-                    var Frmval = $("#registerFormfreelancer").serialize();
+                    var Frmval = $("#registerFreelancerForm").serialize();
                     $("button#submitRegister").attr("disabled", "true").text('Processing...');
                     $.ajax({
                         type: "POST",

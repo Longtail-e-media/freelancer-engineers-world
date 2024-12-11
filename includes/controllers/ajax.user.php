@@ -275,7 +275,7 @@
 
         // Front User client
         case "registerNewClient":
-            $record             = new User();
+            $record = new User();
 
             $record->first_name     = $_REQUEST['first_name'];
             $record->middle_name    = $_REQUEST['middle_name'];
@@ -314,12 +314,11 @@
                 $client->email          = $_REQUEST['email'];
                 $client->mobile_no      = $_REQUEST['mobile_no'];
                 $client->username       = $_REQUEST['username'];
-                // $client->password       = md5($_REQUEST['password']);
-                // $client->accesskey      = @randomKeys(25);
                 $client->user_id        = $record->id;
                 $client->status         = 1;
                 $client->sortorder      = User::find_maximum();
                 $client->added_date     = registered();
+
                 $db->begin();
                 $client->save();
                 $db->commit();
@@ -337,40 +336,36 @@
 
                 $row    = User::find_by_mail($mailcheck);
 
-                /* Mail Format */
                 $siteName   = Config::getField('sitename', true);
                 $AdminEmail = User::get_UseremailAddress_byId(1);
                 $fullName   = $_REQUEST['username'];
 
                 $msgbody    = '<div>
 					<h3>you have been registered as Client for ' . $siteName . '</h3>                
-					<div><font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
-					Please <a href="' . BASE_URL . 'login">click here to login.</a> <br><br>
-					<br><br>
-					<p>Thanks,<br>
-					' . $siteName . '
-					</p>
+					<div>
+					    <font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
+					    Please <a href="' . BASE_URL . 'login">click here to login.</a> <br><br>
+					    <br><br>
+					    <p>Thanks,<br>
+					        ' . $siteName . '
+					    </p>
 					</div>
-					</div>';
+                </div>';
 
-                $mail   = new PHPMailer();
+                $mail = new PHPMailer();
 
                 $mail->SetFrom($AdminEmail, $siteName, 0);
                 $mail->AddReplyTo($mailcheck, $fullName);
                 $mail->AddAddress($mailcheck, $fullName);
-                $mail->Subject = "Forgot password on " . $siteName;
+                $mail->Subject = "Client Registration on " . $siteName;
                 $mail->MsgHTML($msgbody);
 
                 if (!$mail->Send()):
-                    $message    = "Not valid User email address";
+                    $message = "Not valid User email address";
                     echo json_encode(array('action' => 'unsuccess', 'message' => $message));
-                else:
-                    $forgetRec->save();
-                    // $message = "Please check your mail for login";
-                    echo json_encode(array('action' => 'success', 'message' => $message));
                 endif;
             else:
-                $message    = "Not valid User email address";
+                $message = "Not valid User email address";
                 echo json_encode(array('action' => 'unsuccess', 'message' => $message));
             endif;
         break;
@@ -416,8 +411,6 @@
                 $freelancer->email          = $_REQUEST['email'];
                 $freelancer->mobile_no      = $_REQUEST['mobile_no'];
                 $freelancer->username       = $_REQUEST['username'];
-                // $freelancer->password       = md5($_REQUEST['password']);
-                // $freelancer->accesskey      = @randomKeys(25);
                 $freelancer->user_id        = $record->id;
                 $freelancer->status         = 1;
                 $freelancer->sortorder      = User::find_maximum();
@@ -438,37 +431,33 @@
 
                 $row    = User::find_by_mail($mailcheck);
 
-                /* Mail Format */
                 $siteName   = Config::getField('sitename', true);
                 $AdminEmail = User::get_UseremailAddress_byId(1);
                 $fullName   = $_REQUEST['username'];
 
                 $msgbody    = '<div>
-					<h3>you have been registered as Freelancer for ' . $siteName . '</h3>                
-					<div><font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
-					Please <a href="' . BASE_URL . 'login">click here to login.</a> <br><br>
-					<br><br>
-					<p>Thanks,<br>
-					' . $siteName . '
-					</p>
-					</div>
-					</div>';
+                    <h3>you have been registered as Freelancer for ' . $siteName . '</h3>                
+                    <div>
+                        <font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
+                        Please <a href="' . BASE_URL . 'login">click here to login.</a> <br><br>
+                        <br><br>
+                        <p>Thanks,<br>
+                            ' . $siteName . '
+                        </p>
+                    </div>
+                </div>';
 
                 $mail = new PHPMailer();
 
                 $mail->SetFrom($AdminEmail, $siteName, 0);
                 $mail->AddReplyTo($mailcheck, $fullName);
                 $mail->AddAddress($mailcheck, $fullName);
-                $mail->Subject = "Forgot password on " . $siteName;
+                $mail->Subject = "Freelancer Registration on " . $siteName;
                 $mail->MsgHTML($msgbody);
 
                 if (!$mail->Send()):
                     $message = "Not valid User email address";
                     echo json_encode(array('action' => 'unsuccess', 'message' => $message));
-                else:
-                    $forgetRec->save();
-                    // $message = "Please check your mail for login";
-                    echo json_encode(array('action' => 'success', 'message' => $message));
                 endif;
             else:
                 $message = "Not valid User email address";
