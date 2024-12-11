@@ -546,10 +546,15 @@ if (!empty($_SESSION)) {
                         $record->budget_range_high .
                         "</h5>";
                 }
-                $totalbids = bids::find_total_bids($record->id);
                 $jobstatus = "";
+                $bidstatus='';
+                $totalbids = bids::find_total_bids($record->id);
+                $bidstatus = '<p class="fs-6 m-0 d-inline-block">No. of Bids: <span>' .
+                    $totalbids .'</span></p>';
                 switch ($record->project_status) {
                     case 1:
+                        $bidstatus = '<p class="fs-6 m-0 d-inline-block">No. of Bids: <span>' .
+                    $totalbids .'</span></p>';
                         $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                             <p class="text-primary fs-6 fw-bold">
                                 Bid On Progress
@@ -564,6 +569,9 @@ if (!empty($_SESSION)) {
                         $jobstatus .= "</div>";
                         break;
                     case 2:
+                        $totalshortlisted = bids::find_total_shortlisted($record->id);
+                        $bidstatus = '<p class="fs-6 m-0 d-inline-block">No. of Shortlisted: <span>' .
+                        $totalshortlisted .'</span></p>';
                         $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                             <p class="text-info fs-6 fw-bold">
                                 Short listed
@@ -577,6 +585,9 @@ if (!empty($_SESSION)) {
                         break;
 
                     case 3:
+                        $totalawarded = bids::find_total_awarded($record->id);
+                        $bidstatus = '<p class="fs-6 m-0 d-inline-block">No. of awarded: <span>' .
+                        $totalawarded .'</span></p>';
                         $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-center">
                             <a class="nav-link text-success fs-6 fw-bold dropdown" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -590,6 +601,7 @@ if (!empty($_SESSION)) {
                         </div>';
                         break;
                     case 4:
+                        
                         $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                             <p class="text-danger fs-6 fw-bold">
                                 Timeout
@@ -597,6 +609,8 @@ if (!empty($_SESSION)) {
                             </div>';
                         break;
                     case 5:
+                        $totalwop = bids::find_total_wop($record->id);
+                        $bidstatus = '<p class="fs-6 m-0 d-inline-block">No. of Wok on Progress: <span>' .
                         $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-center">
                             <a class="nav-link text-primary-emphasis fs-6 fw-bold dropdown" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -650,9 +664,9 @@ if (!empty($_SESSION)) {
                             ' .
                     $budget .
                     '
-                            <p class="fs-6 m-0 d-inline-block">No. of Bids: <span>' .
-                    $totalbids .
-                    '</span></p>
+                           ' .
+                           $bidstatus .
+                    '
                             
                         </div>
                         ' .

@@ -47,8 +47,11 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                 //            (j.project_status=".$jobdata->project_status." AND b.project_status=".$jobdata->project_status.") 
                 //      ORDER BY f.sortorder DESC";
                 $fjobstatus='';
-                if($jobdata->project_status>=4 ){
+                if($jobdata->project_status==5 && $jobdata->project_status==6){
                     $fjobstatus='4';
+                }
+                else{
+                    $fjobstatus=$jobdata->project_status;
                 }
                 $sql = "SELECT f.* FROM tbl_freelancer as f 
                 INNER JOIN tbl_bids as b ON f.id = b.freelancer_id
@@ -56,7 +59,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                      WHERE (b.job_id=" . $id . " ) AND 
                            (j.project_status=" . $jobdata->project_status . " AND b.project_status=" . $fjobstatus . ") 
                      ORDER BY f.sortorder DESC";
-                // pr($sql);
+                // pr($jobdata->project_status);
                 $records = freelancer::find_by_sql($sql);
                 // pr($records);
                 foreach ($records

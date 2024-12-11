@@ -131,6 +131,35 @@ class Bids extends DatabaseObject
         return $ret['tot'];
     }
 
+    public static function find_total_shortlisted($job_id = '')
+    {
+        global $db;
+        $cond = !empty($job_id) ? ' AND job_id=' . $job_id : '';
+        $query = "SELECT COUNT(id) AS tot FROM " . self::$table_name . " WHERE status=1 $cond AND project_status=2 ";
+        $sql = $db->query($query);
+        $ret = $db->fetch_array($sql);
+        return $ret['tot'];
+    }
+    public static function find_total_awarded($job_id = '')
+    {
+        global $db;
+        $cond = !empty($job_id) ? ' AND job_id=' . $job_id : '';
+        $query = "SELECT COUNT(id) AS tot FROM " . self::$table_name . " WHERE status=1 $cond AND project_status=3 ";
+        $sql = $db->query($query);
+        $ret = $db->fetch_array($sql);
+        return $ret['tot'];
+    }
+    public static function find_total_wop($job_id = '')
+    {
+        global $db;
+        $cond = !empty($job_id) ? ' AND job_id=' . $job_id : '';
+        $query = "SELECT COUNT(id) AS tot FROM " . self::$table_name . " WHERE status=1 $cond AND project_status=5 ";
+        $sql = $db->query($query);
+        $ret = $db->fetch_array($sql);
+        return $ret['tot'];
+    }
+
+
     //FIND THE HIGHEST MAX NUMBER.
     public static function find_maximum($field = "sortorder")
     {
