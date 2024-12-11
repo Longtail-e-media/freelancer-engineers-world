@@ -567,7 +567,7 @@ if (!empty($_SESSION)) {
                             </p>';
                         if ($totalbids > 0) {
                             $jobstatus .= '<div class="d-inline-block bg-dark-subtle px-3 view-select">
-                                <a href="" class="text-decoration-none text-dark">View</a>
+                                <a href="'.BASE_URL.'freelancer-select/'.$record->slug.'" class="text-decoration-none text-dark">View</a>
                                 <span>/</span>
                                 <a href="'.BASE_URL.'freelancer-select/'.$record->slug.'" class="text-decoration-none text-dark">Select</a>
                             </div>';
@@ -583,7 +583,7 @@ if (!empty($_SESSION)) {
                                 Short listed
                             </p>
                             <div class="d-inline-block bg-dark-subtle px-3 view-select">
-                                <a href="" class="text-decoration-none text-dark">View</a>
+                                <a href="'.BASE_URL.'freelancer-shortlist/'.$record->slug.'" class="text-decoration-none text-dark">View</a>
                                 <span>/</span>
                                 <a href="'.BASE_URL.'freelancer-shortlist/'.$record->slug.'" class="text-decoration-none text-dark">Select</a>
                             </div>
