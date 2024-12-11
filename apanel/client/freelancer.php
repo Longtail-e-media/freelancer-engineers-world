@@ -4,9 +4,11 @@ $moduleId = 32;              // module id >>>>> tbl_modules
 $moduleFoldername = "";     // Image folder name
 if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) && $_GET['mode'] == "freelancerlist"):
     $id = intval(addslashes($_GET['id']));
+    $job= jobs::find_by_id($id);
+    // pr($job,1);
     ?>
     <a class="loadingbar-demo btn medium bg-blue-alt float-right mrg5R" href="javascript:void(0);"
-       onClick="viewjobslist(<?php echo $id ?>);">
+       onClick="viewjobslist(<?php echo $job->client_id ?>);">
     <span class="glyph-icon icon-separator">
         <i class="glyph-icon icon-arrow-circle-left"></i>
     </span>
