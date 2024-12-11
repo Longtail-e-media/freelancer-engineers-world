@@ -200,6 +200,13 @@ class Bids extends DatabaseObject
         return !empty($result_array) ? array_shift($result_array) : false;
     }
 
+    public static function find_if_already_applied($jobId = 0, $freelancerId = 0)
+    {
+        global $db;
+        $result_array = self::find_by_sql("SELECT * FROM " . self::$table_name . " WHERE job_id={$jobId} AND freelancer_id='{$freelancerId}' LIMIT 1");
+        return !empty($result_array) ? array_shift($result_array) : false;
+    }
+
     //Find rows from the database provided the SQL statement.
     public static function find_by_sql($sql = "")
     {

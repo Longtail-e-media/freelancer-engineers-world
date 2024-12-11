@@ -728,6 +728,13 @@
 
             if ($count > 0) {
                 $uprec          = $db->fetch_object($db->query($sql));
+                $freeRec        = freelancer::find_by_userid($userId);
+                $bidRec         = bids::find_if_already_applied($jobId, $freeRec->id);
+                if ($bidRec) {
+                    $message = "You can only bid once !";
+                    echo json_encode(array("action" => "biddingClosed", "message" => $message));
+                    exit();
+                }
                 if ($uprec->status == 0) {
                     $message    = "Your account has been disabled !";
                     echo json_encode(array("action" => "disabled", "message" => $message));
