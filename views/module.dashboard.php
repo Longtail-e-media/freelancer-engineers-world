@@ -1149,7 +1149,7 @@ if (!empty($_SESSION)) {
                     </div>
                     <div class="col-6 col-md-3 mt-3 mt-md-0">
                         <h5 class="fs-7"><strong>'.$biddata->currency.' '.$biddata->bid_amount.'</strong> in '.$biddata->delivery.' days</h5>
-                        <span class="fs-5"> ' . str_repeat('★', $biddata->freelancer_rating) . ' ' . str_repeat('☆', (5 - $biddata->freelancer_rating)) . '
+                        <span class="fs-5 text-warning"> ' . str_repeat('★', $biddata->freelancer_rating) . ' ' . str_repeat('☆', (5 - $biddata->freelancer_rating)) . '
                         </span>
                     </div>
                     <div class="col-2 col-md-1 d-flex align-items-center mt-3 mt-md-0">
@@ -1262,7 +1262,7 @@ if (!empty($_SESSION)) {
                     </div>
                     <div class="col-6 col-md-3 mt-3 mt-md-0">
                         <h5 class="fs-7"><strong>'.$biddata->currency.' '.$biddata->bid_amount.'</strong> in '.$biddata->delivery.' days</h5>
-                        <span class="fs-5"> ' . str_repeat('★', $biddata->freelancer_rating) . ' ' . str_repeat('☆', (5 - $biddata->freelancer_rating)) . '
+                        <span class="fs-5 text-warning"> ' . str_repeat('★', $biddata->freelancer_rating) . ' ' . str_repeat('☆', (5 - $biddata->freelancer_rating)) . '
                         </span>
                     </div>
                     <div class="col-2 col-md-1 d-flex align-items-center mt-3 mt-md-0">
@@ -1374,7 +1374,7 @@ if (!empty($_SESSION)) {
                     </div>
                     <div class="col-6 col-md-3 mt-3 mt-md-0">
                         <h5 class="fs-7"><strong>'.$biddata->currency.' '.$biddata->bid_amount.'</strong> in '.$biddata->delivery.' days</h5>
-                        <span class="fs-5"> ' . str_repeat('★', $biddata->freelancer_rating) . ' ' . str_repeat('☆', (5 - $biddata->freelancer_rating)) . '
+                        <span class="fs-5 text-warning"> ' . str_repeat('★', $biddata->freelancer_rating) . ' ' . str_repeat('☆', (5 - $biddata->freelancer_rating)) . '
                         </span>
                     </div>
                     <!--<div class="col-2 col-md-1 d-flex align-items-center mt-3 mt-md-0">

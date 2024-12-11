@@ -13,7 +13,7 @@ if (defined('HOME_PAGE')) {
             $budget_text = ($job->budget_type == 1) ? $job->currency . ' ' . $job->exact_budget : $job->currency . ' ' . $job->budget_range_low . ' - ' . $job->budget_range_high;
             $bids_txt = Bids::find_total_bids($job->id);
             $home_job .= '
-                <div class="bg-body-secondary p-5 mb-3">
+                <div class="bg-body-secondary p-4 p-md-5 mb-3">
                     <div class="d-flex justify-content-between">
                         <div>
                             <a href="' . BASE_URL . 'job/' . $job->slug . '" class="text-decoration-none text-primary">
