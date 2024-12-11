@@ -193,7 +193,7 @@
                 /* Mail Format */
                 $siteName   = Config::getField('sitename', true);
                 $AdminEmail = User::get_UseremailAddress_byId(1);
-                $fullName   = $clientdata->username;
+                $fullName   = $clientdata->first_name.' '.$clientdata->middle_name.''. $clientdata->last_name;
 
                 $msgbody    = '<div>
                     <h3>you have been short listed  ' . $job->title . '</h3>                
@@ -212,6 +212,43 @@
                 $mail->SetFrom($AdminEmail, $siteName, 0);
                 $mail->AddReplyTo($clientmailcheck, $fullName);
                 $mail->AddAddress($clientmailcheck, $fullName);
+                $mail->Subject = "Short listed - " . $siteName;
+                $mail->MsgHTML($msgbody);
+
+                if (!$mail->Send()):
+                    $message = "Not valid User email address";
+                    echo json_encode(array('action' => 'unsuccess', 'message' => $message));
+                endif;
+            else:
+                $message = "Not valid User email address";
+                echo json_encode(array('action' => 'unsuccess', 'message' => $message));
+            endif;
+            $siteReg				= user::find_by_id(1);
+
+            $clientmailcheck= $clientuserdata->email;
+            if ((!empty($mailcheck) && !empty($clientmailcheck) && !empty($siteReg->email))):
+                /* Mail Format */
+                $siteName   = Config::getField('sitename', true);
+                $AdminEmail = User::get_UseremailAddress_byId(1);
+                $clientname= $clientdata->first_name.' '.$clientdata->middle_name.''. $clientdata->last_name;
+                $fullName   = $siteReg->first_name .' '. $siteReg->middle_name .' '.$siteReg->last_name;
+
+                $msgbody    = '<div>
+                    <h3>The client '.$clientname.' <br />
+                    has short listed '.$shortListedFreelancers.'<br> for Job-' . $job->title . '</h3>                
+                    <div><font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
+                    <br><br>
+                    <p>Thanks,<br>
+                    ' . $siteName . '
+                    </p>
+                    </div>
+                    </div>';
+
+                $mail = new PHPMailer();
+
+                $mail->SetFrom($AdminEmail, $siteName, 0);
+                $mail->AddReplyTo($AdminEmail, $fullName);
+                $mail->AddAddress($AdminEmail, $fullName);
                 $mail->Subject = "Short listed - " . $siteName;
                 $mail->MsgHTML($msgbody);
 
@@ -338,6 +375,44 @@
                 $message = "Not valid User email address";
                 echo json_encode(array('action' => 'unsuccess', 'message' => $message));
             endif;
+            $siteReg				= user::find_by_id(1);
+
+            $clientmailcheck= $clientuserdata->email;
+            if ((!empty($mailcheck) && !empty($clientmailcheck) && !empty($siteReg->email))):
+                /* Mail Format */
+                $siteName   = Config::getField('sitename', true);
+                $AdminEmail = User::get_UseremailAddress_byId(1);
+                $clientname= $clientdata->first_name.' '.$clientdata->middle_name.''. $clientdata->last_name;
+                $fullName   = $siteReg->first_name .' '. $siteReg->middle_name .' '.$siteReg->last_name;
+
+                $msgbody    = '<div>
+                    <h3>The client '.$clientname.' <br />
+                    has Awarded '.$shortListedFreelancers.'<br> for Job-' . $job->title . '</h3>                
+                    <div><font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
+                    <br><br>
+                    <p>Thanks,<br>
+                    ' . $siteName . '
+                    </p>
+                    </div>
+                    </div>';
+
+                $mail = new PHPMailer();
+
+                $mail->SetFrom($AdminEmail, $siteName, 0);
+                $mail->AddReplyTo($AdminEmail, $fullName);
+                $mail->AddAddress($AdminEmail, $fullName);
+                $mail->Subject = "Awarded by -.$clientname. for job.$job->title  " . $siteName;
+                $mail->MsgHTML($msgbody);
+
+                if (!$mail->Send()):
+                    $message = "Not valid User email address";
+                    echo json_encode(array('action' => 'unsuccess', 'message' => $message));
+                endif;
+            else:
+                $message = "Not valid User email address";
+                echo json_encode(array('action' => 'unsuccess', 'message' => $message));
+            endif;
+
         break;
 
         case "forwop":

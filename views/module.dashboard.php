@@ -1452,7 +1452,7 @@ if (!empty($_SESSION)) {
                         <!-- Review Section -->
                         <div class="card-body mt-4 mt-lg-5">
                         <form id="reviewset">
-                            <h5 class="fw-bold fs-6 my-3 my-lg-4">Review and Rate Client on project complete</h5>
+                            <h5 class="fw-bold fs-6 my-3 my-lg-4">Rate Client on project complete</h5>
                             <div class="my-3 my-lg-4">
                                 <div id="rating-container" class="ratings d-flex gap-1">
                             <input type="hidden" id="rating" name="rating" value="">
@@ -1556,11 +1556,8 @@ elseif (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client" && 
 
                         <!-- Review Section -->
                         <div class="card-body mt-4 mt-lg-5">
-                            <h5 class="fw-bold fs-6 my-3 my-lg-4">Review and Rate Client on project complete</h5>
+                            <h5 class="fw-bold fs-6 my-3 my-lg-4">Rate Freelancers on project complete</h5>
                             <form id="reviewsetmulti">
-                            <textarea id="write-a-review"
-                                class="form-control bg-light border-0 p-3 p-lg-5 fs-6 w-100 rounded-0 mb-3 mb-md-5"
-                                placeholder="Write a review" rows="5"></textarea>
                                         ';
 
 $biddatas= bids::find_by_jobid_review($jobdatas->id);
