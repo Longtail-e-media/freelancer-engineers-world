@@ -234,12 +234,13 @@
 
             $clientdata= client::find_by_id($job->client_id);
             $clientuserdata= User::find_by_id($clientdata->user_id);
+            $jobid      = $_REQUEST['jobid'];
+            $bidderIds = implode(',', array_map('intval', $_REQUEST['bidder']));
+            $freelancers =explode(',',$bidderIds);
 
             $db->begin();
             if ($job->save()):
-                $jobid      = $_REQUEST['jobid'];
-                $bidderIds = implode(',', array_map('intval', $_REQUEST['bidder']));
-                $freelancers =explode(',',$bidderIds);
+                
 
                 $sql        = 'update tbl_bids set project_status=3 where job_id=' . $jobid . ' and freelancer_id in (' . $bidderIds . ')';
                 $db->query($sql);
@@ -249,22 +250,25 @@
             else: $db->rollback();
                 echo json_encode(array("action" => "error", "message" => "Job Bid unsuccessfully !"));
             endif;
-
+            $shortListedFreelancers = '';
             if(!empty($freelancers)){
                 foreach($freelancers as $freelancer){
                     $freelancerdata= freelancer::find_by_id($freelancer);
                     $freeuserdata= User::find_by_id($freelancerdata->user_id);
                     $mailcheck= $freeuserdata->email;
+
                     // pr($mailcheck);
                     if ($mailcheck):
 
                         $row    = User::find_by_mail($mailcheck);
-        
+
                         /* Mail Format */
                         $siteName   = Config::getField('sitename', true);
                         $AdminEmail = User::get_UseremailAddress_byId(1);
-                        $fullName   = $_REQUEST['username'];
-        
+                        $fullName   = $freeuserdata->username;
+
+                        $shortListedFreelancers .= $fullName . '<br>';
+
                         $msgbody    = '<div>
                             <h3>you have been Awarded for job- ' . $job->title . '</h3>                
                             <div><font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
@@ -275,22 +279,18 @@
                             </p>
                             </div>
                             </div>';
-        
+
                         $mail = new PHPMailer();
-        
+
                         $mail->SetFrom($AdminEmail, $siteName, 0);
                         $mail->AddReplyTo($mailcheck, $fullName);
                         $mail->AddAddress($mailcheck, $fullName);
-                        $mail->Subject = "Forgot password on " . $siteName;
+                        $mail->Subject = "You have been Awarded - " . $siteName;
                         $mail->MsgHTML($msgbody);
-        
+
                         if (!$mail->Send()):
                             $message = "Not valid User email address";
                             echo json_encode(array('action' => 'unsuccess', 'message' => $message));
-                        else:
-                            $forgetRec->save();
-                            // $message = "Please check your mail for login";
-                            echo json_encode(array('action' => 'success', 'message' => $message));
                         endif;
                     else:
                         $message = "Not valid User email address";
@@ -300,7 +300,7 @@
                 }
             }
 
-            $clientmailcheck= $clientdata->email;
+            $clientmailcheck= $clientuserdata->email;
             if ($clientmailcheck):
 
                 $row    = User::find_by_mail($clientmailcheck);
@@ -308,10 +308,11 @@
                 /* Mail Format */
                 $siteName   = Config::getField('sitename', true);
                 $AdminEmail = User::get_UseremailAddress_byId(1);
-                $fullName   = $_REQUEST['username'];
+                $fullName   = $clientdata->username;
 
                 $msgbody    = '<div>
-                    <h3>you have been  Awarded ' . $job->title . '</h3>                
+                    <h3>your Awarded freelancers for job-  ' . $job->title . '</h3>                
+                    '.$shortListedFreelancers.'<br>
                     <div><font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
                     Please <a href="' . BASE_URL . 'login">click here to login.</a> <br><br>
                     <br><br>
@@ -326,16 +327,12 @@
                 $mail->SetFrom($AdminEmail, $siteName, 0);
                 $mail->AddReplyTo($clientmailcheck, $fullName);
                 $mail->AddAddress($clientmailcheck, $fullName);
-                $mail->Subject = "Forgot password on " . $siteName;
+                $mail->Subject = "Awarded - " . $siteName;
                 $mail->MsgHTML($msgbody);
 
                 if (!$mail->Send()):
                     $message = "Not valid User email address";
                     echo json_encode(array('action' => 'unsuccess', 'message' => $message));
-                else:
-                    $forgetRec->save();
-                    // $message = "Please check your mail for login";
-                    echo json_encode(array('action' => 'success', 'message' => $message));
                 endif;
             else:
                 $message = "Not valid User email address";
@@ -399,6 +396,31 @@
             else: $db->rollback();
                 echo json_encode(array("action" => "error", "message" => "review not submiited !"));
             endif;
+        break;
+
+        case "forfreelancerreview":
+          
+        //    pr($_POST);
+            $ratings = $_REQUEST['rating'];
+            
+            foreach($ratings as $key => $rating){
+                // pr($_POST);
+                $bids        = Bids::find_by_all_id($_REQUEST['clientid'],$key,$_REQUEST['jobid']);
+                // pr($bids);
+                $bids->freelancer_rating = $rating;
+                $bids->reviewed_freelancer = 1;
+                $save=$bids->save();
+            }
+            $db->begin();
+            if ($save):
+                $db->commit();
+                echo json_encode(array("action" => "success", "message" => "review submiited!"));
+            else: $db->rollback();
+                echo json_encode(array("action" => "error", "message" => "review not submiited !"));
+            endif;
+        
+
+            
         break;
 			
 	}

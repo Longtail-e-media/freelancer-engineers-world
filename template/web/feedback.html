@@ -68,6 +68,47 @@
             })
         });
     </script>
+
+    
+<script type="text/javascript">
+    var base_url = $('base').attr('url');
+    $(document).ready(function () {
+            
+        $('#reviewsetmulti').validate({
+            errorElement: 'span',
+            errorClass: 'validate-has-error',
+            rules: {
+           
+                "rating[]": {required: true},
+        },
+        messages: {
+            "rating[]": {
+               required: "please select rating."
+            },
+        },
+            submitHandler: function (form) {
+        
+                var Frmval = $("form#reviewsetmulti").serialize();
+                // $("button#submitmulti").attr("disabled", "true").text('Processing...');
+                $.ajax({
+                    type: "POST",
+                    dataType: "JSON",
+                    url: base_url + "includes/controllers/ajax.jobs.php",
+                    data: "action=forfreelancerreview&" + Frmval,
+                    success: function (data) {
+                        var msg = eval(data);
+                        // $("button#submitmulti").removeAttr("disabled").text('updated');
+                        $('div#result_msg').html(msg.message).css('display', 'block').addClass('alert alert-success').fadeOut(8000);
+                        setTimeout(function () {
+                                    return window.location.href = base_url + "dashboard";
+                                }, 1500);
+                    }
+                });
+                return false;
+            }
+        })
+    });
+</script>
 </body>
 
 </html>

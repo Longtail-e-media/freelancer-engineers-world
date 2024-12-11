@@ -61,7 +61,7 @@
             },
             submitHandler: function (form) {
                 var Frmval = jQuery("form#contact_frm").serialize();
-                jQuery("a#submit").attr("disabled", "true").html('Processing...');
+                jQuery("button#submit").attr("disabled", "true").html('Processing...');
                 jQuery.ajax({
                     type: "POST",
                     dataType: "JSON",
@@ -69,7 +69,7 @@
                     data: "action=forcareer&" + Frmval,
                     success: function (data) {
                         var msg = eval(data);
-                        jQuery("a#submit").removeAttr("disabled").html('Apply Now');
+                        jQuery("button#submit").removeAttr("disabled").html('Apply Now');
                         jQuery('div#msg').html(msg.message).css('display', 'block').fadeOut(10000);
                         jQuery("form#contact_frm")[0].reset();
                         $('#responseFile').html("");

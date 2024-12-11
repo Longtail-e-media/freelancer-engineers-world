@@ -1,51 +1,62 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const stars = document.querySelectorAll("#rating-container .star");
-  let selectedRating = 0;
+  const ratingContainers = document.querySelectorAll("#rating-container");
 
-  stars.forEach((star) => {
-    // Hover effect
-    star.addEventListener("mouseover", () => {
-      resetStars();
-      fillStars(star.dataset.value);
+  ratingContainers.forEach((container) => {
+    const stars = container.querySelectorAll(".star");
+    const hiddenInput = container.closest(".row").querySelector("input.rating"); // Ensure we get the correct hidden input
+    let selectedRating = 0;
+
+    if (!hiddenInput) {
+      console.error("Hidden input not found for this rating container:", container);
+      return; // Skip if no hidden input is found
+    }
+
+    stars.forEach((star) => {
+      // Hover effect: Highlight stars up to the hovered star
+      star.addEventListener("mouseover", () => {
+        fillStars(star.dataset.value);
+      });
+
+      // Click to select rating: Update the selected rating and hidden input
+      star.addEventListener("click", () => {
+        selectedRating = parseInt(star.dataset.value, 10); // Save the selected rating
+        fillStars(selectedRating); // Highlight selected stars
+        hiddenInput.value = selectedRating; // Update hidden input
+        console.log(`Rating selected: ${selectedRating}`);
+      });
+
+      // Mouse out: Reset to the selected rating or clear stars if none is selected
+      star.addEventListener("mouseout", () => {
+        if (selectedRating > 0) {
+          fillStars(selectedRating); // Keep the selected rating highlighted
+        } else {
+          resetStars(); // Reset if no rating is selected
+        }
+      });
     });
 
-    // Click to select rating
-    star.addEventListener("click", () => {
-      selectedRating = star.dataset.value;
-      resetStars();
-      fillStars(selectedRating);
-      const ratingInput = document.getElementById("rating");
-if (ratingInput) {
-  ratingInput.value = selectedRating; // Safe to set the value
-} else {
-  console.error("Input field with id 'rating' not found!");
-}
-    });
+    // Function to highlight stars up to a given value
+    function fillStars(value) {
+      stars.forEach((star) => {
+        if (parseInt(star.dataset.value, 10) <= value) {
+          star.textContent = "★"; // Filled star
+          star.classList.remove("text-muted");
+          star.classList.add("text-warning");
+        } else {
+          star.textContent = "☆"; // Empty star
+          star.classList.remove("text-warning");
+          star.classList.add("text-muted");
+        }
+      });
+    }
 
-    // Reset on mouse out
-    star.addEventListener("mouseout", () => {
-      resetStars();
-      if (selectedRating > 0) {
-        fillStars(selectedRating);
-      }
-    });
+    // Function to reset all stars to empty
+    function resetStars() {
+      stars.forEach((star) => {
+        star.textContent = "☆"; // Empty star
+        star.classList.remove("text-warning");
+        star.classList.add("text-muted");
+      });
+    }
   });
-
-  function fillStars(value) {
-    stars.forEach((star) => {
-      if (star.dataset.value <= value) {
-        star.textContent = "★"; // Filled star
-        star.classList.remove("text-muted");
-        star.classList.add("text-warning");
-      }
-    });
-  }
-
-  function resetStars() {
-    stars.forEach((star) => {
-      star.textContent = "☆"; // Empty star
-      star.classList.remove("text-warning");
-      star.classList.add("text-muted");
-    });
-  }
 });

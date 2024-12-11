@@ -15,7 +15,7 @@ if (!empty($_SESSION)) {
             <main class="">
                 <div class="bg-dark-blue">
                      <div class="container py-5 d-flex align-items-center justify-content-between">
-                        <h1 class="text-light fw-light fs-1">
+                        <h1 class="text-light fw-light fs-3">
                             Update your profile
                         </h1>
                          <a href="' .
@@ -26,8 +26,8 @@ if (!empty($_SESSION)) {
                     </div>
                 </div>
                 <section class="container form-container">
-                    <div class="card p-5 bg-light border-0 rounded-0 shadow-sm">
-                        <h2 class="fs-5 fw-bold mb-4">Client (Seller) Signup</h2>
+                     <div class="card p-3 p-md-5 bg-light border-0 rounded-0 shadow-sm">
+                <h2 class="fs-5 fw-bold mb-4">Client Signup</h2>
                         <form id="clientfrm" class="client-form">
                             <!-- Username and Email -->
                             <div class="row g-3">
@@ -155,14 +155,17 @@ if (!empty($_SESSION)) {
             ';
         }
 
-        $profile .= '         <div class="mb-4">
+        $profile .= '        
+       <!--  <div class="mb-4">
                                         <a href="https://chat.openai.com/" target="_blank" class="fst-italic text-dark">Use
                                             ChatGPT to Create Project Details</a>
                                     </div>
-                                    <div id="msgProfile"></div>                                        
+                                    <div id="msgProfile"></div>            
+                                    -->                            
                                     <div>
                                         <button type="submit"
-                                            class="btn btn-dark bg-dark-blue text-light px-5 py-2 fs-5 rounded-0 border-0 mt-4" id="submitClient">
+                                    class="btn btn-dark bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0 mt-4"
+                                        id="submitClient">
                                             Update Profile
                                         </button>
                                     </div>
@@ -188,17 +191,17 @@ if (!empty($_SESSION)) {
 
         $profile =
             '
-            <main class="">
-                <div class="bg-dark-blue">
-                    <div class="container">
-                        <h1 class="text-light py-5 fw-light fs-1">
+              <main class="">
+        <div class="bg-dark-blue">
+            <div class="container">
+                <h1 class="text-light py-5 fw-light fs-1 text-center text-md-start">
                             Update your Freelancer profile
                         </h1>
                     </div>
                 </div>
-                <section class="container form-container">
-                    <div class="card p-5 bg-light border-0 rounded-0 shadow-sm">
-                        <h2 class="fs-5 fw-bold mb-4">Freelancer (Engineer) Signup</h2>
+                 <section class="container form-container my-0 my-md-5">
+            <div class="card p-2 p-md-5 bg-light border-0 rounded-0 shadow-sm">
+                <h2 class="fs-5 fw-bold mb-4">Freelancer Signup</h2>
                         <form class="freelancer-form" id="freelancerfrm">
                             <!-- Basic Information -->
                             <div class="row g-3">
@@ -486,7 +489,7 @@ if (!empty($_SESSION)) {
                             <div id="msgProfile"></div>
                             <div class="mt-5">
                                 <button type="submit" id="submitProfile"
-                                    class="btn btn-dark bg-dark-blue text-light px-5 py-2 fs-5 rounded-0 border-0 mt-4">
+                                   class="btn btn-dark bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0 mt-4">
                                     Update Profile
                                 </button>
                             </div>
@@ -864,7 +867,7 @@ if (!empty($_SESSION)) {
                                 <p class="text-dark fs-6 fw-bold">
                                    Completed
                                 </p>';
-                                if($record->reviewed_client==0){
+                                if($record->reviewed_freelancer==0){
                               $jobstatus .= '  <a href="'.BASE_URL.'review/'.$jobdatas->slug.'" class="btn btn-outline-success bg-success-subtle text-success fs-7 rounded-0 px-3 py-1">
                                     Review
                                 </a>';
@@ -1490,8 +1493,8 @@ if (!empty($_SESSION)) {
             </div>
         </section>
     </main>';
-    }
-    elseif (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client" && defined('REVIEW') && isset($_REQUEST['slug'])) {
+}
+elseif (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client" && defined('REVIEW') && isset($_REQUEST['slug'])) {
 
         $slug = !empty($_REQUEST['slug']) ? addslashes($_REQUEST['slug']) : '';
         $jobdatas= jobs::find_by_slug($slug);
@@ -1526,9 +1529,9 @@ if (!empty($_SESSION)) {
                         <!-- Job Title Card -->
                         <div class="bg-light card-title p-3 p-lg-5">
                             <div>
-                                <div
+                               <div
                                     class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between gap-3">
-                                    <div>
+                                      <div>
                                         <h3 class="fs-5 fw-bold mb-2 mb-sm-0">'.$jobdatas->title.'
                                             <span class="fs-7 text-success">(Completed)</span>
                                         </h3>
@@ -1544,21 +1547,49 @@ if (!empty($_SESSION)) {
 
                         <!-- Review Section -->
                         <div class="card-body mt-4 mt-lg-5">
-                            <h5 class="fw-bold fs-6 my-3 my-lg-4">Review and Rate freelancer on project complete</h5>
-                            <div class="my-3 my-lg-4">
-                                <div id="rating-container" class="ratings d-flex gap-1">
-                                 <form id="reviewset">
-                            <input type="hidden" id="rating" name="rating" value="">
-                                    <span class="star fs-4 text-muted" data-value="1">☆</span>
-                                    <span class="star fs-4 text-muted" data-value="2">☆</span>
-                                    <span class="star fs-4 text-muted" data-value="3">☆</span>
-                                    <span class="star fs-4 text-muted" data-value="4">☆</span>
-                                    <span class="star fs-4 text-muted" data-value="5">☆</span>
-                                </div>
-                            </div>
-                           <div id="result_msg"></div>
+                            <h5 class="fw-bold fs-6 my-3 my-lg-4">Review and Rate Client on project complete</h5>
+                            <form id="reviewsetmulti">
+                            <textarea id="write-a-review"
+                                class="form-control bg-light border-0 p-3 p-lg-5 fs-6 w-100 rounded-0 mb-3 mb-md-5"
+                                placeholder="Write a review" rows="5"></textarea>
+                                        ';
+
+$biddatas= bids::find_by_jobid_review($jobdatas->id);
+foreach($biddatas as $biddata){
+    $freelancerdata= freelancer::find_by_id($biddata->freelancer_id);
+    // pr($freelancerdata);
+    $profilepic ='<div class="col-2 col-md-2 p-0">
+                        <img src="'.IMAGE_PATH.'freelancer/profile/'.$freelancerdata->profile_picture.'"
+                            alt="User" class="user-icon w-100 bg-dark-subtle p-3">
+                    </div>';
+    $reviewdetail .=' 
+    <input type="hidden" name="jobid" value="'.$jobdatas->id.'">
+                            <input type="hidden" name="clientid" value="'.$clientdatas->id.'"><div class="row bg-light p-3 mt-2 gx-0 hover-effect">
+  '.$profilepic.'
+  
+   <input type="hidden" class="rating" name="rating['.$freelancerdata->id.']" value="0">
+    <div class="col-9 col-md-6 px-3 d-flex justify-content-center flex-column">
+        <h5 class="fs-6 fw-bold">'.$freelancerdata->username.'</h5>
+    </div>
+    <div class="col-12 col-md-3 d-flex justify-content-center flex-column">
+        <h5 class="fs-7">Rate the Freelancer</h5>
+        <div id="rating-container" class="ratings d-flex gap-1">
+            <span class="star fs-4 text-muted" data-value="1">☆</span>
+            <span class="star fs-4 text-muted" data-value="2">☆</span>
+            <span class="star fs-4 text-muted" data-value="3">☆</span>
+            <span class="star fs-4 text-muted" data-value="4">☆</span>
+            <span class="star fs-4 text-muted" data-value="5">☆</span>
+        </div>
+    </div>
+</div>';
+}
+// pr($biddata);
+                           
+                         $reviewdetail .=' 
+
+
                             <button
-                                class="btn btn-dark bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0 w-auto" id="submit">
+                                class="btn btn-dark bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0 w-auto mt-4" id="submitmulti">
                                 Submit Review
                             </button>
                             </form>
@@ -1591,7 +1622,7 @@ if (!empty($_SESSION)) {
             </div>
         </section>
     </main>';
-    }
+}
    
 } else {
     $reviewdetail = "please login to view profile";

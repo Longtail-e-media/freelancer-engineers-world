@@ -46,6 +46,7 @@ body {
 .bg-dark-blue {
     background-color: var(--dark-bg);
 }
+
 .text-dark-blue {
     color: var(--dark-bg);
 }
@@ -368,5 +369,11 @@ span.text-danger {
 
 .jobs-container .bg-body-secondary:hover {
     background: #d4d4d4 !important;
-    transition: all 0.3s ease 0s;
+    transition: all 0.3s ease;
+}
+
+.hover-effect:hover {
+    background: #fdfdfd !important;
+    box-shadow: 0 2px 5px 5px rgba(0, 64, 128, 0.05);
+    transition: all 0.3s ease;
 }
