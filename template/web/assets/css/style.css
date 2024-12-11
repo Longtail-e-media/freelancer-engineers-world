@@ -39,6 +39,10 @@ body {
     background-color: var(--button-bg);
 }
 
+.text-pink {
+    color: var(--button-bg);
+}
+
 .bg-pink:hover {
     background-color: #d46262;
 }
@@ -367,6 +371,7 @@ span.text-danger {
     user-select: none;
 }
 
+.dashboard-container .bg-body-secondary:hover,
 .jobs-container .bg-body-secondary:hover {
     background: #d4d4d4 !important;
     transition: all 0.3s ease;

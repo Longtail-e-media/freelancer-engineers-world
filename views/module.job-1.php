@@ -16,14 +16,14 @@ if (defined('HOME_PAGE')) {
                 <div class="bg-body-secondary p-5 mb-3">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <a href="' . BASE_URL . 'job/' . $job->slug . '" class="text-decoration-none text-dark">
+                            <a href="' . BASE_URL . 'job/' . $job->slug . '" class="text-decoration-none text-primary">
                                 <h5 class="fs-6 fw-bold">' . $job->title . '</h5>
                             </a>
-                            <p class="fs-6">Bid End Date: ' . date('M d, Y', strtotime($job->deadline_date)) . '</p>
+                            <p class="fs-7">Bid End Date: ' . date('M d, Y', strtotime($job->deadline_date)) . '</p>
                         </div>
                         <div>
                             <h5 class="fs-6 fw-bold">' . $budget_text . '</h5>
-                            <p class="fs-6">' . $bids_txt . ' bids</p>
+                            <p class="fs-6 text-success">' . $bids_txt . ' bids</p>
                         </div>
                     </div>
                     <div class="py-4">' . $job->content . '</div>
@@ -77,13 +77,13 @@ if (defined('JOB_LIST_PAGE')) {
                     <div class="d-flex flex-column flex-sm-row justify-content-between gap-3 gap-sm-0">
                         <div class="mb-2 mb-sm-0">
                             <a href="' . BASE_URL . 'job/' . $RecRow->slug . '" class="text-decoration-none text-dark">
-                                <h5 class="fs-5 fw-bold mb-1">' . $RecRow->title . '</h5>
+                                <h5 class="fs-5 fw-bold mb-1 text-primary">' . $RecRow->title . '</h5>
                             </a>
-                            <p class="fs-6 mb-0">Bid End Date: ' . date('M d, Y', strtotime($RecRow->deadline_date)) . '</p>
+                            <p class="fs-7 mb-0">Bid End Date: ' . date('M d, Y', strtotime($RecRow->deadline_date)) . '</p>
                         </div>
                         <div>
                             <h5 class="fs-6 fw-bold mb-1">' . $budget_text . '</h5>
-                            <p class="fs-6 mb-0">' . $bids_txt . ' bids</p>
+                            <p class="fs-6 mb-0 text-success">' . $bids_txt . ' bids</p>
                         </div>
                     </div>
                     <div class="py-3 py-lg-4">
