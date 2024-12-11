@@ -518,16 +518,17 @@ if (!empty($_SESSION)) {
             "SELECT * FROM tbl_jobs WHERE status='1' AND client_id= '" .
             $clientdata->id .
             "' ORDER BY sortorder DESC";
-        $limit = 8;
-        $total = $db->num_rows($db->query($sql));
-        $startpoint = $page * $limit - $limit;
-        $sql .= " LIMIT " . $startpoint . "," . $limit;
-        $query = $db->query($sql);
-        $Records = jobs::find_by_sql($sql);
-        $jobdetail = "";
-        if (!empty($Records)) {
-            // pr($Records);
-            foreach ($Records as $record) {
+            $limit = 8;
+            $total = $db->num_rows($db->query($sql));
+            $startpoint = $page * $limit - $limit;
+            $sql .= " LIMIT " . $startpoint . "," . $limit;
+            $query = $db->query($sql);
+            $Records = jobs::find_by_sql($sql);
+            $jobdetail = "";
+            if (!empty($Records)) {
+                // pr($Records);
+                foreach ($Records as $record) {
+                $biddata= bids::find_by_job_single($record->id);
                 if ($record->budget_type == 1) {
                     $budget =
                         ' <h5 class="fs-6 fw-bold">' .
@@ -613,11 +614,15 @@ if (!empty($_SESSION)) {
                         $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                             <p class="text-dark fs-6 fw-bold">
                                Completed
-                            </p>
-                            <a href="'.BASE_URL.'review/'.$record->slug.'" class="btn btn-outline-success bg-success-subtle text-success fs-7 rounded-0 px-3 py-1">
+                            </p>';
+                            if(!empty($biddata)){
+                            if($biddata->reviewed_freelancer==0){
+                           $jobstatus .= ' <a href="'.BASE_URL.'review/'.$record->slug.'" class="btn btn-outline-success bg-success-subtle text-success fs-7 rounded-0 px-3 py-1">
                                 Review
-                            </a>
-                        </div>';
+                            </a>';
+                        }
+                    }
+                       $jobstatus .= '  </div>';
                         break;
                     case 7:
                         $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
@@ -808,6 +813,7 @@ if (!empty($_SESSION)) {
         $query = $db->query($sql);
         $Records = bids::find_by_sql($sql);
         $jobdetail = "";
+      
         if (!empty($Records)) {
             // pr($Records);
             foreach ($Records as $record) {
@@ -867,7 +873,8 @@ if (!empty($_SESSION)) {
                                 <p class="text-dark fs-6 fw-bold">
                                    Completed
                                 </p>';
-                                if($record->reviewed_freelancer==0){
+                                
+                                if($record->reviewed_client==0){
                               $jobstatus .= '  <a href="'.BASE_URL.'review/'.$jobdatas->slug.'" class="btn btn-outline-success bg-success-subtle text-success fs-7 rounded-0 px-3 py-1">
                                     Review
                                 </a>';
@@ -1387,6 +1394,7 @@ $jVars["module:dashboard-rewardfreelancer"] = $awarddetail;
 
 
 $reviewdetail = "";
+$reviewdetailjs = "";
 if (!empty($_SESSION)) {
     if (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "freelancer" && defined('REVIEW') && isset($_REQUEST['slug'])) {
 
@@ -1443,10 +1451,10 @@ if (!empty($_SESSION)) {
 
                         <!-- Review Section -->
                         <div class="card-body mt-4 mt-lg-5">
+                        <form id="reviewset">
                             <h5 class="fw-bold fs-6 my-3 my-lg-4">Review and Rate Client on project complete</h5>
                             <div class="my-3 my-lg-4">
                                 <div id="rating-container" class="ratings d-flex gap-1">
-                                 <form id="reviewset">
                             <input type="hidden" id="rating" name="rating" value="">
                             <input type="hidden" name="freelancerid" value="'.$freelancerdata->id.'">
                             <input type="hidden" name="clientid" value="'.$clientdatas->id.'">
@@ -1493,6 +1501,7 @@ if (!empty($_SESSION)) {
             </div>
         </section>
     </main>';
+    $reviewdetailjs = '<script src="'.BASE_URL.'template/web/assets/js/ratingsingle.js"></script>';
 }
 elseif (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client" && defined('REVIEW') && isset($_REQUEST['slug'])) {
 
@@ -1622,6 +1631,7 @@ foreach($biddatas as $biddata){
             </div>
         </section>
     </main>';
+    $reviewdetailjs = '<script src="'.BASE_URL.'template/web/assets/js/rating.js"></script>';
 }
    
 } else {
@@ -1629,5 +1639,6 @@ foreach($biddatas as $biddata){
 }
 
 $jVars["module:dashboard-review"] = $reviewdetail;
+$jVars["module:dashboard-review-js"] = $reviewdetailjs;
 
 

@@ -409,6 +409,7 @@
                 // pr($bids);
                 $bids->freelancer_rating = $rating;
                 $bids->reviewed_freelancer = 1;
+                // pr($bids);
                 $save=$bids->save();
             }
             $db->begin();
