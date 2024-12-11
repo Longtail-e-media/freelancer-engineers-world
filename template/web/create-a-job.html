@@ -144,14 +144,14 @@
                                     // logout
                                     return window.location.href = base_url + "logout";
                                 } else {
-                                    $('#msgProfile').html(msg.message).css('display', 'flex').fadeOut(8000);
+                                    $('#msgProfile').html(msg.message).removeClass('alert alert-danger').addClass('alert alert-success').css('display', 'flex').fadeOut(8000);
                                     setTimeout(function () {
                                         return window.location.href = "";
                                     }, 1500);
                                 }
                             }
                             if (msg.action == 'unsuccess') {
-                                $('#msgProfile').html(msg.message).css('display', 'flex').fadeOut(8000);
+                                $('#msgProfile').html(msg.message).addClass('alert alert-danger').removeClass('alert alert-success').css('display', 'flex').fadeOut(8000);
                             }
                         }
                     });
