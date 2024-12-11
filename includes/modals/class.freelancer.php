@@ -31,6 +31,7 @@ class freelancer extends DatabaseObject
         'profile_picture',
         'rating',
         'admin_rating',
+        'online_verification_rating',
         'added_date',
         'sortorder',
         'status'
@@ -61,6 +62,7 @@ class freelancer extends DatabaseObject
     public $profile_picture;
     public $rating;
     public $admin_rating;
+    public $online_verification_rating;
     public $added_date;
     public $sortorder;
     public $status;

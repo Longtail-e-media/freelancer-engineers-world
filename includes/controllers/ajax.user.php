@@ -552,7 +552,7 @@
             $record->engineering_license_no = $_REQUEST['engineering_license_no'];
             $record->engineering_field  = $_REQUEST['engineering_field'];
             $record->mobile_no          = $_REQUEST['mobile_no'];
-            // $record->education_lvl 		= $_REQUEST['education_lvl'];
+            $record->education_lvl 		= $_REQUEST['education_lvl'];
             $record->current_address    = $_REQUEST['current_address'];
             $record->permanent_address  = $_REQUEST['permanent_address'];
             $record->pan_no             = $_REQUEST['pan_no'];
@@ -564,6 +564,24 @@
             $record->facebook_profile   = $_REQUEST['facebook_profile'];
             $record->linkedIn_profile   = $_REQUEST['linkedIn_profile'];
             $record->status             = 1;
+
+            // giving online verification rating if all fields are present
+            if(
+                !empty($record->first_name) and
+                !empty($record->last_name) and
+                !empty($record->profile_picture) and
+                !empty($record->engineering_license_no) and
+                !empty($record->engineering_field) and
+                !empty($record->mobile_no) and
+                !empty($record->education_lvl) and
+                !empty($record->current_address) and
+                !empty($record->permanent_address) and
+                !empty($record->pan_no) and
+                !empty($record->upload_certificate) and
+                !empty($record->upload_cv)
+            ){
+                $record->online_verification_rating = 1;
+            }
 
             $db->begin();
             if ($record->save()):

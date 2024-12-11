@@ -47,7 +47,5 @@ ALTER TABLE `tbl_bids` ADD `reviewed_client` INT(1) NOT NULL AFTER `client_ratin
 ALTER TABLE `tbl_client` ADD `admin_rating` INT NOT NULL DEFAULT '0' AFTER `rating`;
 ALTER TABLE `tbl_freelancer` ADD `admin_rating` INT NOT NULL DEFAULT '0' AFTER `rating`;
 
-
--- 2024-12-09[sahas]
-ALTER TABLE `tbl_bids` ADD `reviewed_freelancer` INT(1) NOT NULL AFTER `freelancer_rating`;
-ALTER TABLE `tbl_bids` ADD `reviewed_client` INT(1) NOT NULL AFTER `client_rating`;
+-- 2024-12-10 [Swarna]
+ALTER TABLE `tbl_freelancer` ADD `online_verification_rating` INT NOT NULL DEFAULT '0' AFTER `admin_rating`;
