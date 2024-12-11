@@ -187,7 +187,7 @@ if (defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
                     <div>
                         <div class="card-title d-flex align-items-center justify-content-between">
                             <div class="">
-                                <h3 class="fs-5 fw-bold">' . $jobdatas->title . '</h3>
+                                <h3 class="fs-5 fw-bold text-primary">' . $jobdatas->title . '</h3>
                                 <span class="fs-7">End Date: ' . date("M d Y", strtotime($jobdatas->deadline_date)) . '</span>
                             </div>
                             <div>
@@ -201,7 +201,7 @@ if (defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
 
         $bids_txt = Bids::find_total_bids($jobdatas->id);
         $jobdetails .= $budget . ' 
-                                <span class="fs-7">' . $bids_txt . ' bids</span>
+                                <span class="fs-7 text-success">' . $bids_txt . ' bids</span>
                             </div>
                         </div>
                         <div class="card-body mt-5 pt-5">
@@ -239,7 +239,7 @@ if (defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
         }
         $jobdetails .= '
                         </div>
-                        <button type="submit" class="btn btn-dark bg-dark-blue text-white">Bid</button>
+                        <button type="submit" class="btn bg-pink text-white">Bid</button>
                     </form>
     
                     <hr class="my-5">
@@ -270,7 +270,7 @@ if (defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
             $related .= '
                     <div class="card-body">
                         <a href="' . BASE_URL . 'job/' . $relatedjob->slug . '" class="text-decoration-none text-dark">
-                            <h5 class="fs-7 fw-bold">' . $relatedjob->title . '</h5>
+                            <h5 class="fs-7 fw-bold text-dark-blue">' . $relatedjob->title . '</h5>
                         </a>
             ';
             if ($relatedjob->budget_type == 1) {
