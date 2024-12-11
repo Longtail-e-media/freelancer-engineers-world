@@ -5,10 +5,10 @@ class Bids extends DatabaseObject
 
     protected static $table_name = "tbl_bids";
     protected static $db_fields = array(
-        'id', 'job_id', 'client_id', 'currency', 'freelancer_id', 'bid_amount', 'delivery', 'message', 'client_rating','reviewed_client', 'freelancer_rating', 'reviewed_freelancer','project_status', 'added_date', 'sortorder', 'status'
+        'id', 'job_id', 'client_id', 'currency', 'freelancer_id', 'bid_amount', 'delivery', 'message', 'client_rating', 'reviewed_client', 'freelancer_rating', 'reviewed_freelancer', 'project_status', 'added_date', 'sortorder', 'status'
     );
 
-    public $id, $job_id, $client_id, $freelancer_id, $currency, $bid_amount, $delivery, $message, $client_rating,$reviewed_client, $freelancer_rating, $reviewed_freelancer, $project_status, $added_date, $sortorder, $status;
+    public $id, $job_id, $client_id, $freelancer_id, $currency, $bid_amount, $delivery, $message, $client_rating, $reviewed_client, $freelancer_rating, $reviewed_freelancer, $project_status, $added_date, $sortorder, $status;
 
 
     public static function get_by_type($type = "1")
@@ -18,12 +18,13 @@ class Bids extends DatabaseObject
         return !empty($result_array) ? array_shift($result_array) : false;
     }
 
-    public static function find_for_client_review($id=0){
-		global $db;
-		$sql = "SELECT * FROM ".self::$table_name." WHERE job_id='$id' AND project_status=4 LIMIT 1";
-		$result_array = self::find_by_sql($sql);
-		return !empty($result_array) ? array_shift($result_array) : false;
-	}
+    public static function find_for_client_review($id = 0)
+    {
+        global $db;
+        $sql = "SELECT * FROM " . self::$table_name . " WHERE job_id='$id' AND project_status=4 LIMIT 1";
+        $result_array = self::find_by_sql($sql);
+        return !empty($result_array) ? array_shift($result_array) : false;
+    }
 
 
     public static function find_by_jobid($jobid = 0)
@@ -34,13 +35,13 @@ class Bids extends DatabaseObject
         // return !empty($result_array) ? array_shift($result_array) : false;
     }
 
-public static function find_by_job_single($jobid = 0)
-{
-    global $db;
-    $result_array = self::find_by_sql("SELECT * FROM " . self::$table_name . " WHERE job_id='$jobid' AND status=1 AND project_status=5  ORDER BY sortorder DESC");
-    // return self::find_by_sql($sql);
-    return !empty($result_array) ? array_shift($result_array) : false;
-}
+    public static function find_by_job_single($jobid = 0)
+    {
+        global $db;
+        $result_array = self::find_by_sql("SELECT * FROM " . self::$table_name . " WHERE job_id='$jobid' AND status=1 AND project_status=5  ORDER BY sortorder DESC");
+        // return self::find_by_sql($sql);
+        return !empty($result_array) ? array_shift($result_array) : false;
+    }
 
     public static function find_by_jobid_bop($jobid = 0)
     {
@@ -57,7 +58,7 @@ public static function find_by_job_single($jobid = 0)
         // return self::find_by_sql($sql);
         return !empty($result_array) ? array_shift($result_array) : false;
     }
-  
+
 
     public static function find_by_jobid_review($jobid = 0)
     {
@@ -68,14 +69,14 @@ public static function find_by_job_single($jobid = 0)
     }
 
 
-    
-	public static function find_by_all_id($client_id,$freeid,$job_id){
-		global $db;
-		$sql = "SELECT * FROM ".self::$table_name." WHERE client_id=$client_id AND freelancer_id=$freeid AND job_id=$job_id LIMIT 1";
+    public static function find_by_all_id($client_id, $freeid, $job_id)
+    {
+        global $db;
+        $sql = "SELECT * FROM " . self::$table_name . " WHERE client_id=$client_id AND freelancer_id=$freeid AND job_id=$job_id LIMIT 1";
         // pr($sql);
-		$result_array = self::find_by_sql($sql);
-		return !empty($result_array) ? array_shift($result_array) : false;
-	}
+        $result_array = self::find_by_sql($sql);
+        return !empty($result_array) ? array_shift($result_array) : false;
+    }
 
     public static function find_by_jobid_short($jobid = 0)
     {
@@ -110,6 +111,14 @@ public static function find_by_job_single($jobid = 0)
         $sql = $db->query($query);
         $ret = $db->fetch_array($sql);
         return $ret['tot'];
+    }
+
+    public static function find_completed_jobs_per_freelancer($freelancer_id = 0)
+    {
+        global $db;
+        $result = $db->query("SELECT COUNT(id) AS total FROM " . self::$table_name . " WHERE project_status=5 AND freelancer_id='$freelancer_id'");
+        $return = $db->fetch_array($result);
+        return ($return) ? ($return['total']) : 0;
     }
 
     public static function find_total_bids($job_id = '')
