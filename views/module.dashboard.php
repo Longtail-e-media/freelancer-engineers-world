@@ -549,11 +549,11 @@ if (!empty($_SESSION)) {
                 $jobstatus = "";
                 $bidstatus='';
                 $totalbids = bids::find_total_bids($record->id);
-                $bidstatus = '<p class="fs-6 m-0 d-inline-block">No. of Bids: <span>' .
+                $bidstatus = '<p class="fs-7 m-0 d-inline-block">No. of Bids: <span>' .
                     $totalbids .'</span></p>';
                 switch ($record->project_status) {
                     case 1:
-                        $bidstatus = '<p class="fs-6 m-0 d-inline-block">No. of Bids: <span>' .
+                        $bidstatus = '<p class="fs-7 m-0 d-inline-block">No. of Bids: <span>' .
                     $totalbids .'</span></p>';
                         $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                             <p class="text-primary fs-6 fw-bold">
@@ -570,7 +570,7 @@ if (!empty($_SESSION)) {
                         break;
                     case 2:
                         $totalshortlisted = bids::find_total_shortlisted($record->id);
-                        $bidstatus = '<p class="fs-6 m-0 d-inline-block">No. of Shortlisted: <span>' .
+                        $bidstatus = '<p class="fs-7 m-0 d-inline-block">No. of Shortlisted: <span>' .
                         $totalshortlisted .'</span></p>';
                         $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                             <p class="text-info fs-6 fw-bold">
@@ -586,7 +586,7 @@ if (!empty($_SESSION)) {
 
                     case 3:
                         $totalawarded = bids::find_total_awarded($record->id);
-                        $bidstatus = '<p class="fs-6 m-0 d-inline-block">No. of awarded: <span>' .
+                        $bidstatus = '<p class="fs-7 m-0 d-inline-block">No. of awarded: <span>' .
                         $totalawarded .'</span></p>';
                         $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-center">
                             <a class="nav-link text-success fs-6 fw-bold dropdown" href="#" role="button"
@@ -902,23 +902,24 @@ if (!empty($_SESSION)) {
                 // pr($totalbids);
                 
                 // pr($jobdatas);
-                 if ($jobdatas->budget_type == 1) {
+                //  if ($jobdatas->budget_type == 1) {
                     $budget =
                         ' <h5 class="fs-6 fw-bold">' .
                         $jobdatas->currency .
                         " " .
-                        $jobdatas->exact_budget .
+                        $record->bid_amount .
                         "</h5>";
-                } else {
-                    $budget =
-                        '<h5 class="fs-6 fw-bold">' .
-                        $jobdatas->currency .
-                        " " .
-                        $jobdatas->budget_range_low .
-                        " - " .
-                        $jobdatas->budget_range_high .
-                        "</h5>";
-                }
+                // } 
+                // else {
+                //     $budget =
+                //         '<h5 class="fs-6 fw-bold">' .
+                //         $jobdatas->currency .
+                //         " " .
+                //         $jobdatas->budget_range_low .
+                //         " - " .
+                //         $jobdatas->budget_range_high .
+                //         "</h5>";
+                // }
                 $jobdetail .=
                     ' <div class="bg-body-secondary p-3 p-md-5 mb-3">
                     <div class="row">
@@ -1651,5 +1652,44 @@ foreach($biddatas as $biddata){
 
 $jVars["module:dashboard-review"] = $reviewdetail;
 $jVars["module:dashboard-review-js"] = $reviewdetailjs;
+
+
+if (defined('RESET_PASSWORD_PAGE')) {
+    $token = $_REQUEST['access_code'];
+    $user = User::get_uid_by_accessToken($token);
+
+    $rest_password_form .= '
+     <form id="loginForm" class="row g-4">
+      <input type="hidden" name="id" value="' . $user->id . '">
+            <input type="hidden" name="token" value="' . $token . '">
+                    <div class="col-12 position-relative">
+                        <input type="password" placeholder="Password"
+                               class="form-control fs-6 py-3 px-3 border border-dark-subtle rounded-0" id="password"
+                               name="password">
+                        <img src="assets/images/icons/view.png" alt="view and hide" id="showhide">
+                    </div>
+                    <div class="col-12 position-relative">
+                        <input type="password" placeholder="confirm Password"
+                               class="form-control fs-6 py-3 px-3 border border-dark-subtle rounded-0" id="confirm_password"
+                               name="confirm_password">
+                        <img src="assets/images/icons/view.png" alt="view and hide" id="cshowhide">
+                    </div>
+                    <div class="col-12 d-flex justify-content-between">
+                        <label for="agreement" class="fs-6">
+                        </label>
+                        <a href="login" class="fs-6 text-primary text-decoration-none">login?</a>
+                    </div>
+                    <div id="loginMsg"></div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary text-white form-control fs-6 py-3 px-3 border border-dark-subtle rounded-0 fw-bold"
+                                id="submitLogin">
+                            submit
+                        </button>
+                    </div>
+                </form>
+    ';
+}
+
+$jVars['module:user:reset-password-form'] = $rest_password_form;
 
 

@@ -465,6 +465,59 @@
             endif;
         break;
 
+        case "forgotUserPassword":
+            $emailAddress = addslashes($_REQUEST['email']);
+            $mailcheck  = User::get_validMember_mail($emailAddress);
+
+            if ($mailcheck):
+
+                $row = User::find_by_mail($emailAddress);
+                $forgetRec = User::find_by_id($row->id);
+                $accessToken = @randomKeys(10);
+                $forgetRec->access_code = $accessToken;
+
+                /* Mail Format */
+                $siteName       = Config::getField('sitename', true);
+                $AdminEmail     = User::get_UseremailAddress_byId(1);
+                $fullName       = $forgetRec->first_name." ".$forgetRec->last_name;
+
+                $msgbody = '<div>
+                <h3>Reset password on ' . $siteName . '</h3>                
+                <div><font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
+                Please <a href="' . BASE_URL . 'reset-password/' . $accessToken . '">click here to reset your password.</a> <br><br>
+                If you didn\'t request your password then delete this email.  <br>
+                <br><br>
+                <p>Thanks,
+                <br> Webmaster<br>
+                ' . $siteName . '
+                </p>
+                </div>
+                </div>';
+
+                $mail = new PHPMailer();
+
+                $mail->SetFrom($AdminEmail, $siteName, 0);
+                
+    
+                $mail->AddReplyTo($forgetRec->email, $fullName);
+                $mail->AddAddress($forgetRec->email, $fullName);
+                $mail->Subject = "Forgot password on " . $siteName;
+                $mail->MsgHTML($msgbody);
+
+                if (!$mail->Send()):
+                    $message = "Not valid User email address";
+                    echo json_encode(array('action' => 'unsuccess', 'message' => $message));
+                else:
+                    $forgetRec->save();
+                    $message = "Please check your mail for reset password";
+                    echo json_encode(array('action' => 'success', 'message' => $message));
+                endif;
+            else:
+                $message = "Not valid User email address";
+                echo json_encode(array('action' => 'unsuccess', 'message' => $message));
+            endif;
+        break;
+
         case "frontLogin":
             $email          = addslashes($_REQUEST['email']);
             $emailoruser    = explode("@", $email);
@@ -654,6 +707,20 @@
                 $message    = "Please Login !";
                 echo json_encode(array("action" => "noLogin", "message" => $message));
             }
+        break;
+
+        case "resetUserPassword":
+            $id                 = addslashes($_REQUEST['id']);
+            $record             = User::find_by_id($id);
+            $record->password   = md5($_REQUEST['password']);
+            $record->access_code = @randomKeys(10);
+            if ($record->save()):
+                $message = "Password has been changed, please login!";
+                echo json_encode(array('action' => 'success', 'message' => $message));
+            else:
+                $message = "Internal error!";
+                echo json_encode(array('action' => 'unsuccess', 'message' => $message));
+            endif;
         break;
 	}
 ?>
