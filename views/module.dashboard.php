@@ -1450,7 +1450,7 @@ if (!empty($_SESSION)) {
 
         <!-- Main Content -->
         <section class="container">
-            <a href="#" class="text-dark fs-7 d-block mb-3 mb-lg-5">
+            <a href="'.BASE_URL.'dashboard" class="text-dark fs-7 d-block mb-3 mb-lg-5">
                 <i class="fa-solid fa-arrow-left"></i>
                 Back to list page
             </a>
@@ -1555,7 +1555,7 @@ elseif (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client" && 
 
         <!-- Main Content -->
         <section class="container">
-            <a href="#" class="text-dark fs-7 d-block mb-3 mb-lg-5">
+            <a href="'.BASE_URL.'dashboard" class="text-dark fs-7 d-block mb-3 mb-lg-5">
                 <i class="fa-solid fa-arrow-left"></i>
                 Back to list page
             </a>
