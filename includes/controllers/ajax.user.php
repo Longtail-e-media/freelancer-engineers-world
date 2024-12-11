@@ -521,14 +521,7 @@
         case "frontLogin":
             $email          = addslashes($_REQUEST['email']);
             $emailoruser    = explode("@", $email);
-            // pr($emailoruser);
-            // if(!empty($emailoruser[1])){
-            // 	$sqluser='email="' . $email . '"';
-            // }
-            // else{
-            // 	$sqluser='username="' . $email . '"';
-            // }
-            $paccess = addslashes($_REQUEST['password']);
+            $paccess        = addslashes($_REQUEST['password']);
 
             $sql    = 'SELECT * FROM tbl_users WHERE ((email="' . $email . '" or username="' . $email . '")';
             $sql    .= ' AND password="' . md5($paccess) . '") AND (group_id=3 OR group_id=4) LIMIT 1';
@@ -545,15 +538,7 @@
                     $usertype = 'freelancer';
                 }
 
-                if (!empty($emailoruser[1])) {
-                    $uprec = User::find_by_mail($email);
-                } else {
-                    $uprec = User::find_by_username($email);
-                }
-
-                // $uprec = User::find_by_mail($email);
-
-                if ($uprec->status == 0) {
+                if ($sqlid->status == 0) {
                     $message = "Your account has not been approved!";
                     echo json_encode(array("action" => "error", "message" => $message));
                 } else {
@@ -569,11 +554,49 @@
                         setcookie("remem_email", '', time() - (60 * 60), "/", "");
                         setcookie("remem_pass", '', time() - (60 * 60), "/", "");
                     }
-                    $message = "Welcome " . $uprec->first_name . "! You will be redirected to Dashboard shortly!";
-                    if (isset($_REQUEST['page']) and $_REQUEST['page'] == 'checkout') {
-                        $message = "Welcome " . $uprec->first_name . "!";
+
+                    $url = BASE_URL . 'dashboard';
+                    $message = "Welcome " . $sqlid->first_name . "! You will be redirected to Dashboard shortly!";
+
+                    // check required fields for Client and Freelancer
+                    if ($sqlid->group_id == 3) {
+                        // checking for Client
+                        $clientRec = client::find_by_userid($sqlid->id);
+                        if (
+                            !isset($clientRec->email) || trim($clientRec->email) === '' ||
+                            !isset($clientRec->username) || trim($clientRec->username) === '' ||
+                            !isset($clientRec->mobile_no) || trim($clientRec->mobile_no) === '' ||
+                            !isset($clientRec->current_address) || trim($clientRec->current_address) === '' ||
+                            !isset($clientRec->permanent_address) || trim($clientRec->permanent_address) === ''
+                        ) {
+                            $url = BASE_URL . 'profile';
+                            $message = "Welcome " . $sqlid->first_name . "! You will be redirected to Profile shortly! Please fill out your Profile!";
+                        }
+                    } elseif ($sqlid->group_id == 4) {
+                        // checking for Freelancer
+                        $freelancerRec = freelancer::find_by_userid($sqlid->id);
+                        if (
+                            !isset($freelancerRec->email) || trim($freelancerRec->email) === '' ||
+                            !isset($freelancerRec->username) || trim($freelancerRec->username) === '' ||
+                            !isset($freelancerRec->mobile_no) || trim($freelancerRec->mobile_no) === '' ||
+                            !isset($freelancerRec->current_address) || trim($freelancerRec->current_address) === '' ||
+                            !isset($freelancerRec->first_name) || trim($freelancerRec->first_name) === '' ||
+                            !isset($freelancerRec->last_name) || trim($freelancerRec->last_name) === '' ||
+                            !isset($freelancerRec->profile_picture) || trim($freelancerRec->profile_picture) === '' ||
+                            !isset($freelancerRec->engineering_license_no) || trim($freelancerRec->engineering_license_no) === '' ||
+                            !isset($freelancerRec->engineering_field) || trim($freelancerRec->engineering_field) === '' ||
+                            !isset($freelancerRec->education_lvl) || trim($freelancerRec->education_lvl) === '' ||
+                            !isset($freelancerRec->pan_no) || trim($freelancerRec->pan_no) === '' ||
+                            !isset($freelancerRec->upload_certificate) || trim($freelancerRec->upload_certificate) === '' ||
+                            !isset($freelancerRec->upload_cv) || trim($freelancerRec->upload_cv) === '' ||
+                            !isset($freelancerRec->permanent_address) || trim($freelancerRec->permanent_address) === ''
+                        ) {
+                            $url = BASE_URL . 'profile';
+                            $message = "Welcome " . $sqlid->first_name . "! You will be redirected to Profile shortly! Please fill out your Profile!";
+                        }
                     }
-                    echo json_encode(array("action" => "success", "message" => $message));
+
+                    echo json_encode(array("action" => "success", "message" => $message, "url" => $url));
                 }
             } else {
                 $message = "Email or Password doesn't match !";

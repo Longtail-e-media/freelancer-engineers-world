@@ -91,7 +91,7 @@
             },
             messages: {
                 email: {
-                    required: "Enter your email"
+                    required: "Enter your email",
                     // email: "Enter a valid email address"
                 },
                 password: {required: "Enter your password"}
@@ -116,7 +116,7 @@
                                     .fadeOut(8000);
                                 $("button#submitLogin").removeAttr("disabled").text('Log In');
                                 setTimeout(function () {
-                                    window.location.href = base_url + "profile";
+                                    window.location.href = msg.url;
                                 }, 3000);
                             }
                             if (msg.action == 'error') {
