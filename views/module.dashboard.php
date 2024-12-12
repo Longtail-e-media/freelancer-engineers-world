@@ -409,7 +409,7 @@ if (!empty($_SESSION)) {
                 '" target="_blank">' .
                 $freelancerdata->upload_cv .
                 '</a> </span>
-                                            <input type="hidden" name="imageArrayname2" value="' .
+                                            <input type="hidden" name="imageArrayname3" value="' .
                 $freelancerdata->upload_cv .
                 '" class=""/>
                                         </div>

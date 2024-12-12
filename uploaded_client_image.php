@@ -11,7 +11,7 @@ if (!empty($imageNameArr)):
     foreach ($imageNameArr as $key => $val):?>
         <div class="form-row">
             <div class="" id="previewUserimage<?php echo $deleteid; ?>">
-                <div class="infobox info-bg">
+                <div class="infobox info-bg col-md-3">
                     <img src="<?php echo IMAGE_PATH . 'client/profile/thumbnails/' . $val; ?>" style="width:100%"/>
                     <a href="javascript:void(0);" onclick="deleteTempimage(<?php echo $deleteid; ?>);">
                         <span class="badge badge-absolute float-right bg-red" style="right: -10px !important;">
