@@ -119,7 +119,7 @@
                                 $("button#submitLogin").removeAttr("disabled").text('Log In');
                                 setTimeout(function () {
                                     window.location.href = msg.url;
-                                }, 3000);
+                                }, 5000);
                             }
                             if (msg.action == 'error') {
                                 $('#loginMsg')
@@ -170,7 +170,7 @@
                                 $("button#submitForgot").removeAttr("disabled").text('Submit');
                                 setTimeout(function () {
                                     window.location.href = base_url + "login";
-                                }, 3000);
+                                }, 5000);
                             }
                             if (msg.action == 'unsuccess') {
                                 $('#forgotMsg')

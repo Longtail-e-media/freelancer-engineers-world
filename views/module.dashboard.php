@@ -5,7 +5,7 @@
  */
 $profile = "";
 if (!empty($_SESSION)) {
-    if (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client") {
+    if (!empty($_SESSION["user_type"]) && ($_SESSION["user_type"] == "client") && defined('PROFILE_PAGE') ) {
         // pr($_SESSION["user_id"]);
         $clientdata = client::find_by_userid($_SESSION["user_id"]);
         $clientuser = user::find_by_id($_SESSION["user_id"]);
@@ -185,7 +185,7 @@ if (!empty($_SESSION)) {
 
     if (
         !empty($_SESSION["user_type"]) &&
-        $_SESSION["user_type"] == "freelancer"
+        ($_SESSION["user_type"] == "freelancer") && defined('PROFILE_PAGE')
     ) {
         $freelancerdata = freelancer::find_by_userid($_SESSION["user_id"]);
 
