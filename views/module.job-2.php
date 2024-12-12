@@ -8,39 +8,53 @@ if (!empty($_SESSION)) {
 
         $record = client::find_by_userid($_SESSION['user_id']);
         $createajob .= '
-        <section class="container">
-            <div class="row job-title-content gx-0">
-                <div class="col-md-7 bg-light p-5" style="position: sticky; top: 5rem; max-height: max-content;">
+        <section class="container mt-4">
+            <div class="row job-title-content gx-0 gy-5">
+                <div class="col-12 col-lg-7 bg-light p-3 p-md-4 p-lg-5">
                     <form class="client-form" id="createjob">
                     <input type="hidden" name="client_id" value="' . $record->id . '">
                         <div class="row g-3">
-                            <div class="col-md-12">
+                            <div class="col-md-7">
                                 <div class="form-floating">
                                     <input type="text" class="form-control border-0 rounded-0 fs-6" id="jobtitle" placeholder="Job Title" 
                                            name="title">
                                     <label for="jobtitle">Job Title <span class="text-danger">*</span></label>
                                 </div>
                             </div>
+                            <div class="col-md-5 d-flex align-items-start flex-column bg-white">
+                                <label for="budgetUnit" class="fs-7">Job category <span class="text-danger">*</span></label>
+                                <select class="border-0 rounded-0 fs-7" id="budgetUnit" name="job_type"
+                                    style="width: 100%; height: 100%!important;">';
+
+        $jobcategorys = jobtitle::find_all_active();
+        foreach ($jobcategorys as $key => $jobcategory) {
+            $createajob .= '   <option value="' . $jobcategory->id . '" >' . $jobcategory->title . '</option>';
+        }
+
+        $createajob .= '     
+        <option value="0" >Other</option>
+           </select>
+                            </div>
                         </div>
     
                         <div class="row g-3 mt-3">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-floating">
                                     <input type="date" class="form-control border-0 rounded-0 fs-6" id="deadline"
                                            name="deadline_date">
                                     <label for="deadline">Deadline Date <span class="text-danger">*</span></label>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control border-0 rounded-0 fs-6" id="Currency" placeholder="Currency"
+                                           name="currency">
+                                    <label for="Currency">Currency <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
                         </div>
     
                         <div class="row g-3 mt-3">
-                            <div class="col-md-2">
-                                <label for="Currency" class="form-label fs-6">Currency<span class="text-danger">*</span></label>
-                                <div class="form-floating">
-                                    <input type="text" class="form-control border-0 rounded-0 fs-6" id="Currency"
-                                           name="currency">
-                                </div>
-                            </div>
                             <div class="col-md-4">
                                 <label for="budgetType" class="form-label fs-6">Budget Type <span class="text-danger">*</span></label>
                                 <div class="d-flex gap-5 mt-2">
@@ -57,21 +71,21 @@ if (!empty($_SESSION)) {
                                 </div>
                             </div>
                             <!-- Budget Range -->
-                            <div class="col-md-6" id="budgetRangeFields">
+                            <div class="col-md-8" id="budgetRangeFields">
                                 <label for="budgetRangeMin" class="form-label fs-6">Budget Range <span class="text-danger">*</span></label>
                                 <div class="d-flex align-items-center gap-2">
-                                    <input type="number" class="form-control border-0 rounded-0 fs-6" id="budgetRangeMin"
-                                           name="budget_range_low">
+                                    <input type="number" class="form-control border-0 rounded-0 fs-6 py-3" id="budgetRangeMin"
+                                           name="budget_range_low" placeholder="Minimum Value">
                                     <span>to</span>
-                                    <input type="number" class="form-control border-0 rounded-0 fs-6" id="budgetRangeMax" 
-                                           name="budget_range_high">
+                                    <input type="number" class="form-control border-0 rounded-0 fs-6 py-3" id="budgetRangeMax" 
+                                           name="budget_range_high" placeholder="Maximum Value">
                                 </div>
                             </div>
     
                             <!-- Exact Budget -->
                             <div class="col-md-5" id="budgetExactField" style="display: none;">
                                 <label for="budgetExact" class="form-label fs-6">Exact Budget <span class="text-danger">*</span></label>
-                                <input type="number" class="form-control border-0 rounded-0 fs-6" id="budgetExact" placeholder="Enter Exact Budget"
+                                <input type="number" class="form-control border-0 rounded-0 fs-6 py-3" id="budgetExact" placeholder="Enter Exact Budget"
                                        name="exact_budget">
                             </div>
     
@@ -87,42 +101,26 @@ if (!empty($_SESSION)) {
                                 </select>
                             </div> -->
                         </div>
-                        <div class="row g-3 mt-3">
-                            <div class="col-md-3 d-flex align-items-start flex-column">
-                                <label for="budgetUnit">Job category <span class="text-danger">*</span></label>
-                                <select class="border-0 rounded-0 fs-7 pt-2 mt-4 px-4" id="budgetUnit" name="job_type"
-                                    style="width: 100%; height: 100%!important;">';
-
-        $jobcategorys = jobtitle::find_all_active();
-        foreach ($jobcategorys as $key => $jobcategory) {
-            $createajob .= '   <option value="' . $jobcategory->id . '" >' . $jobcategory->title . '</option>';
-        }
-
-        $createajob .= '     
-        <option value="0" >Other</option>
-           </select>
-                            </div>
-                        </div>
  
                         <div class="row g-3 mt-3">
                             <div class="col-md-12">
-                                <label for="jobDescription" class="form-label fs-6">Job Description</label>
+                                <label for="jobDescription" class="form-label fs-6">Job Description <span class="text-danger">*</span></label>
                                 <textarea class="form-control border-0 rounded-0 fs-6" id="jobDescription" rows="6"
                                           placeholder="Provide a detailed job description" name="content"></textarea>
                             </div>
                         </div>
                         <div id="msgProfile"></div>
                         <div>
-                            <button type="submit" class="btn btn-dark bg-dark-blue text-light px-5 py-2 fs-6 rounded-0 border-0 mt-5" id="submit">
+                            <button type="submit" class="btn btn-dark bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0 mt-5" id="submit">
                                 Create a Job
                             </button>
                         </div>
                     </form>
                 </div>
-                <div class="col-md-5 bg-white ps-5">
-                    <h5 class="fw-bold fs-5 mb-4">
-                        Basic policy to post job:
-                    </h5>
+                <div class="col-12 col-lg-5 order-1 order-lg-2">
+                    <div class="bg-white p-1 py-md-0 px-md-4 px-lg-5">
+                        <h5 class="fw-bold fs-5 mb-4">Basic policy to post job:</h5>
+                        <div class="policy-content fs-7 ">
     
                     <p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer risus erat, commodo nec arcu
@@ -153,6 +151,7 @@ if (!empty($_SESSION)) {
                     </p>
     
                 </div>
+                </div>
             </div>
         </section>
         ';
@@ -181,8 +180,8 @@ if (defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
                 </h1>
             </div>
         </div>
-        <section class="container">
-            <div class="row job-title-content gx-0">
+        <section class="container mt-4">
+            <div class="row job-title-content gx-0 gy-4">
                 <div class="col-md-9 bg-light p-3 p-md-5">
                     <div>
                         <div class="card-title d-flex align-items-center justify-content-between">
