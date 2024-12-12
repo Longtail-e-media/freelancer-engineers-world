@@ -50,7 +50,7 @@ if (defined('JOB_LIST_PAGE')) {
     $page = (isset($_REQUEST["pageno"]) and !empty($_REQUEST["pageno"])) ? $_REQUEST["pageno"] : 1;
 
     $sql    = "SELECT * FROM tbl_jobs WHERE status='1' ORDER BY sortorder DESC";
-    $limit  = 1;
+    $limit  = 8;
     $total  = $db->num_rows($db->query($sql));
     $startpoint = ($page * $limit) - $limit;
     $sql    .= " LIMIT " . $startpoint . "," . $limit;
