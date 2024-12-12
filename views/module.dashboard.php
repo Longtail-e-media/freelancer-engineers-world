@@ -27,7 +27,7 @@ if (!empty($_SESSION)) {
                 </div>
                 <section class="container form-container">
                      <div class="card p-3 p-md-5 bg-light border-0 rounded-0 shadow-sm">
-                <h2 class="fs-5 fw-bold mb-4">Client Signup</h2>
+                <h2 class="fs-5 fw-bold mb-4">Client profile</h2>
                         <form id="clientfrm" class="client-form">
                             <!-- Username and Email -->
                             <div class="row g-3">
@@ -195,13 +195,13 @@ if (!empty($_SESSION)) {
         <div class="bg-dark-blue">
             <div class="container">
                 <h1 class="text-light py-5 fw-light fs-1 text-center text-md-start">
-                            Update your Freelancer profile
+                            Update your profile
                         </h1>
                     </div>
                 </div>
                  <section class="container form-container my-0 my-md-5">
             <div class="card p-2 p-md-5 bg-light border-0 rounded-0 shadow-sm">
-                <h2 class="fs-5 fw-bold mb-4">Freelancer Signup</h2>
+                <h2 class="fs-5 fw-bold mb-4">Freelancer profile</h2>
                         <form class="freelancer-form" id="freelancerfrm">
                             <!-- Basic Information -->
                             <div class="row g-3">
@@ -293,7 +293,7 @@ if (!empty($_SESSION)) {
                                     <div class="form-floating">
                                         <input type="text" class="form-control border-0 rounded-0 fs-5" id="phoneNumber" name="phone_no"
                                             placeholder="Phone Number" value="' .
-            $freelancerdata->mobile_no .
+            $freelancerdata->phone_no .
             '">
                                         <label for="phoneNumber">Phone Number</label>
                                     </div>

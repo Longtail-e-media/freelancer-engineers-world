@@ -627,6 +627,7 @@
             $record->engineering_license_no = $_REQUEST['engineering_license_no'];
             $record->engineering_field  = $_REQUEST['engineering_field'];
             $record->mobile_no          = $_REQUEST['mobile_no'];
+            $record->phone_no          = $_REQUEST['phone_no'];
             $record->education_lvl 		= $_REQUEST['education_lvl'];
             $record->current_address    = $_REQUEST['current_address'];
             $record->permanent_address  = $_REQUEST['permanent_address'];
