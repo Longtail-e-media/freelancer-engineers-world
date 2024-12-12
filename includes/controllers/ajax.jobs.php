@@ -277,6 +277,8 @@
             if ($job->save()):
                 $sql        = 'update tbl_bids set project_status=3 where job_id=' . $jobid . ' and freelancer_id in (' . $bidderIds . ')';
                 $db->query($sql);
+                $sql1       = 'update tbl_bids set project_status=4 where job_id=' . $jobid . ' and freelancer_id NOT in (' . $bidderIds . ')';
+                $db->query($sql1);
                 $db->commit();
                 $message    = "Jobs bid in " . $job->title;
                 echo json_encode(array("action" => "success", "message" => "Freelancer has been Awarded!"));
@@ -432,16 +434,15 @@
         break;
 
         case "forcomplete":
-            // pr($_REQUEST['jobid']);
             $sqlids     = '';
             $job        = jobs::find_by_id($_REQUEST['jobid']);
             $job->project_status = 6;
-
+            
             $db->begin();
             if ($job->save()):
                 $jobid=$_REQUEST['jobid'];
-                // $bidderIds = implode(',', array_map('intval', $_REQUEST['bidder']));
-                $sql="update tbl_bids set project_status=5 where job_id='.$jobid.' and project_status=3";
+                $sql="update tbl_bids set project_status=5 where job_id=$jobid and project_status=3";
+                // pr($sql);
                 $db->query($sql);
                 $db->commit();
                 // $message = "Jobs bid in " . $job->title;

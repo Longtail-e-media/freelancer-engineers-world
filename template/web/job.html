@@ -96,7 +96,7 @@
                     success: function (data) {
                         var msg = eval(data);
                         $("a#submitBid").removeAttr("disabled").html('Submit Bid');
-                        $('div#bidMsg').html(msg.message).css('display', 'block').fadeOut(10000);
+                        $('div#bidMsg').html(msg.message).addClass('alert alert-success').css('display', 'block').fadeOut(10000);
                         setTimeout(function () {
                             window.location.reload();
                         }, 5000);

@@ -229,6 +229,7 @@
 
         // Save Form
         $("#freelancerfrm").validate({
+            errorClass: 'text-danger',
             rules: {
                 first_name: {required: !0},
                 last_name: {required: !0},
@@ -277,7 +278,7 @@
                                     // logout
                                     return window.location.href = base_url + "logout";
                                 } else {
-                                    $('#msgProfile').html(msg.message).css('display', 'flex').fadeOut(8000);
+                                    $('#msgProfile').html(msg.message).addClass('alert alert-success').css('display', 'flex').fadeOut(8000);
                                     setTimeout(function () {
                                         return window.location.href = "";
                                     }, 5000);
@@ -287,7 +288,7 @@
                                 $('#msgProfile').html(msg.message).addClass('alert alert-danger').css('display', 'flex').fadeOut(8000);
                             }
                             if (msg.action == 'unsuccess') {
-                                $('#msgProfile').html(msg.message).css('display', 'flex').fadeOut(8000);
+                                $('#msgProfile').html(msg.message).addClass('alert alert-danger').css('display', 'flex').fadeOut(8000);
                             }
                         }
                     });
@@ -298,6 +299,7 @@
 
         // Save Form
         $("#clientfrm").validate({
+            errorClass: 'text-danger',
             rules: {
                 username: {
                     required: !0
@@ -353,14 +355,14 @@
                                     // logout
                                     return window.location.href = base_url + "logout";
                                 } else {
-                                    $('#msgProfile').html(msg.message).css('display', 'flex').fadeOut(8000);
+                                    $('#msgProfile').html(msg.message).addClass('alert alert-success').css('display', 'flex').fadeOut(8000);
                                     setTimeout(function () {
                                         return window.location.href = "";
                                     }, 5000);
                                 }
                             }
                             if (msg.action == 'unsuccess') {
-                                $('#msgProfile').html(msg.message).css('display', 'flex').fadeOut(8000);
+                                $('#msgProfile').html(msg.message).addClass('alert alert-danger').css('display', 'flex').fadeOut(8000);
                             }
                         }
                     });

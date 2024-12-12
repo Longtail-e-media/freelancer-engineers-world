@@ -576,7 +576,7 @@ if (!empty($_SESSION)) {
                         break;
                     case 2:
                         $totalshortlisted = bids::find_total_shortlisted($record->id);
-                        $bidstatus = '<p class="fs-7 m-0 d-inline-block">No. of Shortlisted: <span>' .
+                        $bidstatus = '<p class="fs-7 m-0 d-inline-block">Shortlisted freelancers: <span>' .
                         $totalshortlisted .'</span></p>';
                         $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                             <p class="text-info fs-6 fw-bold">
@@ -592,7 +592,7 @@ if (!empty($_SESSION)) {
 
                     case 3:
                         $totalawarded = bids::find_total_awarded($record->id);
-                        $bidstatus = '<p class="fs-7 m-0 d-inline-block">No. of awarded: <span>' .
+                        $bidstatus = '<p class="fs-7 m-0 d-inline-block">Awarded freelancers: <span>' .
                         $totalawarded .'</span></p>';
                         $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-center">
                             <a class="nav-link text-success fs-6 fw-bold dropdown" href="#" role="button"
@@ -603,7 +603,6 @@ if (!empty($_SESSION)) {
                                 <li><a class="dropdown-item text-primary-emphasis fs-6" id="wop" onclick="changetowop('.$record->id.')">Work on
                                         progress</a></li>
                             </ul>
-                            <div id="setup"></div>
                         </div>';
                         break;
                     case 4:
@@ -628,7 +627,6 @@ if (!empty($_SESSION)) {
                                 </li>
                             </ul>
                             </div>
-                            <div id="setup"></div>
                         ';
                             break;
                     case 6:
@@ -855,7 +853,7 @@ if (!empty($_SESSION)) {
                         $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                             <p class="text-primary fs-6 fw-bold">
                                 Bid On Progress
-                            </p></div>"';
+                            </p></div>';
                         // if ($totalbids > 0) {
                         //     $jobstatus .= '<div class="d-inline-block bg-dark-subtle px-3 view-select">
                         //         <a href="" class="text-decoration-none text-dark">View</a>
@@ -882,11 +880,11 @@ if (!empty($_SESSION)) {
                             <p class="text-success fs-6 fw-bold">
                                  Awarded
                             </p>
-                            <div class="d-inline-block bg-dark-subtle px-3 view-select">
+                            <!--<div class="d-inline-block bg-dark-subtle px-3 view-select">
                                 <a href="" class="text-decoration-none text-dark">View</a>
                                 <span>/</span>
                                 <a href="'.BASE_URL.'awarded/'.$jobdatas->slug.'" class="text-decoration-none text-dark">Select</a>
-                            </div>
+                            </div>-->
                         </div>';
                         break;
                     case 4:

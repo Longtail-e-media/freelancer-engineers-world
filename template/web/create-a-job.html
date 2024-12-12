@@ -89,6 +89,7 @@ jQuery.validator.addMethod("comparison", function (value, element) {
 
 // Initialize Validation
 $("#createjob").validate({
+    errorClass: 'text-danger',
     rules: {
         job_title: {
             required: true
