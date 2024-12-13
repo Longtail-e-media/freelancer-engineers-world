@@ -1211,9 +1211,10 @@ if (!function_exists('calculate_rating_for_client')) {
         if (!empty($bidId)) {
             $bidRecord      = Bids::find_by_id($bidId);
             $clientRecord   = client::find_by_id($bidRecord->client_id);
+            $jobRecord      = jobs::find_by_id($bidRecord->job_id);
 
             $ratingFromFreelancer   = $bidRecord->client_rating;
-            $ratingFromPlatform     = $clientRecord->admin_rating;
+            $ratingFromPlatform     = $jobRecord->admin_rating;
             $previousRating         = $clientRecord->rating;
             $noOfCompletedProjects  = jobs::find_completed_jobs($bidRecord->client_id);
 
@@ -1251,7 +1252,7 @@ if (!function_exists('calculate_rating_for_freelancer')) {
 
             $onlineVerificationRating = $freelancerRecord->online_verification_rating;
             $ratingFromClient       = $bidRecord->freelancer_rating;
-            $ratingFromPlatform     = $freelancerRecord->admin_rating;
+            $ratingFromPlatform     = $bidRecord->admin_rating;
             $previousRating         = $freelancerRecord->rating;
             $noOfCompletedProjects  = bids::find_completed_jobs_per_freelancer($bidRecord->freelancer_id);
 

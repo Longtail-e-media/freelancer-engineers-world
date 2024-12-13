@@ -29,6 +29,13 @@ switch($action) {
 
         $db->begin();
         if ($record->save()):$db->commit();
+            // update client rating
+            $bids = bids::find_by_sql("SELECT * FROM tbl_bids WHERE job_id='$record->id' AND client_id='$record->client_id' AND project_status='5' ");
+            if (!empty($bids)) {
+                foreach ($bids as $bid) {
+                    calculate_rating_for_client($bid->id);
+                }
+            }
             $message = "Admin rating for Job '" . $record->title . "' for Client added successfully!";
             echo json_encode(array("action" => "success", "message" => $message));
             log_action($message, 1, 4);
@@ -45,6 +52,8 @@ switch($action) {
 
         $db->begin();
         if ($record->save()):$db->commit();
+            // update freelance rating
+            calculate_rating_for_freelancer($record->id);
             $message = "Admin rating for Job '" . $jobTitle . "' for Freelancer added successfully!";
             echo json_encode(array("action" => "success", "message" => $message));
             log_action($message, 1, 4);
