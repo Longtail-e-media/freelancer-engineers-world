@@ -1143,6 +1143,7 @@ if (!empty($_SESSION)) {
             </div>';
 
             $bidderdetail='';
+            $biddermodal='';
             $biddatas= bids::find_by_jobid_bop($jobdatas->id);
             // pr($biddata);
             if(!empty($biddatas)){
@@ -1152,12 +1153,18 @@ if (!empty($_SESSION)) {
                     //freelancer data through
                     $freelandata= freelancer::find_by_id($biddata->freelancer_id);
                     // pr($freelandata);
-                    if(!empty($freelandata->profile_picture)){
-                        $profilepic ='';
+                   
+                    $profilepic = 'https://static-00.iconduck.com/assets.00/user-icon-1024x1024-unb6q333.png';
+                    if (!empty($freelandata->profile_picture)) {
+                        $file_path = SITE_ROOT . 'images/freelancer/profile/' . $freelandata->profile_picture;
+                        if (file_exists($file_path)) {
+                            $profilepic = IMAGE_PATH . 'freelancer/profile/' . $freelandata->profile_picture;
+                        }
                     }
+    
             $bidderdetail .='<div class="row bg-light p-3 mt-2 gx-0">
                     <div class="col-2 col-md-2 p-0">
-                        <img src="'.IMAGE_PATH.'/freelancer/profile/'.$freelandata->profile_picture.'"
+                        <img src="'.$profilepic.'"
                             alt="User" class="user-icon w-100 bg-dark-subtle p-3">
                     </div>
                     <div class="col-10 col-md-6 px-3">
@@ -1165,7 +1172,8 @@ if (!empty($_SESSION)) {
                         <p class="fs-7 line-clamp-2 mb-0">
                         '.strip_tags($biddata->message).'
                         </p>
-                        <a href="#" class="fs-7">more</a>
+                        <a href="#" class="fs-7" data-bs-toggle="modal"
+                                    data-bs-target="#modal-'.$biddata->id.'">more</a>
                     </div>
                     <div class="col-6 col-md-3 mt-3 mt-md-0">
                         <h5 class="fs-7"><strong>'.$biddata->currency.' '.$biddata->bid_amount.'</strong> in '.$biddata->delivery.' days</h5>
@@ -1177,6 +1185,33 @@ if (!empty($_SESSION)) {
                             class="form-check-input bg-dark-subtle rounded-0 text-dark w-75 py-3 border-dark" />
                     </div>
                 </div>';
+                $biddermodal .=' 
+                <div class="modal fade" id="modal-'.$biddata->id.'" tabindex="-1" aria-labelledby="freelancerModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="freelancerModalLabel">Freelancer Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="'.$profilepic.'"
+                                alt="User" class="img-fluid">
+                        </div>
+                        <div class="col-8" style="place-content: center;">
+                            <h5 class="fs-6 fw-bold">@'.$freelandata->username.'</h5>
+                            <p class="fs-7 p-0 m-0">'.$biddata->currency.' '.$biddata->bid_amount.' in '.$biddata->delivery.' days</p>
+                            <span class="fs-4 text-warning">  ' . str_repeat('★', $biddata->freelancer_rating) . ' ' . str_repeat('☆', (5 - $biddata->freelancer_rating)) . '
+                            </span>
+                        </div>
+                        <p class="fs-7 mt-3">'.strip_tags($biddata->message).'</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>';
                 
             }
             }
@@ -1196,7 +1231,8 @@ if (!empty($_SESSION)) {
             </form>
             </div>
         </div>
-    </section>';
+    </section>
+    '.$biddermodal.'';
     }
    
 } else {
@@ -1257,6 +1293,7 @@ if (!empty($_SESSION)) {
             </div>';
 
             $bidderdetail='';
+            $biddermodal='';
             $biddatas= bids::find_by_jobid_short($jobdatas->id);
             // pr($biddata);
             $profilepic='';
@@ -1265,20 +1302,26 @@ if (!empty($_SESSION)) {
                     
                     //freelancer data through
                     $freelandata= freelancer::find_by_id($biddata->freelancer_id);
-                    if(!empty($freelandata->profile_picture)){
-                        $profilepic ='<div class="col-2 col-md-2 p-0">
-                        <img src="'.IMAGE_PATH.'freelancer/profile/'.$freelandata->profile_picture.'"
-                            alt="User" class="user-icon w-100 bg-dark-subtle p-3">
-                    </div>';
+                   
+                    $profilepic = 'https://static-00.iconduck.com/assets.00/user-icon-1024x1024-unb6q333.png';
+                    if (!empty($freelandata->profile_picture)) {
+                        $file_path = SITE_ROOT . 'images/freelancer/profile/' . $freelandata->profile_picture;
+                        if (file_exists($file_path)) {
+                            $profilepic = IMAGE_PATH . 'freelancer/profile/' . $freelandata->profile_picture;
+                        }
                     }
             $bidderdetail .='<div class="row bg-light p-3 mt-2 gx-0">
-                    '.$profilepic.'
+            <div class="col-2 col-md-2 p-0">
+            <img src="'.$profilepic.'"
+                            alt="User" class="user-icon w-100 bg-dark-subtle p-3">
+                    </div>
                     <div class="col-10 col-md-6 px-3">
                         <h5 class="fs-6 fw-bold">'.$freelandata->username.'</h5>
                         <p class="fs-7 line-clamp-2 mb-0">
                         '.strip_tags($biddata->message).'
                         </p>
-                        <a href="#" class="fs-7">more</a>
+                        <a href="#" class="fs-7" data-bs-toggle="modal"
+                                    data-bs-target="#modal-'.$biddata->id.'">more</a>
                     </div>
                     <div class="col-6 col-md-3 mt-3 mt-md-0">
                         <h5 class="fs-7"><strong>'.$biddata->currency.' '.$biddata->bid_amount.'</strong> in '.$biddata->delivery.' days</h5>
@@ -1290,6 +1333,33 @@ if (!empty($_SESSION)) {
                             class="form-check-input bg-dark-subtle rounded-0 text-dark w-75 py-3 border-dark" />
                     </div>
                 </div>';
+                $biddermodal .=' 
+                <div class="modal fade" id="modal-'.$biddata->id.'" tabindex="-1" aria-labelledby="freelancerModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="freelancerModalLabel">Freelancer Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="'.$profilepic.'"
+                                alt="User" class="img-fluid">
+                        </div>
+                        <div class="col-8" style="place-content: center;">
+                            <h5 class="fs-6 fw-bold">@'.$freelandata->username.'</h5>
+                            <p class="fs-7 p-0 m-0">'.$biddata->currency.' '.$biddata->bid_amount.' in '.$biddata->delivery.' days</p>
+                            <span class="fs-4 text-warning">  ' . str_repeat('★', $biddata->freelancer_rating) . ' ' . str_repeat('☆', (5 - $biddata->freelancer_rating)) . '
+                            </span>
+                        </div>
+                        <p class="fs-7 mt-3">'.strip_tags($biddata->message).'</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>';
             }
             }
              $selectshortlisted .= '
@@ -1308,7 +1378,8 @@ if (!empty($_SESSION)) {
             </form>
             </div>
         </div>
-    </section>';
+    </section>
+    '.$biddermodal.'';
     }
 } else {
     $selectshortlisted = "please login to view profile";
