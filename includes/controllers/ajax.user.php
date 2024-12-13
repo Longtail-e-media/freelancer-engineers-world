@@ -606,19 +606,20 @@
 
         case "updateProfileFreelancer":
             $record     = freelancer::find_by_userid($_SESSION['user_id']);
-         
-            if(empty($_REQUEST['imageArrayname'])):				
-				echo json_encode(array("action"=>"warning","message"=>"Please Upload your Profile picture !"));
-				exit;
+
+            if (empty($_REQUEST['imageArrayname'])):
+                echo json_encode(array("action" => "warning", "message" => "Please Upload your Profile picture !"));
+                exit;
             endif;
-                if(empty($_REQUEST['imageArrayname2'])):				
-                    echo json_encode(array("action"=>"warning","message"=>"Please Upload your Nepal Engineering Certificate !"));
-                    exit;
-                endif;
-                    if(empty($_REQUEST['imageArrayname3'])):				
-                        echo json_encode(array("action"=>"warning","message"=>"Please Upload your CV !"));
-                        exit;
-                    endif;
+            if (empty($_REQUEST['imageArrayname2'])):
+                echo json_encode(array("action" => "warning", "message" => "Please Upload your Nepal Engineering Certificate !"));
+                exit;
+            endif;
+            if (empty($_REQUEST['imageArrayname3'])):
+                echo json_encode(array("action" => "warning", "message" => "Please Upload your CV !"));
+                exit;
+            endif;
+
             // $record->slug 		= create_slug($_REQUEST['title']);
             // $record->email 		= $_REQUEST['email'];
             $record->first_name         = $_REQUEST['firstname'];
@@ -659,6 +660,7 @@
                 !empty($record->upload_cv)
             ){
                 $record->online_verification_rating = 1;
+                $record->rating = 1;
             }
 
             $db->begin();
