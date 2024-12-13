@@ -115,6 +115,9 @@ if (!empty($_SESSION)) {
                             </div>
                         </div>
                         <div id="msgProfile"></div>
+                        <div class="mt-3">
+                            <a href="https://chatgpt.com/" target="_blank" rel="noopener">Link to ChatGPT</a>
+                        </div>
                         <div>
                             <button type="submit" class="btn btn-dark bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0 mt-5" id="submit">
                                 Create a Job
@@ -127,33 +130,32 @@ if (!empty($_SESSION)) {
                         <h5 class="fw-bold fs-5 mb-4">Basic policy to post job:</h5>
                         <div class="policy-content fs-7 ">
     
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer risus erat, commodo nec arcu
-                        non, condimentum sodales odio. Integer euismod tempor arcu eget blandit. Curabitur volutpat urna
-                        non accumsan tempus. Donec viverra semper nunc, vitae maximus elit vestibulum quis. Pellentesque
-                        eget imperdiet nisl. Vestibulum quis bibendum velit, sed laoreet urna. Nulla consectetur
-                        faucibus risus suscipit eleifend. Nulla efficitur tincidunt nibh, at molestie mi dictum a. Etiam
-                        non pulvinar erat. Aenean nec feugiat arcu, sed pulvinar purus. Maecenas interdum varius mollis.
-                        Nullam erat lectus, accumsan nec fermentum consectetur, viverra sit amet lacus.
-                    </p>
-    
-                    <p>
-                        Nam non nisl tempor metus molestie pellentesque. Maecenas mauris justo, luctus id neque vel,
-                        tempus porta erat. Mauris ut magna vitae neque sagittis iaculis in eu ligula. Sed pretium lorem
-                        sapien, in pellentesque mi sagittis id. Nunc faucibus, lacus non fringilla bibendum, metus nisl
-                        commodo velit, a ultrices erat velit nec tellus. Phasellus leo nunc, pharetra quis vulputate
-                        sed, condimentum auctor lorem. Curabitur eget odio lacus. Nullam pulvinar libero eu feugiat
-                        volutpat. Nam ligula nulla, finibus in suscipit ut, efficitur et orci. Suspendisse blandit ex ac
-                        nisl bibendum hendrerit. Fusce vehicula elit nisl, quis tincidunt lectus viverra ac.
-                    </p>
-    
-                    <p>
-                        Pellentesque at ornare ante, nec varius nibh. Donec massa massa, tempor a ultrices luctus,
-                        pharetra quis sem. Aliquam dolor lectus, blandit sit amet posuere in, rhoncus efficitur mi.
-                        Etiam sit amet placerat leo. Proin a quam justo. Sed feugiat justo nec tellus semper tincidunt.
-                        Proin ut sagittis risus. Nulla et pharetra est, at pulvinar turpis. Etiam vitae turpis sed magna
-                        dapibus vulputate.
-                    </p>
+                    <ol>
+                        <li>The client needs to have account in the platform.</li>
+                        <li>The client shall not write contact number, email ID or location which may by pass the engineers from the platform. </li>
+                        <li>Client may use AI tool like ChatGPT to write good looking post.</li>
+                        <li>Client generally needs to specify the range of budget for the work.</li>
+                        <li>Client may post without budget range.</li>
+                        <li>Client needs to specify the bid end date.</li>
+                        <li>In general, the number of words shall be less than 300 for the post.</li>
+                        <li>Client can select maximum 5 bidders (freelancers) after the bid is placed.</li>
+                        <li>Client who has posted the job will be added to a Viber / WhatsApp Group by the platform representative where client may put the queries regarding the project.</li>
+                        <li>Client shall add the freelancer in the Viber / WhatsApp Group who has bid and selected for the work. Or client may inform the platform about the freelancer who is selected so that the freelancer </li>could be added in the group by the platform representative.
+                        <li>Once the platform is informed about the selected freelancer, the platform will ask the license from the freelancer. The platform will also ask for academic certificated needed. If any suspicion </li>is found the client will be notified about the issue.
+                        <li>The platform may suspend or blacklist the freelancer if the service is not provided in time.</li>
+                        <li>Once, the work is started the client needs to deposit 10% of the project cost in the platform account. </li>
+                        <li>If the project terminates in the initial phase without starting the work from client or freelancer then the deposit may be returned to the client by deducting the online transfer fee.</li>
+                        <li>If the project terminates in between the project, the amount of refund of the deposit will depend upon the amount of work completed.</li>
+                        <li>Unless the first deposit is made the client may not get the first step work from the freelancer.</li>
+                        <li>The amount transferred to the freelancer will not be returned by the platform.</li>
+                        <li>Client may change the freelancer two times, if not satisfied but any payment transferred to the freelancer will not be refunded.</li>
+                        <li>By mutual understanding with the freelancer, client needs to agree on steps of work (minimum step 2, maximum step 4). The client will get the service in these steps. </li>
+                        <li>Before receiving the first step work, the client needs to deposit 10% of the project amount in the platform account.</li>
+                        <li>Before receiving the second step work, the client needs to deposit the first step work in the freelancer account.</li>
+                        <li>Similarly, if there are more than two steps the client needs to pay for earlier work to get the work of next step.</li>
+                        <li>The client would rank the freelancer once the work is completed.</li>
+                        <li>Vacancy could not be posted in the platform.</li>
+                    </ol>
     
                 </div>
                 </div>
