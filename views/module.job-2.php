@@ -328,7 +328,7 @@ if (defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
                                 <div class="col-8 col-md-6 px-0 px-md-5">
                                     <h5 class="fs-6 fw-bold mt-3">@' . $freelancerRec->username . '</h5>
                                     <p class="fs-7 line-clamp-2 mb-0">' . strip_tags($bidsRow->message) . '</p>
-                                    <!--<a href="#" class="fs-7">more</a>-->
+                                    <a onclick="viewmore()" class="fs-7">more</a>
                                 </div>
                                 <div class="col-3 col-md-3 mt-md-0 ms-3 ms-md-0 mt-3">
                                     <h5 class="fs-7"><strong>' . $bidsRow->currency . ' ' . $bidsRow->bid_amount . '</strong> in ' . $bidsRow->delivery . ' days</h5>

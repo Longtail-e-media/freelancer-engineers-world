@@ -106,6 +106,20 @@
             }
         })
     })
+    
+    $(document).ready(function() {
+    $('a.fs-7').on('click', function(e) {
+        e.preventDefault(); // Prevent the default anchor behavior
+
+        // Remove the 'line-clamp-2' class from the corresponding paragraph
+        $(this).prev('p').removeClass('line-clamp-2');
+
+        // Remove the "more" link itself
+        $(this).remove();
+    });
+});
+
+
 </script>
 
 </body>
