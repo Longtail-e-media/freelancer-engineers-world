@@ -1,25 +1,15 @@
 <?php
 $jobsTablename = "tbl_jobs"; // Database table name
 $moduleId = 23;                // module id >>>>> tbl_modules
-// pr('asdasdasdasd',1);
+
 if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) && $_GET['mode'] == "jobslist"):
     $id = intval(addslashes($_GET['id']));
-    // SerclearImages($jobsTablename, "jobs");
-    // SerclearImages($jobsTablename, "jobs/thumbnails");
-
-    // clearImages($jobsTablename, "jobs/image", "image2");
-    // clearImages($jobsTablename, "jobs/image/thumbnails", "image2");
-
-    // clearImages("tbl_jobs_images", "package/galleryimages");
-    // clearImages("tbl_jobs_images", "package/galleryimages/thumbnails");
     ?>
     <h3>
         Listed Jobs from ["<?php echo client::getclientName($id); ?>"]
         <a class="loadingbar-demo btn medium bg-blue-alt float-right mrg5R" href="javascript:void(0);"
            onClick="viewclientlist();">
-    <span class="glyph-icon icon-separator">
-        <i class="glyph-icon icon-arrow-circle-left"></i>
-    </span>
+            <span class="glyph-icon icon-separator"><i class="glyph-icon icon-arrow-circle-left"></i></span>
             <span class="button-content"> Back </span>
         </a>
     </h3>
@@ -46,40 +36,28 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                     switch ($record->project_status) {
                         case 1:
                             $countImages = bids::find_total_bids($record->id);
-                            $jobstatus = '
-                                    Bid On Progress';
+                            $jobstatus = 'Bid On Progress';
                             break;
                         case 2:
                             $countImages = bids::find_total_shortlisted($record->id);
-                            $jobstatus = '
-                                    Short listed
-                                ';
+                            $jobstatus = 'Short listed';
                             break;
-
                         case 3:
                             $countImages = bids::find_total_awarded($record->id);
-                            $jobstatus = '
-                                    Awarded ';
+                            $jobstatus = 'Awarded';
                             break;
                         case 4:
                             $countImages = bids::find_total_bids($record->id);
-                            $jobstatus = '
-                                    Timeout
-                               ';
+                            $jobstatus = 'Timeout';
                             break;
                         case 5:
                             $countImages = bids::find_total_wop($record->id);
-                            $jobstatus = '
-                                    Work on Progress 
-                            ';
+                            $jobstatus = 'Work on Progress ';
                             break;
                         case 6:
                             $countImages = bids::find_total_comp($record->id);
-                            $jobstatus = '
-                                   Completed
-                               ';
+                            $jobstatus = 'Completed';
                             break;
-
                     } ?>
                     <tr id="<?php echo $record->id; ?>">
                         <td style="display:none;"><?php echo $key + 1; ?></td>
@@ -95,14 +73,11 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                         <td>
                             <a class="primary-bg medium btn loadingbar-demo" title=""
                                onClick="viewfreelancerlist(<?php echo $record->id; ?>);" href="javascript:void(0);">
-                        <span class="button-content">
-                            <span class="badge bg-orange radius-all-4 mrg5R" title=""
-                                  data-original-title="Badge with tooltip"><?php echo $countImages;
-                                //var_dump($countImages);die();
-                                ?></span>
-
-                            <span class="text-transform-upr font-bold font-size-11">View Lists</span>
-                        </span>
+                                <span class="button-content">
+                                    <span class="badge bg-orange radius-all-4 mrg5R" title=""
+                                          data-original-title="Badge with tooltip"><?php echo $countImages;?></span>
+                                    <span class="text-transform-upr font-bold font-size-11">View Lists</span>
+                                </span>
                             </a>
                         </td>
                         <td><?php echo $jobstatus; ?></td>
@@ -127,6 +102,13 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                                title="Remove" onclick="subrecordDelete(<?php echo $record->id; ?>);">
                                 <i class="glyph-icon icon-remove"></i>
                             </a>-->
+                            <?php if ($record->project_status == '6') { ?>
+                                <a href="javascript:void(0);" data-placement="top" title="Edit"
+                                   class="loadingbar-demo btn small bg-blue-alt tooltip-button"
+                                   onclick="addRatingClient(<?php echo $record->id; ?>);">
+                                    <span class="button-content"> Add Rating </span>
+                                </a>
+                            <?php } ?>
                             <input name="sortId" type="hidden" value="<?php echo $record->id; ?>">
                         </td>
                     </tr>
@@ -446,6 +428,57 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
 
         // ]]>
     </script>
+
+<?php elseif (isset($_GET['mode']) && $_GET['mode'] == "addRatingClient"):
+    if (isset($_GET['id']) && !empty($_GET['id'])):
+        $jobID   = addslashes($_REQUEST['id']);
+        $jobInfo = jobs::find_by_id($jobID);
+    endif;
+    ?>
+
+    <h3>
+        Add Rating for ['<?= $jobInfo->title ?>']
+        <a class="loadingbar-demo btn medium bg-blue-alt float-right" href="javascript:void(0);"
+           onClick="viewclientlist();">
+            <span class="glyph-icon icon-separator"><i class="glyph-icon icon-arrow-circle-left"></i></span>
+            <span class="button-content"> Back </span>
+        </a>
+    </h3>
+
+    <div class="my-msg"></div>
+    <div class="example-box">
+        <div class="example-code">
+            <form action="" class="col-md-12 center-margin" id="add_rating_frm">
+
+                <div class="form-row">
+                    <div class="form-label col-md-2">
+                        <label for="">
+                            Rating :
+                        </label>
+                    </div>
+                    <div class="form-input col-md-20">
+                        <select name="admin_rating" id="admin_rating" class="validate[required] col-md-1">
+                            <?php
+                            for ($i = 0; $i < 4; $i++) {
+                                $sel = ($jobInfo->admin_rating == $i) ? 'selected' : '';
+                                echo '<option value="' . $i . '" ' . $sel . '>' . $i . '</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+
+                <button btn-action='0' type="submit" name="submit" id="btn-submit" title="Save"
+                        class="btn-submit btn large primary-bg text-transform-upr font-bold font-size-11 radius-all-4">
+                    <span class="button-content">Save</span>
+                </button>
+
+                <input myaction='0' type="hidden" name="idValue" id="idValue"
+                       value="<?php echo !empty($jobInfo->id) ? $jobInfo->id : 0; ?>"/>
+            </form>
+        </div>
+    </div>
+
 <?php endif;
 include("freelancer.php");
 ?>

@@ -19,6 +19,8 @@ class jobs extends DatabaseObject
         'deadline_date',
         'content',
         'archive_date',
+        'admin_rating',
+        'reviewed_admin',
         'sortorder',
         'status'
     );
@@ -37,6 +39,8 @@ class jobs extends DatabaseObject
     public $deadline_date;
     public $content;
     public $archive_date;
+    public $admin_rating;
+    public $reviewed_admin;
     public $sortorder;
     public $status;
 

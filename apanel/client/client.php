@@ -42,7 +42,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                             </a>
                         </td>
 
-                        <td>
+                        <td class="text-center">
                             <a class="primary-bg medium btn loadingbar-demo" title=""
                                onClick="viewjobslist(<?php echo $record->id; ?>);" href="javascript:void(0);">
                         <span class="button-content">
@@ -70,10 +70,10 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                                data-placement="top" title="Edit" onclick="editRecord(<?php echo $record->id; ?>);">
                                 <span class="button-content"> View Detail </span>
                             </a>
-                            <a href="javascript:void(0);" class="loadingbar-demo btn small bg-blue-alt tooltip-button"
+                            <!--<a href="javascript:void(0);" class="loadingbar-demo btn small bg-blue-alt tooltip-button"
                                data-placement="top" title="Edit" onclick="addRating(<?php echo $record->id; ?>);">
                                 <span class="button-content"> Add Rating </span>
-                            </a>
+                            </a>-->
                             <!--<a href="javascript:void(0);" class="btn small bg-red tooltip-button" data-placement="top"
                                title="Remove" onclick="recordDelete(<?php echo $record->id; ?>);">
                                 <i class="glyph-icon icon-remove"></i>
@@ -103,10 +103,10 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
 
 <?php elseif (isset($_GET['mode']) && $_GET['mode'] == "addEdit"):
     if (isset($_GET['id']) && !empty($_GET['id'])):
-        $clientId = addslashes($_REQUEST['id']);
+        $clientId   = addslashes($_REQUEST['id']);
         $clientInfo = client::find_by_id($clientId);
-        $status = ($clientInfo->status == 1) ? "checked" : " ";
-        $unstatus = ($clientInfo->status == 0) ? "checked" : " ";
+        $status     = ($clientInfo->status == 1) ? "checked" : " ";
+        $unstatus   = ($clientInfo->status == 0) ? "checked" : " ";
     endif;
     ?>
     <h3>

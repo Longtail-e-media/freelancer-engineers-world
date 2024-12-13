@@ -464,6 +464,10 @@
         window.location.href = "<?php echo ADMIN_URL?>client/addRating/" + Re;
     }
 
+    function addRatingClient(Re) {
+        window.location.href = "<?php echo ADMIN_URL?>client/addRatingClient/" + Re;
+    }
+
 
     /***************************************** Add New Subclient *******************************************/
     function AddNewSubclient(Re) {

@@ -38,10 +38,10 @@ if (isset($_GET['page']) && $_GET['page'] == "freelancer" && isset($_GET['mode']
                            onclick="editfreelancer(<?php echo $record->id; ?>);">
                             <span class="button-content"> View Detail </span>
                         </a>
-                        <a href="javascript:void(0);" class="loadingbar-demo btn small bg-blue-alt tooltip-button"
+                        <!--<a href="javascript:void(0);" class="loadingbar-demo btn small bg-blue-alt tooltip-button"
                            data-placement="top" title="Edit" onclick="addRating(<?php echo $record->id; ?>);">
                             <span class="button-content"> Add Rating </span>
-                        </a>
+                        </a>-->
                        <!-- <a href="javascript:void(0);" class="btn small bg-red tooltip-button" data-placement="top"
                            title="Remove"
                            onclick="recordApplicationDelete(<?php echo $record->id; ?>);">

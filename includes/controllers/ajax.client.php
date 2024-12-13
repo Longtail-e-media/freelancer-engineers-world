@@ -23,12 +23,13 @@ switch($action) {
     break;
 
     case "addRating":
-        $record                 = client::find_by_id($_REQUEST['idValue']);
+        $record                 = jobs::find_by_id($_REQUEST['idValue']);
         $record->admin_rating   = $_REQUEST['admin_rating'];
+        $record->reviewed_admin = 1;
 
         $db->begin();
         if ($record->save()):$db->commit();
-            $message = "Admin rating for Client '" . $record->first_name . " " . $record->last_name . "' added successfully!";
+            $message = "Admin rating for Job '" . $record->title . "' for Client added successfully!";
             echo json_encode(array("action" => "success", "message" => $message));
             log_action($message, 1, 4);
         else: $db->rollback();

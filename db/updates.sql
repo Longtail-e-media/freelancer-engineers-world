@@ -49,3 +49,6 @@ ALTER TABLE `tbl_freelancer` ADD `admin_rating` INT NOT NULL DEFAULT '0' AFTER `
 
 -- 2024-12-10 [Swarna]
 ALTER TABLE `tbl_freelancer` ADD `online_verification_rating` INT NOT NULL DEFAULT '0' AFTER `admin_rating`;
+
+-- 2024-12-13 [SWARNA]
+ALTER TABLE `tbl_jobs` ADD `admin_rating` INT NOT NULL DEFAULT '0' AFTER `archive_date`, ADD `reviewed_admin` INT NOT NULL DEFAULT '0' AFTER `admin_rating`;
