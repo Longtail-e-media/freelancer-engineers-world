@@ -1111,9 +1111,9 @@ if (!empty($_SESSION)) {
             <h1 class="text-light fw-light fs-1">
                 Job Titles
             </h1>
-            <button class="btn btn-primary bg-light text-dark px-4 py-2 fs-6 rounded-0 border-0">
+            <!--<button class="btn btn-primary bg-light text-dark px-4 py-2 fs-6 rounded-0 border-0">
                 Create Job
-            </button>
+            </button>-->
         </div>
     </div>
     <section class="container">
@@ -1261,9 +1261,9 @@ if (!empty($_SESSION)) {
             <h1 class="text-light fw-light fs-3 fs-md-1">
                 Shortlist Freelancer
             </h1>
-            <button class="btn btn-dark bg-light text-dark px-4 py-2 fs-6 rounded-0">
+           <!-- <button class="btn btn-dark bg-light text-dark px-4 py-2 fs-6 rounded-0">
                 Create Job
-            </button>
+            </button>-->
         </div>
     </div>
     <section class="container">

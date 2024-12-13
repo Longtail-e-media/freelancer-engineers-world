@@ -71,14 +71,19 @@ if (!empty($_SESSION)) {
                                 </div>
                             </div>
                             <!-- Budget Range -->
-                            <div class="col-md-8" id="budgetRangeFields">
+                            <div class="col-md-8 minbudget" id="budgetRangeFields">
                                 <label for="budgetRangeMin" class="form-label fs-6">Budget Range <span class="text-danger">*</span></label>
                                 <div class="d-flex align-items-center gap-2">
+                                <div class="minbudget">
                                     <input type="number" class="form-control border-0 rounded-0 fs-6 py-3" id="budgetRangeMin"
                                            name="budget_range_low" placeholder="Minimum Value">
+                                           </div>
                                     <span>to</span>
+
+                                    <div class="minbudget">
                                     <input type="number" class="form-control border-0 rounded-0 fs-6 py-3" id="budgetRangeMax" 
                                            name="budget_range_high" placeholder="Maximum Value">
+                                           </div>
                                 </div>
                             </div>
     

@@ -71,6 +71,17 @@
             rangeMax.value = sliderValue;
         }
     }
+    document.addEventListener("DOMContentLoaded", function () {
+    const dateInput = document.getElementById("deadline");
+
+    // Calculate the minimum date (current date + 2 days)
+    const today = new Date();
+    today.setDate(today.getDate() + 2);
+    const minDate = today.toISOString().split('T')[0]; // Format the date to YYYY-MM-DD
+
+    // Set the min attribute on the date input
+    dateInput.setAttribute("min", minDate);
+});
   
 </script>
 <script>
@@ -84,7 +95,7 @@ jQuery.validator.addMethod("comparison", function (value, element) {
     // Ensure min and max are valid numbers
     if (isNaN(min) || isNaN(max)) return false;
 
-    return this.optional(element) || min <= max; // Ensure lower budget is less than or equal to higher budget
+    return this.optional(element) || min < max; // Ensure lower budget is less than or equal to higher budget
 }, "Invalid budget range");
 
 // Initialize Validation
@@ -132,6 +143,15 @@ $("#createjob").validate({
         budget_range_high: {
             required: "Please enter the higher budget range.",
             comparison: "The higher budget range should not be less than the lower budget range."
+        }
+    },
+    errorPlacement: function (error, element) {
+        // Find the closest container around the element and insert the error outside it
+        var container = element.closest('.form-floating, .minbudget');
+        if (container.length) {
+            error.insertAfter(container); // Place error outside the container
+        } else {
+            error.insertAfter(element); // Default placement
         }
     },
             submitHandler: function (form) {
