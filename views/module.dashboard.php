@@ -907,6 +907,14 @@ if (!empty($_SESSION)) {
                             }
                            $jobstatus .= '  </div>';
                             break;
+                            case 6:
+                                $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
+                                    <p class="text-info-emphasis fs-6 fw-bold">
+                                       Work on Progress
+                                    </p>';
+                                    
+                               $jobstatus .= '  </div>';
+                                break;
                    
                 }
                 // pr($jobstatus);

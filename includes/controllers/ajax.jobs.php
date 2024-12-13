@@ -421,15 +421,15 @@
 
             $db->begin();
             if ($job->save()):
-                // $jobid=$_REQUEST['jobid'];
+                $jobid=$_REQUEST['jobid'];
                 // $bidderIds = implode(',', array_map('intval', $_REQUEST['bidder']));
-                // $sql='update tbl_bids set project_status=3 where job_id='.$jobid.' and freelancer_id in ('.$bidderIds.')';
-                // $db->query($sql);
+                $sql='update tbl_bids set project_status=6 where job_id='.$jobid.' and project_status=3';
+                $db->query($sql);
                 $db->commit();
                 // $message = "Jobs bid in " . $job->title;
                 echo json_encode(array("action" => "success", "message" => "The Work is on Progress!"));
             else: $db->rollback();
-                echo json_encode(array("action" => "error", "message" => "Job Bid unsuccessfully !"));
+                echo json_encode(array("action" => "error", "message" => "Work on Progress unsuccessfully !"));
             endif;
         break;
 
@@ -441,7 +441,7 @@
             $db->begin();
             if ($job->save()):
                 $jobid=$_REQUEST['jobid'];
-                $sql="update tbl_bids set project_status=5 where job_id=$jobid and project_status=3";
+                $sql='update tbl_bids set project_status=5 where job_id='.$jobid.' and project_status=6';
                 // pr($sql);
                 $db->query($sql);
                 $db->commit();
