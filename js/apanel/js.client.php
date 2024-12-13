@@ -265,6 +265,57 @@
             }
         })
 
+        jQuery('#add_rating_freelancr_frm').validationEngine({
+            autoHidePrompt: true,
+            promptPosition: "bottomLeft",
+            scroll: true,
+            onValidationComplete: function (form, status) {
+                if (status == true) {
+                    $('.btn-submit').attr('disabled', 'true');
+                    var action = ($('#idValue').val() == 0) ? "action=addRatingFreelancer&" : "action=addRatingFreelancer&";
+                    var data = $('#add_rating_freelancr_frm').serialize();
+                    queryString = action + data;
+                    $.ajax({
+                        type: "POST",
+                        dataType: "JSON",
+                        url: getLocation(),
+                        data: queryString,
+                        success: function (data) {
+                            var msg = eval(data);
+                            if (msg.action == 'warning') {
+                                showMessage(msg.action, msg.message);
+                                setTimeout(function () {
+                                    $('.my-msg').html('');
+                                }, 3000);
+                                $('.btn-submit').removeAttr('disabled');
+                                $('.formButtons').show();
+                                return false
+                            }
+                            if (msg.action == 'success') {
+                                showMessage(msg.action, msg.message);
+                                setTimeout(function () {
+                                    window.location.href = "";
+                                }, 3000);
+                            }
+                            if (msg.action == 'notice') {
+                                showMessage(msg.action, msg.message);
+                                setTimeout(function () {
+                                    window.location.href = window.location.href;
+                                }, 3000);
+                            }
+                            if (msg.action == 'error') {
+                                showMessage(msg.action, msg.message);
+                                $('#buttonsP img').remove();
+                                $('.formButtons').show();
+                                return false;
+                            }
+                        }
+                    });
+                    return false;
+                }
+            }
+        })
+
     });
     /*************************** Shorting Sub Image Gallery Postion *******************************/
     $(document).ready(function () {
@@ -466,6 +517,10 @@
 
     function addRatingClient(Re) {
         window.location.href = "<?php echo ADMIN_URL?>client/addRatingClient/" + Re;
+    }
+
+    function addRatingFreelancer(Re) {
+        window.location.href = "<?php echo ADMIN_URL?>client/addRatingFreelancer/" + Re;
     }
 
 

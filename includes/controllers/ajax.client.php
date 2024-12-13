@@ -36,4 +36,20 @@ switch($action) {
             echo json_encode(array("action" => "notice", "message" => $GLOBALS['basic']['noChanges']));
         endif;
     break;
+
+    case "addRatingFreelancer":
+        $record                 = bids::find_by_id($_REQUEST['idValue']);
+        $record->admin_rating   = $_REQUEST['admin_rating'];
+        $record->reviewed_admin = 1;
+        $jobTitle               = jobs::field_by_id($record->job_id,'title');
+
+        $db->begin();
+        if ($record->save()):$db->commit();
+            $message = "Admin rating for Job '" . $jobTitle . "' for Freelancer added successfully!";
+            echo json_encode(array("action" => "success", "message" => $message));
+            log_action($message, 1, 4);
+        else: $db->rollback();
+            echo json_encode(array("action" => "notice", "message" => $GLOBALS['basic']['noChanges']));
+        endif;
+    break;
 }

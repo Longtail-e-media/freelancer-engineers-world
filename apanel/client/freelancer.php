@@ -4,7 +4,7 @@ $moduleId = 32;              // module id >>>>> tbl_modules
 $moduleFoldername = "";     // Image folder name
 if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) && $_GET['mode'] == "freelancerlist"):
     $id = intval(addslashes($_GET['id']));
-    $job= jobs::find_by_id($id);
+    $job = jobs::find_by_id($id);
     // pr($job,1);
     ?>
     <a class="loadingbar-demo btn medium bg-blue-alt float-right mrg5R" href="javascript:void(0);"
@@ -14,7 +14,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
     </span>
         <span class="button-content"> Back </span>
     </a>
-    <h3>List of Freelancer</h3>
+    <h3>List of Freelancers for ["<?= $job->title; ?>"]</h3>
 
     <div class="my-msg"></div>
     <div class="example-box">
@@ -26,66 +26,92 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                     <th class="text-center"><input class="check-all" type="checkbox"/></th>
                     <th>Name</th>
                     <!--<th class="text-center">Address</th>-->
-                    <th class="text-center">engineering_license_no</th>
-                    <th class="text-center">Rating</th>
+                    <th class="text-center">Engineering License No</th>
+                    <th class="text-center">Status</th>
                     <th class="text-center"><?php echo $GLOBALS['basic']['action']; ?></th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php
-                // $jobid= bids::find_by_id
-                // 'SELECT b.id, b.title, b.slug FROM " . self::$table_name . " AS b 
-                // INNER JOIN tbl_product_sub as prod ON prod.brand = b.id
-                // INNER JOIN tbl_services as serv ON serv.id = prod.service_id
-                // WHERE serv.id = {$serviceId} AND serv.status=1 AND prod.status=1 AND prod.type=$type 
-                // GROUP BY b.id 
-                // ORDER BY b.title ASC "';
-                $jobdata = jobs::find_by_id($id);
-                // pr($jobdata);
-                // $sql="SELECT f.* FROM tbl_freelancer as f 
-                // INNER JOIN tbl_bids as b ON f.id = b.freelancer_id
-                // INNER JOIN tbl_jobs as j ON b.job_id = j.id
-                //      WHERE (b.job_id=".$id." ) AND 
-                //            (j.project_status=".$jobdata->project_status." AND b.project_status=".$jobdata->project_status.") 
-                //      ORDER BY f.sortorder DESC";
-                $fjobstatus='';
-                if($jobdata->project_status==5){
-                    $fjobstatus='6';
-                }
-                elseif($jobdata->project_status==6){
-                    $fjobstatus='5';
-                
-                }else{
-                $fjobstatus=$jobdata->project_status;
-            }
-                $sql = "SELECT f.* FROM tbl_freelancer as f 
-                INNER JOIN tbl_bids as b ON f.id = b.freelancer_id
-                INNER JOIN tbl_jobs as j ON b.job_id = j.id
-                     WHERE (b.job_id=" . $id . " ) AND 
-                           (j.project_status=" . $jobdata->project_status . " AND b.project_status=" . $fjobstatus . ") 
-                     ORDER BY f.sortorder DESC";
-                // pr($jobdata->project_status);
-                $records = freelancer::find_by_sql($sql);
-                // pr($records);
-                foreach ($records
+                /**  DO NOT DELETE OLD CODE TO ONLY SHOW FREELANCERS ACCORDING TO THEIR STATUS
+                 * $jobdata = jobs::find_by_id($id);
+                 * $fjobstatus='';
+                 * if ($jobdata->project_status == 5) {
+                 * $fjobstatus = '6';
+                 * } elseif ($jobdata->project_status == 6) {
+                 * $fjobstatus = '5';
+                 * } else {
+                 * $fjobstatus = $jobdata->project_status;
+                 * }
+                 * $sql = "SELECT f.* FROM tbl_freelancer as f
+                 * INNER JOIN tbl_bids as b ON f.id = b.freelancer_id
+                 * INNER JOIN tbl_jobs as j ON b.job_id = j.id
+                 * WHERE (b.job_id=" . $id . " ) AND
+                 * (j.project_status=" . $jobdata->project_status . " AND b.project_status=" . $fjobstatus . ")
+                 * ORDER BY f.sortorder DESC";
+                 */
 
-                as $record):
+                $sql = "SELECT f.*, b.project_status FROM tbl_freelancer as f 
+                        INNER JOIN tbl_bids as b ON f.id = b.freelancer_id
+                     WHERE b.job_id=" . $id . " 
+                     ORDER BY f.sortorder DESC ";
+                $query = $db->query($sql);
+                $numRows = $db->num_rows($query);
+
+                if ($numRows > 0) {
+                    while ($record = $db->fetch_object($query)) {
                 ?>
                 <tr id="<?php echo $record->id; ?>">
                     <td style="display:none;"><?php echo $record->sortorder; ?></td>
                     <td><input type="checkbox" class="bulkCheckbox" bulkId="<?php echo $record->id; ?>"/></td>
                     <td><?php echo $record->first_name; ?></td>
                     <!-- <td><?php echo $record->current_address; ?></td>-->
-                    <td><?php echo $record->engineering_license_no; ?></td>
-                    <td><?php echo $record->rating; ?></td>
+                    <td class="text-center"><?php echo $record->engineering_license_no; ?></td>
+                    <td class="text-center">
+                        <?php
+                        switch ($record->project_status):
+                            case '1':
+                                echo "Bid on Progress";
+                                break;
+                            case '2':
+                                echo "Short Listed";
+                                break;
+                            case '3':
+                                echo "Awarded";
+                                break;
+                            case '4':
+                                echo "Rejected";
+                                break;
+                            case '5':
+                                echo "Completed";
+                                break;
+                            case '6':
+                                echo "Work in Progress";
+                                break;
+                        endswitch;
+                        ?>
+                    </td>
                     <td class="text-center">
                         <a href="javascript:void(0);" class="loadingbar-demo btn small bg-blue-alt tooltip-button"
                            data-placement="top" title="View detail"
                            onclick="editfreelancer(<?php echo $id; ?>,<?php echo $record->id; ?>);">
                             <span class="button-content"> View Detail </span>
                         </a>
+                        <?php
+                        $bidRecs = bids::find_by_sql("SELECT * FROM tbl_bids WHERE freelancer_id='$record->id' AND job_id='$id' LIMIT 1");
+                        $bidRec = $bidRecs[0];
+                        if ($bidRec->project_status == '5') { ?>
+                            <a href="javascript:void(0);" class="loadingbar-demo btn small bg-blue-alt tooltip-button"
+                               data-placement="top" title="Edit"
+                               onclick="addRatingFreelancer(<?= $bidRec->id ?>,<?php echo $record->id; ?>);">
+                                <span class="button-content"> Add Rating </span>
+                            </a>
+                        <?php } ?>
                     </td>
-                    <?php endforeach; ?>
+                <?php
+                    }
+                }
+                ?>
                 </tbody>
             </table>
         </div>
@@ -100,6 +126,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
             <span class="button-content"> Submit </span>
         </a>
     </div>
+
 <?php elseif (isset($_GET['mode']) && $_GET['mode'] == "addEditfreelancer"):
     if (isset($_GET['id']) && !empty($_GET['id'])):
         $appId = addslashes($_REQUEST['id']);
@@ -203,4 +230,57 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
 
         </tbody>
     </table>
+
+
+<?php elseif (isset($_GET['mode']) && $_GET['mode'] == "addRatingFreelancer"):
+    if (isset($_GET['id']) && !empty($_GET['id'])):
+        $bidID   = addslashes($_REQUEST['id']);
+        $bidInfo = bids::find_by_id($bidID);
+        $jobTitle = jobs::field_by_id($bidInfo->job_id,'title');
+    endif;
+    ?>
+
+    <h3>
+        Add Rating for ['<?= $jobTitle ?>']
+        <a class="loadingbar-demo btn medium bg-blue-alt float-right" href="javascript:void(0);"
+           onClick="history.back();">
+            <span class="glyph-icon icon-separator"><i class="glyph-icon icon-arrow-circle-left"></i></span>
+            <span class="button-content"> Back </span>
+        </a>
+    </h3>
+
+    <div class="my-msg"></div>
+    <div class="example-box">
+        <div class="example-code">
+            <form action="" class="col-md-12 center-margin" id="add_rating_freelancr_frm">
+
+                <div class="form-row">
+                    <div class="form-label col-md-2">
+                        <label for="">
+                            Rating :
+                        </label>
+                    </div>
+                    <div class="form-input col-md-20">
+                        <select name="admin_rating" id="admin_rating" class="validate[required] col-md-1">
+                            <?php
+                            for ($i = 0; $i < 4; $i++) {
+                                $sel = ($bidInfo->admin_rating == $i) ? 'selected' : '';
+                                echo '<option value="' . $i . '" ' . $sel . '>' . $i . '</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+
+                <button btn-action='0' type="submit" name="submit" id="btn-submit" title="Save"
+                        class="btn-submit btn large primary-bg text-transform-upr font-bold font-size-11 radius-all-4">
+                    <span class="button-content">Save</span>
+                </button>
+
+                <input myaction='0' type="hidden" name="idValue" id="idValue"
+                       value="<?php echo !empty($bidInfo->id) ? $bidInfo->id : 0; ?>"/>
+            </form>
+        </div>
+    </div>
+
 <?php endif; ?>
