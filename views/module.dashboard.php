@@ -573,7 +573,7 @@ if (!empty($_SESSION)) {
                         break;
                     case 2:
                         $totalshortlisted = bids::find_total_shortlisted($record->id);
-                        $bidstatus = '<p class="fs-7 m-0 d-inline-block">Shortlisted freelancers: <span>' .
+                        $bidstatus = '<p class="fs-7 m-0 d-inline-block">Shortlisted Freelancers: <span>' .
                         $totalshortlisted .'</span></p>';
                         $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                             <p class="text-info fs-6 fw-bold">
@@ -589,7 +589,7 @@ if (!empty($_SESSION)) {
 
                     case 3:
                         $totalawarded = bids::find_total_awarded($record->id);
-                        $bidstatus = '<p class="fs-7 m-0 d-inline-block">Awarded freelancers: <span>' .
+                        $bidstatus = '<p class="fs-7 m-0 d-inline-block">Awarded Freelancers: <span>' .
                         $totalawarded .'</span></p>';
                         $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-center">
                             <a class="nav-link text-success fs-6 fw-bold dropdown" href="#" role="button"
@@ -612,7 +612,7 @@ if (!empty($_SESSION)) {
                         break;
                     case 5:
                         $totalwop = bids::find_total_wop($record->id);
-                        $bidstatus = '<p class="fs-6 m-0 d-inline-block">No. of Freelancer: <span>' .
+                        $bidstatus = '<p class="fs-6 m-0 d-inline-block">Awarded Freelancers: <span>' .
                         $totalwop .'</span></p>';
                         $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-center">
                             <a class="nav-link text-primary-emphasis fs-6 fw-bold dropdown" href="#" role="button"
@@ -628,7 +628,7 @@ if (!empty($_SESSION)) {
                             break;
                     case 6:
                         $totalcomp = bids::find_total_comp($record->id);
-                        $bidstatus = '<p class="fs-6 m-0 d-inline-block">No. of Freelancer: <span>' .
+                        $bidstatus = '<p class="fs-6 m-0 d-inline-block">Awarder Freelancers: <span>' .
                         $totalcomp .'</span></p>';
                         $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                             <p class="text-dark fs-6 fw-bold">
