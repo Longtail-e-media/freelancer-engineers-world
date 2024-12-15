@@ -252,15 +252,15 @@
                 current_address: {required: "Please enter your current address"},
                 permanent_address: {required: "Please enter your permanent address"}
             },
-    errorPlacement: function (error, element) {
-        // Find the closest container around the element and insert the error outside it
-        var container = element.closest('.form-floating, .form-group');
-        if (container.length) {
-            error.insertAfter(container); // Place error outside the container
-        } else {
-            error.insertAfter(element); // Default placement
-        }
-    },
+            errorPlacement: function (error, element) {
+                // Find the closest container around the element and insert the error outside it
+                var container = element.closest('.form-floating, .form-group');
+                if (container.length) {
+                    error.insertAfter(container); // Place error outside the container
+                } else {
+                    error.insertAfter(element); // Default placement
+                }
+            },
             submitHandler: function (form) {
                 if (form) {
                     var Frmval = $("#freelancerfrm").serialize();
@@ -284,7 +284,7 @@
                                     }, 5000);
                                 }
                             }
-                            if(msg.action == 'warning'){
+                            if (msg.action == 'warning') {
                                 $('#msgProfile').html(msg.message).addClass('alert alert-danger').css('display', 'flex').fadeOut(8000);
                             }
                             if (msg.action == 'unsuccess') {
@@ -313,7 +313,7 @@
                 permanent_address: {
                     required: !0
                 }
-              
+
             },
             messages: {
                 username: {
@@ -329,15 +329,15 @@
                     required: "Please enter your permanent address"
                 }
             },
-    errorPlacement: function (error, element) {
-        // Find the closest container around the element and insert the error outside it
-        var container = element.closest('.form-floating, .form-group');
-        if (container.length) {
-            error.insertAfter(container); // Place error outside the container
-        } else {
-            error.insertAfter(element); // Default placement
-        }
-    },
+            errorPlacement: function (error, element) {
+                // Find the closest container around the element and insert the error outside it
+                var container = element.closest('.form-floating, .form-group');
+                if (container.length) {
+                    error.insertAfter(container); // Place error outside the container
+                } else {
+                    error.insertAfter(element); // Default placement
+                }
+            },
             submitHandler: function (form) {
                 if (form) {
                     var Frmval = $("#clientfrm").serialize();
@@ -349,6 +349,7 @@
                         data: "action=updateProfileClient&" + Frmval,
                         success: function (data) {
                             var msg = eval(data);
+                            console.log(msg)
                             $("#submitClient").removeAttr("disabled").text('Save Changes');
                             if (msg.action == 'success') {
                                 if (msg.logout == 'logout') {

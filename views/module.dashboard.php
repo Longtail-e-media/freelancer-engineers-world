@@ -159,9 +159,9 @@ if (!empty($_SESSION)) {
        <!--  <div class="mb-4">
                                         <a href="https://chat.openai.com/" target="_blank" class="fst-italic text-dark">Use
                                             ChatGPT to Create Project Details</a>
-                                    </div>
+                                    </div>-->
                                     <div id="msgProfile"></div>            
-                                    -->                            
+                                                                
                                     <div>
                                         <button type="submit"
                                     class="btn btn-dark bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0 mt-4"
@@ -303,15 +303,12 @@ if (!empty($_SESSION)) {
                                         <select class="form-select border-0 rounded-0 fs-5" id="education" name="education_lvl" value="' .
             $freelancerdata->education_lvl .
             '" name="education_lvl">';
-            $edus=array('Bachelor','Masters','PhD','PostDoc');
-            $option='<option value="" disabled selected>Select</option>';
-            foreach($edus as $edu){
-                if($edu==$freelancerdata->education_lvl){
-                    $sel='selected';
-                }
-                $option .='<option value="'.$edu.'" '.$sel.'>'.$edu.'</option>';
-                $sel='';
-            }
+        $edus = array('Bachelor', 'Masters', 'PhD', 'PostDoc');
+        $option = '<option value="" disabled selected>Select</option>';
+        foreach ($edus as $edu) {
+            $sel = (!empty($freelancerdata->education_lvl) and $edu == $freelancerdata->education_lvl) ? 'selected' : '';
+            $option .= '<option value="' . $edu . '" ' . $sel . '>' . $edu . '</option>';
+        }
                                 $profile .=
             '             ;'.$option.'
                                         </select>

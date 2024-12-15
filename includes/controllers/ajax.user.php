@@ -675,7 +675,7 @@
                 echo json_encode(array("action" => "success", "message" => $message));
                 log_action("Freelancer [" . $record->first_name . "] Edit Successfully", 1, 4);
             else: $db->rollback();
-                echo json_encode(array("action" => "notice", "message" => $GLOBALS['basic']['noChanges']));
+                echo json_encode(array("action" => "unsuccess", "message" => $GLOBALS['basic']['noChanges']));
             endif;
         break;
 
@@ -711,7 +711,7 @@
                 echo json_encode(array("action" => "success", "message" => $message));
                 log_action("Freelancer [" . $record->first_name . "] Edit Successfully", 1, 4);
             else: $db->rollback();
-                echo json_encode(array("action" => "notice", "message" => $GLOBALS['basic']['noChanges']));
+                echo json_encode(array("action" => "unsuccess", "message" => $GLOBALS['basic']['noChanges']));
             endif;
         break;
 
