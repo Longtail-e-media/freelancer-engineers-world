@@ -1158,6 +1158,9 @@ if (!empty($_SESSION)) {
                             $profilepic = IMAGE_PATH . 'freelancer/profile/' . $freelandata->profile_picture;
                         }
                     }
+
+                    $roundRating = round($freelandata->rating,0);
+                    $noRating = 5 - $roundRating;
     
             $bidderdetail .='<div class="row bg-light p-3 mt-2 gx-0">
                     <div class="col-2 col-md-2 p-0">
@@ -1174,7 +1177,7 @@ if (!empty($_SESSION)) {
                     </div>
                     <div class="col-6 col-md-3 mt-3 mt-md-0">
                         <h5 class="fs-7"><strong>'.$biddata->currency.' '.$biddata->bid_amount.'</strong> in '.$biddata->delivery.' days</h5>
-                        <span class="fs-5 text-warning"> ' . str_repeat('★', $biddata->freelancer_rating) . ' ' . str_repeat('☆', (5 - $biddata->freelancer_rating)) . '
+                        <span class="fs-5 text-warning"> ' . str_repeat('★', $roundRating) . str_repeat('☆', $noRating) . '
                         </span>
                     </div>
                     <div class="col-2 col-md-1 d-flex align-items-center mt-3 mt-md-0 bidderHere">
@@ -1307,6 +1310,9 @@ if (!empty($_SESSION)) {
                             $profilepic = IMAGE_PATH . 'freelancer/profile/' . $freelandata->profile_picture;
                         }
                     }
+
+        $roundRating = round($freelandata->rating,0);
+        $noRating = 5 - $roundRating;
             $bidderdetail .='<div class="row bg-light p-3 mt-2 gx-0">
             <div class="col-2 col-md-2 p-0">
             <img src="'.$profilepic.'"
@@ -1322,7 +1328,7 @@ if (!empty($_SESSION)) {
                     </div>
                     <div class="col-6 col-md-3 mt-3 mt-md-0">
                         <h5 class="fs-7"><strong>'.$biddata->currency.' '.$biddata->bid_amount.'</strong> in '.$biddata->delivery.' days</h5>
-                        <span class="fs-5 text-warning"> ' . str_repeat('★', $biddata->freelancer_rating) . ' ' . str_repeat('☆', (5 - $biddata->freelancer_rating)) . '
+                        <span class="fs-5 text-warning"> ' . str_repeat('★', $roundRating) . str_repeat('☆', $noRating) . '
                         </span>
                     </div>
                     <div class="col-2 col-md-1 d-flex align-items-center mt-3 mt-md-0 bidderHere">
@@ -1448,6 +1454,9 @@ if (!empty($_SESSION)) {
                     if(!empty($freelandata->profile_picture)){
                         $profilepic ='';
                     }
+
+                $roundRating = round($freelandata->rating,0);
+                $noRating = 5 - $roundRating;
             $bidderdetail .='<div class="row bg-light p-3 mt-2 gx-0">
                     <div class="col-2 col-md-2 p-0">
                         <img src="'.IMAGE_PATH.'/freelancer/profile/'.$freelandata->profile_picture.'"
@@ -1462,7 +1471,7 @@ if (!empty($_SESSION)) {
                     </div>
                     <div class="col-6 col-md-3 mt-3 mt-md-0">
                         <h5 class="fs-7"><strong>'.$biddata->currency.' '.$biddata->bid_amount.'</strong> in '.$biddata->delivery.' days</h5>
-                        <span class="fs-5 text-warning"> ' . str_repeat('★', $biddata->freelancer_rating) . ' ' . str_repeat('☆', (5 - $biddata->freelancer_rating)) . '
+                        <span class="fs-5 text-warning"> ' . str_repeat('★', $roundRating) . str_repeat('☆', $noRating) . '
                         </span>
                     </div>
                     <!--<div class="col-2 col-md-1 d-flex align-items-center mt-3 mt-md-0">
@@ -1512,6 +1521,10 @@ if (!empty($_SESSION)) {
         } else {
             $budget = '<h4 class="fs-6 fw-bold">' . $jobdatas->currency . ' ' . $jobdatas->budget_range_low . ' - ' . $jobdatas->budget_range_high . '</h4>';
         }
+
+        $roundRating = round($clientdatas->rating,0);
+        $noRating = 5 - $roundRating;
+
         $reviewdetail .= ' <main class="">
         <!-- Header -->
         <div class="bg-dark-blue">
@@ -1592,7 +1605,7 @@ if (!empty($_SESSION)) {
                             </li>
                             <li class="d-flex align-items-center gap-2">
                                 <i class="fa-solid fa-user"></i>
-                                <span class="fs-4 text-warning"> ' . str_repeat('★', $clientdatas->rating) . ' ' . str_repeat('☆', (5 - $clientdatas->rating)) . '</span>
+                                <span class="fs-4 text-warning"> ' . str_repeat('★', $roundRating) . str_repeat('☆', $noRating) . '</span>
                             </li>
                             <li class="d-flex align-items-center gap-2">
                                 <i class="fa-solid fa-clock"></i>
@@ -1617,6 +1630,9 @@ elseif (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client" && 
         } else {
             $budget = '<h4 class="fs-6 fw-bold">' . $jobdatas->currency . ' ' . $jobdatas->budget_range_low . ' - ' . $jobdatas->budget_range_high . '</h4>';
         }
+
+    $roundRating = round($clientdatas->rating,0);
+    $noRating = 5 - $roundRating;
         $reviewdetail .= ' <main class="">
         <!-- Header -->
         <div class="bg-dark-blue">
@@ -1719,7 +1735,7 @@ foreach($biddatas as $biddata){
                             </li>
                             <li class="d-flex align-items-center gap-2">
                                 <i class="fa-solid fa-user"></i>
-                                <span class="fs-4 text-warning"> ' . str_repeat('★', $clientdatas->rating) . ' ' . str_repeat('☆', (5 - $clientdatas->rating)) . '</span>
+                                <span class="fs-4 text-warning"> ' . str_repeat('★', $roundRating) . ' ' . str_repeat('☆', $noRating) . '</span>
                             </li>
                             <li class="d-flex align-items-center gap-2">
                                 <i class="fa-solid fa-clock"></i>

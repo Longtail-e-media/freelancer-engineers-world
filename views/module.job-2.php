@@ -246,6 +246,10 @@ if (defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
                        name="bid-amount" value="' . $jobdatas->exact_budget . '" readonly>
             ';
         }
+
+        $roundRating = round($clientdatas->rating,0);
+        $noRating = 5 - $roundRating;
+
         $jobdetails .= '
                         </div>
                         <button type="submit" class="btn bg-pink text-white">Bid</button>
@@ -264,7 +268,7 @@ if (defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
                             </li>
                             <li class="d-flex align-items-center gap-2">
                                 <i class="fa-solid fa-user"></i>
-                                <span class="fs-4 text-warning">' . str_repeat('★', $clientdatas->rating) . ' ' . str_repeat('☆', (5 - $clientdatas->rating)) . '</span>
+                                <span class="fs-4 text-warning">' . str_repeat('★', $roundRating) . str_repeat('☆', $noRating) . '</span>
                             </li>
                             <li class="d-flex align-items-center gap-2">
                                 <i class="fa-solid fa-clock"></i>
@@ -327,6 +331,9 @@ if (defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
                     }
                 }
 
+                $roundRating = round($freelancerRec->rating,0);
+                $noRating = 5 - $roundRating;
+
                 $jobdetails .= '
                             <div class="row bg-light p-3 p-md-5 mt-2 gx-0 hover-effect">
                                 <div class="col-12 col-md-3 p-0">
@@ -339,7 +346,7 @@ if (defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
                                 </div>
                                 <div class="col-3 col-md-3 mt-md-0 ms-3 ms-md-0 mt-3">
                                     <h5 class="fs-7"><strong>' . $bidsRow->currency . ' ' . $bidsRow->bid_amount . '</strong> in ' . $bidsRow->delivery . ' days</h5>
-                                    <span class="fs-4 text-warning"> ' . str_repeat('★', $freelancerRec->rating) . ' ' . str_repeat('☆', (5 - $freelancerRec->rating)) . '</span>
+                                    <span class="fs-4 text-warning"> ' . str_repeat('★', $roundRating) . str_repeat('☆', $noRating) . '</span>
                                 </div>
                             </div>
                 ';
