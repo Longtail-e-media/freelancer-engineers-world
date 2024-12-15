@@ -1188,12 +1188,12 @@ if (!empty($_SESSION)) {
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="freelancerModalLabel">Freelancer Details</h5>
+                    <h5 class="modal-title" id="freelancerModalLabel">Freelancer Message</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-4">
+                        <!--<div class="col-4">
                             <img src="'.$profilepic.'"
                                 alt="User" class="img-fluid">
                         </div>
@@ -1202,8 +1202,8 @@ if (!empty($_SESSION)) {
                             <p class="fs-7 p-0 m-0">'.$biddata->currency.' '.$biddata->bid_amount.' in '.$biddata->delivery.' days</p>
                             <span class="fs-4 text-warning">  ' . str_repeat('★', $biddata->freelancer_rating) . ' ' . str_repeat('☆', (5 - $biddata->freelancer_rating)) . '
                             </span>
-                        </div>
-                        <p class="fs-7 mt-3">'.strip_tags($biddata->message).'</p>
+                        </div>-->
+                        <p class="mt-3">'.strip_tags($biddata->message).'</p>
                     </div>
                 </div>
             </div>
@@ -1336,12 +1336,12 @@ if (!empty($_SESSION)) {
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="freelancerModalLabel">Freelancer Details</h5>
+                    <h5 class="modal-title" id="freelancerModalLabel">Freelancer Message</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-4">
+                        <!--<div class="col-4">
                             <img src="'.$profilepic.'"
                                 alt="User" class="img-fluid">
                         </div>
@@ -1350,8 +1350,8 @@ if (!empty($_SESSION)) {
                             <p class="fs-7 p-0 m-0">'.$biddata->currency.' '.$biddata->bid_amount.' in '.$biddata->delivery.' days</p>
                             <span class="fs-4 text-warning">  ' . str_repeat('★', $biddata->freelancer_rating) . ' ' . str_repeat('☆', (5 - $biddata->freelancer_rating)) . '
                             </span>
-                        </div>
-                        <p class="fs-7 mt-3">'.strip_tags($biddata->message).'</p>
+                        </div>-->
+                        <p class="mt-3">'.strip_tags($biddata->message).'</p>
                     </div>
                 </div>
             </div>
