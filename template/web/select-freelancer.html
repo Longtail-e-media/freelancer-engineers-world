@@ -48,6 +48,15 @@
                     maxlength: "You can select up to 5 freelancers only."
                 },
             },
+            errorPlacement: function (error, element) {
+                // Find the closest container around the element and insert the error outside it
+                var container = element.closest('.bidderHere');
+                if (container.length) {
+                    error.insertAfter(container); // Place error outside the container
+                } else {
+                    error.insertAfter(element); // Default placement
+                }
+            },
             submitHandler: function (form) {
                 // var recaptcha = $("#g-recaptcha-response").val();
                 // if (recaptcha === "") {

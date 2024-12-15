@@ -1177,7 +1177,7 @@ if (!empty($_SESSION)) {
                         <span class="fs-5 text-warning"> ' . str_repeat('★', $biddata->freelancer_rating) . ' ' . str_repeat('☆', (5 - $biddata->freelancer_rating)) . '
                         </span>
                     </div>
-                    <div class="col-2 col-md-1 d-flex align-items-center mt-3 mt-md-0">
+                    <div class="col-2 col-md-1 d-flex align-items-center mt-3 mt-md-0 bidderHere">
                         <input type="checkbox" name="bidder[]" value="'.$biddata->freelancer_id.'"
                             class="form-check-input bg-dark-subtle rounded-0 text-dark w-75 py-3 border-dark" />
                     </div>
@@ -1325,7 +1325,7 @@ if (!empty($_SESSION)) {
                         <span class="fs-5 text-warning"> ' . str_repeat('★', $biddata->freelancer_rating) . ' ' . str_repeat('☆', (5 - $biddata->freelancer_rating)) . '
                         </span>
                     </div>
-                    <div class="col-2 col-md-1 d-flex align-items-center mt-3 mt-md-0">
+                    <div class="col-2 col-md-1 d-flex align-items-center mt-3 mt-md-0 bidderHere">
                         <input type="checkbox" name="bidder[]" value="'.$biddata->freelancer_id.'"
                             class="form-check-input bg-dark-subtle rounded-0 text-dark w-75 py-3 border-dark" />
                     </div>
