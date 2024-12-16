@@ -115,7 +115,7 @@
             'auto': true,
             'multi': true,
             'hideButton': false,
-            'buttonText': 'Upload Image',
+            'buttonText': 'Upload Certificate',
             'width': 125,
             'height': 27,
             'removeCompleted': true,
@@ -157,7 +157,7 @@
             'auto': true,
             'multi': true,
             'hideButton': false,
-            'buttonText': 'Upload Image',
+            'buttonText': 'Upload CV',
             'width': 125,
             'height': 27,
             'removeCompleted': true,
@@ -278,17 +278,17 @@
                                     // logout
                                     return window.location.href = base_url + "logout";
                                 } else {
-                                    $('#msgProfile').html(msg.message).addClass('alert alert-success').css('display', 'flex').fadeOut(8000);
+                                    $('#msgProfile').html(msg.message).removeClass('alert alert-danger').addClass('alert alert-success').css('display', 'flex').fadeOut(8000);
                                     setTimeout(function () {
                                         return window.location.href = "";
                                     }, 5000);
                                 }
                             }
                             if (msg.action == 'warning') {
-                                $('#msgProfile').html(msg.message).addClass('alert alert-danger').css('display', 'flex').fadeOut(8000);
+                                $('#msgProfile').html(msg.message).removeClass('alert alert-success').addClass('alert alert-danger').css('display', 'flex').fadeOut(8000);
                             }
                             if (msg.action == 'unsuccess') {
-                                $('#msgProfile').html(msg.message).addClass('alert alert-danger').css('display', 'flex').fadeOut(8000);
+                                $('#msgProfile').html(msg.message).removeClass('alert alert-success').addClass('alert alert-danger').css('display', 'flex').fadeOut(8000);
                             }
                         }
                     });
@@ -349,21 +349,20 @@
                         data: "action=updateProfileClient&" + Frmval,
                         success: function (data) {
                             var msg = eval(data);
-                            console.log(msg)
                             $("#submitClient").removeAttr("disabled").text('Save Changes');
                             if (msg.action == 'success') {
                                 if (msg.logout == 'logout') {
                                     // logout
                                     return window.location.href = base_url + "logout";
                                 } else {
-                                    $('#msgProfile').html(msg.message).addClass('alert alert-success').css('display', 'flex').fadeOut(8000);
+                                    $('#msgProfile').html(msg.message).removeClass('alert alert-danger').addClass('alert alert-success').css('display', 'flex').fadeOut(8000);
                                     setTimeout(function () {
                                         return window.location.href = "";
                                     }, 5000);
                                 }
                             }
                             if (msg.action == 'unsuccess') {
-                                $('#msgProfile').html(msg.message).addClass('alert alert-danger').css('display', 'flex').fadeOut(8000);
+                                $('#msgProfile').html(msg.message).removeClass('alert alert-success').addClass('alert alert-danger').css('display', 'flex').fadeOut(8000);
                             }
                         }
                     });

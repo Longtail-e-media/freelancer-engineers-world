@@ -309,7 +309,7 @@ if (!empty($_SESSION)) {
             $sel = (!empty($freelancerdata->education_lvl) and $edu == $freelancerdata->education_lvl) ? 'selected' : '';
             $option .= '<option value="' . $edu . '" ' . $sel . '>' . $edu . '</option>';
         }
-                                $profile .=
+        $profile .=
             '             ;'.$option.'
                                         </select>
                                         <label for="education">Highest Level of Education <span
@@ -511,7 +511,7 @@ $jVars["module:dashboard-profile"] = $profile;
 //client dashboard
 $clientdashboard = "";
 if (!empty($_SESSION)) {
-    if (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client") {
+    if (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client" AND defined('DASHBOARD') ) {
         $clientdata = client::find_by_userid($_SESSION["user_id"]);
         $page =
             (isset($_REQUEST["pageno"]) and !empty($_REQUEST["pageno"]))
@@ -521,16 +521,16 @@ if (!empty($_SESSION)) {
             "SELECT * FROM tbl_jobs WHERE status='1' AND client_id= '" .
             $clientdata->id .
             "' ORDER BY sortorder DESC";
-            $limit = 8;
-            $total = $db->num_rows($db->query($sql));
-            $startpoint = $page * $limit - $limit;
-            $sql .= " LIMIT " . $startpoint . "," . $limit;
-            $query = $db->query($sql);
-            $Records = jobs::find_by_sql($sql);
-            $jobdetail = "";
-            if (!empty($Records)) {
-                // pr($Records);
-                foreach ($Records as $record) {
+        $limit = 8;
+        $total = $db->num_rows($db->query($sql));
+        $startpoint = $page * $limit - $limit;
+        $sql .= " LIMIT " . $startpoint . "," . $limit;
+        $query = $db->query($sql);
+        $Records = jobs::find_by_sql($sql);
+        $jobdetail = "";
+        if (!empty($Records)) {
+            // pr($Records);
+            foreach ($Records as $record) {
                 $biddata= bids::find_by_job_single($record->id);
                 if ($record->budget_type == 1) {
                     $budget =
@@ -557,7 +557,7 @@ if (!empty($_SESSION)) {
                 switch ($record->project_status) {
                     case 1:
                         $bidstatus = '<p class="fs-7 m-0 d-inline-block">No. of Bids: <span>' .
-                    $totalbids .'</span></p>';
+                            $totalbids .'</span></p>';
                         $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                             <p class="text-primary fs-6 fw-bold">
                                 Bid On Progress
@@ -574,7 +574,7 @@ if (!empty($_SESSION)) {
                     case 2:
                         $totalshortlisted = bids::find_total_shortlisted($record->id);
                         $bidstatus = '<p class="fs-7 m-0 d-inline-block">Shortlisted Freelancers: <span>' .
-                        $totalshortlisted .'</span></p>';
+                            $totalshortlisted .'</span></p>';
                         $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                             <p class="text-info fs-6 fw-bold">
                                 Short Listed
@@ -590,7 +590,7 @@ if (!empty($_SESSION)) {
                     case 3:
                         $totalawarded = bids::find_total_awarded($record->id);
                         $bidstatus = '<p class="fs-7 m-0 d-inline-block">Awarded Freelancers: <span>' .
-                        $totalawarded .'</span></p>';
+                            $totalawarded .'</span></p>';
                         $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-center">
                             <a class="nav-link text-success fs-6 fw-bold dropdown" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -603,7 +603,7 @@ if (!empty($_SESSION)) {
                         </div>';
                         break;
                     case 4:
-                        
+
                         $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                             <p class="text-danger fs-6 fw-bold">
                                 Timeout
@@ -613,7 +613,7 @@ if (!empty($_SESSION)) {
                     case 5:
                         $totalwop = bids::find_total_wop($record->id);
                         $bidstatus = '<p class="fs-6 m-0 d-inline-block">Awarded Freelancers: <span>' .
-                        $totalwop .'</span></p>';
+                            $totalwop .'</span></p>';
                         $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-center">
                             <a class="nav-link text-primary-emphasis fs-6 fw-bold dropdown" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -625,23 +625,23 @@ if (!empty($_SESSION)) {
                             </ul>
                             </div>
                         ';
-                            break;
+                        break;
                     case 6:
                         $totalcomp = bids::find_total_comp($record->id);
                         $bidstatus = '<p class="fs-6 m-0 d-inline-block">Awarder Freelancers: <span>' .
-                        $totalcomp .'</span></p>';
+                            $totalcomp .'</span></p>';
                         $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                             <p class="text-dark fs-6 fw-bold">
                                Completed
                             </p>';
-                            if(!empty($biddata)){
+                        if(!empty($biddata)){
                             if($biddata->reviewed_freelancer==0){
-                           $jobstatus .= ' <a href="'.BASE_URL.'review/'.$record->slug.'" class="btn btn-outline-success bg-success-subtle text-success fs-7 rounded-0 px-3 py-1">
+                                $jobstatus .= ' <a href="'.BASE_URL.'review/'.$record->slug.'" class="btn btn-outline-success bg-success-subtle text-success fs-7 rounded-0 px-3 py-1">
                                 Review
                             </a>';
+                            }
                         }
-                    }
-                       $jobstatus .= '  </div>';
+                        $jobstatus .= '  </div>';
                         break;
                     case 7:
                         $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
@@ -670,7 +670,7 @@ if (!empty($_SESSION)) {
                     $budget .
                     '
                            ' .
-                           $bidstatus .
+                    $bidstatus .
                     '
                             
                         </div>
@@ -837,12 +837,12 @@ if (!empty($_SESSION)) {
         $query = $db->query($sql);
         $Records = bids::find_by_sql($sql);
         $jobdetail = "";
-      
+
         if (!empty($Records)) {
             // pr($Records);
             foreach ($Records as $record) {
                 $jobdatas= jobs::find_by_id($record->job_id);
-               
+
                 $totalbids = bids::find_total_bids($record->job_id);
                 $jobstatus = "";
                 switch ($record->project_status) {
@@ -891,42 +891,42 @@ if (!empty($_SESSION)) {
                                     </p>
                                     </div>';
                         break;
-                        case 5:
-                            $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
+                    case 5:
+                        $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                                 <p class="text-dark fs-6 fw-bold">
                                    Completed
                                 </p>';
-                                
-                                if($record->reviewed_client==0){
-                              $jobstatus .= '  <a href="'.BASE_URL.'review/'.$jobdatas->slug.'" class="btn btn-outline-success bg-success-subtle text-success fs-7 rounded-0 px-3 py-1">
+
+                        if($record->reviewed_client==0){
+                            $jobstatus .= '  <a href="'.BASE_URL.'review/'.$jobdatas->slug.'" class="btn btn-outline-success bg-success-subtle text-success fs-7 rounded-0 px-3 py-1">
                                     Review
                                 </a>';
-                            }
-                           $jobstatus .= '  </div>';
-                            break;
-                            case 6:
-                                $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
+                        }
+                        $jobstatus .= '  </div>';
+                        break;
+                    case 6:
+                        $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                                     <p class="text-info-emphasis fs-6 fw-bold">
                                        Work On Progress
                                     </p>';
-                                    
-                               $jobstatus .= '  </div>';
-                                break;
-                   
+
+                        $jobstatus .= '  </div>';
+                        break;
+
                 }
                 // pr($jobstatus);
 
                 // pr($totalbids);
-                
+
                 // pr($jobdatas);
                 //  if ($jobdatas->budget_type == 1) {
-                    $budget =
-                        ' <h5 class="fs-6 fw-bold">' .
-                        $jobdatas->currency .
-                        " " .
-                        $record->bid_amount .
-                        "</h5>";
-                // } 
+                $budget =
+                    ' <h5 class="fs-6 fw-bold">' .
+                    $jobdatas->currency .
+                    " " .
+                    $record->bid_amount .
+                    "</h5>";
+                // }
                 // else {
                 //     $budget =
                 //         '<h5 class="fs-6 fw-bold">' .
@@ -1080,7 +1080,7 @@ if (!empty($_SESSION)) {
                     </nav>
                 </div>
             </div>
-        </section>'; 
+        </section>';
     }
 } else {
     $clientdashboard = "please login to view profile";
@@ -1093,7 +1093,7 @@ $jVars["module:dashboard-job-status"] = $clientdashboard;
 //select freelancer dashboard
 $selectbider = "";
 if (!empty($_SESSION)) {
-    if (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client" && isset($_REQUEST['slug'])) {
+    if (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client" && isset($_REQUEST['slug']) AND defined('FREELANCER_SELECT')) {
 
         $slug = !empty($_REQUEST['slug']) ? addslashes($_REQUEST['slug']) : '';
         $jobdatas= jobs::find_by_slug($slug);
@@ -1139,30 +1139,30 @@ if (!empty($_SESSION)) {
                 </div>
             </div>';
 
-            $bidderdetail='';
-            $biddermodal='';
-            $biddatas= bids::find_by_jobid_bop($jobdatas->id);
-            // pr($biddata);
-            if(!empty($biddatas)){
-                $bidderdetail = '';
-                foreach($biddatas as $biddata){
-                    
-                    //freelancer data through
-                    $freelandata= freelancer::find_by_id($biddata->freelancer_id);
-                    // pr($freelandata);
-                   
-                    $profilepic = 'https://static-00.iconduck.com/assets.00/user-icon-1024x1024-unb6q333.png';
-                    if (!empty($freelandata->profile_picture)) {
-                        $file_path = SITE_ROOT . 'images/freelancer/profile/' . $freelandata->profile_picture;
-                        if (file_exists($file_path)) {
-                            $profilepic = IMAGE_PATH . 'freelancer/profile/' . $freelandata->profile_picture;
-                        }
-                    }
+        $bidderdetail='';
+        $biddermodal='';
+        $biddatas= bids::find_by_jobid_bop($jobdatas->id);
+        // pr($biddata);
+        if(!empty($biddatas)){
+            $bidderdetail = '';
+            foreach($biddatas as $biddata){
 
-                    $roundRating = round($freelandata->rating,0);
-                    $noRating = 5 - $roundRating;
-    
-            $bidderdetail .='<div class="row bg-light p-3 mt-2 gx-0">
+                //freelancer data through
+                $freelandata= freelancer::find_by_id($biddata->freelancer_id);
+                // pr($freelandata);
+
+                $profilepic = 'https://static-00.iconduck.com/assets.00/user-icon-1024x1024-unb6q333.png';
+                if (!empty($freelandata->profile_picture)) {
+                    $file_path = SITE_ROOT . 'images/freelancer/profile/' . $freelandata->profile_picture;
+                    if (file_exists($file_path)) {
+                        $profilepic = IMAGE_PATH . 'freelancer/profile/' . $freelandata->profile_picture;
+                    }
+                }
+
+                $roundRating = round($freelandata->rating,0);
+                $noRating = 5 - $roundRating;
+
+                $bidderdetail .='<div class="row bg-light p-3 mt-2 gx-0">
                     <div class="col-2 col-md-2 p-0">
                         <img src="'.$profilepic.'"
                             alt="User" class="user-icon w-100 bg-dark-subtle p-3">
@@ -1212,10 +1212,10 @@ if (!empty($_SESSION)) {
             </div>
         </div>
     </div>';
-                
+
             }
-            }
-             $selectbider .= '
+        }
+        $selectbider .= '
             <div class="col-12 col-md-6 bg-white ps-0 ps-md-5">
             
             <form id="selectfreelancer">
@@ -1234,7 +1234,7 @@ if (!empty($_SESSION)) {
     </section>
     '.$biddermodal.'';
     }
-   
+
 } else {
     $selectbider = "please login to view profile";
 }
@@ -1245,7 +1245,7 @@ $jVars["module:dashboard-selectfreelancer"] = $selectbider;
 //select Shortlisted dashboard
 $selectshortlisted = "";
 if (!empty($_SESSION)) {
-    if (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client" && isset($_REQUEST['slug'])) {
+    if (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client" && isset($_REQUEST['slug']) AND defined('FREELANCER_SHORTLIST')) {
 
         $slug = !empty($_REQUEST['slug']) ? addslashes($_REQUEST['slug']) : '';
         $jobdatas= jobs::find_by_slug($slug);
@@ -1292,28 +1292,28 @@ if (!empty($_SESSION)) {
                 </div>
             </div>';
 
-            $bidderdetail='';
-            $biddermodal='';
-            $biddatas= bids::find_by_jobid_short($jobdatas->id);
-            // pr($biddata);
-            $profilepic='';
-            if(!empty($biddatas)){
-                foreach($biddatas as $biddata){
-                    
-                    //freelancer data through
-                    $freelandata= freelancer::find_by_id($biddata->freelancer_id);
-                   
-                    $profilepic = 'https://static-00.iconduck.com/assets.00/user-icon-1024x1024-unb6q333.png';
-                    if (!empty($freelandata->profile_picture)) {
-                        $file_path = SITE_ROOT . 'images/freelancer/profile/' . $freelandata->profile_picture;
-                        if (file_exists($file_path)) {
-                            $profilepic = IMAGE_PATH . 'freelancer/profile/' . $freelandata->profile_picture;
-                        }
-                    }
+        $bidderdetail='';
+        $biddermodal='';
+        $biddatas= bids::find_by_jobid_short($jobdatas->id);
+        // pr($biddata);
+        $profilepic='';
+        if(!empty($biddatas)){
+            foreach($biddatas as $biddata){
 
-        $roundRating = round($freelandata->rating,0);
-        $noRating = 5 - $roundRating;
-            $bidderdetail .='<div class="row bg-light p-3 mt-2 gx-0">
+                //freelancer data through
+                $freelandata= freelancer::find_by_id($biddata->freelancer_id);
+
+                $profilepic = 'https://static-00.iconduck.com/assets.00/user-icon-1024x1024-unb6q333.png';
+                if (!empty($freelandata->profile_picture)) {
+                    $file_path = SITE_ROOT . 'images/freelancer/profile/' . $freelandata->profile_picture;
+                    if (file_exists($file_path)) {
+                        $profilepic = IMAGE_PATH . 'freelancer/profile/' . $freelandata->profile_picture;
+                    }
+                }
+
+                $roundRating = round($freelandata->rating,0);
+                $noRating = 5 - $roundRating;
+                $bidderdetail .='<div class="row bg-light p-3 mt-2 gx-0">
             <div class="col-2 col-md-2 p-0">
             <img src="'.$profilepic.'"
                             alt="User" class="user-icon w-100 bg-dark-subtle p-3">
@@ -1364,8 +1364,8 @@ if (!empty($_SESSION)) {
         </div>
     </div>';
             }
-            }
-             $selectshortlisted .= '
+        }
+        $selectshortlisted .= '
             <div class="col-12 col-md-6 bg-white ps-0 ps-md-5">
             <h5 class="fs-5 fw-bold mb-3">Shortlisted Freelancer</h5>
             <form id="selectfreelancer">
@@ -1396,7 +1396,7 @@ $jVars["module:dashboard-selectshortlist"] = $selectshortlisted;
 //freelancer view awarded job details dashboard
 $awarddetail = "";
 if (!empty($_SESSION)) {
-    if (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "freelancer" && isset($_REQUEST['slug'])) {
+    if (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "freelancer" && isset($_REQUEST['slug']) ) {
 
         $slug = !empty($_REQUEST['slug']) ? addslashes($_REQUEST['slug']) : '';
         $jobdatas= jobs::find_by_slug($slug);
@@ -1441,22 +1441,22 @@ if (!empty($_SESSION)) {
                 </div>
             </div>';
 
-            $bidderdetail='';
-            $biddata= bids::find_by_jobid_single_award($jobdatas->id);
-            // pr($biddata);
-            if(!empty($biddata)){
-                $bidderdetail = '';
-                // foreach($biddatas as $biddata){
-                    
-                    //freelancer data through
-                    $freelandata= freelancer::find_by_id($biddata->freelancer_id);
-                    // pr($freelandata);
-                    if(!empty($freelandata->profile_picture)){
-                        $profilepic ='';
-                    }
+        $bidderdetail='';
+        $biddata= bids::find_by_jobid_single_award($jobdatas->id);
+        // pr($biddata);
+        if(!empty($biddata)){
+            $bidderdetail = '';
+            // foreach($biddatas as $biddata){
 
-                $roundRating = round($freelandata->rating,0);
-                $noRating = 5 - $roundRating;
+            //freelancer data through
+            $freelandata= freelancer::find_by_id($biddata->freelancer_id);
+            // pr($freelandata);
+            if(!empty($freelandata->profile_picture)){
+                $profilepic ='';
+            }
+
+            $roundRating = round($freelandata->rating,0);
+            $noRating = 5 - $roundRating;
             $bidderdetail .='<div class="row bg-light p-3 mt-2 gx-0">
                     <div class="col-2 col-md-2 p-0">
                         <img src="'.IMAGE_PATH.'/freelancer/profile/'.$freelandata->profile_picture.'"
@@ -1479,10 +1479,10 @@ if (!empty($_SESSION)) {
                             class="form-check-input bg-dark-subtle rounded-0 text-dark w-75 py-3 border-dark" />
                     </div>-->
                 </div>';
-                
+
             // }
-            }
-             $awarddetail .= '
+        }
+        $awarddetail .= '
             <div class="col-12 col-md-6 bg-white ps-0 ps-md-5">
             <h5 class="fs-5 fw-bold mb-3">Awarded Freelancer</h5>
             <form id="selectfreelancer">
@@ -1496,7 +1496,7 @@ if (!empty($_SESSION)) {
         </div>
     </section>';
     }
-   
+
 } else {
     $awarddetail = "please login to view profile";
 }
@@ -1629,9 +1629,9 @@ if (!empty($_SESSION)) {
             </div>
         </section>
     </main>';
-    $reviewdetailjs = '<script src="'.BASE_URL.'template/web/assets/js/ratingsingle.js"></script>';
-}
-elseif (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client" && defined('REVIEW') && isset($_REQUEST['slug'])) {
+        $reviewdetailjs = '<script src="'.BASE_URL.'template/web/assets/js/ratingsingle.js"></script>';
+    }
+    elseif (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client" && defined('REVIEW') && isset($_REQUEST['slug'])) {
 
         $slug = !empty($_REQUEST['slug']) ? addslashes($_REQUEST['slug']) : '';
         $jobdatas= jobs::find_by_slug($slug);
@@ -1643,8 +1643,8 @@ elseif (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client" && 
             $budget = '<h4 class="fs-6 fw-bold">' . $jobdatas->currency . ' ' . $jobdatas->budget_range_low . ' - ' . $jobdatas->budget_range_high . '</h4>';
         }
 
-    $roundRating = round($clientdatas->rating,0);
-    $noRating = 5 - $roundRating;
+        $roundRating = round($clientdatas->rating,0);
+        $noRating = 5 - $roundRating;
         $reviewdetail .= ' <main class="">
         <!-- Header -->
         <div class="bg-dark-blue">
@@ -1703,15 +1703,15 @@ elseif (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client" && 
                             <form id="reviewsetmulti">
                                         ';
 
-$biddatas= bids::find_by_jobid_review($jobdatas->id, $jobdatas->client_id);
-foreach($biddatas as $biddata){
-    $freelancerdata= freelancer::find_by_id($biddata->freelancer_id);
-    // pr($freelancerdata);
-    $profilepic ='<div class="col-2 col-md-2 p-0">
+        $biddatas= bids::find_by_jobid_review($jobdatas->id, $jobdatas->client_id);
+        foreach($biddatas as $biddata){
+            $freelancerdata= freelancer::find_by_id($biddata->freelancer_id);
+            // pr($freelancerdata);
+            $profilepic ='<div class="col-2 col-md-2 p-0">
                         <img src="'.IMAGE_PATH.'freelancer/profile/'.$freelancerdata->profile_picture.'"
                             alt="User" class="user-icon w-100 bg-dark-subtle p-3">
                     </div>';
-    $reviewdetail .=' 
+            $reviewdetail .=' 
     <input type="hidden" name="jobid" value="'.$jobdatas->id.'">
                             <input type="hidden" name="clientid" value="'.$clientdatas->id.'"><div class="row bg-light p-3 mt-2 gx-0 hover-effect">
   '.$profilepic.'
@@ -1731,10 +1731,10 @@ foreach($biddatas as $biddata){
         </div>
     </div>
 </div>';
-}
+        }
 // pr($biddata);
-                           
-                         $reviewdetail .=' 
+
+        $reviewdetail .=' 
 
                             <div id="result_msg"></div>
                             <a onclick="showConfirmFree()"
@@ -1771,9 +1771,9 @@ foreach($biddatas as $biddata){
             </div>
         </section>
     </main>';
-    $reviewdetailjs = '<script src="'.BASE_URL.'template/web/assets/js/rating.js"></script>';
-}
-   
+        $reviewdetailjs = '<script src="'.BASE_URL.'template/web/assets/js/rating.js"></script>';
+    }
+
 } else {
     $reviewdetail = "please login to view profile";
 }

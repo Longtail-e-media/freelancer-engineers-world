@@ -31,6 +31,42 @@ if (!empty($_SESSION)) {
             $createajob .= '   <option value="' . $jobcategory->id . '" >' . $jobcategory->title . '</option>';
         }
 
+        // basic policy article
+        $basicArticleRec = Article::find_by_id(22);
+        if(!empty($basicArticleRec)){
+            $basicArticleTxt = $basicArticleRec->content;
+        } else {
+            $basicArticleTxt = '
+                <ol>
+                        <li>The client needs to have account in the platform.</li>
+                        <li>The client shall not write contact number, email ID or location which may by pass the engineers from the platform. </li>
+                        <li>Client may use AI tool like ChatGPT to write good looking post.</li>
+                        <li>Client generally needs to specify the range of budget for the work.</li>
+                        <li>Client may post without budget range.</li>
+                        <li>Client needs to specify the bid end date.</li>
+                        <li>In general, the number of words shall be less than 300 for the post.</li>
+                        <li>Client can select maximum 5 bidders (freelancers) after the bid is placed.</li>
+                        <li>Client who has posted the job will be added to a Viber / WhatsApp Group by the platform representative where client may put the queries regarding the project.</li>
+                        <li>Client shall add the freelancer in the Viber / WhatsApp Group who has bid and selected for the work. Or client may inform the platform about the freelancer who is selected so that the freelancer </li>could be added in the group by the platform representative.
+                        <li>Once the platform is informed about the selected freelancer, the platform will ask the license from the freelancer. The platform will also ask for academic certificated needed. If any suspicion </li>is found the client will be notified about the issue.
+                        <li>The platform may suspend or blacklist the freelancer if the service is not provided in time.</li>
+                        <li>Once, the work is started the client needs to deposit 10% of the project cost in the platform account. </li>
+                        <li>If the project terminates in the initial phase without starting the work from client or freelancer then the deposit may be returned to the client by deducting the online transfer fee.</li>
+                        <li>If the project terminates in between the project, the amount of refund of the deposit will depend upon the amount of work completed.</li>
+                        <li>Unless the first deposit is made the client may not get the first step work from the freelancer.</li>
+                        <li>The amount transferred to the freelancer will not be returned by the platform.</li>
+                        <li>Client may change the freelancer two times, if not satisfied but any payment transferred to the freelancer will not be refunded.</li>
+                        <li>By mutual understanding with the freelancer, client needs to agree on steps of work (minimum step 2, maximum step 4). The client will get the service in these steps. </li>
+                        <li>Before receiving the first step work, the client needs to deposit 10% of the project amount in the platform account.</li>
+                        <li>Before receiving the second step work, the client needs to deposit the first step work in the freelancer account.</li>
+                        <li>Similarly, if there are more than two steps the client needs to pay for earlier work to get the work of next step.</li>
+                        <li>The client would rank the freelancer once the work is completed.</li>
+                        <li>Vacancy could not be posted in the platform.</li>
+                    </ol>
+            ';
+        }
+
+
         $createajob .= '     
         <option value="0" >Other</option>
            </select>
@@ -130,32 +166,7 @@ if (!empty($_SESSION)) {
                         <h5 class="fw-bold fs-5 mb-4">Basic policy to post job:</h5>
                         <div class="policy-content fs-7 ">
     
-                    <ol>
-                        <li>The client needs to have account in the platform.</li>
-                        <li>The client shall not write contact number, email ID or location which may by pass the engineers from the platform. </li>
-                        <li>Client may use AI tool like ChatGPT to write good looking post.</li>
-                        <li>Client generally needs to specify the range of budget for the work.</li>
-                        <li>Client may post without budget range.</li>
-                        <li>Client needs to specify the bid end date.</li>
-                        <li>In general, the number of words shall be less than 300 for the post.</li>
-                        <li>Client can select maximum 5 bidders (freelancers) after the bid is placed.</li>
-                        <li>Client who has posted the job will be added to a Viber / WhatsApp Group by the platform representative where client may put the queries regarding the project.</li>
-                        <li>Client shall add the freelancer in the Viber / WhatsApp Group who has bid and selected for the work. Or client may inform the platform about the freelancer who is selected so that the freelancer </li>could be added in the group by the platform representative.
-                        <li>Once the platform is informed about the selected freelancer, the platform will ask the license from the freelancer. The platform will also ask for academic certificated needed. If any suspicion </li>is found the client will be notified about the issue.
-                        <li>The platform may suspend or blacklist the freelancer if the service is not provided in time.</li>
-                        <li>Once, the work is started the client needs to deposit 10% of the project cost in the platform account. </li>
-                        <li>If the project terminates in the initial phase without starting the work from client or freelancer then the deposit may be returned to the client by deducting the online transfer fee.</li>
-                        <li>If the project terminates in between the project, the amount of refund of the deposit will depend upon the amount of work completed.</li>
-                        <li>Unless the first deposit is made the client may not get the first step work from the freelancer.</li>
-                        <li>The amount transferred to the freelancer will not be returned by the platform.</li>
-                        <li>Client may change the freelancer two times, if not satisfied but any payment transferred to the freelancer will not be refunded.</li>
-                        <li>By mutual understanding with the freelancer, client needs to agree on steps of work (minimum step 2, maximum step 4). The client will get the service in these steps. </li>
-                        <li>Before receiving the first step work, the client needs to deposit 10% of the project amount in the platform account.</li>
-                        <li>Before receiving the second step work, the client needs to deposit the first step work in the freelancer account.</li>
-                        <li>Similarly, if there are more than two steps the client needs to pay for earlier work to get the work of next step.</li>
-                        <li>The client would rank the freelancer once the work is completed.</li>
-                        <li>Vacancy could not be posted in the platform.</li>
-                    </ol>
+                    '.$basicArticleTxt.'
     
                 </div>
                 </div>
