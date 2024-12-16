@@ -707,7 +707,7 @@
                 $user->save();
 
                 $db->commit();
-                $message        = sprintf($GLOBALS['basic']['changesSaved_'], "Freelancer '" . $record->first_name . "'");
+                $message        = sprintf($GLOBALS['basic']['changesSaved_'], "Client '" . $record->first_name . "'");
                 echo json_encode(array("action" => "success", "message" => $message));
                 log_action("Freelancer [" . $record->first_name . "] Edit Successfully", 1, 4);
             else: $db->rollback();

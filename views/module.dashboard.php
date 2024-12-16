@@ -577,7 +577,7 @@ if (!empty($_SESSION)) {
                         $totalshortlisted .'</span></p>';
                         $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                             <p class="text-info fs-6 fw-bold">
-                                Short listed
+                                Short Listed
                             </p>
                             <div class="d-inline-block bg-dark-subtle px-3 view-select">
                                 <a href="'.BASE_URL.'freelancer-shortlist/'.$record->slug.'" class="text-decoration-none text-dark">View</a>
@@ -617,7 +617,7 @@ if (!empty($_SESSION)) {
                         $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-center">
                             <a class="nav-link text-primary-emphasis fs-6 fw-bold dropdown" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                Work on Progress <i class="fas fa-chevron-down"></i>
+                                Work On Progress <i class="fas fa-chevron-down"></i>
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item text-dark fs-6" id="complete" onclick="changetoawarded('.$record->id.')">Completed</a>
@@ -862,7 +862,7 @@ if (!empty($_SESSION)) {
                     case 2:
                         $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                             <p class="text-info fs-6 fw-bold">
-                                Short listed
+                                Short Listed
                             </p>
                             <!--<div class="d-inline-block bg-dark-subtle px-3 view-select">
                                 <a href="" class="text-decoration-none text-dark">View</a>
@@ -907,7 +907,7 @@ if (!empty($_SESSION)) {
                             case 6:
                                 $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                                     <p class="text-info-emphasis fs-6 fw-bold">
-                                       Work on Progress
+                                       Work On Progress
                                     </p>';
                                     
                                $jobstatus .= '  </div>';

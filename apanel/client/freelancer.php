@@ -71,7 +71,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                         <?php
                         switch ($record->project_status):
                             case '1':
-                                echo "Bid on Progress";
+                                echo "Bid On Progress";
                                 break;
                             case '2':
                                 echo "Short Listed";
@@ -86,7 +86,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                                 echo "Completed";
                                 break;
                             case '6':
-                                echo "Work in Progress";
+                                echo "Work In Progress";
                                 break;
                         endswitch;
                         ?>
@@ -261,7 +261,8 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                         </label>
                     </div>
                     <div class="form-input col-md-20">
-                        <select name="admin_rating" id="admin_rating" class="validate[required] col-md-1">
+                        <?php $disable = (!empty($bidInfo) and $bidInfo->reviewed_admin == 1) ? 'disabled' : ''; ?>
+                        <select name="admin_rating" id="admin_rating" class="validate[required] col-md-1" <?= $disable ?> >
                             <?php
                             for ($i = 0; $i < 3; $i++) {
                                 $sel = ($bidInfo->admin_rating == $i) ? 'selected' : '';
@@ -272,7 +273,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                     </div>
                 </div>
 
-                <button btn-action='0' type="submit" name="submit" id="btn-submit" title="Save"
+                <button btn-action='0' type="submit" name="submit" id="btn-submit" title="Save" <?= $disable ?>
                         class="btn-submit btn large primary-bg text-transform-upr font-bold font-size-11 radius-all-4">
                     <span class="button-content">Save</span>
                 </button>

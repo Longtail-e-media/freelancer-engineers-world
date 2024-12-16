@@ -40,7 +40,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                             break;
                         case 2:
                             $countImages = bids::find_total_shortlisted($record->id);
-                            $jobstatus = 'Short listed';
+                            $jobstatus = 'Short Listed';
                             break;
                         case 3:
                             $countImages = bids::find_total_awarded($record->id);
@@ -52,7 +52,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                             break;
                         case 5:
                             $countImages = bids::find_total_wop($record->id);
-                            $jobstatus = 'Work on Progress ';
+                            $jobstatus = 'Work On Progress ';
                             break;
                         case 6:
                             $countImages = bids::find_total_comp($record->id);
@@ -457,7 +457,8 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                         </label>
                     </div>
                     <div class="form-input col-md-20">
-                        <select name="admin_rating" id="admin_rating" class="validate[required] col-md-1">
+                        <?php $disable = (!empty($jobInfo) and $jobInfo->reviewed_admin == 1) ? 'disabled' : ''; ?>
+                        <select name="admin_rating" id="admin_rating" class="validate[required] col-md-1" <?= $disable ?> >
                             <?php
                             for ($i = 0; $i < 4; $i++) {
                                 $sel = ($jobInfo->admin_rating == $i) ? 'selected' : '';
@@ -468,7 +469,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                     </div>
                 </div>
 
-                <button btn-action='0' type="submit" name="submit" id="btn-submit" title="Save"
+                <button btn-action='0' type="submit" name="submit" id="btn-submit" title="Save" <?= $disable ?>
                         class="btn-submit btn large primary-bg text-transform-upr font-bold font-size-11 radius-all-4">
                     <span class="button-content">Save</span>
                 </button>
