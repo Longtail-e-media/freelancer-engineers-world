@@ -457,9 +457,9 @@
           
             // pr($_POST);
             // $sqlids     = '';
-            $bids        = Bids::find_by_all_id($_REQUEST['clientid'],$_REQUEST['freelancerid'],$_REQUEST['jobid']);
+            $bids        = Bids::find_by_all_id($_REQUEST['clientid'], $_REQUEST['freelancerid'], $_REQUEST['jobid']);
             // pr($bids);
-            $bids->client_rating = $_REQUEST['rating'];
+            $bids->client_rating = !empty($_REQUEST['rating']) ? $_REQUEST['rating'] : 0;
             $bids->reviewed_client = 1;
 
             $db->begin();
@@ -467,16 +467,16 @@
                 $db->commit();
                 // update overall rating for client
                 calculate_rating_for_client($bids->id);
-                echo json_encode(array("action" => "success", "message" => "review submiited!"));
+                echo json_encode(array("action" => "success", "message" => "Review submitted!"));
             else: $db->rollback();
-                echo json_encode(array("action" => "error", "message" => "review not submiited !"));
+                echo json_encode(array("action" => "error", "message" => "Review not submitted!"));
             endif;
         break;
 
         case "forfreelancerreview":
 
             $ratings = $_REQUEST['rating'];
-            
+
             foreach($ratings as $key => $rating){
                 $bids = Bids::find_by_all_id($_REQUEST['clientid'], $key, $_REQUEST['jobid']);
                 $bids->freelancer_rating = $rating;
@@ -489,9 +489,9 @@
             $db->begin();
             if ($save):
                 $db->commit();
-                echo json_encode(array("action" => "success", "message" => "review submiited!"));
+                echo json_encode(array("action" => "success", "message" => "Review submitted!"));
             else: $db->rollback();
-                echo json_encode(array("action" => "error", "message" => "review not submiited !"));
+                echo json_encode(array("action" => "error", "message" => "Review not submitted!"));
             endif;
             
         break;

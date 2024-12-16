@@ -1534,6 +1534,18 @@ if (!empty($_SESSION)) {
                 </h1>
             </div>
         </div>
+        
+        <div class="divMessageBox" style="display:none;"></div>      
+        <div class="MessageBoxContainer" style="display:none;">
+            <div class="MessageBoxMiddle">
+            <span class="MsgTitle"></span>
+            <p class="pText"></p>
+                <div class="MessageBoxButtonSection">
+                <button id="no" class="botTempo"> No</button>
+                <button id="yes" class="botTempo"> Yes</button>
+                </div>
+            </div>
+        </div>
 
         <!-- Main Content -->
         <section class="container">
@@ -1571,7 +1583,7 @@ if (!empty($_SESSION)) {
                             <h5 class="fw-bold fs-6 my-3 my-lg-4">Rate Client on project complete</h5>
                             <div class="my-3 my-lg-4">
                                 <div id="rating-container" class="ratings d-flex gap-1">
-                            <input type="hidden" id="rating" name="rating" value="">
+                            <input type="hidden" id="rating" name="rating" value="0">
                             <input type="hidden" name="freelancerid" value="'.$freelancerdata->id.'">
                             <input type="hidden" name="clientid" value="'.$clientdatas->id.'">
                             <input type="hidden" name="jobid" value="'.$jobdatas->id.'">
@@ -1583,10 +1595,10 @@ if (!empty($_SESSION)) {
                                 </div>
                             </div>
                            <div id="result_msg"></div>
-                            <button
+                            <a onclick="showConfirm()"
                                 class="btn btn-dark bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0 w-auto" id="submit">
                                 Submit Review
-                            </button>
+                            </a>
                             </form>
                         </div>
                     </div>
@@ -1640,6 +1652,18 @@ elseif (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "client" && 
                 <h1 class="text-light py-4 py-lg-5 fw-light fs-2 fs-lg-1">
                     '.$jobdatas->title.'
                 </h1>
+            </div>
+        </div>
+        
+        <div class="divMessageBox" style="display:none;"></div>      
+        <div class="MessageBoxContainer" style="display:none;">
+            <div class="MessageBoxMiddle">
+            <span class="MsgTitle"></span>
+            <p class="pText"></p>
+                <div class="MessageBoxButtonSection">
+                <button id="no" class="botTempo"> No</button>
+                <button id="yes" class="botTempo"> Yes</button>
+                </div>
             </div>
         </div>
 
@@ -1712,11 +1736,11 @@ foreach($biddatas as $biddata){
                            
                          $reviewdetail .=' 
 
-<div id="result_msg"></div>
-                            <button
+                            <div id="result_msg"></div>
+                            <a onclick="showConfirmFree()"
                                 class="btn btn-dark bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0 w-auto mt-4" id="submitmulti">
                                 Submit Review
-                            </button>
+                            </a>
                             </form>
                         </div>
                     </div>
