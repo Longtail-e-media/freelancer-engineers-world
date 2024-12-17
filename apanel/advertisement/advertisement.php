@@ -167,7 +167,7 @@ if (isset($_GET['page']) && $_GET['page'] == "advertisement" && isset($_GET['mod
                                 $Lpageview = !empty($advInfo->linksrc) ? $advInfo->linksrc : "";
                                 $LinkTypeview = !empty($advInfo->linktype) ? $advInfo->linktype : "";
                                 // Page Page Link
-                                // echo Page::get_internal_link($Lpageview, $LinkTypeview);
+                                echo Article::get_internal_link($Lpageview, $LinkTypeview);
                                 ?>
                             </select>
                         </div>
