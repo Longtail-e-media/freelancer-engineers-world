@@ -65,7 +65,7 @@ if (!empty($_SESSION)) {
                                     <div class="form-floating">
                                         <input type="password" class="form-control border-0 rounded-0 fs-5" id="password" name="password"
                                             placeholder="Password">
-                                        <label for="password">Password <span class="text-danger">*</span></label>
+                                        <label for="password">Password </label>
                                     </div>
                                 </div>
                             </div>
@@ -218,7 +218,7 @@ if (!empty($_SESSION)) {
                                     <div class="form-floating">
                                         <input type="password" class="form-control border-0 rounded-0 fs-5" id="password" name="password"
                                             placeholder="Password" >
-                                        <label for="password">Password <span class="text-danger">*</span></label>
+                                        <label for="password">Password </label>
                                     </div>
                                 </div>
                             </div>
