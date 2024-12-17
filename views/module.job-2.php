@@ -334,7 +334,8 @@ if (defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
             ';
             foreach ($bidsRec as $bidsRow) {
                 $freelancerRec = freelancer::find_by_id($bidsRow->freelancer_id);
-                $img = 'https://static-00.iconduck.com/assets.00/user-icon-1024x1024-unb6q333.png';
+                // $img = 'https://static-00.iconduck.com/assets.00/user-icon-1024x1024-unb6q333.png';
+                $img = BASE_URL . 'template/web/assets/images/user-icon.png';
                 if (!empty($freelancerRec->profile_picture)) {
                     $file_path = SITE_ROOT . 'images/freelancer/profile/' . $freelancerRec->profile_picture;
                     if (file_exists($file_path)) {

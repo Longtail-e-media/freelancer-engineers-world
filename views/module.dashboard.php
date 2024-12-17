@@ -777,7 +777,7 @@ if (!empty($_SESSION)) {
                         </div>
                         <div class="col-12 col-md-4 col-lg-2 mb-3 mb-md-0">
                             <h5 class="text-info-emphasis fs-6 fw-bold">
-                                Work in progress
+                                Work On Progress
                             </h5>
                             <p class="fs-7">
                                 Freelancers are working on the job.
@@ -1042,7 +1042,7 @@ if (!empty($_SESSION)) {
                         </div>
                         <div class="col-12 col-md-4 col-lg-2 mb-3 mb-md-0">
                             <h5 class="text-info-emphasis fs-6 fw-bold">
-                                Work in progress
+                                Work On Progress
                             </h5>
                             <p class="fs-7">
                                 Freelancers are working on the job.
@@ -1151,7 +1151,8 @@ if (!empty($_SESSION)) {
                 $freelandata= freelancer::find_by_id($biddata->freelancer_id);
                 // pr($freelandata);
 
-                $profilepic = 'https://static-00.iconduck.com/assets.00/user-icon-1024x1024-unb6q333.png';
+                // $profilepic = 'https://static-00.iconduck.com/assets.00/user-icon-1024x1024-unb6q333.png';
+                $profilepic = BASE_URL . 'template/web/assets/images/user-icon.png';
                 if (!empty($freelandata->profile_picture)) {
                     $file_path = SITE_ROOT . 'images/freelancer/profile/' . $freelandata->profile_picture;
                     if (file_exists($file_path)) {
@@ -1303,7 +1304,8 @@ if (!empty($_SESSION)) {
                 //freelancer data through
                 $freelandata= freelancer::find_by_id($biddata->freelancer_id);
 
-                $profilepic = 'https://static-00.iconduck.com/assets.00/user-icon-1024x1024-unb6q333.png';
+                // $profilepic = 'https://static-00.iconduck.com/assets.00/user-icon-1024x1024-unb6q333.png';
+                $profilepic = BASE_URL . 'template/web/assets/images/user-icon.png';
                 if (!empty($freelandata->profile_picture)) {
                     $file_path = SITE_ROOT . 'images/freelancer/profile/' . $freelandata->profile_picture;
                     if (file_exists($file_path)) {
@@ -1396,7 +1398,7 @@ $jVars["module:dashboard-selectshortlist"] = $selectshortlisted;
 //freelancer view awarded job details dashboard
 $awarddetail = "";
 if (!empty($_SESSION)) {
-    if (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "freelancer" && isset($_REQUEST['slug']) ) {
+    if (!empty($_SESSION["user_type"]) && $_SESSION["user_type"] == "freelancer" && isset($_REQUEST['slug']) && defined('REVIEWWWWW')) {
 
         $slug = !empty($_REQUEST['slug']) ? addslashes($_REQUEST['slug']) : '';
         $jobdatas= jobs::find_by_slug($slug);
@@ -1457,9 +1459,18 @@ if (!empty($_SESSION)) {
 
             $roundRating = round($freelandata->rating,0);
             $noRating = 5 - $roundRating;
+
+            $profilepic = BASE_URL . 'template/web/assets/images/user-icon.png';
+            if (!empty($freelandata->profile_picture)) {
+                $file_path = SITE_ROOT . 'images/freelancer/profile/' . $freelandata->profile_picture;
+                if (file_exists($file_path)) {
+                    $profilepic = IMAGE_PATH . 'freelancer/profile/' . $freelandata->profile_picture;
+                }
+            }
+
             $bidderdetail .='<div class="row bg-light p-3 mt-2 gx-0">
                     <div class="col-2 col-md-2 p-0">
-                        <img src="'.IMAGE_PATH.'/freelancer/profile/'.$freelandata->profile_picture.'"
+                        <img src="'.$profilepic.'"
                             alt="User" class="user-icon w-100 bg-dark-subtle p-3">
                     </div>
                     <div class="col-10 col-md-6 px-3">
@@ -1707,8 +1718,17 @@ if (!empty($_SESSION)) {
         foreach($biddatas as $biddata){
             $freelancerdata= freelancer::find_by_id($biddata->freelancer_id);
             // pr($freelancerdata);
+
+            $profilepic = BASE_URL . 'template/web/assets/images/user-icon.png';
+            if (!empty($freelancerdata->profile_picture)) {
+                $file_path = SITE_ROOT . 'images/freelancer/profile/' . $freelancerdata->profile_picture;
+                if (file_exists($file_path)) {
+                    $profilepic = IMAGE_PATH . 'freelancer/profile/' . $freelancerdata->profile_picture;
+                }
+            }
+
             $profilepic ='<div class="col-2 col-md-2 p-0">
-                        <img src="'.IMAGE_PATH.'freelancer/profile/'.$freelancerdata->profile_picture.'"
+                        <img src="'.$profilepic.'"
                             alt="User" class="user-icon w-100 bg-dark-subtle p-3">
                     </div>';
             $reviewdetail .=' 

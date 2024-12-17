@@ -86,7 +86,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                                 echo "Completed";
                                 break;
                             case '6':
-                                echo "Work In Progress";
+                                echo "Work On Progress";
                                 break;
                         endswitch;
                         ?>
