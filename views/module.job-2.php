@@ -264,6 +264,7 @@ if (defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
         $jobdetails .= '
                         </div>
                         <button type="submit" class="btn bg-pink text-white">Bid</button>
+                        <a href="' . BASE_URL . 'bidding-instructions" target="_blank" rel="noreferrer">Instructions to bid</a>
                     </form>
     
                     <hr class="my-5">
