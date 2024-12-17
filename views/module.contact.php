@@ -19,20 +19,14 @@ if (defined('CONTACT_PAGE')) {
 
     $emailinked = '';
     $emailno = explode(",", $siteRegulars->email_address);
-    $lastElement = array_shift($emailno);
-    $emailinked .= '<a href="mailto:' . $lastElement . '" target="_blank">' . $lastElement . '</a>';
     foreach ($emailno as $email) {
-        $emailinked .= '<br/><a href="mailto:' . $email . '" target="_blank">' . $email . '</a>';
-        if (end($emailno) != $email) {
-            $emailinked .= '/';
-        }
+        $emailinked .= '<a class="link-secondary text-decoration-none" href="mailto:' . $email . '" target="_blank">' . $email . '</a>';
+        $emailinked .= (end($emailno) != $email) ? ', ' : '';
     }
 
     $imglink = $siteRegulars->contact_upload;
     if (!empty($imglink)) {
         $img = IMAGE_PATH . 'preference/contact/' . $siteRegulars->contact_upload;
-    } else {
-        $img = '';
     }
 
     $rescont .= '
@@ -140,9 +134,7 @@ if (defined('CONTACT_PAGE')) {
                                         </h4>
                                         <hr class="w-75 mb-3 border-dark-subtle">
                                         <p class="mb-0">
-                                            <a class="link-secondary text-decoration-none"
-                                               href="mailto:' . $siteRegulars->email_address . '">' .
-            $siteRegulars->email_address . '</a>
+                                            ' . $emailinked . '
                                         </p>
                                     </div>
                                 </div>
