@@ -462,7 +462,7 @@ switch ($action) {
         if ($bids->save()):
             $db->commit();
             // update overall rating for client
-            calculate_rating_for_client($bids->id);
+            // calculate_rating_for_client($bids->id);
             echo json_encode(array("action" => "success", "message" => "Review submitted!"));
         else: $db->rollback();
             echo json_encode(array("action" => "error", "message" => "Review not submitted!"));
@@ -480,7 +480,7 @@ switch ($action) {
             $save = $bids->save();
 
             // update overall rating for freelancer
-            calculate_rating_for_freelancer($bids->id);
+            // calculate_rating_for_freelancer($bids->id);
         }
         $db->begin();
         if ($save):
