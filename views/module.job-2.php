@@ -10,10 +10,10 @@ if (!empty($_SESSION)) {
         $createajob .= '
         <section class="container mt-4">
             <div class="row job-title-content gx-0 gy-5">
-                <div class="col-12 col-lg-7 bg-light p-3 p-md-4 p-lg-5">
+                <div class="col-12 col-lg-7 bg-light p-3 p-md-4 p-lg-5 biddy-sticky">
                     <form class="client-form" id="createjob">
                     <input type="hidden" name="client_id" value="' . $record->id . '">
-                        <div class="row g-3">
+                        <div class="row gx-0 gy-3 g-md-3">
                             <div class="col-md-7">
                                 <div class="form-floating">
                                     <input type="text" class="form-control border-0 rounded-0 fs-6" id="jobtitle" placeholder="Job Title" 

@@ -38,7 +38,7 @@ if (!empty($advertdatas)) {
         }
         $list_advert .= '
             <div class="bg-secondary-subtle card w-100 border-0 rounded-0">
-                <img src="' . $imagepath . '" alt="' . $advertdata->title . '" class="advertisement w-100 h-100">
+                <img src="' . $imagepath . '" alt="' . $advertdata->title . '" class="advertisement">
             </div>
         ';
     }

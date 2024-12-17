@@ -106,9 +106,9 @@ input[type="number"]::-webkit-inner-spin-button {
     width: 30rem !important;
 }
 
-.advertisement-container>.card {
+/* .advertisement-container>.card {
     height: 25rem;
-}
+} */
 
 .footer-social-icons img {
     width: 1.75rem;
@@ -199,8 +199,10 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .advertisement {
     width: 100%;
-    height: 16rem;
-    object-fit: cover;
+    height: auto;
+    object-fit: contain;
+    background-color: #fff;
+    /* box-shadow: 0 10px 40px -10px rgba(0, 64, 128, 0.09); */
 }
 
 .job-review-content .user-icon {
@@ -341,7 +343,7 @@ form>div {
 
 span.validate-has-error,
 span.text-danger {
-    background-color: #fff;
+    /* background-color: #fff; */
     /* position: absolute;
     top: 50%;
     left: 0; */
@@ -381,4 +383,8 @@ span.text-danger {
     background: #fdfdfd !important;
     box-shadow: 0 2px 5px 5px rgba(0, 64, 128, 0.05);
     transition: all 0.3s ease;
+}
+
+.search-bar-desktop {
+    top: 75%;
 }
