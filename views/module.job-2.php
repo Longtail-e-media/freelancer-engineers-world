@@ -244,7 +244,7 @@ if (defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
         // updating bid input type according to budget type
         if ($jobdatas->budget_type == 0) {
             $jobdetails .= '
-           <div class="d-flex align-items-center justify-content-between gap-1 bg-light">
+           <div class="d-flex align-items-center justify-content-between gap-1 bg-light bid-amt-error">
             <span class="fw-bold ps-3">NRs.</span>
             <input type="number" class="bg-light form-control fw-bold text-dark border-0 rounded-0 fs-6 py-3" id="bid-amount" placeholder="Enter your amount" id="bid-amount"
                    name="bid-amount" min="' . $jobdatas->budget_range_low . '" max="' . $jobdatas->budget_range_high . '">
