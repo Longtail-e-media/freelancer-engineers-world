@@ -36,6 +36,7 @@
 <!--<script src="./assets/js/app.js"></script>-->
 <script src="./assets/js/jquery-3.5.1.min.js"></script>
 <script src="./assets/js/jquery.validate.js"></script>
+<script src='https://www.google.com/recaptcha/api.js' async defer></script>
 
 <script>
     var base_url_1 = jQuery('base').attr('url');
@@ -60,6 +61,12 @@
                 subject: {required: "Please enter your subejct"},
             },
             submitHandler: function (form) {
+                var recaptcha = jQuery("#g-recaptcha-response").val();
+                if (recaptcha === "") {
+                    event.preventDefault();
+                    alert("Please check the Captcha!");
+                    return false;
+                }
                 var Frmval = jQuery("form#contact_frm").serialize();
                 jQuery("button#submit").attr("disabled", "true").html('Processing...');
                 jQuery.ajax({

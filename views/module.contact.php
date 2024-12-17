@@ -36,14 +36,13 @@ if (defined('CONTACT_PAGE')) {
     }
 
     $rescont .= '
-
-      <section class="bg-light py-3 py-md-5">
+        <section class="bg-light py-3 py-md-5">
             <div class="container">
                 <div class="row gy-4 gy-md-5 gy-lg-0 align-items-md-center">
                     <!-- Contact Form Column -->
                     <div class="col-12 col-lg-6">
                         <div class="border overflow-hidden bg-white">
-                             <form id="contact_frm">
+                            <form id="contact_frm">
                                 <div class="row gy-3 gy-md-4 p-3 p-md-4 p-lg-5">
                                     <!-- Full Name -->
                                     <div class="col-12">
@@ -51,7 +50,7 @@ if (defined('CONTACT_PAGE')) {
                                                 class="text-danger">*</span></label>
                                         <input type="text" class="form-control rounded-0" id="fullname" name="fullname">
                                     </div>
-
+    
                                     <!-- Email -->
                                     <div class="col-12 col-md-6">
                                         <label for="email" class="form-label">Email <span
@@ -60,10 +59,11 @@ if (defined('CONTACT_PAGE')) {
                                             <!-- <span class="input-group-text rounded-0">
                                                 <i class="fa-solid fa-envelope text-dark me-2"></i> 
                                             </span> -->
-                                            <input type="email" class="form-control rounded-0 w-100" id="email" name="email">
+                                            <input type="email" class="form-control rounded-0 w-100" id="email"
+                                                   name="email">
                                         </div>
                                     </div>
-
+    
                                     <!-- Phone -->
                                     <div class="col-12 col-md-6">
                                         <label for="phone" class="form-label">Phone Number</label>
@@ -74,26 +74,29 @@ if (defined('CONTACT_PAGE')) {
                                             <input type="tel" class="form-control rounded-0" id="phone" name="phone">
                                         </div>
                                     </div>
-
+    
                                     <!-- Subject -->
                                     <div class="col-12">
                                         <label for="subject" class="form-label">Subject <span
                                                 class="text-danger">*</span></label>
                                         <input type="text" class="form-control rounded-0" id="subject" name="subject">
                                     </div>
-
+    
                                     <!-- Message -->
                                     <div class="col-12">
                                         <label for="message" class="form-label">Message <span
                                                 class="text-danger">*</span></label>
                                         <textarea class="form-control rounded-0" id="message" rows="4"
-                                            name="message"></textarea>
+                                                  name="message"></textarea>
                                     </div>
+                                    
+                                    <div id="g-recaptcha-response" class="g-recaptcha col-12" 
+                                        data-sitekey="6LdXSZ4qAAAAAMND2kSc-qcCDLLxj0ZkJEeq39r0"></div>
                                     <div id="msg"></div>
                                     <!-- Submit Button -->
                                     <div class="col-12">
                                         <button class="btn btn-secondary bg-dark-blue w-100 py-3 rounded-0"
-                                            type="submit" id="submit">
+                                                type="submit" id="submit">
                                             Send Message
                                         </button>
                                     </div>
@@ -101,7 +104,7 @@ if (defined('CONTACT_PAGE')) {
                             </form>
                         </div>
                     </div>
-
+    
                     <!-- Contact Info Column -->
                     <div class="col-12 col-lg-6">
                         <div class="row justify-content-xl-center p-3 p-md-0">
@@ -116,7 +119,7 @@ if (defined('CONTACT_PAGE')) {
                                         ' . $siteRegulars->fiscal_address . '
                                     </address>
                                 </div>
-
+    
                                 <!-- Contact Details -->
                                 <div class="row mb-4 mb-md-5">
                                     <!-- Phone -->
@@ -126,10 +129,10 @@ if (defined('CONTACT_PAGE')) {
                                         </h4>
                                         <hr class="w-75 mb-3 border-dark-subtle">
                                         <p class="mb-0">
-                                           ' . $tellinked . '
+                                            ' . $tellinked . '
                                         </p>
                                     </div>
-
+    
                                     <!-- Email -->
                                     <div class="col-12 col-sm-6">
                                         <h4 class="mb-2 fs-5">
@@ -138,17 +141,18 @@ if (defined('CONTACT_PAGE')) {
                                         <hr class="w-75 mb-3 border-dark-subtle">
                                         <p class="mb-0">
                                             <a class="link-secondary text-decoration-none"
-                                                            href="mailto:' . $siteRegulars->email_address . '">' . $siteRegulars->email_address . '</a>
+                                               href="mailto:' . $siteRegulars->email_address . '">' .
+            $siteRegulars->email_address . '</a>
                                         </p>
                                     </div>
                                 </div>
-
+    
                                 <!-- Map -->
                                 <div class="map-container w-100 mt-4">
-                                  <iframe
-                                src="' . $siteRegulars->location_map . '"
-                                class="w-100" height="300" allowfullscreen="" loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                    <iframe
+                                            src="' . $siteRegulars->location_map . '"
+                                            class="w-100" height="300" allowfullscreen="" loading="lazy"
+                                            referrerpolicy="no-referrer-when-downgrade"></iframe>
                                 </div>
                             </div>
                         </div>
@@ -156,11 +160,6 @@ if (defined('CONTACT_PAGE')) {
                 </div>
             </div>
         </section>
-
-
-
-
-       
     ';
 }
 
