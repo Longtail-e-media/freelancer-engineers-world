@@ -338,13 +338,13 @@
 
                 $siteName   = Config::getField('sitename', true);
                 $AdminEmail = User::get_UseremailAddress_byId(1);
-                $fullName   = $_REQUEST['username'];
+                $fullName   = $_REQUEST['first_name'] . ' ' . $_REQUEST['last_name'];
 
                 $msgbody    = '<div>
-					<h3>you have been registered as Client for ' . $siteName . '</h3>                
+					<h3>You have been registered as Client in ' . $siteName . '</h3>                
 					<div>
 					    <font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
-					    Please <a href="' . BASE_URL . 'login">click here to login.</a> <br><br>
+					    Please click <a href="' . BASE_URL . 'login">here</a> to login. <br><br>
 					    <br><br>
 					    <p>Thanks,<br>
 					        ' . $siteName . '
@@ -433,13 +433,13 @@
 
                 $siteName   = Config::getField('sitename', true);
                 $AdminEmail = User::get_UseremailAddress_byId(1);
-                $fullName   = $_REQUEST['username'];
+                $fullName   = $_REQUEST['first_name'] . ' ' . $_REQUEST['last_name'];
 
                 $msgbody    = '<div>
-                    <h3>you have been registered as Freelancer for ' . $siteName . '</h3>                
+                    <h3>You have been registered as Freelancer in ' . $siteName . '</h3>                
                     <div>
                         <font face="Trebuchet MS">Dear ' . $fullName . ' !</font> <br /><br><br>
-                        Please <a href="' . BASE_URL . 'login">click here to login.</a> <br><br>
+                        Please click <a href="' . BASE_URL . 'login">here</a> to login. <br><br>
                         <br><br>
                         <p>Thanks,<br>
                             ' . $siteName . '
