@@ -112,30 +112,7 @@ if (isset($_GET['page']) && $_GET['page'] == "freelanceruser" && isset($_GET['mo
     <div class="example-box">
         <div class="example-code">
             <form action="" class="col-md-10 center-margin" id="adminusersetting_frm">
-                <?php if ($uid == 1) { ?>
-                    <div class="form-row">
-                        <div class="form-label col-md-2">
-                            <label for="">
-                                Group Type :
-                            </label>
-                        </div>
-                        <div class="form-input col-md-4" style="padding:0px !important;">
-                            <select data-placeholder="Choose Field Type"
-                                    class="chosen-select validate[required,length[0,500]]" id="field_type"
-                                    name="field_type">
-                                <option value="">Choose</option>
-                                <?php $GroupTypeRec = Usergrouptype::find_all();
-                                if ($GroupTypeRec): foreach ($GroupTypeRec as $GroupTypeRow):
-                                    $sel = (!empty($usersInfo->group_id) && $usersInfo->group_id == $GroupTypeRow->id) ? 'selected' : '';
-                                    ?>
-                                    <option value="<?php echo $GroupTypeRow->id; ?>" <?php echo $sel; ?>><?php echo $GroupTypeRow->group_name; ?></option>
-                                <?php endforeach; endif; ?>
-                            </select>
-                        </div>
-                    </div>
-                <?php } else { ?>
-                    <input type="hidden" name="field_type" value="<?php echo $usersInfo->group_id; ?> "/>
-                <?php } ?>
+                <input type="hidden" name="field_type" value="<?php echo $usersInfo->group_id; ?> "/>
                 <div class="form-row">
                     <div class="form-label col-md-2">
                         <label for="">
