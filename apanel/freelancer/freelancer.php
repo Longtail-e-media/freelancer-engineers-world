@@ -15,7 +15,7 @@ if (isset($_GET['page']) && $_GET['page'] == "freelancer" && isset($_GET['mode']
                     <th class="text-center"><input class="check-all" type="checkbox"/></th>
                     <th>Name</th>
                     <!--<th class="text-center">Address</th>-->
-                    <th class="text-center">engineering_license_no</th>
+                    <th class="text-center">Engineering License No</th>
                     <th class="text-center">Rating</th>
                     <th class="text-center"><?php echo $GLOBALS['basic']['action']; ?></th>
                 </tr>
@@ -42,7 +42,7 @@ if (isset($_GET['page']) && $_GET['page'] == "freelancer" && isset($_GET['mode']
                            data-placement="top" title="Edit" onclick="addRating(<?php echo $record->id; ?>);">
                             <span class="button-content"> Add Rating </span>
                         </a>-->
-                       <!-- <a href="javascript:void(0);" class="btn small bg-red tooltip-button" data-placement="top"
+                        <!-- <a href="javascript:void(0);" class="btn small bg-red tooltip-button" data-placement="top"
                            title="Remove"
                            onclick="recordApplicationDelete(<?php echo $record->id; ?>);">
                             <i class="glyph-icon icon-remove"></i>
@@ -136,27 +136,45 @@ if (isset($_GET['page']) && $_GET['page'] == "freelancer" && isset($_GET['mode']
         </tr>
         <tr>
             <th class="text-center">Upload Certificate</th>
-            <td><?php echo $appInfo->upload_certificate; ?></td>
+            <td>
+                <a href="<?php echo IMAGE_PATH . 'freelancer/engineeringCertificate/' . $appInfo->upload_certificate; ?>" target="_blank">
+                    <?php echo $appInfo->upload_certificate; ?>
+                </a>
+            </td>
         </tr>
         <tr>
             <th class="text-center">Upload CV</th>
-            <td><?php echo $appInfo->upload_cv; ?></td>
+            <td>
+                <a href="<?php echo IMAGE_PATH . 'freelancer/cv/' . $appInfo->upload_cv; ?>" target="_blank">
+                    <?php echo $appInfo->upload_cv; ?>
+                </a>
+            </td>
         </tr>
         <tr>
             <th class="text-center">Portfolio Website</th>
-            <td><?php echo $appInfo->portfolio_website; ?></td>
+            <td>
+                <a href="<?php echo $appInfo->portfolio_website; ?>" target="_blank"><?php echo $appInfo->portfolio_website; ?></a>
+            </td>
         </tr>
         <tr>
             <th class="text-center">Facebook Profile</th>
-            <td><?php echo $appInfo->facebook_profile; ?></td>
+            <td>
+                <a href="<?php echo $appInfo->facebook_profile; ?>" target="_blank"><?php echo $appInfo->facebook_profile; ?></a>
+            </td>
         </tr>
         <tr>
             <th class="text-center">LinkedIn Profile</th>
-            <td><?php echo $appInfo->linkedIn_profile; ?></td>
+            <td>
+                <a href="<?php echo $appInfo->linkedIn_profile; ?>" target="_blank"><?php echo $appInfo->linkedIn_profile; ?></a>
+            </td>
         </tr>
         <tr>
             <th class="text-center">Profile Picture</th>
-            <td><?php echo $appInfo->profile_picture; ?></td>
+            <td>
+                <a href="<?php echo IMAGE_PATH . 'freelancer/profile/' . $appInfo->profile_picture; ?>" target="_blank">
+                    <?php echo $appInfo->profile_picture; ?>
+                </a>
+            </td>
         </tr>
 
         </tbody>

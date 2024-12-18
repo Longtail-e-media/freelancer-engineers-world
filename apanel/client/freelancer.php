@@ -205,27 +205,39 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
         </tr>
         <tr>
             <th class="text-center">Upload Certificate</th>
-            <td><?php echo $appInfo->upload_certificate; ?></td>
+            <td>
+                <a href="<?php echo IMAGE_PATH . 'freelancer/engineeringCertificate/' . $appInfo->upload_certificate; ?>" target="_blank">
+                    <?php echo $appInfo->upload_certificate; ?>
+                </a>
+            </td>
         </tr>
         <tr>
             <th class="text-center">Upload CV</th>
-            <td><?php echo $appInfo->upload_cv; ?></td>
+            <td>
+                <a href="<?php echo IMAGE_PATH . 'freelancer/cv/' . $appInfo->upload_cv; ?>" target="_blank">
+                    <?php echo $appInfo->upload_cv; ?>
+                </a>
+            </td>
         </tr>
         <tr>
             <th class="text-center">Portfolio Website</th>
-            <td><?php echo $appInfo->portfolio_website; ?></td>
+            <td><a href="<?php echo $appInfo->portfolio_website; ?>" target="_blank"><?php echo $appInfo->portfolio_website; ?></a></td>
         </tr>
         <tr>
             <th class="text-center">Facebook Profile</th>
-            <td><?php echo $appInfo->facebook_profile; ?></td>
+            <td><a href="<?php echo $appInfo->facebook_profile; ?>" target="_blank"><?php echo $appInfo->facebook_profile; ?></a></td>
         </tr>
         <tr>
             <th class="text-center">LinkedIn Profile</th>
-            <td><?php echo $appInfo->linkedIn_profile; ?></td>
+            <td><a href="<?php echo $appInfo->linkedIn_profile; ?>" target="_blank"><?php echo $appInfo->linkedIn_profile; ?></a></td>
         </tr>
         <tr>
             <th class="text-center">Profile Picture</th>
-            <td><?php echo $appInfo->profile_picture; ?></td>
+            <td>
+                <a href="<?php echo IMAGE_PATH . 'freelancer/profile/' . $appInfo->profile_picture; ?>" target="_blank">
+                    <?php echo $appInfo->profile_picture; ?>
+                </a>
+            </td>
         </tr>
 
         </tbody>

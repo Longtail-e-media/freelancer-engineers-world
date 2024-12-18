@@ -185,16 +185,16 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                 </tr>
                 <tr>
                     <th class="text-center">LinkedIn Profile</th>
-                    <td><?php echo $clientInfo->linkdin_profile; ?></td>
+                    <td><a href="<?php echo $clientInfo->linkdin_profile; ?>" target="_blank"><?php echo $clientInfo->linkdin_profile; ?></a></td>
                 </tr>
                 <tr>
                     <th class="text-center">Facebook Profile</th>
-                    <td><?php echo $clientInfo->facebook_profile; ?></td>
+                    <td><a href="<?php echo $clientInfo->facebook_profile; ?>" target="_blank"><?php echo $clientInfo->facebook_profile; ?></a></td>
                 </tr>
-                <tr>
+                <!--<tr>
                     <th class="text-center">Category ID</th>
                     <td><?php echo $clientInfo->category_id; ?></td>
-                </tr>
+                </tr>-->
                 </tbody>
             </table>
         </div>
