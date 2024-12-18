@@ -204,7 +204,7 @@ if (defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
                     <div>
                         <div class="card-title d-flex align-items-center justify-content-between">
                             <div class="">
-                                <h3 class="fs-5 fw-bold text-primary">' . $jobdatas->title . '</h3>
+                                <h3 class="fs-5 fw-bold text-dark-blue">' . $jobdatas->title . '</h3>
                                 <span class="fs-7">End Date: ' . date("M d Y", strtotime($jobdatas->deadline_date)) . '</span>
                             </div>
                             <div>
@@ -264,7 +264,7 @@ if (defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
         $jobdetails .= '
                         </div>
                         <button type="submit" class="btn bg-pink text-white">Bid</button>
-                        <a href="' . BASE_URL . 'bidding-instructions" target="_blank" rel="noreferrer">Instructions to bid</a>
+                        <a href="' . BASE_URL . 'bidding-instructions" target="_blank" rel="noreferrer" class="text-dark-blue mt-3">Instructions to bid</a>
                     </form>
     
                     <hr class="my-5">

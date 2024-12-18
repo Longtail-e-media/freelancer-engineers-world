@@ -559,7 +559,7 @@ if (!empty($_SESSION)) {
                         $bidstatus = '<p class="fs-7 m-0 d-inline-block">No. of Bids: <span>' .
                             $totalbids .'</span></p>';
                         $jobstatus .= '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
-                            <p class="text-primary fs-6 fw-bold">
+                            <p class="text-dark-blue fs-6 fw-bold">
                                 Bid On Progress
                             </p>';
                         if ($totalbids > 0) {
@@ -597,7 +597,7 @@ if (!empty($_SESSION)) {
                                 Awarded <i class="fas fa-chevron-down"></i>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item text-primary-emphasis fs-6" id="wop" onclick="changetowop('.$record->id.')">Work on
+                                <li><a class="dropdown-item text-dark-blue-emphasis fs-6" id="wop" onclick="changetowop('.$record->id.')">Work on
                                         progress</a></li>
                             </ul>
                         </div>';
@@ -615,7 +615,7 @@ if (!empty($_SESSION)) {
                         $bidstatus = '<p class="fs-6 m-0 d-inline-block">Awarded Freelancers: <span>' .
                             $totalwop .'</span></p>';
                         $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-center">
-                            <a class="nav-link text-primary-emphasis fs-6 fw-bold dropdown" href="#" role="button"
+                            <a class="nav-link text-dark-blue-emphasis fs-6 fw-bold dropdown" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Work On Progress <i class="fas fa-chevron-down"></i>
                             </a>
@@ -744,7 +744,7 @@ if (!empty($_SESSION)) {
                 <div class="bg-body-secondary p-3 p-md-5 mb-3">
                     <div class="row">
                         <div class="col-12 col-md-4 col-lg-2 mb-3 mb-md-0">
-                            <h5 class="text-primary fs-6 fw-bold">
+                            <h5 class="text-dark-blue fs-6 fw-bold">
                                 Bid On Progress
                             </h5>
                             <p class="fs-7">
@@ -849,7 +849,7 @@ if (!empty($_SESSION)) {
                     case 1:
                         $encode_id = base64_encode($record->id);
                         $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
-                            <p class="text-primary fs-6 fw-bold">
+                            <p class="text-dark-blue fs-6 fw-bold">
                                 Bid On Progress
                             </p>
                             <a href="' . BASE_URL . 'edit-bid/' . $encode_id . '" class="btn btn-outline-success bg-success-subtle text-success fs-7 rounded-0 px-3 py-1">
@@ -1014,7 +1014,7 @@ if (!empty($_SESSION)) {
                 <div class="bg-body-secondary p-3 p-md-5 mb-3">
                     <div class="row">
                         <div class="col-12 col-md-4 col-lg-2 mb-3 mb-md-0">
-                            <h5 class="text-primary fs-6 fw-bold">
+                            <h5 class="text-dark-blue fs-6 fw-bold">
                                 Bid On Progress
                             </h5>
                             <p class="fs-7">
@@ -1831,11 +1831,11 @@ if (defined('RESET_PASSWORD_PAGE')) {
                     <div class="col-12 d-flex justify-content-between">
                         <label for="agreement" class="fs-6">
                         </label>
-                        <a href="login" class="fs-6 text-primary text-decoration-none">login?</a>
+                        <a href="login" class="fs-6 text-dark-blue text-decoration-none">login?</a>
                     </div>
                     <div id="resetMsg"></div>
                     <div class="col-12">
-                        <button type="submit" class="btn btn-primary text-white form-control fs-6 py-3 px-3 border border-dark-subtle rounded-0 fw-bold"
+                        <button type="submit" class="btn btn-primary bg-dark-blue text-white form-control fs-6 py-3 px-3 rounded-0 fw-bold"
                                 id="submitReset">
                             submit
                         </button>
