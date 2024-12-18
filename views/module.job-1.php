@@ -61,7 +61,7 @@ if (defined('JOB_LIST_PAGE')) {
         $list_body .= '
             <form action="search" method="post" id="searchForm" class="input-group input-group-md bg-body-secondary p-2 mb-4 flex-wrap align-items-center flex-lg-nowrap gap-2">
                 <input type="text" class="form-control rounded-0 py-3" name="searchkey" placeholder="Search by Keyword">
-                <button type="submit" class="bg-danger-subtle text-dark text-decoration-none py-3 px-3 px-lg-5 border-0 outline-0">Search</button>
+                <button type="submit" class="bg-dark-blue text-light text-decoration-none py-3 px-3 px-lg-5 border-0 outline-0">Search</button>
                 <nav aria-label="Page navigation" class="">
                     ' . get_front_pagination_new($total, $limit, $page, BASE_URL . 'jobs') . '
                 </nav>
@@ -77,7 +77,7 @@ if (defined('JOB_LIST_PAGE')) {
                     <div class="d-flex flex-column flex-sm-row justify-content-between gap-3 gap-sm-0">
                         <div class="mb-2 mb-sm-0">
                             <a href="' . BASE_URL . 'job/' . $RecRow->slug . '" class="text-decoration-none text-dark">
-                                <h5 class="fs-5 fw-bold mb-1 text-primary">' . $RecRow->title . '</h5>
+                                <h5 class="fs-5 fw-bold mb-1 text-dark-blue">' . $RecRow->title . '</h5>
                             </a>
                             <p class="fs-7 mb-0">Bid End Date: ' . date('M d, Y', strtotime($RecRow->deadline_date)) . '</p>
                         </div>
