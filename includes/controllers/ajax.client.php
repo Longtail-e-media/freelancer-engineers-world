@@ -61,4 +61,15 @@ switch($action) {
             echo json_encode(array("action" => "notice", "message" => $GLOBALS['basic']['noChanges']));
         endif;
     break;
+
+    case "deleteBid":
+        $id     = $_REQUEST['id'];
+        $record = bids::find_by_id($id);
+        $freelancerRec = freelancer::find_by_id($record->freelancer_id);
+        log_action("Bid by [" . $freelancerRec->first_name . " " . $freelancerRec->last_name . "]" . $GLOBALS['basic']['deletedSuccess'], 1, 6);
+        $db->begin();
+        $res    = $db->query("DELETE FROM tbl_bids WHERE id='{$id}'");
+        if ($res): $db->commit(); else: $db->rollback(); endif;
+        echo json_encode(array("action" => "success"));
+    break;
 }

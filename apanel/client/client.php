@@ -21,7 +21,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                 <thead>
                 <tr>
                     <th style="display:none;"></th>
-                    <th class="text-center"><input class="check-all" type="checkbox"/></th>
+                    <th class="text-center">S.No.</th>
                     <th class="text-center">Client Name</th>
                     <th>Created Job</th>
                     <th>Rating</th>
@@ -34,7 +34,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                 foreach ($records as $key => $record): ?>
                     <tr id="<?php echo $record->id; ?>">
                         <td style="display:none;"><?php echo $key + 1; ?></td>
-                        <td><input type="checkbox" class="bulkCheckbox" bulkId="<?php echo $record->id; ?>"/></td>
+                        <td class="text-center"><?php echo $key + 1; ?></td>
                         <td>
                             <a href="javascript:void(0);" title="" class="user-ico clearfix"
                                onclick="editRecord(<?php echo $record->id; ?>);">
@@ -86,11 +86,10 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
             </table>
         </div>
 
-        <div class="pad0L col-md-2">
+        <!--<div class="pad0L col-md-2">
             <select name="dropdown" id="groupTaskField" class="custom-select">
                 <option value="0"><?php echo $GLOBALS['basic']['choseAction']; ?></option>
                 <option value="delete"><?php echo $GLOBALS['basic']['delete']; ?></option>
-                <!--<option value="toggleStatus"><?php echo $GLOBALS['basic']['toggleStatus']; ?></option>-->
             </select>
         </div>
         <a class="btn medium primary-bg" href="javascript:void(0);" id="applySelected_btn">
@@ -98,7 +97,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
       <i class="glyph-icon icon-cog"></i>
     </span>
             <span class="button-content"> Click </span>
-        </a>
+        </a>-->
     </div>
 
 <?php elseif (isset($_GET['mode']) && $_GET['mode'] == "addEdit"):
