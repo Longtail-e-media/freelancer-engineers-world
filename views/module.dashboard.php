@@ -646,7 +646,7 @@ if (!empty($_SESSION)) {
                     case 7:
                         $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                                     <p class="text-secondary fs-6 fw-bold">
-                                        Rejected
+                                        Declined
                                     </p>
                                     </div>';
                         break;
@@ -756,7 +756,7 @@ if (!empty($_SESSION)) {
                                 Short Listed
                             </h5>
                             <p class="fs-7">
-                                Eligible freelancers are chosen.
+                                Eligible freelancers are chosen. Max 5 freelancers.
                             </p>
                         </div>
                         <div class="col-12 col-md-4 col-lg-2 mb-3 mb-md-0">
@@ -764,7 +764,7 @@ if (!empty($_SESSION)) {
                                 Awarded
                             </h5>
                             <p class="fs-7">
-                                Sortlisted Freelancers are selected for the job. Max 5 freelancer
+                                Sortlisted Freelancers are selected for the job.
                             </p>
                         </div>
                         <div class="col-12 col-md-4 col-lg-2 mb-3 mb-md-0">
@@ -793,10 +793,10 @@ if (!empty($_SESSION)) {
                         </div>
                         <div class="col-12 col-md-4 col-lg-2 mt-3">
                             <h5 class="text-secondary fs-6 fw-bold">
-                                Rejected
+                                Declined
                             </h5>
                             <p class="fs-7">
-                                The client is happy with the freelancer\'s work.
+                                The client did not choose the freelancer.
                             </p>
                         </div>
                     </div>
@@ -887,7 +887,7 @@ if (!empty($_SESSION)) {
                     case 4:
                         $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                                     <p class="text-secondary fs-6 fw-bold">
-                                        Rejected
+                                        Declined
                                     </p>
                                     </div>';
                         break;
@@ -1021,7 +1021,7 @@ if (!empty($_SESSION)) {
                                 Short Listed
                             </h5>
                             <p class="fs-7">
-                                Eligible freelancers are chosen.
+                                Eligible freelancers are chosen. Max 5 freelancer.
                             </p>
                         </div>
                         <div class="col-12 col-md-4 col-lg-2 mb-3 mb-md-0">
@@ -1029,7 +1029,7 @@ if (!empty($_SESSION)) {
                                 Awarded
                             </h5>
                             <p class="fs-7">
-                                Sortlisted Freelancers are selected for the job. Max 5 freelancer
+                                Sortlisted Freelancers are selected for the job.
                             </p>
                         </div>
                         <div class="col-12 col-md-4 col-lg-2 mb-3 mb-md-0">
@@ -1058,10 +1058,10 @@ if (!empty($_SESSION)) {
                         </div>
                         <div class="col-12 col-md-4 col-lg-2 mt-3">
                             <h5 class="text-secondary fs-6 fw-bold">
-                                Rejected
+                                Declined
                             </h5>
                             <p class="fs-7">
-                                The client is happy with the freelancer\'s work.
+                                The client did not choose the freelancer.
                             </p>
                         </div>
                     </div>

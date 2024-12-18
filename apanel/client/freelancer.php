@@ -80,7 +80,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                                 echo "Awarded";
                                 break;
                             case '4':
-                                echo "Rejected";
+                                echo "Declined";
                                 break;
                             case '5':
                                 echo "Completed";
