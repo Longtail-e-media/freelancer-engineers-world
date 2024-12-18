@@ -55,6 +55,7 @@ switch($action)
         $record->hall_email = $_REQUEST['hall_email'];
         $record->hr_email = $_REQUEST['hr_email'];
         $record->accesskey		= @randomKeys(25);
+
         if($record->username!=$_REQUEST['username']){
             $checkDupliUname=User::checkDupliUname($_REQUEST['username']);
             if($checkDupliUname):
@@ -67,7 +68,17 @@ switch($action)
         $record->status		= $_REQUEST['status'];
         $record->group_id	= $_REQUEST['field_type'];
         if(!empty($_REQUEST['password']))
-            $record->password	= md5($_REQUEST['password']);
+        $record->password	= md5($_REQUEST['password']);
+
+        // find client
+        $clientRec              = client::find_by_userid($record->id);
+        $clientRec->first_name  = $record->first_name;
+        $clientRec->middle_name = $record->middle_name;
+        $clientRec->last_name   = $record->last_name;
+        $clientRec->email       = $record->email;
+        $clientRec->username    = $record->username;
+        $clientRec->save();
+
         $db->begin();
         if($record->save()):$db->commit();
             $message  = sprintf($GLOBALS['basic']['changesSaved_'], "User '".$record->first_name." ".$record->middle_name." ".$record->last_name."'");
