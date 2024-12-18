@@ -193,3 +193,153 @@ if (defined('JOB_SEARCH_PAGE')) {
 }
 
 $jVars['module:jobs:search-list'] = $search_body;
+
+
+
+/**
+ *      Edit Bid Page
+ */
+$edit_bid = '';
+
+if(defined('EDIT_BID')) {
+    $encoded_id = !empty($_REQUEST['code']) ? $_REQUEST['code'] : '';
+    $decoded_id = base64_decode($encoded_id);
+
+    if (!empty($decoded_id) and is_numeric($decoded_id)) {
+        $bidRec     = bids::find_by_id($decoded_id);
+        $jobdatas   = jobs::find_by_id($bidRec->job_id);
+        $clientdatas = client::find_by_id($jobdatas->client_id);
+
+        $totalbids = bids::find_total_bids($jobdatas->id);
+
+        if ($jobdatas->budget_type == 1) {
+            $budget = '<h4 class="fs-6 fw-bold">' . $jobdatas->currency . ' ' . $jobdatas->exact_budget . '</h4>';
+        } else {
+            $budget = '<h4 class="fs-6 fw-bold">' . $jobdatas->currency . ' ' . $jobdatas->budget_range_low . ' - ' . $jobdatas->budget_range_high . '</h4>';
+        }
+
+        $roundRating = round($clientdatas->rating,0);
+        $noRating = 5 - $roundRating;
+
+        if (!empty($bidRec)) {
+            $edit_bid = '
+                <main class="">
+                    <!-- Header -->
+                    <div class="bg-dark-blue">
+                        <div class="container">
+                            <h1 class="text-light py-4 py-lg-5 fw-light fs-2 fs-lg-1">
+                                Edit Bid
+                            </h1>
+                        </div>
+                    </div>
+            
+                    <!-- Main Content -->
+                    <section class="container">
+                        <a href="' . BASE_URL . 'dashboard" class="text-dark fs-7 d-block mb-3 mb-lg-5">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            Back to list page
+                        </a>
+            
+                        <div class="row job-title-content gx-0">
+                            <!-- Left Content -->
+                            <div class="col-12 col-lg-9">
+                                <div>
+                                    <!-- Job Title Card -->
+                                    <div class="bg-light card-title p-3 p-lg-5">
+                                        <div>
+                                            <div
+                                                class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between gap-3">
+                                                <div>
+                                                    <h3 class="fs-5 fw-bold mb-2 mb-sm-0">' . $jobdatas->title . '</h3>
+                                                    <span class="fs-7">End Date: ' . date("M d Y", strtotime($jobdatas->deadline_date)) . '</span>
+                                                </div>
+                                                <div class="text-start text-sm-end">
+                                                        ' . $budget . '
+                                                    <span class="fs-7">'.$totalbids.' bids</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+            
+                                    <!-- Review Section -->
+                                    <div class="card-body mt-4 mt-lg-5">
+                                    <form id="bidForm">
+                                        <input type="hidden" name="job_id" value="' . $bidRec->id . '">
+                                        <div class="mb-3">
+                                            <label for="bid_amount" class="form-label fw-semibold">Bid Amount (' . $jobdatas->currency . ') <span class="text-danger">*</span></label>
+            ';
+
+            if ($jobdatas->budget_type == 0) {
+                $edit_bid .= '
+                    <input type="number" class="form-control bg-white" id="bid-amount" placeholder="Enter your amount" id="bid_amount"
+                           name="bid_amount" min="' . $jobdatas->budget_range_low . '" max="' . $jobdatas->budget_range_high . '" value="' . $bidRec->bid_amount . '">
+                ';
+            }
+            if ($jobdatas->budget_type == 1) {
+                $edit_bid .= '
+                    <input type="number" class="form-control bg-white" id="bid_amount" placeholder="' . $jobdatas->exact_budget . '" name="bid_amount" value="' . $bidRec->bid_amount . '" readonly>
+                ';
+            }
+
+            $edit_bid .= '
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="deliveryTime" class="form-label fw-semibold">Delivery Time (in days) <span class="text-danger">*</span></label>
+                                            <input type="number" class="form-control" id="delivery" name="delivery"
+                                                   placeholder="Number of days to complete the project"
+                                                   value="' . $bidRec->delivery . '">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="bidMessage" class="form-label font-semibold">Message <span class="text-danger">*</span></label>
+                                            <textarea class="form-control" id="message" name="message" rows="4"
+                                                      placeholder="Add a message for the client...">' . $bidRec->message . '</textarea>
+                                        </div>
+                                        <div class="alert alert-primary">
+                                            <strong>Note:</strong> You will get the bid amount after deducting the service charge.
+                                        </div>
+                                        <div id="bidMsg" class="alert alert-success" style="display: none;"></div>
+                                        <button class="btn btn-dark bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0 w-auto" 
+                                            type="submit" id="submit">
+                                            Submit Bid
+                                        </button>
+                                    </form>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <!-- Right Sidebar -->
+                            <div class="biddy-sticky col-12 col-lg-3 bg-white p-3 ps-lg-5 mt-4 mt-lg-0">
+                                <h3 class="fs-5 fw-bold">
+                                    About Client
+                                </h3>
+                                <div class="client-info mt-3 mt-lg-4">
+                                    <ul class="d-flex gap-1 flex-column list-unstyled mb-0">
+                                        <li class="d-flex align-items-center gap-2">
+                                            <i class="fa-solid fa-location-dot"></i>
+                                            ' . $clientdatas->current_address . '
+                                        </li>
+                                        <li class="d-flex align-items-center gap-2">
+                                            <i class="fa-solid fa-user"></i>
+                                            <span class="fs-4 text-warning"> ' . str_repeat('★', $roundRating) . str_repeat('☆', $noRating) . '</span>
+                                        </li>
+                                        <li class="d-flex align-items-center gap-2">
+                                            <i class="fa-solid fa-clock"></i>
+                                            Member since ' . date("M d, Y", strtotime($clientdatas->added_date)) . '
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </main>
+            ';
+        } else {
+            $edit_bid = 'Job bid not found !';
+        }
+    } else {
+        $edit_bid = 'Job bid not found !';
+    }
+
+}
+
+$jVars['module:jobs:edit-bid'] = $edit_bid;

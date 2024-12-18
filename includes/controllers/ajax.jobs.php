@@ -106,6 +106,40 @@ switch ($action) {
         endif;
     break;
 
+    case "jobBidEdit":
+        $id             = $_REQUEST['job_id'];
+        $record         = bids::find_by_id($id);
+        $jobRec         = jobs::find_by_id($record->job_id);
+
+        // removing number and email from message
+        // Pattern to match email addresses
+        $email_pattern  = '/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/';
+
+        // Pattern to match phone numbers (varies based on format, here's a generic one)
+        $phone_pattern  = '/\b(\+?\d{1,3}[-.\s]?)?(\(?\d{1,4}\)?[-.\s]?)?\d{1,4}[-.\s]?\d{1,4}([-.\s]?\d{1,9})?\b/';
+
+        // Remove email addresses
+        $message        = preg_replace($email_pattern, '', $_REQUEST['message']);
+
+        // Remove phone numbers
+        $message        = preg_replace($phone_pattern, '', $message);
+
+        $record->bid_amount     = $_REQUEST['bid_amount'];
+        $record->delivery       = $_REQUEST['delivery'];
+        $record->message        = $message;
+        $record->modified_date  = registered();
+
+        $db->begin();
+        if ($record->save()):
+            $db->commit();
+            $message = "Jobs bid edit in " . $jobRec->title;
+            echo json_encode(array("action" => "success", "message" => "Job Bid edit successfully!"));
+            log_action($message, 1, 3);
+        else: $db->rollback();
+            echo json_encode(array("action" => "error", "message" => "Job Bid edit unsuccessful!"));
+        endif;
+    break;
+
     case "selectfreelancer":
         $sqlids     = '';
         $job        = jobs::find_by_id($_REQUEST['jobid']);

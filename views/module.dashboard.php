@@ -847,10 +847,15 @@ if (!empty($_SESSION)) {
                 $jobstatus = "";
                 switch ($record->project_status) {
                     case 1:
+                        $encode_id = base64_encode($record->id);
                         $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                             <p class="text-primary fs-6 fw-bold">
                                 Bid On Progress
-                            </p></div>';
+                            </p>
+                            <a href="' . BASE_URL . 'edit-bid/' . $encode_id . '" class="btn btn-outline-success bg-success-subtle text-success fs-7 rounded-0 px-3 py-1">
+                                Edit Bid
+                            </a>
+                            </div>';
                         // if ($totalbids > 0) {
                         //     $jobstatus .= '<div class="d-inline-block bg-dark-subtle px-3 view-select">
                         //         <a href="" class="text-decoration-none text-dark">View</a>

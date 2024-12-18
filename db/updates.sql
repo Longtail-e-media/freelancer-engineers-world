@@ -53,3 +53,6 @@ ALTER TABLE `tbl_freelancer` ADD `online_verification_rating` INT NOT NULL DEFAU
 -- 2024-12-13 [SWARNA]
 ALTER TABLE `tbl_jobs` ADD `admin_rating` INT NOT NULL DEFAULT '0' AFTER `archive_date`, ADD `reviewed_admin` INT NOT NULL DEFAULT '0' AFTER `admin_rating`;
 ALTER TABLE `tbl_bids` ADD `admin_rating` INT NOT NULL DEFAULT '0' AFTER `reviewed_client`, ADD `reviewed_admin` INT NOT NULL DEFAULT '0' AFTER `admin_rating`;
+
+-- 2024-12-18 [SWARNA]
+ALTER TABLE `tbl_bids` ADD `modified_date` VARCHAR(50) NOT NULL AFTER `added_date`;
