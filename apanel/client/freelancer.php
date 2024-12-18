@@ -23,7 +23,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                 <thead>
                 <tr>
                     <th style="display:none;"></th>
-                    <th class="text-center"><input class="check-all" type="checkbox"/></th>
+                    <th class="text-center">S.No.</th>
                     <th>Name</th>
                     <!--<th class="text-center">Address</th>-->
                     <th class="text-center">Engineering License No</th>
@@ -51,19 +51,19 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                  * ORDER BY f.sortorder DESC";
                  */
 
-                $sql = "SELECT f.*, b.project_status FROM tbl_freelancer as f 
+                $sql = "SELECT f.*, b.project_status, b.id as b_id FROM tbl_freelancer as f 
                         INNER JOIN tbl_bids as b ON f.id = b.freelancer_id
                      WHERE b.job_id=" . $id . " 
-                     ORDER BY f.sortorder DESC ";
+                     ORDER BY f.sortorder ASC ";
                 $query = $db->query($sql);
                 $numRows = $db->num_rows($query);
-
+                $counter = 1;
                 if ($numRows > 0) {
                     while ($record = $db->fetch_object($query)) {
                 ?>
                 <tr id="<?php echo $record->id; ?>">
                     <td style="display:none;"><?php echo $record->sortorder; ?></td>
-                    <td><input type="checkbox" class="bulkCheckbox" bulkId="<?php echo $record->id; ?>"/></td>
+                    <td class="text-center"><?php echo ($counter); $counter=$counter+1;?></td>
                     <td><?php echo $record->first_name; ?></td>
                     <!-- <td><?php echo $record->current_address; ?></td>-->
                     <td class="text-center"><?php echo $record->engineering_license_no; ?></td>
@@ -107,6 +107,10 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                                 <span class="button-content"> Add Rating </span>
                             </a>
                         <?php } ?>
+                        <a href="javascript:void(0);" class="btn small bg-red tooltip-button" data-placement="top"
+                           title="Remove" onclick="bidRecordDelete(<?php echo $record->b_id; ?>);">
+                            <i class="glyph-icon icon-remove"></i>
+                        </a>
                     </td>
                 <?php
                     }
@@ -115,7 +119,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                 </tbody>
             </table>
         </div>
-        <div class="pad0L col-md-2">
+        <!--<div class="pad0L col-md-2">
             <select name="dropdown" id="groupTaskField" class="custom-select">
                 <option value="0"><?php echo $GLOBALS['basic']['choseAction']; ?></option>
                 <option value="delete"><?php echo $GLOBALS['basic']['delete']; ?></option>
@@ -124,7 +128,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
         <a class="btn medium primary-bg" href="javascript:void(0);" id="applySelected_btn">
             <span class="glyph-icon icon-separator float-right"><i class="glyph-icon icon-cog"></i></span>
             <span class="button-content"> Submit </span>
-        </a>
+        </a>-->
     </div>
 
 <?php elseif (isset($_GET['mode']) && $_GET['mode'] == "addEditfreelancer"):
