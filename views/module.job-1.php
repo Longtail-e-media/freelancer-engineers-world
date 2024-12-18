@@ -16,7 +16,7 @@ if (defined('HOME_PAGE')) {
                 <div class="bg-body-secondary p-4 p-md-5 mb-3">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <a href="' . BASE_URL . 'job/' . $job->slug . '" class="text-decoration-none text-primary">
+                            <a href="' . BASE_URL . 'job/' . $job->slug . '" class="text-decoration-none text-dark-blue">
                                 <h5 class="fs-6 fw-bold">' . $job->title . '</h5>
                             </a>
                             <p class="fs-7">Bid End Date: ' . date('M d, Y', strtotime($job->deadline_date)) . '</p>

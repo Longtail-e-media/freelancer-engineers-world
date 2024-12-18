@@ -4,7 +4,7 @@
     --primary-bg: #d9d9d9;
     --secondary-bg: #F7F7F7;
     --button-bg: #F8A4A4;
-    --dark-bg: #263559;
+    --dark-bg: #086972;
     --blue: #007bff;
 }
 
@@ -140,9 +140,11 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .navbar-brand .logo {
-    width: 5rem;
-    /* height: 24rem; */
-    object-fit: cover;
+    width: 100%;
+    height: 42px;
+    object-fit: contain;
+    /* filter: brightness(0) saturate(100%) invert(0%) sepia(82%) saturate(7492%) hue-rotate(123deg) brightness(77%) contrast(93%); */
+
 }
 
 /* .home-banner video {

@@ -82,7 +82,7 @@ if ($menuRec):
     $result .= '  ';
     // pr($_SESSION);
     if (empty($_SESSION['user_id'])) {
-        $result .= '<li class="nav-item"><a class="nav-link fs-6 bg-white px-5 py-2" href="' . BASE_URL . 'login">Sign in</a>';
+        $result .= '<li class="nav-item"><a class="nav-link fs-6 bg-dark-blue text-white px-5 py-2" href="' . BASE_URL . 'login">Sign in</a>';
     } else {
         $userdata = user::find_by_id($_SESSION['user_id']);
         $result .= ' <li class="nav-item dropdown "> <a class="nav-link fs-6 text-capitalize" href="#" type="button" data-bs-toggle="dropdown" aria-expanded="false">Welcome ' . $userdata->username . ' <i class="fas fa-chevron-down"></i></a>

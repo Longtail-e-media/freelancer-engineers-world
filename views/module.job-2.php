@@ -366,7 +366,7 @@ if (defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
             }
             $jobdetails .= '
                         </div>
-                        <div class="biddy-sticky col-md-3 bg-white ps-3 mt-2 sticky-top d-none">
+                        <div class="biddy-sticky col-md-3 bg-white ps-3 mt-5 sticky-top d-none">
                             <div class="card p-5 border-0 rounded-0 bg-dark-subtle">
                                 <img src="" alt="Advertisement" class="advertisement">
                             </div>

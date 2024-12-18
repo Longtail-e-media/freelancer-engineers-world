@@ -68,7 +68,7 @@ $header = ob_get_clean();
 $header = '' . changestatustimeout('tbl_jobs') . '
     <nav class="navbar navbar-expand-lg bg-body-secondary sticky-top">
         <div class="container">
-            <a class="navbar-brand bg-white p-1" href="' . BASE_URL . 'home">
+            <a class="navbar-brand" href="' . BASE_URL . 'home">
                 <img src="' . IMAGE_PATH . 'preference/' . $siteRegulars->logo_upload . '" alt="logo" class="logo">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
