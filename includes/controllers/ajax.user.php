@@ -637,7 +637,7 @@
             $record->upload_cv          = (!empty($_REQUEST['imageArrayname3'])) ? $_REQUEST['imageArrayname3'] : '';
             $record->upload_certificate = (!empty($_REQUEST['imageArrayname2'])) ? $_REQUEST['imageArrayname2'] : '';
             $record->profile_picture    = (!empty($_REQUEST['imageArrayname'])) ? $_REQUEST['imageArrayname'] : '';
-            $record->portfolio_website  = $_REQUEST['portfolio_website'];
+            $record->portfolio_website  = (!empty($_REQUEST['portfolio_website'])) ? $_REQUEST['portfolio_website'] : '';
             $record->facebook_profile   = $_REQUEST['facebook_profile'];
             $record->linkedIn_profile   = $_REQUEST['linkedIn_profile'];
             $record->status             = 1;

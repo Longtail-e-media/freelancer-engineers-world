@@ -223,10 +223,10 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                 </a>
             </td>
         </tr>
-        <tr>
+        <!--<tr>
             <th class="text-center">Portfolio Website</th>
             <td><a href="<?php echo $appInfo->portfolio_website; ?>" target="_blank"><?php echo $appInfo->portfolio_website; ?></a></td>
-        </tr>
+        </tr>-->
         <tr>
             <th class="text-center">Facebook Profile</th>
             <td><a href="<?php echo $appInfo->facebook_profile; ?>" target="_blank"><?php echo $appInfo->facebook_profile; ?></a></td>

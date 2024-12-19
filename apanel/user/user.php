@@ -240,7 +240,7 @@ if (isset($_GET['page']) && $_GET['page'] == "user" && isset($_GET['mode']) && $
                                value="<?php echo !empty($usersInfo->email) ? $usersInfo->email : ""; ?>">
                     </div>
                 </div>
-                <?php if ($usersInfo->group_id!= 1){ ?>
+                <?php if (!empty($usersInfo) && $usersInfo->group_id != 1) { ?>
                 <div class="form-row">
                     <div class="form-label col-md-2">
                         <label for="">

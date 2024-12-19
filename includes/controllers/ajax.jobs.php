@@ -189,16 +189,16 @@ switch ($action) {
 
                     $msgbody = '<div>                
                         <div>
-                            <p>Dear ' . $fullName . ', <br />
-                            I hope this message finds you well. I\'m pleased to inform you that you\'ve been shortlisted for the [' . $job->title . '] project! <br/>
-                            Project Summary as posted by the client is given below: <br>
-                            ' . $job->content . '<br/>
-                            We would love to discuss the project further with you and explore how we can collaborate. You will be added to the shortlisted group by the platform shortly. <br/>
-                            Please upload the license and other credentials in the platform website. In general, engineers are not allowed to work without engineering council license number. <br/>
-                            If you have any query, please message us in the Platform Viber Number. <br/>
-                            Platform Viber Number: 977-9840029773, 977-9841286865 <br/>
-                            <a href="' . BASE_URL . 'bidding-instructions">Instruction for freelancer</a> <br/>
-                            Looking forward to connecting with you soon! <br><br>
+                            <p>Dear ' . $fullName . ', </p>
+                            <p>I hope this message finds you well. I\'m pleased to inform you that you\'ve been shortlisted for the [' . $job->title . '] project! </p>
+                            <p>Project Summary as posted by the client is given below: </p>
+                            <p>' . $job->content . '</p>
+                            <p>We would love to discuss the project further with you and explore how we can collaborate. You will be added to the shortlisted group by the platform shortly. </p>
+                            <p>Please upload the license and other credentials in the platform website. In general, engineers are not allowed to work without engineering council license number. </p>
+                            <p>If you have any query, please message us in the Platform Viber Number. </p>
+                            <p>Platform Viber Number: 977-9840029773, 977-9841286865 </p>
+                            <p><a href="' . BASE_URL . 'bidding-instructions">Instruction for freelancer</a> </p>
+                            <p>Looking forward to connecting with you soon!
                             </p>
                             <p>Best regards,<br>
                             ' . $siteName . '
@@ -349,16 +349,16 @@ switch ($action) {
 
                     $msgbody = '<div>                
                         <div>
-                            <p>Dear ' . $fullName . ', <br />
-                            I hope this message finds you well. I\'m pleased to inform you that you\'ve been awarded for the [' . $job->title . '] project! <br/>
-                            Project Summary as posted by the client is given below: <br>
-                            ' . $job->content . '<br/>
-                            We would love to discuss the project further with you and explore how we can collaborate. You will be added to the awarded group by the platform shortly. <br/>
-                            Please upload the license and other credentials in the platform website. In general, engineers are not allowed to work without engineering council license number. <br/>
-                            If you have any query, please message us in the Platform Viber Number. <br/>
-                            Platform Viber Number: 977-9840029773, 977-9841286865 <br/>
-                            <a href="' . BASE_URL . 'bidding-instructions">Instruction for freelancer</a> <br/>
-                            Looking forward to connecting with you soon! <br><br>
+                            <p>Dear ' . $fullName . ', </p>
+                            <p>I hope this message finds you well. I\'m pleased to inform you that you\'ve been awarded for the [' . $job->title . '] project! </p>
+                            <p>Project Summary as posted by the client is given below: </p>
+                            <p>' . $job->content . '</p>
+                            <p>We would love to discuss the project further with you and explore how we can collaborate. You will be added to the awarded group by the platform shortly. </p>
+                            <p>Please upload the license and other credentials in the platform website. In general, engineers are not allowed to work without engineering council license number. </p>
+                            <p>If you have any query, please message us in the Platform Viber Number. </p>
+                            <p>Platform Viber Number: 977-9840029773, 977-9841286865 </p>
+                            <p><a href="' . BASE_URL . 'bidding-instructions">Instruction for freelancer</a> </p>
+                            <p>Looking forward to connecting with you soon!
                             </p>
                             <p>Best regards,<br>
                             ' . $siteName . '

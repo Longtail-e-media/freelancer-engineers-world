@@ -130,6 +130,7 @@ if (!empty($_SESSION)) {
                                         <label for="profilePicture" class="form-label fw-bold">Upload Profile Picture</label>
                                         <input type="file" class="form-control border-0 rounded-0 fs-5" id="clientprofile" name="clientprofile"
                                             accept="image/*" onchange="previewImage(event)">
+                                        <small>(Only jpg, jpeg, png, webp, svg)</small>
                                     </div>
                                      <div id="preview_Image4"></div>';
         if (!empty($clientdata->profile_pictiure)) {
@@ -192,9 +193,9 @@ if (!empty($_SESSION)) {
         $profile =
             '
               <main class="">
-        <div class="bg-dark-blue">
-            <div class="container">
-                <h1 class="text-light py-5 fw-light fs-1 text-center text-md-start">
+                <div class="bg-dark-blue">
+                    <div class="container">
+                        <h1 class="text-light py-5 fw-light fs-1 text-center text-md-start">
                             Update your profile
                         </h1>
                     </div>
@@ -203,28 +204,9 @@ if (!empty($_SESSION)) {
             <div class="card p-2 p-md-5 bg-light border-0 rounded-0 shadow-sm">
                 <h2 class="fs-5 fw-bold mb-4">Freelancer profile</h2>
                         <form class="freelancer-form" id="freelancerfrm">
-                            <!-- Basic Information -->
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input type="email" class="form-control border-0 rounded-0 fs-5" id="email" name="email"
-                                            placeholder="Email" value="' .
-            $freelancerdata->email .
-            '" disabled>
-                                        <label for="email">Email Address <span class="text-danger">*</span></label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input type="password" class="form-control border-0 rounded-0 fs-5" id="password" name="password"
-                                            placeholder="Password" >
-                                        <label for="password">Password </label>
-                                    </div>
-                                </div>
-                            </div>
-        
+                        
                             <!-- Personal Information -->
-                            <div class="row g-3 mt-3">
+                            <div class="row g-3">
                                 <div class="col-md-4">
                                     <div class="form-floating">
                                         <input type="text" class="form-control border-0 rounded-0 fs-5" id="firstName" name="firstname"
@@ -250,30 +232,6 @@ if (!empty($_SESSION)) {
             $freelancerdata->last_name .
             '">
                                         <label for="lastName">Last Name <span class="text-danger">*</span></label>
-                                    </div>
-                                </div>
-                            </div>
-        
-                            <!-- Engineering Information -->
-                            <div class="row g-3 mt-3">
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control border-0 rounded-0 fs-5" id="licenseNumber" name="engineering_license_no"
-                                            placeholder="Engineering License Number" value="' .
-            $freelancerdata->engineering_license_no .
-            '">
-                                        <label for="licenseNumber">Engineering License Number <span
-                                                class="text-danger">*</span></label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control border-0 rounded-0 fs-5" id="fieldOfEngineering" name="engineering_field"
-                                            placeholder="Field of Engineering Studies" value="' .
-            $freelancerdata->engineering_field .
-            '">
-                                        <label for="fieldOfEngineering">Field of Engineering Studies <span
-                                                class="text-danger">*</span></label>
                                     </div>
                                 </div>
                             </div>
@@ -317,6 +275,49 @@ if (!empty($_SESSION)) {
                                     </div>
                                 </div>
                             </div>
+                            
+                            <div class="row g-3 mt-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="email" class="form-control border-0 rounded-0 fs-5" id="email" name="email"
+                                            placeholder="Email" value="' .
+            $freelancerdata->email .
+            '" disabled>
+                                        <label for="email">Email Address <span class="text-danger">*</span></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="password" class="form-control border-0 rounded-0 fs-5" id="password" name="password"
+                                            placeholder="Password" >
+                                        <label for="password">Password </label>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <!-- Engineering Information -->
+                            <div class="row g-3 mt-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control border-0 rounded-0 fs-5" id="licenseNumber" name="engineering_license_no"
+                                            placeholder="Engineering License Number" value="' .
+            $freelancerdata->engineering_license_no .
+            '">
+                                        <label for="licenseNumber">Engineering License Number <span
+                                                class="text-danger">*</span></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control border-0 rounded-0 fs-5" id="fieldOfEngineering" name="engineering_field"
+                                            placeholder="Field of Engineering Studies" value="' .
+            $freelancerdata->engineering_field .
+            '">
+                                        <label for="fieldOfEngineering">Field of Engineering Studies <span
+                                                class="text-danger">*</span></label>
+                                    </div>
+                                </div>
+                            </div>
         
                             <!-- Address -->
                             <div class="row g-3 mt-3">
@@ -356,7 +357,8 @@ if (!empty($_SESSION)) {
                                     <label class="form-label">Upload Nepal Engineering Certificate <span class="text-danger">*</span></label>
                                     <input type="file" class="form-control border-0 rounded-0 fs-5" id="eng_certify" name="eng_certify" 
                                         accept=".pdf,.doc,.docx" required> 
-                                        <div id="preview_Image2"></div>';
+                                    <small>(Only pdf, jpg, jpeg, png, webp, svg)</small>
+                                    <div id="preview_Image2"></div>';
         if (!empty($freelancerdata->upload_certificate)) {
             $profile .=
                 '
@@ -388,6 +390,7 @@ if (!empty($_SESSION)) {
                                     <label class="form-label">Upload CV <span class="text-danger">*</span></label>
                                     <input type="file" class="form-control border-0 rounded-0 fs-5" id="eng_cv"
                                         accept=".pdf,.doc,.docx" required>
+                                    <small>(Only pdf, jpg, jpeg, png, webp, svg)</small>
                                         <div id="preview_Image3"></div>';
         if (!empty($freelancerdata->upload_cv)) {
             $profile .=
@@ -420,7 +423,7 @@ if (!empty($_SESSION)) {
         
                             <!-- Social Links -->
                             <div class="row g-3 mt-3">
-                                <div class="col-md-4">
+                                <!--<div class="col-md-4">
                                     <div class="form-floating">
                                         <input type="text" class="form-control border-0 rounded-0 fs-5" id="otherWebsite" name="portfolio_website"
                                             placeholder="Other Website (Optional)" value="' .
@@ -428,14 +431,14 @@ if (!empty($_SESSION)) {
             '">
                                         <label for="otherWebsite">Portfolio Website</label>
                                     </div>
-                                </div>
+                                </div>-->
                                 <div class="col-md-4">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control border-0 rounded-0 fs-5" id="otherWebsite" name="facebook_profile"
-                                            placeholder="Other Website (Optional)" value="' .
+                                        <input type="text" class="form-control border-0 rounded-0 fs-5" id="facebook_profile" name="facebook_profile"
+                                            placeholder="Facebook Link" value="' .
             $freelancerdata->facebook_profile .
             '">
-                                        <label for="otherWebsite">Github Profile</label>
+                                        <label for="otherWebsite">Facebook Link</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -454,7 +457,8 @@ if (!empty($_SESSION)) {
                                 <div class="col-md-4">
                                     <label class="form-label">Profile Picture <span class="text-danger">*</span> </label>
                                     <input type="file" class="form-control border-0 rounded-0 fs-5" name="img" id="img"
-                                        accept="image/*" >';
+                                        accept="image/*" >
+                                    <small>(Only jpg, jpeg, png, webp, svg)</small>';
         if (!empty($freelancerdata->profile_picture)) {
             $profile .=
                 '
@@ -796,7 +800,7 @@ if (!empty($_SESSION)) {
                                 Declined
                             </h5>
                             <p class="fs-7">
-                                The client did not choose the freelancer.
+                                The freelancer is not selected.
                             </p>
                         </div>
                     </div>
@@ -1066,7 +1070,7 @@ if (!empty($_SESSION)) {
                                 Declined
                             </h5>
                             <p class="fs-7">
-                                The client did not choose the freelancer.
+                                The freelancer is not selected.
                             </p>
                         </div>
                     </div>
