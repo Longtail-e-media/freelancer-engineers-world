@@ -107,10 +107,10 @@ if (!empty($_SESSION)) {
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <input type="url" class="form-control rounded-0 border-0" id="linkedin" name="linkedIn_profile"
-                                            placeholder="LinkedIn Profile" value="' .
+                                            placeholder="LinkedIn Link" value="' .
             $clientdata->linkdin_profile .
             '">
-                                        <label for="linkedin">LinkedIn Profile</label>
+                                        <label for="linkedin">LinkedIn Link</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -444,10 +444,10 @@ if (!empty($_SESSION)) {
                                 <div class="col-md-4">
                                     <div class="form-floating">
                                         <input type="text" class="form-control border-0 rounded-0 fs-5" id="linkedin" name="linkedIn_profile"
-                                            placeholder="LinkedIn Profile" value="' .
+                                            placeholder="LinkedIn Link" value="' .
             $freelancerdata->linkedIn_profile .
             '">
-                                        <label for="linkedin">LinkedIn Profile</label>
+                                        <label for="linkedin">LinkedIn Link</label>
                                     </div>
                                 </div>
                             </div>

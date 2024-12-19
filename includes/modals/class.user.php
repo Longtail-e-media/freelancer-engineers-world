@@ -72,6 +72,15 @@ class User extends DatabaseObject
         return $result;
     }
 
+    public static function get_valid_admin_mail($email = "")
+    {
+        global $db;
+        $query = " SELECT `email` FROM " . self::$table_name . " WHERE `email`='" . $email . "' AND (group_id=1 OR group_id=2) ";
+        $record = $db->query($query);
+        $result = $db->num_rows($record);
+        return $result;
+    }
+
     public static function checkDupliEmail($email = '')
     {
         global $db;

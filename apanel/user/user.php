@@ -241,7 +241,7 @@ if (isset($_GET['page']) && $_GET['page'] == "user" && isset($_GET['mode']) && $
                     </div>
                 </div>
                 <?php if (!empty($usersInfo) && $usersInfo->group_id != 1) { ?>
-                <div class="form-row">
+                <!--<div class="form-row">
                     <div class="form-label col-md-2">
                         <label for="">
                             Hall Email :
@@ -264,7 +264,9 @@ if (isset($_GET['page']) && $_GET['page'] == "user" && isset($_GET['mode']) && $
                                id="hr_email" name="hr_email"
                                value="<?php echo !empty($usersInfo->hr_email) ? $usersInfo->hr_email : ""; ?>">
                     </div>
-                </div>
+                </div>-->
+                    <input type="hidden" name="hall_email" value="<?php echo !empty($usersInfo->hall_email) ? $usersInfo->hall_email : "";?>"/>
+                    <input type="hidden" name="hr_email" value="<?php echo !empty($usersInfo->hr_email) ? $usersInfo->hr_email : ""; ?>"/>
                 <div class="form-row">
                     <div class="form-label col-md-2">
                         <label for="">
