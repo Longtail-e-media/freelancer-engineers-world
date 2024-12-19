@@ -42,6 +42,9 @@ $footer = '
                 <div class="col-lg-3">
                     <div class="fs-6 fw-normal">
                         ' . $jVars['site:copyright'] . '
+                        <p class="mt-3">
+                        Website by <a href="https://longtail.info/" target="_blank" class="text-dark-blue">Longtail e-Media</a>
+                        </p>
                     </div>
                 </div>
             </div>
