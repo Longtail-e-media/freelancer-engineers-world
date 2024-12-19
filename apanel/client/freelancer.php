@@ -94,7 +94,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                     <td class="text-center">
                         <a href="javascript:void(0);" class="loadingbar-demo btn small bg-blue-alt tooltip-button"
                            data-placement="top" title="View detail"
-                           onclick="editfreelancer(<?php echo $id; ?>,<?php echo $record->id; ?>);">
+                           onclick="editfreelancer(<?php echo $record->b_id; ?>,<?php echo $record->id; ?>);">
                             <span class="button-content"> View Detail </span>
                         </a>
                         <?php
@@ -137,6 +137,9 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
         if (isset($_GET['subid']) and !empty($_GET['subid'])):
             $jobsId = addslashes($_REQUEST['subid']);
             $appInfo = freelancer::find_by_id($jobsId);
+            $bidInfo = bids::find_by_id($appId);
+            $jobInfo = jobs::find_by_id($bidInfo->job_id);
+
             $status = ($appInfo->status == 1) ? "checked" : " ";
             $unstatus = ($appInfo->status == 0) ? "checked" : " ";
         endif;
@@ -162,6 +165,19 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
         <?php $record = freelancer::find_by_sql("SELECT * FROM " . $moduleTablename . " ORDER BY sortorder DESC ");
         ?>
         <td style="display:none;"><?php echo $appInfo->sortorder; ?></td>
+        <tr>
+            <th>Bid Amount</th>
+            <td><?php echo $jobInfo->currency . ' ' . $bidInfo->bid_amount; ?></td>
+        </tr>
+        <tr>
+            <th>Delivery days</th>
+            <td><?php echo $bidInfo->delivery; ?></td>
+        </tr>
+        <tr>
+            <th>Message</th>
+            <td><?php echo $bidInfo->message; ?></td>
+        </tr>
+
         <tr>
             <th>Name</th>
             <td><?php $fullname = $appInfo->first_name . ' ' . $appInfo->middle_name . ' ' . $appInfo->last_name;

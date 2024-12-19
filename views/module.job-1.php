@@ -30,6 +30,13 @@ if (defined('HOME_PAGE')) {
                 </div>
             ';
         }
+        if (sizeof($jobs) == 4) {
+            $home_job .= '
+                <div class="py-3 d-flex justify-content-center">
+                    <a href="' . BASE_URL . 'jobs" class="text-center fs-6 fw-medium btn btn-primary bg-dark-blue border-0 text-light text-decoration-none rounded-pill px-4">View more</a>
+                </div>
+            ';
+        }
     } else {
         $home_job .= '
             <h3>No Jobs Available</h3>

@@ -831,9 +831,10 @@ if (!empty($_SESSION)) {
                 ? $_REQUEST["pageno"]
                 : 1;
         $sql =
-            "SELECT * FROM tbl_bids WHERE status='1' AND freelancer_id= '" .
+            "SELECT b.* FROM tbl_bids as b INNER JOIN tbl_jobs as j ON b.job_id = j.id
+                WHERE j.status='1' AND b.freelancer_id= '" .
             $freelancerdata->id.
-            "' ORDER BY sortorder DESC";
+            "' ORDER BY b.sortorder DESC";
         $limit = 8;
         $total = $db->num_rows($db->query($sql));
         $startpoint = $page * $limit - $limit;
@@ -1233,7 +1234,7 @@ if (!empty($_SESSION)) {
                 '.$bidderdetail.'
                 <div id="result_msg"></div>
                 <button id="submit" class="mt-3 btn btn-primary bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0">
-                    Shortlist freelancer
+                    Shortlist Freelancer
                 </button>
 
 
@@ -1269,7 +1270,7 @@ if (!empty($_SESSION)) {
         <div class="bg-dark-blue">
         <div class="container py-5 d-flex align-items-center justify-content-between">
             <h1 class="text-light fw-light fs-3 fs-md-1">
-                Shortlist Freelancer
+                Shortlisted Freelancer
             </h1>
            <!-- <button class="btn btn-dark bg-light text-dark px-4 py-2 fs-6 rounded-0">
                 Create Job
@@ -1384,7 +1385,7 @@ if (!empty($_SESSION)) {
                 '.$bidderdetail.'
                 <div id="result_msg"></div>
                 <button id="submit" class="mt-3 btn btn-primary bg-dark-blue text-light px-4 py-2 fs-6 rounded-0 border-0">
-                    Award freelancer
+                    Award Freelancer
                 </button>
 
 
@@ -1535,7 +1536,7 @@ if (!empty($_SESSION)) {
         // pr($freelancerdata);
         $jobdatas= jobs::find_by_slug($slug);
         $clientdatas = client::find_by_id($jobdatas->client_id);
-        // $totalbids = bids::find_total_bids($jobdatas->id);   
+        $totalbids = bids::find_total_bids($jobdatas->id);
         if ($jobdatas->budget_type == 1) {
             $budget = ' <h4 class="fs-6 fw-bold">' . $jobdatas->currency . ' ' . $jobdatas->exact_budget . '</h4>';
         } else {
@@ -1591,7 +1592,7 @@ if (!empty($_SESSION)) {
                                     </div>
                                     <div class="text-start text-sm-end">
                                         '.$budget.'
-                                        <span class="fs-7">0 bids</span>
+                                        <span class="fs-7">'.$totalbids.' bids</span>
                                     </div>
                                 </div>
                             </div>
@@ -1656,7 +1657,7 @@ if (!empty($_SESSION)) {
         $slug = !empty($_REQUEST['slug']) ? addslashes($_REQUEST['slug']) : '';
         $jobdatas= jobs::find_by_slug($slug);
         $clientdatas = client::find_by_id($jobdatas->client_id);
-        // $totalbids = bids::find_total_bids($jobdatas->id);   
+        $totalbids = bids::find_total_bids($jobdatas->id);
         if ($jobdatas->budget_type == 1) {
             $budget = ' <h4 class="fs-6 fw-bold">' . $jobdatas->currency . ' ' . $jobdatas->exact_budget . '</h4>';
         } else {
@@ -1711,7 +1712,7 @@ if (!empty($_SESSION)) {
                                     </div>
                                     <div class="text-start text-sm-end">
                                         '.$budget.'
-                                        <span class="fs-7">0 bids</span>
+                                        <span class="fs-7">'.$totalbids.' bids</span>
                                     </div>
                                 </div>
                             </div>

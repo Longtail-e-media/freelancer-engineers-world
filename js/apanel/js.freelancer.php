@@ -18,13 +18,7 @@
         oTable = $('#example').dataTable({
             "bJQueryUI": true,
             "sPaginationType": "full_numbers"
-        }).rowReordering({
-            sURL: "<?php echo BASE_URL;?>includes/controllers/ajax.vacency.php?action=sort",
-            fnSuccess: function (message) {
-                var msg = jQuery.parseJSON(message);
-                showMessage(msg.action, msg.message);
-            }
-        });
+        })
     });
 
     /***************************************** Vacency Create Date *******************************************/

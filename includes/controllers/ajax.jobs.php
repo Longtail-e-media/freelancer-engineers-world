@@ -342,9 +342,9 @@ switch ($action) {
                     /* Mail Format */
                     $siteName   = Config::getField('sitename', true);
                     $AdminEmail = User::get_UseremailAddress_byId(1);
-                    $fullName   = $sn . '. ' . $freeuserdata->first_name . ' ' . $freeuserdata->last_name;
+                    $fullName   = $freeuserdata->first_name . ' ' . $freeuserdata->last_name;
 
-                    $shortListedFreelancers .= $fullName . '<br>';
+                    $shortListedFreelancers .= $sn . '. ' . $fullName . '<br>';
                     $sn++;
 
                     $msgbody = '<div>                
@@ -508,6 +508,41 @@ switch ($action) {
         $bids->client_rating    = !empty($_REQUEST['rating']) ? $_REQUEST['rating'] : 0;
         $bids->reviewed_client  = 1;
 
+        $clientRec      = client::find_by_id($_REQUEST['clientid']);
+        $freelancerRec  = freelancer::find_by_id($_REQUEST['freelancerid']);
+        $siteReg        = user::find_by_id(1);
+
+        $clientmailcheck = $clientRec->email;
+
+        if (!empty($clientmailcheck) && !empty($siteReg->email)):
+
+            $siteName   = Config::getField('sitename', true);
+            $AdminEmail = User::get_UseremailAddress_byId(1);
+            $clientname = $clientRec->first_name . ' ' . $clientRec->last_name;
+            $freelancerName = $freelancerRec->first_name . ' ' . $freelancerRec->last_name;
+            $fullName   = $siteReg->first_name . ' ' . $siteReg->middle_name . ' ' . $siteReg->last_name;
+
+            $msgbody = '<div>
+                    <h3>Freelancer, ' . $freelancerName . ', gave Rating of ' . $bids->client_rating . ' to Client, ' . $clientname . ' : </h3><br />            
+                    <div>
+                    <p>Regards,<br>
+                    ' . $fullName . '
+                    </p>
+                    </div>
+                    </div>';
+
+            $mail = new PHPMailer();
+
+            $mail->SetFrom($AdminEmail, $siteName, 0);
+            $mail->AddReplyTo($AdminEmail, $fullName);
+            $mail->AddAddress($AdminEmail, $fullName);
+            $mail->Subject = "Rating for Client " . $clientname . " by Freelancer " . $freelancerName;
+            $mail->MsgHTML($msgbody);
+
+            @$mail->Send();
+
+        endif;
+
         $db->begin();
         if ($bids->save()):
             $db->commit();
@@ -515,7 +550,7 @@ switch ($action) {
             // calculate_rating_for_client($bids->id);
             echo json_encode(array("action" => "success", "message" => "Review submitted!"));
         else: $db->rollback();
-            echo json_encode(array("action" => "error", "message" => "Review not submitted!"));
+            echo json_encode(array("action" => "error", "message" => "Review submitted!"));
         endif;
     break;
 
@@ -529,6 +564,39 @@ switch ($action) {
             $bids->reviewed_freelancer  = 1;
             $save = $bids->save();
 
+            $clientRec      = client::find_by_id($_REQUEST['clientid']);
+            $freelancerRec  = freelancer::find_by_id($key);
+            $siteReg        = user::find_by_id(1);
+
+            if (!empty($siteReg->email)):
+
+                $siteName   = Config::getField('sitename', true);
+                $AdminEmail = User::get_UseremailAddress_byId(1);
+                $clientname = $clientRec->first_name . ' ' . $clientRec->last_name;
+                $freelancerName = $freelancerRec->first_name . ' ' . $freelancerRec->last_name;
+                $fullName   = $siteReg->first_name . ' ' . $siteReg->middle_name . ' ' . $siteReg->last_name;
+
+                $msgbody = '<div>
+                    <h3>Client, ' . $clientname . ', gave Rating of ' . $bids->freelancer_rating . ' to Freelancer, ' . $freelancerName . ' : </h3><br />            
+                    <div>
+                    <p>Regards,<br>
+                    ' . $fullName . '
+                    </p>
+                    </div>
+                    </div>';
+
+                $mail = new PHPMailer();
+
+                $mail->SetFrom($AdminEmail, $siteName, 0);
+                $mail->AddReplyTo($AdminEmail, $fullName);
+                $mail->AddAddress($AdminEmail, $fullName);
+                $mail->Subject = "Rating for Freelancer " . $freelancerName . " by Client " . $clientname;
+                $mail->MsgHTML($msgbody);
+
+                @$mail->Send();
+
+            endif;
+
             // update overall rating for freelancer
             // calculate_rating_for_freelancer($bids->id);
         }
@@ -537,7 +605,7 @@ switch ($action) {
             $db->commit();
             echo json_encode(array("action" => "success", "message" => "Review submitted!"));
         else: $db->rollback();
-            echo json_encode(array("action" => "error", "message" => "Review not submitted!"));
+            echo json_encode(array("action" => "error", "message" => "Review submitted!"));
         endif;
 
     break;

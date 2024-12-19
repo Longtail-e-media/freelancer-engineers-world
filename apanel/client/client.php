@@ -157,19 +157,19 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                     <th class="text-center">Mobile no</th>
                     <td><?php echo $clientInfo->mobile_no; ?></td>
                 </tr>
-                <tr>
+                <!--<tr>
                     <th class="text-center">Location</th>
                     <td><?php echo $clientInfo->location; ?></td>
-                </tr>
+                </tr>-->
                 <tr>
                     <th class="text-center">Profile Picture</th>
                     <td><a href="<?php echo IMAGE_PATH . 'client/profile/' . $clientInfo->profile_pictiure; ?>"
                            target="_blank"><?php echo $clientInfo->profile_pictiure; ?></a></td>
                 </tr>
-                <tr>
+                <!--<tr>
                     <th class="text-center">Phone No</th>
                     <td><?php echo $clientInfo->phone_no; ?></td>
-                </tr>
+                </tr>-->
                 <tr>
                     <th class="text-center">Current Address</th>
                     <td><?php echo $clientInfo->current_address; ?></td>
