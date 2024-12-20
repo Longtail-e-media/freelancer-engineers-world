@@ -29,6 +29,7 @@ switch ($action) {
         $record->project_status = 1;
         $record->status         = 1;
         $record->sortorder      = jobs::find_maximum();
+        $record->archive_date   = registered();
 
         $db->begin();
         if ($record->save()): $db->commit();

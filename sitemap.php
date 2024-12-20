@@ -27,7 +27,7 @@ $xml .= '<?xml version="1.0" encoding="UTF-8"?>
 </url>
 ';
 
-$staticblocks = array('home', 'contact-us', 'services', 'gallery-list');
+$staticblocks = array('home', 'jobs', 'faq', 'contact-us', 'login', 'signup', 'signup?tab=client' ,'signup?tab=freelancer');
 
 foreach ($staticblocks as $page) {
     $xml .= '
@@ -50,6 +50,17 @@ foreach ($pages as $page) {
     ';
 }
 
+$jobs = jobs::get_relatedpkg();
+foreach ($jobs as $job) {
+    $xml .= '
+        <url>
+            <loc>' . BASE_URL . 'job/' . $job->slug . '</loc>
+            <lastmod>' . date('c', strtotime($job->archive_date)) . '</lastmod>
+            <priority>0.75</priority>
+        </url>
+    ';
+}
+
 // $offers=Offers::find_allactive_offers();
 // foreach ($offers as $offer) {
 //     $xml.='<url>
@@ -60,6 +71,7 @@ foreach ($pages as $page) {
 //        ';
 //     }
 
+/*
 $packages = Package::getPackage();
 foreach ($packages as $package) {
     $chkChild = Subpackage::getTotalSub($package->id);
@@ -72,7 +84,9 @@ foreach ($packages as $package) {
         </url>
     ';
 }
+*/
 
+/*
 $spackages = Subpackage::getallPackage();
 foreach ($spackages as $spackage) {
     $chkPar = Package::find_by_id($spackage->type);
@@ -85,6 +99,7 @@ foreach ($spackages as $spackage) {
         </url>
     ';
 }
+*/
 
 
 $xml .= '</urlset>';
