@@ -147,7 +147,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
     endif;
     ?>
     <h3>
-        <?php echo (isset($_GET['id'])) ? 'View freelancer' : 'View freelancer'; ?>
+        Freelancer Bid Detail
         <a class="loadingbar-demo btn medium bg-blue-alt float-right" href="javascript:void(0);"
            onClick="viewfreelancerlist(<?php echo $appId ?>);">
             <span class="glyph-icon icon-separator"><i class="glyph-icon icon-arrow-circle-left"></i></span>
@@ -155,6 +155,33 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
         </a>
     </h3>
     <div class="my-msg"></div>
+
+    <table cellpadding="0" cellspacing="0" border="0" class="table">
+        <thead>
+        <tr>
+            <th style="display:none;"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php $record = freelancer::find_by_sql("SELECT * FROM " . $moduleTablename . " ORDER BY sortorder DESC ");
+        ?>
+        <td style="display:none;"><?php echo $appInfo->sortorder; ?></td>
+        <tr>
+            <th>Bid Amount</th>
+            <td><?php echo $jobInfo->currency . ' ' . $bidInfo->bid_amount; ?></td>
+        </tr>
+        <tr>
+            <th>Delivery days</th>
+            <td><?php echo $bidInfo->delivery; ?></td>
+        </tr>
+        <tr>
+            <th>Message</th>
+            <td><?php echo $bidInfo->message; ?></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3>Freelancer Personal Detail</h3>
     <table cellpadding="0" cellspacing="0" border="0" class="table">
         <thead>
         <tr>

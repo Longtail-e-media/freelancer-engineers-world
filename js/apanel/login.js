@@ -121,18 +121,23 @@ $(function(){
 				   data: queryString,
 				   success: function(data){
 					   var msg = eval(data);
-					   if(msg.action=='success'){			   
-						   $(".infobox").slideDown();
-							$('.display_message').html(msg.message);	
-							$('.btn-forget').removeAttr('disabled').html('Recover Password');
-							setTimeout( function(){$(".infobox").slideUp(); 
-							window.location.href=base_url+'apanel/login'},6000);
+					   if (msg.action == 'success') {
+						   $(".infobox").removeClass('error-bg').addClass('success-bg').slideDown();
+						   $('.display_message').html(msg.message);
+						   $('.btn-forget').removeAttr('disabled').html('Recover Password');
+						   setTimeout(function () {
+							   $(".infobox").slideUp();
+							   window.location.href = base_url + 'apanel/login'
+						   }, 6000);
 					   }
-					   if(msg.action=='unsuccess'){
-					   		$(".infobox").slideDown();
-							$('.display_message').html(msg.message);	
-							$('.btn-forget').removeAttr('disabled').html('Recover Password');
-							setTimeout( function(){$(".infobox").slideUp(); $("#forget-frm")[0].reset();},6000);
+					   if (msg.action == 'unsuccess') {
+						   $(".infobox").removeClass('success-bg').addClass('error-bg').slideDown();
+						   $('.display_message').html(msg.message);
+						   $('.btn-forget').removeAttr('disabled').html('Recover Password');
+						   setTimeout(function () {
+							   $(".infobox").slideUp();
+							   $("#forget-frm")[0].reset();
+						   }, 6000);
 					   }	
 				   }
 				});
