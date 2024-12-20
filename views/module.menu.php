@@ -26,7 +26,7 @@ if ($menuRec):
         $classLink = !empty($menusubRec) ? '' : 'nav-link fs-6';
         $chkchild = !empty($menusubRec) ? '' : '';
         $drop1 = !empty($menusubRec) ? '<i class="ti-angle-down"></i>' : '';
-        $result .= '<li class="' . $subclass . $linkActive . $PlinkActive . ' ">';
+        $result .= '<li class="' . $subclass . ' ">';
         $result .= getMenuList($menuRow->name, $menuRow->linksrc, $menuRow->linktype, $linkActive . $PlinkActive . $classLink, $drop1);
 
         /* Second Level Menu */

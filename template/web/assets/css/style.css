@@ -36,16 +36,11 @@ body {
 }
 
 .bg-pink {
-    background-color: var(--dark-bg)
-}
-
-.text-pink {
-    color: var(--dark-bg);
+    background-color: var(--button-bg);
 }
 
 .bg-pink:hover {
-    /* background-color: #d46262; */
-    background-color: #007bff;
+    background-color: #d46262;
 }
 
 .bg-dark-blue {
@@ -107,9 +102,9 @@ input[type="number"]::-webkit-inner-spin-button {
     width: 30rem !important;
 }
 
-/* .advertisement-container>.card {
+.advertisement-container>.card {
     height: 25rem;
-} */
+}
 
 .footer-social-icons img {
     width: 1.75rem;
@@ -136,9 +131,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 
 .nav-link.active {
-    /* background-color: rgba(8, 105, 114, 0.25) !important; */
-    background-color: var(--dark-bg) !important;
-    color: #fff !important;
+    background-color: #d9d9d9 !important;
     padding: 0.5rem 1.5rem !important;
 }
 
@@ -204,10 +197,8 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .advertisement {
     width: 100%;
-    height: auto;
-    object-fit: contain;
-    background-color: #fff;
-    /* box-shadow: 0 10px 40px -10px rgba(0, 64, 128, 0.09); */
+    height: 16rem;
+    object-fit: cover;
 }
 
 .job-review-content .user-icon {
@@ -267,10 +258,6 @@ input[type="number"]::-webkit-inner-spin-button {
 .our-team .team_img {
     position: relative;
     overflow: hidden;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    aspect-ratio: 1/1;
 }
 
 .our-team .team_img:after {
@@ -330,59 +317,12 @@ a.page-link:focus {
     box-shadow: none;
 }
 
+
 .star {
     cursor: pointer;
     transition: all 0.3s ease-in;
 }
 
-/* .error-message {
-    display: inline-block;
-    padding: 0.5em;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 99;
-    pointer-events: none;
-    user-select: none;
-} */
-
-form>div {
-    position: relative;
-}
-
-span.validate-has-error,
-span.text-danger {
-    /* background-color: #fff; */
-    /* position: absolute;
-    top: 50%;
-    left: 0; */
-    z-index: 99;
-    pointer-events: none;
-    user-select: none;
-    height: 100%;
-    font-size: 0.85em;
-    color: #f00 !important;
-}
-
-#searchForm1,
-#searchForm2 {
-    position: relative
-}
-
-#searchForm1 span.text-danger,
-#searchForm2 span.text-danger {
-    display: inline-block;
-    margin-top: 5px;
-    padding: 0.5em;
-    position: absolute;
-    top: 0;
-    right: 25%;
-    z-index: 99;
-    pointer-events: none;
-    user-select: none;
-}
-
-.dashboard-container .bg-body-secondary:hover,
 .jobs-container .bg-body-secondary:hover {
     background: #d4d4d4 !important;
     transition: all 0.3s ease;
@@ -390,12 +330,7 @@ span.text-danger {
 
 .hover-effect:hover {
     background: #fdfdfd !important;
-    box-shadow: 0 2px 5px 5px rgba(0, 64, 128, 0.05);
     transition: all 0.3s ease;
-}
-
-.search-bar-desktop {
-    top: 75%;
 }
 
 .read-more.modal-body {
