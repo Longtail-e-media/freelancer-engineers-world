@@ -78,6 +78,7 @@ $header = '' . changestatustimeout('tbl_jobs') . '
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 ' . $jVars['module:res-menu'] . '
             </div>
+            <h1 class="d-none hide hidden">' . $siteRegulars->sitetitle . '</h1>
         </div>
     </nav>
 ';

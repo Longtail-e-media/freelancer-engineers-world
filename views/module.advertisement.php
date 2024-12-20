@@ -15,7 +15,7 @@ if (!empty($advertdatas)) {
 
         $linkstart = $linkend = '';
         if(!empty($advertdata->linksrc)){
-            $target = ($advertdata->linktype == 1) ? 'target="_blank"' : '';
+            $target = ($advertdata->linktype == 1) ? 'target="_blank" rel="noopener"' : '';
             $linkstart = '<a href="' . $advertdata->linksrc . '" ' . $target . '>';
             $linkend = '</a>';
         }
@@ -47,7 +47,7 @@ if (!empty($advertdatas)) {
 
         $linkstart = $linkend = '';
         if (!empty($advertdata->linksrc)) {
-            $target = ($advertdata->linktype == 1) ? 'target="_blank"' : '';
+            $target = ($advertdata->linktype == 1) ? 'target="_blank" rel="noopener" ' : '';
             $linkstart = '<a href="' . $advertdata->linksrc . '" ' . $target . '>';
             $linkend = '</a>';
         }

@@ -23,5 +23,5 @@ if(!empty($mRec)) {
 	}
 }
 else {
-	require_once ('index.php');
+	require_once ('404.php');
 }
