@@ -469,7 +469,7 @@ clearImages($moduleTablename, "preference/offer/thumbnails", "offer_upload");
                 </div>
             </div>
 
-            <div class="form-row hide">
+            <div class="form-row">
                 <div class="form-label col-md-2">
                     <label for="">
                         Google Analytics Code :
