@@ -45,7 +45,7 @@ foreach ($pages as $page) {
         <url>
             <loc>' . BASE_URL . '' . $page->slug . '</loc>
             <lastmod>' . date('c', strtotime($page->modified_date)) . '</lastmod>
-            <priority>0.75</priority>
+            <priority>0.8</priority>
         </url>
     ';
 }
@@ -56,7 +56,7 @@ foreach ($jobs as $job) {
         <url>
             <loc>' . BASE_URL . 'job/' . $job->slug . '</loc>
             <lastmod>' . date('c', strtotime($job->archive_date)) . '</lastmod>
-            <priority>0.75</priority>
+            <priority>0.85</priority>
         </url>
     ';
 }
