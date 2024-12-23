@@ -689,8 +689,15 @@
                 $uprec          = $db->fetch_object($db->query($sql));
                 $freeRec        = freelancer::find_by_userid($userId);
                 $bidRec         = bids::find_if_already_applied($jobId, $freeRec->id);
+                $jobRec         = jobs::find_by_id($jobId);
+                $today          = date("Y-m-d");
                 if ($bidRec) {
                     $message = "You can only bid once !";
+                    echo json_encode(array("action" => "biddingClosed", "message" => $message));
+                    exit();
+                }
+                if ($today > $jobRec->deadline_date) {
+                    $message = "Bid deadline passed !";
                     echo json_encode(array("action" => "biddingClosed", "message" => $message));
                     exit();
                 }
