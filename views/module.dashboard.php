@@ -1722,12 +1722,12 @@ if (!empty($_SESSION)) {
                         <div class="card-body mt-4 mt-lg-5">
                             <h5 class="fw-bold fs-6 my-3 my-lg-4">Rate Freelancers on project complete</h5>
                             <form id="reviewsetmulti">
-                                        ';
+        ';
 
-        $biddatas= bids::find_by_jobid_review($jobdatas->id, $jobdatas->client_id);
-        foreach($biddatas as $biddata){
-            $freelancerdata= freelancer::find_by_id($biddata->freelancer_id);
-            // pr($freelancerdata);
+        $about_freelancers = '';
+        $biddatas = bids::find_by_jobid_review($jobdatas->id, $jobdatas->client_id);
+        foreach ($biddatas as $biddata) {
+            $freelancerdata = freelancer::find_by_id($biddata->freelancer_id);
 
             $profilepic = BASE_URL . 'template/web/assets/images/user-icon.png';
             if (!empty($freelancerdata->profile_picture)) {
@@ -1737,32 +1737,59 @@ if (!empty($_SESSION)) {
                 }
             }
 
-            $profilepic ='<div class="col-2 col-md-2 p-0">
-                        <img src="'.$profilepic.'"
+            $profilepic = '<div class="col-2 col-md-2 p-0">
+                        <img src="' . $profilepic . '"
                             alt="User" class="user-icon w-100 bg-dark-subtle p-3">
                     </div>';
-            $reviewdetail .=' 
-    <input type="hidden" name="jobid" value="'.$jobdatas->id.'">
-                            <input type="hidden" name="clientid" value="'.$clientdatas->id.'"><div class="row bg-light p-3 mt-2 gx-0 hover-effect">
-  '.$profilepic.'
-  
-   <input type="hidden" class="rating" name="rating['.$freelancerdata->id.']" value="0">
-    <div class="col-9 col-md-6 px-3 d-flex justify-content-center flex-column">
-        <h5 class="fs-6 fw-bold">'.$freelancerdata->username.'</h5>
-    </div>
-    <div class="col-12 col-md-3 d-flex justify-content-center flex-column">
-        <h5 class="fs-7">Rate the Freelancer</h5>
-        <div id="rating-container" class="ratings d-flex gap-1">
-            <span class="star fs-4 text-muted" data-value="1">☆</span>
-            <span class="star fs-4 text-muted" data-value="2">☆</span>
-            <!--<span class="star fs-4 text-muted" data-value="3">☆</span>
-            <span class="star fs-4 text-muted" data-value="4">☆</span>
-            <span class="star fs-4 text-muted" data-value="5">☆</span>-->
-        </div>
-    </div>
-</div>';
+
+            $reviewdetail .= ' 
+                <input type="hidden" name="jobid" value="' . $jobdatas->id . '">
+                <input type="hidden" name="clientid" value="' . $clientdatas->id . '">
+                <div class="row bg-light p-3 mt-2 gx-0 hover-effect">
+                    ' . $profilepic . '
+                    <input type="hidden" class="rating" name="rating[' . $freelancerdata->id . ']" value="0">
+                    <div class="col-9 col-md-6 px-3 d-flex justify-content-center flex-column">
+                        <h5 class="fs-6 fw-bold">' . $freelancerdata->username . '</h5>
+                    </div>
+                    <div class="col-12 col-md-3 d-flex justify-content-center flex-column">
+                        <h5 class="fs-7">Rate the Freelancer</h5>
+                        <div id="rating-container" class="ratings d-flex gap-1">
+                            <span class="star fs-4 text-muted" data-value="1">☆</span>
+                            <span class="star fs-4 text-muted" data-value="2">☆</span>
+                            <!--<span class="star fs-4 text-muted" data-value="3">☆</span>
+                            <span class="star fs-4 text-muted" data-value="4">☆</span>
+                            <span class="star fs-4 text-muted" data-value="5">☆</span>-->
+                        </div>
+                    </div>
+                </div>
+            ';
+
+            $roundRatingF = round($freelancerdata->rating,0);
+            $noRatingF = 5 - $roundRatingF;
+            $about_freelancers .= '
+                <div class="mb-3">
+                    <h3 class="fs-5 fw-bold">
+                        About ' . $freelancerdata->first_name . ' ' . $freelancerdata->last_name . ' (' . $freelancerdata->username . ')
+                    </h3>
+                    <div class="client-info mt-3 mt-lg-4">
+                        <ul class="d-flex gap-1 flex-column list-unstyled mb-0">
+                            <li class="d-flex align-items-center gap-2">
+                                <i class="fa-solid fa-location-dot"></i>
+                                '. $freelancerdata->current_address.'
+                            </li>
+                            <li class="d-flex align-items-center gap-2">
+                                <i class="fa-solid fa-user"></i>
+                                <span class="fs-4 text-warning"> ' . str_repeat('★', $roundRatingF) . str_repeat('☆', $noRatingF) . '</span>
+                            </li>
+                            <li class="d-flex align-items-center gap-2">
+                                <i class="fa-solid fa-clock"></i>
+                                Member since ' . date("M d, Y", strtotime($freelancerdata->added_date)) . '
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            ';
         }
-// pr($biddata);
 
         $reviewdetail .=' 
 
@@ -1778,25 +1805,7 @@ if (!empty($_SESSION)) {
 
                 <!-- Right Sidebar -->
                 <div class="biddy-sticky col-12 col-lg-3 bg-white p-3 ps-lg-5 mt-4 mt-lg-0">
-                    <h3 class="fs-5 fw-bold">
-                        About Client
-                    </h3>
-                    <div class="client-info mt-3 mt-lg-4">
-                        <ul class="d-flex gap-1 flex-column list-unstyled mb-0">
-                            <li class="d-flex align-items-center gap-2">
-                                <i class="fa-solid fa-location-dot"></i>
-                                '. $clientdatas->current_address.'
-                            </li>
-                            <li class="d-flex align-items-center gap-2">
-                                <i class="fa-solid fa-user"></i>
-                                <span class="fs-4 text-warning"> ' . str_repeat('★', $roundRating) . ' ' . str_repeat('☆', $noRating) . '</span>
-                            </li>
-                            <li class="d-flex align-items-center gap-2">
-                                <i class="fa-solid fa-clock"></i>
-                                Member since ' . date("M d, Y", strtotime($clientdatas->added_date)) . '
-                            </li>
-                        </ul>
-                    </div>
+                    ' . $about_freelancers . '
                 </div>
             </div>
         </section>
