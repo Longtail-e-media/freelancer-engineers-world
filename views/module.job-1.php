@@ -35,7 +35,7 @@ if (defined('HOME_PAGE')) {
                             <p class="fs-6 text-success">' . $bids_txt . ' bids</p>
                         </div>
                     </div>
-                    <p class="py-4 line-clamp-3">' . $job->content . '</p>
+                    <p class="pt-4 line-clamp-3">' . $job->content . '</p>
                 </div>
             ';
         }
