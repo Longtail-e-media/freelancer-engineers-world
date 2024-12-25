@@ -36,7 +36,7 @@ function changestatustimeout($tablename = "")
     global $db;
 
     $db->begin();
-    $db->query("update {$tablename} set project_status=4 where deadline_date<'.$currentdate.' and project_status<=2");
+    $db->query("update {$tablename} set project_status=4 where deadline_date<'$currentdate' and project_status<=2");
     $db->commit();
 }
 

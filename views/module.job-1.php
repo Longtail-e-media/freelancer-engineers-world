@@ -12,6 +12,15 @@ if (defined('HOME_PAGE')) {
         foreach ($jobs as $job) {
             $budget_text = ($job->budget_type == 1) ? $job->currency . ' ' . $job->exact_budget : $job->currency . ' ' . $job->budget_range_low . ' - ' . $job->budget_range_high;
             $bids_txt = Bids::find_total_bids($job->id);
+
+            $jobstatus = '';
+            if($job->project_status == 4){
+                $jobstatus = '(Timeout)';
+            }
+            if($job->project_status == 2 || $job->project_status == 3 || $job->project_status == 5 || $job->project_status == 6){
+                $jobstatus = '(Bid Closed)';
+            }
+
             $home_job .= '
                 <div class="bg-body-secondary p-4 p-md-5 mb-3" role="button" onclick="redirectToLink(\'' . BASE_URL . 'job/' . $job->slug . '\')">
                     <div class="d-flex justify-content-between">
@@ -19,7 +28,7 @@ if (defined('HOME_PAGE')) {
                             <a href="' . BASE_URL . 'job/' . $job->slug . '" class="text-decoration-none text-dark-blue">
                                 <h5 class="fs-6 fw-bold">' . $job->title . '</h5>
                             </a>
-                            <p class="fs-7">Bid End Date: ' . date('M d, Y', strtotime($job->deadline_date)) . '</p>
+                            <p class="fs-7">Bid End Date: ' . date('M d, Y', strtotime($job->deadline_date)) . ' ' . $jobstatus . '</p>
                         </div>
                         <div>
                             <h5 class="fs-6 fw-bold">' . $budget_text . '</h5>
@@ -79,6 +88,15 @@ if (defined('JOB_LIST_PAGE')) {
         foreach ($Records as $key => $RecRow) {
             $budget_text = ($RecRow->budget_type == 1) ? $RecRow->currency . ' ' . $RecRow->exact_budget : $RecRow->currency . ' ' . $RecRow->budget_range_low . ' - ' . $RecRow->budget_range_high;
             $bids_txt = Bids::find_total_bids($RecRow->id);
+
+            $jobstatus = '';
+            if($RecRow->project_status == 4){
+                $jobstatus = '(Timeout)';
+            }
+            if($RecRow->project_status == 2 || $RecRow->project_status == 3 || $RecRow->project_status == 5 || $RecRow->project_status == 6){
+                $jobstatus = '(Bid Closed)';
+            }
+
             $list_body .= '
                 <div class="bg-body-secondary p-3 p-sm-4 p-lg-4 mb-3" role="button" onclick="redirectToLink(\'' . BASE_URL . 'job/' . $RecRow->slug . '\')">
                     <div class="d-flex flex-column flex-sm-row justify-content-between gap-3 gap-sm-0">
@@ -86,7 +104,7 @@ if (defined('JOB_LIST_PAGE')) {
                             <a href="' . BASE_URL . 'job/' . $RecRow->slug . '" class="text-decoration-none text-dark">
                                 <h5 class="fs-5 fw-bold mb-1 text-dark-blue">' . $RecRow->title . '</h5>
                             </a>
-                            <p class="fs-7 mb-0">Bid End Date: ' . date('M d, Y', strtotime($RecRow->deadline_date)) . '</p>
+                            <p class="fs-7 mb-0">Bid End Date: ' . date('M d, Y', strtotime($RecRow->deadline_date)) . ' ' . $jobstatus . '</p>
                         </div>
                         <div>
                             <h5 class="fs-6 fw-bold mb-1">' . $budget_text . '</h5>
@@ -157,6 +175,15 @@ if (defined('JOB_SEARCH_PAGE')) {
         while ($rows = $db->fetch_object($res)) {
             $budget_text = ($rows->budget_type == 1) ? $rows->currency . ' ' . $rows->exact_budget : $rows->currency . ' ' . $rows->budget_range_low . ' - ' . $rows->budget_range_high;
             $bids_txt = Bids::find_total_bids($rows->id);
+
+            $jobstatus = '';
+            if($rows->project_status == 4){
+                $jobstatus = '(Timeout)';
+            }
+            if($rows->project_status == 2 || $rows->project_status == 3 || $rows->project_status == 5 || $rows->project_status == 6){
+                $jobstatus = '(Bid Closed)';
+            }
+
             $search_body .= '
                 <div class="lazy"><!--
                     <div class="bg-body-secondary p-3 p-sm-4 p-lg-4 mb-3" role="button" onclick="redirectToLink(\'' . BASE_URL . 'job/' . $rows->slug . '\')">
@@ -165,7 +192,7 @@ if (defined('JOB_SEARCH_PAGE')) {
                                 <a href="' . BASE_URL . 'job/' . $rows->slug . '" class="text-decoration-none text-dark">
                                     <h5 class="fs-5 fw-bold mb-1">' . $rows->title . '</h5>
                                 </a>
-                                <p class="fs-6 mb-0">Bid End Date: ' . date('M d, Y', strtotime($rows->deadline_date)) . '</p>
+                                <p class="fs-6 mb-0">Bid End Date: ' . date('M d, Y', strtotime($rows->deadline_date)) . ' ' . $jobstatus . '</p>
                             </div>
                             <div>
                                 <h5 class="fs-6 fw-bold mb-1">' . $budget_text . '</h5>
