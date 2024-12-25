@@ -35,7 +35,7 @@ if (defined('HOME_PAGE')) {
                             <p class="fs-6 text-success">' . $bids_txt . ' bids</p>
                         </div>
                     </div>
-                    <div class="py-4">' . $job->content . '</div>
+                    <p class="py-4 line-clamp-3">' . $job->content . '</p>
                 </div>
             ';
         }
@@ -112,7 +112,7 @@ if (defined('JOB_LIST_PAGE')) {
                         </div>
                     </div>
                     <div class="py-3 py-lg-4">
-                        <p class="fs-7 mb-0">' . $RecRow->content . '</p>
+                        <p class="fs-7 mb-0 line-clamp-3">' . $RecRow->content . '</p>
                     </div>
                 </div>
             ';
@@ -200,7 +200,7 @@ if (defined('JOB_SEARCH_PAGE')) {
                             </div>
                         </div>
                         <div class="py-3 py-lg-4">
-                            <p class="fs-7 mb-0">
+                            <p class="fs-7 mb-0 line-clamp-3">
                                 ' . $rows->content . '
                             </p>
                         </div>

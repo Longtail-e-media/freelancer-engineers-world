@@ -229,6 +229,13 @@ input[type="number"]::-webkit-inner-spin-button {
     overflow: hidden;
 }
 
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
 
 .form-floating>label {
     padding-left: 0.75rem;
