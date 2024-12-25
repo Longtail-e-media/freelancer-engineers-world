@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Fira+Sans");
 
 :root {
     --primary-bg: #d9d9d9;
@@ -412,4 +413,146 @@ span.text-danger {
 .read-more.modal-body {
     max-height: 50vh;
     overflow-y: auto;
+}
+
+
+/* 404 page */
+/*Variables*/
+.left-section .inner-content {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.error_404_page .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(#0C0E10, #446182);
+}
+.error_404_page .background .ground {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 25vh;
+    background: #0C0E10;
+}
+.error_404_page .container {
+    position: relative;
+    margin: 0 auto;
+    width: 85%;
+    height: 100vh;
+    padding-bottom: 25vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.error_404_page .left-section, .error_404_page .right-section {
+    position: relative;
+}
+.error_404_page .left-section {
+    width: 40%;
+    font-family: "Fira Sans", sans-serif;
+    color: #f5f6fa;
+}
+.error_404_page .heading {
+    text-align: center;
+    font-size: 9em;
+    line-height: 1.3em;
+    margin: 2rem 0 0.5rem 0;
+    padding: 0;
+    text-shadow: 0 0 1rem #fefefe;
+}
+.error_404_page .subheading {
+    text-align: center;
+    max-width: 480px;
+    font-size: 1.5em;
+    line-height: 1.15em;
+    padding: 0 1rem;
+    margin: 0 auto;
+}
+.error_404_page .right-section {
+    width: 50%;
+}
+.error_404_page .svgimg {
+    position: absolute;
+    bottom: 0;
+    padding-top: 10vh;
+    padding-left: 1vh;
+    max-width: 100%;
+    max-height: 100%;
+}
+.error_404_page .svgimg .bench-legs {
+    fill: #0C0E10;
+}
+.error_404_page .svgimg .top-bench, .error_404_page .svgimg .bottom-bench {
+    stroke: #0C0E10;
+    stroke-width: 1px;
+    fill: #5B3E2B;
+}
+.error_404_page .svgimg .bottom-bench path:nth-child(1) {
+    fill: #432d20;
+}
+.error_404_page .svgimg .lamp-details {
+    fill: #202425;
+}
+.error_404_page .svgimg .lamp-accent {
+    fill: #2c3133;
+}
+.error_404_page .svgimg .lamp-bottom {
+    fill: linear-gradient(#202425, #0C0E10);
+}
+.error_404_page .svgimg .lamp-light {
+    fill: #EFEFEF;
+}
+@keyframes glow {
+    0% {
+        text-shadow: 0 0 1rem #fefefe;
+    }
+    50% {
+        text-shadow: 0 0 1.85rem #ededed;
+    }
+    100% {
+        text-shadow: 0 0 1rem #fefefe;
+    }
+}
+
+@media (max-width: 770px) {
+    .error_404_page .background .ground {
+        height: 0vh;
+    }
+    .error_404_page .container {
+        flex-direction: column;
+        padding-bottom: 0vh;
+    }
+    .error_404_page .left-section {
+        width: 100%;
+        height: 40%;
+        position: absolute;
+        top: 0;
+    }
+    .error_404_page .left-section .inner-content {
+        position: relative;
+        padding: 1rem 0;
+    }
+    .error_404_page .subheading {
+        font-size: 1.3em;
+        line-height: 1.15;
+        max-width: 100%;
+    }
+    .error_404_page .heading {
+        font-size: 7em;
+        line-height: 1.15;
+        margin: 0;
+    }
+    .error_404_page .right-section {
+        width: 100%;
+        height: 60%;
+        position: absolute;
+        bottom: 0;
+    }
+    .error_404_page .svgimg {
+        padding: 0;
+    }
 }
