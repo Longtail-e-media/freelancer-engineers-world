@@ -663,11 +663,19 @@ if (!empty($_SESSION)) {
                         </div>';
                         break;
                     case 4:
-
                         $jobstatus = '<div class="col-12 col-md-2 d-flex align-items-start flex-column">
                             <p class="text-danger fs-6 fw-bold">
                                 Timeout
                             </p>
+                        ';
+                        if ($totalbids > 0) {
+                            $jobstatus .= '<div class="d-inline-block bg-dark-subtle px-3 view-select">
+                                <a href="'.BASE_URL.'freelancer-select/'.$record->slug.'" class="text-decoration-none text-dark">View</a>
+                                <span>/</span>
+                                <a href="'.BASE_URL.'freelancer-select/'.$record->slug.'" class="text-decoration-none text-dark">Select</a>
+                            </div>';
+                        }
+                        $jobstatus .= '
                             </div>';
                         break;
                     case 5:
