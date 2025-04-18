@@ -1237,7 +1237,7 @@ if (!function_exists('calculate_rating_for_freelancer')) {
 
     /**
      * rating formula
-        R(f) = b+(c+d+(n-1)x)/n, where
+        R(f) = (b+c+d+(n-1)x)/n, where
         b = 0 for no online verification, 1 for online verification
         c = rating from client       	[0,1,2]
         d = rating from platform 		[0,1,2]
@@ -1256,7 +1256,7 @@ if (!function_exists('calculate_rating_for_freelancer')) {
             $previousRating         = $freelancerRecord->rating;
             $noOfCompletedProjects  = bids::find_completed_jobs_per_freelancer($bidRecord->freelancer_id);
 
-            $latestRating = round(($onlineVerificationRating + ($ratingFromClient + $ratingFromPlatform + ($noOfCompletedProjects - 1) * $previousRating) / $noOfCompletedProjects), 2);
+            $latestRating = round((($onlineVerificationRating + $ratingFromClient + $ratingFromPlatform + ($noOfCompletedProjects - 1) * $previousRating) / $noOfCompletedProjects), 2);
 
             $freelancerRecord->rating = $latestRating;
             $freelancerRecord->save();
