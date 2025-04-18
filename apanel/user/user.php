@@ -9,7 +9,8 @@ if (isset($_GET['page']) && $_GET['page'] == "user" && isset($_GET['mode']) && $
     <h3>
         List Users
         <?php $uid = $session->get('u_id');
-        if ($uid == 2) { ?>
+        $group = $session->get('u_group');
+        if ($uid == 2 || $group == 1) { ?>
             <a class="loadingbar-demo btn medium bg-blue-alt float-right" href="javascript:void(0);"
                onClick="AddNewUsers();">
                 <span class="glyph-icon icon-separator"><i class="glyph-icon icon-plus-square"></i></span>
@@ -265,8 +266,8 @@ if (isset($_GET['page']) && $_GET['page'] == "user" && isset($_GET['mode']) && $
                                value="<?php echo !empty($usersInfo->hr_email) ? $usersInfo->hr_email : ""; ?>">
                     </div>
                 </div>-->
-                    <input type="hidden" name="hall_email" value="<?php echo !empty($usersInfo->hall_email) ? $usersInfo->hall_email : "";?>"/>
-                    <input type="hidden" name="hr_email" value="<?php echo !empty($usersInfo->hr_email) ? $usersInfo->hr_email : ""; ?>"/>
+                <input type="hidden" name="hall_email" value="<?php echo !empty($usersInfo->hall_email) ? $usersInfo->hall_email : "";?>"/>
+                <input type="hidden" name="hr_email" value="<?php echo !empty($usersInfo->hr_email) ? $usersInfo->hr_email : ""; ?>"/>
                 <div class="form-row">
                     <div class="form-label col-md-2">
                         <label for="">

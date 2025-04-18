@@ -71,7 +71,7 @@ class User extends DatabaseObject
         $result = $db->num_rows($record);
         return $result;
     }
-
+    
     public static function get_valid_admin_mail($email = "")
     {
         global $db;

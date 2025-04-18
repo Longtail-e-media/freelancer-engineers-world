@@ -37,7 +37,7 @@ RewriteRule ^freelancer-shortlist/([a-zA-Z0-9-=_.]+)$  freelancer-shortlist.php?
 RewriteRule ^review/([a-zA-Z0-9-=_.]+)$         review.php?slug=$1  [L]
 RewriteRule ^awarded/([a-zA-Z0-9-=_.]+)$        awarded.php?slug=$1  [L]
 RewriteRule ^reset-password/([a-zA-Z0-9-]+)?$   reset_password.php?access_code=$1 [L]
-RewriteRule ^edit-bid/([a-zA-Z0-9-=_.]+)?$         edit-bid.php?code=$1  [L]
+RewriteRule ^edit-bid/([a-zA-Z0-9-=_.]+)?$      edit-bid.php?code=$1  [L]
 
 #for jobs
 RewriteRule ^create-job/?$ createjob.php [L]

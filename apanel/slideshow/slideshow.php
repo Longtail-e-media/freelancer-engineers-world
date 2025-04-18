@@ -39,7 +39,9 @@ if (isset($_GET['page']) && $_GET['page'] == "slideshow" && isset($_GET['mode'])
                 foreach ($records as $key => $record): ?>
                     <tr id="<?php echo $record->id; ?>">
                         <td style="display:none;"><?php echo $key + 1; ?></td>
+                        
                         <td><input type="checkbox" class="bulkCheckbox" bulkId="<?php echo $record->id; ?>"/></td>
+                        <input name="sortId" type="hidden" value="<?php echo $record->id; ?>">
                         <td>
                             <div class="col-md-7">
                                 <a href="javascript:void(0);" onClick="editRecord(<?php echo $record->id; ?>);"
@@ -68,7 +70,7 @@ if (isset($_GET['page']) && $_GET['page'] == "slideshow" && isset($_GET['mode'])
                                title="Remove" onclick="recordDelete(<?php echo $record->id; ?>);">
                                 <i class="glyph-icon icon-remove"></i>
                             </a>
-                            <input name="sortId" type="hidden" value="<?php echo $record->id; ?>">
+                            
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -278,7 +280,7 @@ if (isset($_GET['page']) && $_GET['page'] == "slideshow" && isset($_GET['mode'])
                     </div>
                 </div>
 
-                <div class="form-row">
+                <!--<div class="form-row hide">
                     <div class="form-label col-md-2">
                         <label for="">
                             Short Content (English):
@@ -292,7 +294,7 @@ if (isset($_GET['page']) && $_GET['page'] == "slideshow" && isset($_GET['mode'])
                             <span class="button-content">Read More</span>
                         </a>
                     </div>
-                </div>
+                </div>-->
 
 
                 <div class="form-row">

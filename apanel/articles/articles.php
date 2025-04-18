@@ -123,7 +123,7 @@ if (isset($_GET['page']) && $_GET['page'] == "articles" && isset($_GET['mode']) 
                                value="<?php echo !empty($articlesInfo->title) ? $articlesInfo->title : ""; ?>">
                     </div>
                 </div>
-                <div class="form-row">
+                <div class="form-row hide">
                     <div class="form-label col-md-2">
                         <label for="">
                             Sub Title :
