@@ -43,6 +43,13 @@ class jobs extends DatabaseObject
     public $reviewed_admin;
     public $sortorder;
     public $status;
+    
+    public static function checkDupliName($title='') {
+		global $db;
+		$query = $db->query("SELECT title FROM ".self::$table_name." WHERE title='$title' LIMIT 1");
+		$result= $db->num_rows($query);
+		if($result>0) {return true;}
+	}
 
     //Get Facility Ttle
     public static function getFacility()

@@ -149,7 +149,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
     <h3>
         Freelancer Bid Detail
         <a class="loadingbar-demo btn medium bg-blue-alt float-right" href="javascript:void(0);"
-           onClick="viewfreelancerlist(<?php echo $appId ?>);">
+           onClick="viewfreelancerlist(<?php echo $jobInfo->id ?>);">
             <span class="glyph-icon icon-separator"><i class="glyph-icon icon-arrow-circle-left"></i></span>
             <span class="button-content"> Back </span>
         </a>

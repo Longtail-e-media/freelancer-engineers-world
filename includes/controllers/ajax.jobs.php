@@ -30,6 +30,12 @@ switch ($action) {
         $record->status         = 1;
         $record->sortorder      = jobs::find_maximum();
         $record->archive_date   = registered();
+        
+        $checkDupliName=jobs::checkDupliName($record->title);			
+		if($checkDupliName):
+			echo json_encode(array("action"=>"unsuccess","message"=>"Job Title Already Exists."));		
+			exit;		
+		endif;
 
         $db->begin();
         if ($record->save()): $db->commit();
