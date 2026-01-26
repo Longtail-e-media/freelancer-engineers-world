@@ -32,7 +32,7 @@ $footer = '
                 <div class="col-lg-3">
                     ' . $jVars['module:res-footer2'] . '
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3 ">
                     ' . $jVars['module:res-footer1'] . '
                 </div>
                 <div class="col-lg-3">

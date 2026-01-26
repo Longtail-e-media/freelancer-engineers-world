@@ -227,51 +227,59 @@ if (defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
                     </div>
                 </div>
                 <div class="biddy-sticky col-md-3 bg-white pt-5 pt-md-0 ps-md-5 sticky-top">
+        ';
+
+        $today = date("Y-m-d");
+        if ($today <= $jobdatas->deadline_date) {
+            $jobdetails .= '
                     <h3 class="fs-5 fw-bold">
                         Place your Bid
                     </h3>
                     <form class="bidding-form mt-4 d-flex flex-column" id="place-bid-form-1">
                         <div class="bidding">
                             <!-- <label for="bid-amount" class="form-label fw-bold">NRs. 2500</label> -->
-        ';
-        // hidden user id
-        $userId = (!empty($_SESSION['user_id'])) ? $_SESSION['user_id'] : 0;
-        $jobdetails .= '
+            ';
+            // hidden user id
+            $userId = (!empty($_SESSION['user_id'])) ? $_SESSION['user_id'] : 0;
+            $jobdetails .= '
             <input type="hidden" name="userId" value="' . $userId . '">
             <input type="hidden" name="jobId" value="' . $jobdatas->id . '">
-        ';
-
-        // updating bid input type according to budget type
-        if ($jobdatas->budget_type == 0) {
-            $jobdetails .= '
-           <div class="d-flex align-items-center justify-content-between gap-1 bg-light bid-amt-error">
-            <span class="fw-bold ps-3">' . $jobdatas->currency . '</span>
-            <input type="number" class="bg-light form-control fw-bold text-dark border-0 rounded-0 fs-6 py-3" id="bid-amount" placeholder="Enter your amount" id="bid-amount"
-                   name="bid-amount" min="' . $jobdatas->budget_range_low . '" max="' . $jobdatas->budget_range_high . '">
-           </div>
             ';
-        }
-        if ($jobdatas->budget_type == 1) {
-            $jobdetails .= '
-                <div class="d-flex align-items-center justify-content-between gap-1 bg-light bid-amt-error">
+
+            // updating bid input type according to budget type
+            if ($jobdatas->budget_type == 0) {
+                $jobdetails .= '
+                   <div class="d-flex align-items-center justify-content-between gap-1 bg-light bid-amt-error">
                     <span class="fw-bold ps-3">' . $jobdatas->currency . '</span>
-                    <input type="number" class="bg-light form-control fw-bold text-dark border-0 rounded-0 fs-6 py-" id="bid-amount" placeholder="NRs. 25000" id="bid-amount"
-                       name="bid-amount" value="' . $jobdatas->exact_budget . '" readonly>
-               </div>
-            ';
-        }
+                    <input type="number" class="bg-light form-control fw-bold text-dark border-0 rounded-0 fs-6 py-3" id="bid-amount" placeholder="Enter your amount" id="bid-amount"
+                           name="bid-amount" min="' . $jobdatas->budget_range_low . '" max="' . $jobdatas->budget_range_high . '">
+                   </div>
+                ';
+            }
+            if ($jobdatas->budget_type == 1) {
+                $jobdetails .= '
+                    <div class="d-flex align-items-center justify-content-between gap-1 bg-light bid-amt-error">
+                        <span class="fw-bold ps-3">' . $jobdatas->currency . '</span>
+                        <input type="number" class="bg-light form-control fw-bold text-dark border-0 rounded-0 fs-6 py-" id="bid-amount" placeholder="NRs. 25000" id="bid-amount"
+                           name="bid-amount" value="' . $jobdatas->exact_budget . '" readonly>
+                   </div>
+                ';
+            }
 
-        $roundRating = round($clientdatas->rating,0);
-        $noRating = 5 - $roundRating;
-
-        $jobdetails .= '
+            $jobdetails .= '
                         </div>
                         <button type="submit" class="btn bg-pink text-white">Bid</button>
                         <a href="' . BASE_URL . 'bidding-instructions" target="_blank" rel="noreferrer" class="text-dark-blue mt-3">Instructions to bid</a>
                     </form>
     
                     <hr class="my-5">
-    
+            ';
+        }
+
+        $roundRating = round($clientdatas->rating, 0);
+        $noRating = 5 - $roundRating;
+
+        $jobdetails .= '
                     <h3 class="fs-5 fw-bold">
                         About Client
                     </h3>
@@ -353,10 +361,10 @@ if (defined('JOB_DETAIL_PAGE') and isset($_REQUEST['slug'])) {
                 $jobdetails .= '
                             <div class="row bg-light p-3 p-md-5 mt-2 gx-0 hover-effect">
                                 <div class="col-12 col-md-3 p-0">
-                                    <img src="' . $img . '" alt="' . $freelancerRec->username . '" class="user-icon bg-dark-subtle">
+                                    <img src="' . $img . '" alt="' . $freelancerRec->first_name . ' ' . $freelancerRec->last_name . '" class="user-icon bg-dark-subtle">
                                 </div>
                                 <div class="col-8 col-md-6 px-0 px-md-5">
-                                    <h5 class="fs-6 fw-bold mt-3">@' . $freelancerRec->username . '</h5>
+                                    <h5 class="fs-6 fw-bold mt-3">' . $freelancerRec->first_name . ' ' . $freelancerRec->last_name . '</h5>
                                     <p class="fs-7 line-clamp-2 mb-0">' . strip_tags($bidsRow->message) . '</p>
                                     <a onclick="viewmore()" class="fs-7">more</a>
                                 </div>

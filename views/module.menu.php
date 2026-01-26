@@ -191,8 +191,8 @@ if ($FmenuRec):
     $resfooter .= '<ul class="list-unstyled p-0">';
 
     foreach ($FmenuRec as $FmenuRow):
-        $resfooter .= '<li class="mb-3 fs-6 fw-normal">';
-        $resfooter .= getMenuList($FmenuRow->name, $FmenuRow->linksrc, $FmenuRow->linktype, 'text-decoration-none text-dark');
+        $resfooter .= '<li class="mb-3 fs-6 fw-normal bg-dark-blue px-5 py-2">';
+        $resfooter .= getMenuList($FmenuRow->name, $FmenuRow->linksrc, $FmenuRow->linktype, 'text-decoration-none text-white');
         $resfooter .= '</li>';
     endforeach;
     $resfooter .= '</ul>';

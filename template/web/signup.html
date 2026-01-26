@@ -19,21 +19,21 @@
         <div class="col-lg-6 col-md-8 col-sm-10">
             <h1 class="text-center fs-3 fw-bold my-4">Sign Up</h1>
             <div class="d-flex justify-content-center nav nav-pills pt-2" id="pills-tab">
-                <div class="flex-fill text-center py-2 nav-item" role="presentation">
-                    <button class="nav-link active w-100 rounded-0 text-dark" id="pills-client-tab"
-                            data-bs-toggle="pill" data-bs-target="#pills-client" type="button" role="tab"
-                            aria-controls="pills-client" aria-selected="true">I'm a client
-                    </button>
-                </div>
-                <div class="flex-fill text-center py-2">
-                    <button class="nav-link w-100 rounded-0 text-dark" id="pills-freelance-tab"
+                <div class="flex-fill text-center py-2 nav-item">
+                    <button class="nav-link active w-100 rounded-0 text-dark" id="pills-freelance-tab"
                             data-bs-toggle="pill" data-bs-target="#pills-freelancer" type="button" role="tab"
                             aria-controls="pills-freelancer" aria-selected="true">I'm a freelancer
                     </button>
                 </div>
+                <div class="flex-fill text-center py-2" role="presentation">
+                    <button class="nav-link w-100 rounded-0 text-dark" id="pills-client-tab"
+                            data-bs-toggle="pill" data-bs-target="#pills-client" type="button" role="tab"
+                            aria-controls="pills-client" aria-selected="true">I'm a client
+                    </button>
+                </div>
             </div>
             <div class="tab-content mt-4" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-client" role="tabpanel"
+                <div class="tab-pane fade " id="pills-client" role="tabpanel"
                      aria-labelledby="pills-client-tab" tabindex="0">
                     <form id="registerClientForm" class="row g-3">
                         <div class="col-md-4 flex-fill">
@@ -90,7 +90,7 @@
                         Already have an account? <a href="login" class="text-decoration-none fs-6 text-dark-blue"> Log in</a>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="pills-freelancer" role="tabpanel"
+                <div class="tab-pane fade show active" id="pills-freelancer" role="tabpanel"
                      aria-labelledby="pills-freelancer-tab" tabindex="0">
                     <form id="registerFreelancerForm" class="row g-3">
                         <div class="col-md-4 flex-fill">
