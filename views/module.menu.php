@@ -188,10 +188,10 @@ $jVars['module:res-menu1'] = $result;
 $resfooter = '';
 $FmenuRec = Menu::getMenuByParent(0, 3);
 if ($FmenuRec):
-    $resfooter .= '<ul class="list-unstyled p-0">';
+    $resfooter .= '<ul class="list-unstyled f-btn p-0">';
 
     foreach ($FmenuRec as $FmenuRow):
-        $resfooter .= '<li class="mb-3 fs-6 fw-normal bg-dark-blue px-5 py-2">';
+        $resfooter .= '<li class="mb-3 fs-6 fw-normal bg-dark-blue">';
         $resfooter .= getMenuList($FmenuRow->name, $FmenuRow->linksrc, $FmenuRow->linktype, 'text-decoration-none text-white');
         $resfooter .= '</li>';
     endforeach;

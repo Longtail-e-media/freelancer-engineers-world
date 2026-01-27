@@ -26,6 +26,39 @@ foreach ($phoneno as $phone) {
 $email = explode(',', $siteRegulars->email_address);
 
 $footer = '
+    <style>
+        /* Improved footer button styles */
+        .f-btn li {
+            display: inline-block;
+            width: 100%;
+            max-width: 280px;
+            text-align: center;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .f-btn li:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            background-color: #1a5f5f !important; /* Slightly lighter on hover */
+        }
+        
+        .f-btn li a {
+            display: block;
+            width: 100%;
+            padding: 12px 20px;
+            font-weight: 500 !important;
+            letter-spacing: 0.3px;
+        }
+        
+        /* Optional: Add responsive adjustments */
+        @media (max-width: 991px) {
+            .f-btn li {
+                max-width: 100%;
+            }
+        }
+    </style>
     <footer class="bg-body-secondary">
         <div class="container">
             <div class="row">
