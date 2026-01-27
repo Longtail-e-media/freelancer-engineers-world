@@ -7,11 +7,10 @@ if (isset($_GET['page']) && $_GET['page'] == "freelanceruser" && isset($_GET['mo
     ?>
     <h3>
         List Freelancer Users
-        <!--<a class="loadingbar-demo btn medium bg-blue-alt float-right" href="javascript:void(0);"
-           onClick="AddNewUsers();">
-            <span class="glyph-icon icon-separator"><i class="glyph-icon icon-plus-square"></i></span>
-            <span class="button-content"> Add User </span>
-        </a>-->
+        <a class="loadingbar-demo btn medium bg-blue-alt float-right" href="javascript:void(0);" onClick="exportFreelancersCSV();">
+            <span class="glyph-icon icon-separator"><i class="glyph-icon icon-download"></i></span>
+            <span class="button-content"> Export CSV </span>
+        </a>
     </h3>
 
     <div class="my-msg"></div>

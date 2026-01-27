@@ -73,6 +73,10 @@
         window.location.href = "<?php echo ADMIN_URL?>freelanceruser/permission/" + Re;
     }
 
+    function exportFreelancersCSV() {
+        window.location.href = '<?php echo ADMIN_URL?>export_freelancers.php';
+    }
+
     /***************************************** AddEdit login Info *******************************************/
     $(document).ready(function () {
         // form submisstion actions
