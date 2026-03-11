@@ -39,6 +39,12 @@ switch ($action) {
 
         $db->begin();
         if ($record->save()): $db->commit();
+
+            // send whatsapp notification about new job posted
+        $clientRec = client::find_by_id($record->client_id);
+            $whats_msg = 'new job posted: "' . $record->title . '". Posted by ' . $clientRec->first_name . ' ' . $clientRec->last_name;
+            send_whatsapp_notification($whats_msg);
+
             $message    = sprintf($GLOBALS['basic']['addedSuccess_'], "jobs '" . $record->title . "'");
             log_action($message, 1, 3);
             echo json_encode(array("action" => "success", "message" => $message));

@@ -1267,4 +1267,59 @@ if (!function_exists('calculate_rating_for_freelancer')) {
         }
     }
 }
+
+/**
+ *      send whatsapp notification
+ */
+if (!function_exists('send_whatsapp_notification')) {
+    function send_whatsapp_notification($messageText) {
+        $token = "EAAXDKDleXdwBQ21IZCux7yQJ1v2nCry2IJmOKR372XIQ5rFpzThDIJpaPTgcasaGsvxZAGpBfc2lnRzNcVd6zJCkBl6oCHpcM4SQSPVt6CCnNiLXE1vZAtSBfGQiWt439V0uWNkYJFRepzwlZANagJyDx4pnegZBFcuscQEvoIkyreh3rR6NTtxWAxgBmG71G0wZDZD";
+        $phone_number_id = "953069291221946";
+        // $my_number = "9779849482842";
+        $my_number = "9779841286865";
+
+        $url = "https://graph.facebook.com/v21.0/$phone_number_id/messages";
+
+        $data = [
+            "messaging_product" => "whatsapp",
+            "to" => $my_number,
+            "type" => "template",
+            "template" => [
+                "name" => "job_alert",
+                "language" => ["code" => "en"],
+                "components" => [[
+                    "type" => "body",
+                    "parameters" => [[
+                        "type" => "text",
+                        "text" => $messageText
+                    ]]
+                ]]
+            ]
+        ];
+
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($curl, CURLOPT_HTTPHEADER, [
+            "Authorization: Bearer $token",
+            "Content-Type: application/json"
+        ]);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+        $response = curl_exec($curl);
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+
+        $res = json_decode($response, true);
+
+        if ($httpCode !== 200 || isset($res['error'])) {
+            // ERROR: Log it to a file so you know why it failed
+            $errorMsg = $res['error']['message'] ?? 'Unknown Error';
+            file_put_contents('wa_error_log.txt', date('Y-m-d H:i:s') . " - Error: $errorMsg \n", FILE_APPEND);
+            return false;
+        }
+
+        return true;
+    }
+}
 ?>
