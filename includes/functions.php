@@ -1273,9 +1273,9 @@ if (!function_exists('calculate_rating_for_freelancer')) {
  */
 if (!function_exists('send_whatsapp_notification')) {
     function send_whatsapp_notification($messageText) {
-        $token = "EAAXDKDleXdwBQ21IZCux7yQJ1v2nCry2IJmOKR372XIQ5rFpzThDIJpaPTgcasaGsvxZAGpBfc2lnRzNcVd6zJCkBl6oCHpcM4SQSPVt6CCnNiLXE1vZAtSBfGQiWt439V0uWNkYJFRepzwlZANagJyDx4pnegZBFcuscQEvoIkyreh3rR6NTtxWAxgBmG71G0wZDZD";
-        $phone_number_id = "953069291221946";
-        // $my_number = "9779849482842";
+        $token = "EAAXDKDleXdwBRS9y6qrWQ5cQtdXimZAohEvBfAizrzxXJkHFG5QekUSRDv1JQXLCzCRCoXjzZCmwe0b3WZBtTvg3fZAwFeZBACrW7gPnEl3Sv9bw0G24oN5MZBiRJ66LNljuaPzfr84uJq6H7mnxuYnuW06KUgIPeFyEDgdp6QFygf7Lv7djRxMRiKcZA86ZB7qu5AZDZD";
+        $phone_number_id = "1040066355867443";
+//         $my_number = "9779849482842";
         $my_number = "9779841286865";
 
         $url = "https://graph.facebook.com/v21.0/$phone_number_id/messages";
@@ -1315,8 +1315,22 @@ if (!function_exists('send_whatsapp_notification')) {
         if ($httpCode !== 200 || isset($res['error'])) {
             // ERROR: Log it to a file so you know why it failed
             $errorMsg = $res['error']['message'] ?? 'Unknown Error';
-            file_put_contents('wa_error_log.txt', date('Y-m-d H:i:s') . " - Error: $errorMsg \n", FILE_APPEND);
+            // file_put_contents('wa_error_log.txt', date('Y-m-d H:i:s') . " - Error: $errorMsg \n", FILE_APPEND);
+            error_log(date('Y-m-d H:i:s') . " - Error: $errorMsg \n", 3, SITE_ROOT."/includes/wa_error_log.txt");
             return false;
+        } else {
+            // SUCCESS DATA
+            $waId = $res['contacts'][0]['wa_id'] ?? 'N/A';
+            $messageId = $res['messages'][0]['id'] ?? 'N/A';
+            $status = $res['messages'][0]['message_status'] ?? 'unknown';
+
+            // SUCCESS LOG
+            error_log(
+                date('Y-m-d H:i:s') .
+                " - SUCCESS | WA_ID: $waId | Status: $status | Message ID: $messageId \n | Message : $messageText \n",
+                3,
+                SITE_ROOT . "/includes/wa_success_log.txt"
+            );
         }
 
         return true;
