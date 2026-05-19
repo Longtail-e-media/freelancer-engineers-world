@@ -30,7 +30,7 @@ if (isset($_GET['page']) && $_GET['page'] == "client" && isset($_GET['mode']) &&
                 </thead>
 
                 <tbody>
-                <?php $records = client::find_all();
+                <?php $records = client::find_all_ordered_by_latest_job();
                 foreach ($records as $key => $record): ?>
                     <tr id="<?php echo $record->id; ?>">
                         <td style="display:none;"><?php echo $key + 1; ?></td>

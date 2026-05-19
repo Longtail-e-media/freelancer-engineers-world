@@ -167,6 +167,29 @@ class client extends DatabaseObject {
 		return self::find_by_sql("SELECT * FROM ".self::$table_name." ORDER BY sortorder DESC");
 	}
 
+	/**
+	 * Returns all clients ordered by the date of their most recently posted job (newest first).
+	 * Clients who have never posted a job appear at the bottom (NULL latest_job_id sorts last
+	 * in MySQL DESC ordering).
+	 *
+	 * Uses a single subquery aggregation rather than a correlated subquery so the GROUP BY
+	 * runs once regardless of how many client rows exist — safe for large datasets.
+	 *
+	 * Relies on tbl_jobs.id (auto-increment PK) as the ordering proxy because it is
+	 * strictly sequential and cannot be manually re-ordered, unlike sortorder.
+	 */
+	static function find_all_ordered_by_latest_job(){
+		$sql = "SELECT c.*
+		        FROM " . self::$table_name . " c
+		        LEFT JOIN (
+		            SELECT client_id, MAX(id) AS latest_job_id
+		            FROM tbl_jobs
+		            GROUP BY client_id
+		        ) j ON c.id = j.client_id
+		        ORDER BY j.latest_job_id DESC";
+		return self::find_by_sql($sql);
+	}
+
 	//Find all the rows in the current database table.
 	static function get_all(){
 		global $db;

@@ -56,3 +56,6 @@ ALTER TABLE `tbl_bids` ADD `admin_rating` INT NOT NULL DEFAULT '0' AFTER `review
 
 -- 2024-12-18 [SWARNA]
 ALTER TABLE `tbl_bids` ADD `modified_date` VARCHAR(50) NOT NULL AFTER `added_date`;
+
+-- 2026-05-19 [Swarna]
+ALTER TABLE `tbl_logs` CHANGE `action` `action` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
