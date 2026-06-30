@@ -1241,7 +1241,7 @@ if (!function_exists('calculate_rating_for_freelancer')) {
         b = 0 for no online verification, 1 for online verification
         c = rating from client       	[0,1,2]
         d = rating from platform 		[0,1,2]
-        x = previous rating value,
+        x = previous base rating value (excluding b),
         n = number of projects (completed)
      */
     function calculate_rating_for_freelancer($bidId = '')
@@ -1256,7 +1256,10 @@ if (!function_exists('calculate_rating_for_freelancer')) {
             $previousRating         = $freelancerRecord->rating;
             $noOfCompletedProjects  = bids::find_completed_jobs_per_freelancer($bidRecord->freelancer_id);
 
-            $latestRating = round((($onlineVerificationRating + $ratingFromClient + $ratingFromPlatform + ($noOfCompletedProjects - 1) * $previousRating) / $noOfCompletedProjects), 2);
+            // b is a flat bonus and must stay outside the weighted average.
+            // Since previousRating already includes b, subtract it before averaging.
+            $previousBaseRating = $previousRating - $onlineVerificationRating;
+            $latestRating = $onlineVerificationRating + round((($ratingFromClient + $ratingFromPlatform + ($noOfCompletedProjects - 1) * $previousBaseRating) / $noOfCompletedProjects), 2);
 
             $freelancerRecord->rating = $latestRating;
             $freelancerRecord->save();
@@ -1275,8 +1278,8 @@ if (!function_exists('send_whatsapp_notification')) {
     function send_whatsapp_notification($messageText) {
         $token = "EAAXDKDleXdwBRS9y6qrWQ5cQtdXimZAohEvBfAizrzxXJkHFG5QekUSRDv1JQXLCzCRCoXjzZCmwe0b3WZBtTvg3fZAwFeZBACrW7gPnEl3Sv9bw0G24oN5MZBiRJ66LNljuaPzfr84uJq6H7mnxuYnuW06KUgIPeFyEDgdp6QFygf7Lv7djRxMRiKcZA86ZB7qu5AZDZD";
         $phone_number_id = "1040066355867443";
-//         $my_number = "9779849482842";
-        $my_number = "9779841286865";
+         $my_number = "9779849482842";
+//        $my_number = "9779841286865";
 
         $url = "https://graph.facebook.com/v21.0/$phone_number_id/messages";
 
